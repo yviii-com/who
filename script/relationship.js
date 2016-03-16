@@ -82,7 +82,22 @@
 			exp:/^(.+)?,[olx][sb],[olx]s(.+)?$/,
 			str:'$1,xs$2#$1$2',
 		},
-
+		{//不知道性别，兄弟姐妹的兄弟是自己或兄弟
+			exp:/^,[olx][sb],[olx]b(.+)$/,
+			str:',$1#,xb$1'
+		},
+		{//不知道性别，兄弟姐妹的兄弟是自己或兄弟
+			exp:/^,[olx][sb],[olx]b$/,
+			str:',#,xb'
+		},
+		{//不知道性别，兄弟姐妹的姐妹是自己或姐妹
+			exp:/^,[olx][sb],[olx]s(.+)$/,
+			str:',$1#,xs$1'
+		},
+		{//不知道性别，兄弟姐妹的姐妹是自己或姐妹
+			exp:/^,[olx][sb],[olx]s$/,
+			str:',#,xs'
+		},
 		{//如果自己是男性,父母的儿子是自己或者兄弟
 			con:/(,[fhs]|([olx]b)),[mf],s/,
 			exp:/^(.+)?,[mf],s(.+)$/,
@@ -361,6 +376,7 @@
 	function getSelectors(str){
 		var lists = str.split('的');
 		var result = [];						//所有可能性
+		_attr = '';		//清除全局变量
 		while(lists.length){
 			var name = lists.shift();			//当前匹配词
 			var arr = [];						//当前匹配词可能性
@@ -394,9 +410,9 @@
 					result[i]=result[i].replace(filter,'');
 				}
 			}else if(o&&!l){
-				_attr = '&o';
+				_attr = 'o';
 			}else if(!o&&l){
-				_attr = '&l';
+				_attr = 'l';
 			}
 		}
 		return result;
@@ -427,10 +443,17 @@
 				}
 			}else{
 				selector = selector.substr(1); 	//去前面逗号
-				if(selector.match(/,[ds]$/)&&_attr){
-					selector += _attr;
+				if(_attr&&!selector){			//如果存在属性,不可能为自己
+				}else{
+					if(_attr){
+						if(selector.match(/,[ds]$/)){
+							selector += '&'+_attr;
+						}else if(selector.match(/^x[sb]$/)){ //兄弟姐妹加属性
+							selector = selector.replace(/x/,_attr);
+						}
+					}
+					result.push(selector);					
 				}
-				result.push(selector);
 			}
 		}
 		getId(selector);
@@ -462,7 +485,6 @@
 					result.push(_data[id][0]);
 				}else{									//高级查找
 					var data = getDataById(id);			//忽略属性查找
-					console.log(data);
 					if(!data.length){					//当无精确数据时，忽略年龄条件查找
 						id = id.replace(/&[ol]/g,'');
 						data = getDataById(id);
@@ -489,4 +511,4 @@
 	window.relationship = relationship;
 })(window);
 
-console.log(relationship('儿子的外公'));
+console.log(relationship('弟弟的弟弟'));
