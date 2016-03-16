@@ -17,6 +17,14 @@
 			exp:/(,[fhs]|([olx]b)),[ds](&[ol])?,m/g,
 			str:'$1,w'
 		},
+		{//不知道性别，女儿或儿子的妈妈是自己或妻子
+			exp:/^,[ds],m/g,
+			str:',#,w'
+		},
+		{//不知道性别，女儿或儿子的妈妈是自己或丈夫
+			exp:/^,[ds],f/g,
+			str:',#,h'
+		},
 		{//夫妻的孩子就是自己的孩子
 			exp:/,[wh],([ds])/g,
 			str:',$1'
@@ -69,12 +77,12 @@
 
 		{//如果自己是男性,父母的儿子是自己或者兄弟
 			con:/(,[fhs]|([olx]b)),[mf],s/,
-			exp:/^(.+),[mf],s(.+)$/,
+			exp:/^(.+)?,[mf],s(.+)$/,
 			str:'$1$2#$1,xb$2'
 		},
 		{//如果自己是女性,父母的女儿是自己或者姐妹
 			con:/(,[mwd]|([olx]s)),[mf],d/,
-			exp:/^(.+),[mf],d(.+)$/,
+			exp:/^(.+)?,[mf],d(.+)$/,
 			str:'$1$2#$1,xs$2'
 		},
 		{//如果自己是女性,父母的儿子是自己或者兄弟
@@ -87,14 +95,22 @@
 			exp:/,[mf],d/,
 			str:',xs'
 		},
-		{//父母的女儿是姐妹
+		{//父母的儿子是自己或兄妹
+			exp:/^,[mf],s,(.+)$/,
+			str:',$1#,xb,$1'
+		},
+		{//父母的女儿是自己或者姐妹
+			exp:/^,[mf],d(.+)$/,
+			str:',$1#,xs$1'
+		},
+		{//父母的儿子是自己或兄妹
 			exp:/^,[mf],s$/,
 			str:',#,xb'
 		},
 		{//父母的女儿是自己或者姐妹
 			exp:/^,[mf],d$/,
 			str:',#,xs'
-		}
+		},
 	];
 
 	var _data = {
@@ -427,17 +443,18 @@
 
 	function relationship(str){
 		var selectors = getSelectors(str);
-		// console.log(selectors);
+		// console.log('selectors',selectors);
 		var result = [];							//匹配结果
 		for(var i = 0;i<selectors.length;i++){		//遍历所有可能性
 			var ids = selector2id(selectors[i]);
 			for(var j=0;j<ids.length;j++){
 				var id = ids[j];
-				// console.log(id);
+				// console.log('id',id,_data[id]);
 				if(_data[id]){							//直接匹配称呼
 					result.push(_data[id][0]);
 				}else{									//高级查找
 					var data = getDataById(id);			//忽略属性查找
+					console.log(data);
 					if(!data.length){					//当无精确数据时，忽略年龄条件查找
 						id = id.replace(/&[ol]/g,'');
 						data = getDataById(id);
@@ -464,4 +481,4 @@
 	window.relationship = relationship;
 })(window);
 
-console.log(relationship('表姐的妹妹'));
+console.log(relationship('妈妈的儿子'));
