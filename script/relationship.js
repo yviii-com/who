@@ -124,8 +124,8 @@
 		'm,f,xb,s':['堂舅'],
 		'm,f,xb,s,w':['堂舅妈'],
 		//舅家
-		'm,xb':['舅舅','舅','娘舅'],
-		'm,xb,w':['舅妈','舅母','二舅妈','三舅妈'],
+		'm,xb':['舅舅','舅父','舅','娘舅'],
+		'm,xb,w':['舅妈','舅母'],
 		'm,xb,s&o':['表哥(舅家)','表哥'],
 		'm,xb,s&o,w':['表嫂(舅家)','表嫂'],
 		'm,xb,s&l':['表弟(舅家)','表弟'],
@@ -335,7 +335,7 @@
 
 	//分词解析
 	function getSelectors(str){
-		var lists = str.split('的');
+		var lists = str.replace(/[\u4e8c\u4e09]/,'').split('的');
 		var result = [];						//所有可能性
 		while(lists.length){
 			var name = lists.shift();			//当前匹配词
