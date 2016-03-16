@@ -427,19 +427,19 @@
 
 	function relationship(str){
 		var selectors = getSelectors(str);
-		// console.log(selectors);
+		console.log(selectors);
 		var result = [];							//匹配结果
 		for(var i = 0;i<selectors.length;i++){		//遍历所有可能性
 			var ids = selector2id(selectors[i]);
 			for(var j=0;j<ids.length;j++){
 				var id = ids[j];
-				// console.log(id);
+				console.log(id);
 				if(_data[id]){							//直接匹配称呼
 					result.push(_data[id][0]);
 				}else{									//高级查找
 					var data = getDataById(id);			//忽略属性查找
 					if(!data.length){					//当无精确数据时，忽略年龄条件查找
-						id = id.replace(/&[ol]/,'');
+						id = id.replace(/&[ol]/g,'');
 						data = getDataById(id);
 					}
 					if(!data.length){
@@ -464,4 +464,4 @@
 	window.relationship = relationship;
 })(window);
 
-console.log(relationship('老婆的外甥'));
+console.log(relationship('表姐的女儿'));
