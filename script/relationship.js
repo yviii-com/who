@@ -48,7 +48,7 @@
 
 		{//如果自己是男性,兄弟姐妹的兄弟就是自己的兄弟或自己
 			con:/(,[fhs]|([olx]b)),[olx][sb],[olx]b/,
-			exp:/^(.+),[olx][sb],[olx]b(.+)$/,
+			exp:/^(.+)?,[olx][sb],[olx]b(.+)?$/,
 			str:'$1,xb$2#$1$2',
 		},
 		{//如果自己是女性,兄弟姐妹的兄弟就是自己的兄弟
@@ -63,7 +63,7 @@
 		},
 		{//如果自己是女性,兄弟姐妹的姐妹就是自己的姐妹或自己
 			con:/(,[mwd]|([olx]s)),[olx][sb],[olx]s/,
-			exp:/^(.+),[olx][sb],[olx]s(.+)$/,
+			exp:/^(.+)?,[olx][sb],[olx]s(.+)?$/,
 			str:'$1,xs$2#$1$2',
 		},
 
@@ -227,6 +227,7 @@
 		'f,f':['爷爷','祖父'],
 		'f,f,f':['太爷爷'],
 		'f,f,m':['太奶奶'],
+		'f,f,xb':['xx爷爷'],
 		'f,f,ob':['大爷爷','大爷'],
 		'f,f,ob,w':['大奶奶'],
 		'f,f,lb':['小爷爷'],
@@ -398,12 +399,13 @@
 
 	function relationship(str){
 		var selectors = getSelectors(str);
-		console.log(selectors);
+		// console.log(selectors);
 		var result = [];							//匹配结果
 		for(var i = 0;i<selectors.length;i++){		//遍历所有可能性
 			var ids = selector2id(selectors[i]);
 			for(var j=0;j<ids.length;j++){
 				var id = ids[j];
+				// console.log(id);
 				if(_data[id]){							//直接匹配称呼
 					result.push(_data[id][0]);
 				}else{									//高级查找
@@ -434,4 +436,4 @@
 	window.relationship = relationship;
 })(window);
 
-console.log(relationship('外婆的外孙'));
+// console.log(relationship('外婆的外孙'));
