@@ -17,11 +17,19 @@
 			exp:/(,[fhs]|([olx]b)),[ds](&[ol])?,m/g,
 			str:'$1,w'
 		},
-		{//不知道性别，女儿或儿子的妈妈是自己或妻子
-			exp:/^,[ds],m/g,
+		{//不知道性别，子女的妈妈是自己或妻子
+			exp:/^,[ds],m(.+)$/,
+			str:',$1#,w$1'
+		},
+		{//不知道性别，子女的妈妈是自己或妻子
+			exp:/^,[ds],m$/,
 			str:',#,w'
 		},
-		{//不知道性别，女儿或儿子的妈妈是自己或丈夫
+		{//不知道性别，子女的爸爸是自己或丈夫
+			exp:/^,[ds],f(.+)$/,
+			str:',$1#,h$1'
+		},
+		{//不知道性别，子女的爸爸是自己或丈夫
 			exp:/^,[ds],f/g,
 			str:',#,h'
 		},
@@ -481,4 +489,4 @@
 	window.relationship = relationship;
 })(window);
 
-console.log(relationship('妈妈的儿子'));
+console.log(relationship('儿子的外公'));
