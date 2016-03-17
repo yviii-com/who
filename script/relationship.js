@@ -526,7 +526,7 @@
 		var result = [];							//匹配结果
 		for(var i = 0;i<selectors.length;i++){		//遍历所有可能性
 			var ids = selector2id(selectors[i]);
-			console.log('ids#',ids);
+			// console.log('ids#',ids);
 			for(var j=0;j<ids.length;j++){
 				var id = ids[j];
 				if(_data[id]){							//直接匹配称呼
@@ -567,4 +567,4 @@
 //表哥的姐姐
 //爸爸的表姐
 //表嫂的女儿的爸爸
-console.log(relationship('表嫂的女儿的爸爸'));
+// console.log(relationship('表嫂的女儿的爸爸'));
