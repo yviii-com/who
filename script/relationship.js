@@ -19,7 +19,7 @@
 		},
 		{//不知道性别，子女的妈妈是自己或妻子
 			exp:/^,[ds],m(.+)$/,
-			str:',$1#,w$1'
+			str:'$1#,w$1'
 		},
 		{//不知道性别，子女的妈妈是自己或妻子
 			exp:/^,[ds],m$/,
@@ -27,14 +27,14 @@
 		},
 		{//不知道性别，子女的爸爸是自己或丈夫
 			exp:/^,[ds],f(.+)$/,
-			str:',$1#,h$1'
+			str:'$1#,h$1'
 		},
 		{//不知道性别，子女的爸爸是自己或丈夫
 			exp:/^,[ds],f/g,
 			str:',#,h'
 		},
 		{//夫妻的孩子就是自己的孩子
-			exp:/(.+),[wh],([ds])/g,
+			exp:/(.+),[wh](,[ds])/g,
 			str:'$1,$2'
 		},
 		{//夫妻的对方是自己
@@ -42,7 +42,7 @@
 			str:''
 		},
 		{//兄弟的父母就是自己的父母
-			exp:/[xol][sb],([mf])/g,
+			exp:/,[xol][sb](,[mf])/g,
 			str:'$1'
 		},
 		{//母亲的丈夫是自己的父亲
@@ -53,6 +53,30 @@
 			exp:/f,w/g,
 			str:'m',
 		},
+		{//表亲的关系
+			exp:/^(.+)&o(.+)&o/g,
+			str:'$1$2&o',
+		},
+		{//表亲的关系
+			exp:/^(.+)&l(.+)&l/g,
+			str:'$1$2&l',
+		},
+		{//表亲的关系
+			exp:/^(.+)&o(.+)&l/g,
+			str:'$1$2',
+		},
+		{//表亲的关系
+			exp:/^(.+)&l(.+)&o/g,
+			str:'$1$2',
+		},
+		{//孩子的姐妹是自己的女儿
+			exp:/(,[ds]&o),o[sb]/g,
+			str:'$1',
+		},
+		{//孩子的兄弟是自己的儿子
+			exp:/(,[ds]&l),l[sb]/g,
+			str:'$1',
+		},
 		{//孩子的姐妹是自己的女儿
 			exp:/,[ds](&[ol])?,[olx]s/g,
 			str:',d',
@@ -61,7 +85,14 @@
 			exp:/,[ds](&[ol])?,[olx]b/g,
 			str:',s',
 		},
-
+		{//哥哥姐姐的哥哥姐姐还是自己的哥哥姐姐
+			exp:/,o[sb](,o[sb])/,
+			str:'$1',
+		},
+		{//弟弟妹妹的弟弟妹妹还是自己的弟弟妹妹
+			exp:/,l[sb](,l[sb])/,
+			str:'$1',
+		},
 		{//如果自己是男性,兄弟姐妹的兄弟就是自己的兄弟或自己
 			con:/(,[fhs]|([olx]b)),[olx][sb],[olx]b/,
 			exp:/^(.+)?,[olx][sb],[olx]b(.+)?$/,
@@ -82,7 +113,7 @@
 			exp:/^(.+)?,[olx][sb],[olx]s(.+)?$/,
 			str:'$1,xs$2#$1$2',
 		},
-		{//不知道性别，兄弟姐妹的兄弟是自己或兄弟
+		{//不知道性别，兄弟姐妹的兄弟是自己或兄弟／／／／／／／／／
 			exp:/^,[olx][sb],[olx]b(.+)$/,
 			str:',$1#,xb$1'
 		},
@@ -98,6 +129,10 @@
 			exp:/^,[olx][sb],[olx]s$/,
 			str:',#,xs'
 		},
+		{//父母的子女年龄判断不准确，可过滤
+			exp:/(,[mf],[ds])&[ol]/,
+			str:'$1'
+		},
 		{//如果自己是男性,父母的儿子是自己或者兄弟
 			con:/(,[fhs]|([olx]b)),[mf],s/,
 			exp:/^(.+)?,[mf],s(.+)$/,
@@ -108,23 +143,31 @@
 			exp:/^(.+)?,[mf],d(.+)$/,
 			str:'$1$2#$1,xs$2'
 		},
-		{//如果自己是女性,父母的儿子是自己或者兄弟
+		{//如果自己是女性,父母的儿子是自己兄弟
 			con:/(,[mwd]|([olx]s)),[mf],s/,
 			exp:/,[mf],s/,
 			str:',xb'
 		},
-		{//如果自己是男性,父母的女儿是自己或者姐妹
+		{//如果自己是男性,父母的女儿是自己姐妹
 			con:/(,[fhs]|([olx]b)),[mf],d/,
 			exp:/,[mf],d/,
 			str:',xs'
 		},
 		{//父母的儿子是自己或兄妹
-			exp:/^,[mf],s,(.+)$/,
-			str:',$1#,xb,$1'
+			exp:/^(.+),[mf],s$/,
+			str:'$1#$1,xb'
+		},
+		{//父母的女儿是自己或者姐妹
+			exp:/^(.+),[mf],d$/,
+			str:'$1#$1,xs'
+		},
+		{//父母的儿子是自己或兄弟
+			exp:/^,[mf],s(.+)$/,
+			str:'$1#,xb$1'
 		},
 		{//父母的女儿是自己或者姐妹
 			exp:/^,[mf],d(.+)$/,
-			str:',$1#,xs$1'
+			str:'$1#,xs$1'
 		},
 		{//父母的儿子是自己或兄妹
 			exp:/^,[mf],s$/,
@@ -374,7 +417,7 @@
 	function getSelectors(str){
 		var lists = str.split('的');
 		var result = [];						//所有可能性
-		_attr = '';		//清除全局变量
+		// _attr = '';		//清除全局变量
 		while(lists.length){
 			var name = lists.shift();			//当前匹配词
 			var arr = [];						//当前匹配词可能性
@@ -398,21 +441,21 @@
 				}
 			}
 		}
-		if(result.length){		//对年龄进行智能过滤
-			var item = result[0];
-			var o = item.match(/(&o)|o[sb]/);
-			var l = item.match(/(&l)|l[sb]/);
-			if(o&&l){
-				var filter = /&[ol]/g;
-				for(var i=0;i<result.length;i++){
-					result[i]=result[i].replace(filter,'');
-				}
-			}else if(o&&!l){
-				_attr = 'o';
-			}else if(!o&&l){
-				_attr = 'l';
-			}
-		}
+		// if(result.length){		//对年龄进行智能过滤
+		// 	var item = result[0];
+		// 	var o = item.match(/&o/);
+		// 	var l = item.match(/&l/);
+		// 	if(o&&l){
+		// 		var filter = /&[ol]/g;
+		// 		for(var i=0;i<result.length;i++){
+		// 			result[i]=result[i].replace(filter,'');
+		// 		}
+		// 	}else if(o&&!l){
+		// 		_attr = 'o';
+		// 	}else if(!o&&l){
+		// 		_attr = 'l';
+		// 	}
+		// }
 		return result;
 	}
 
@@ -421,6 +464,7 @@
 		var result = [];
 		var getId = function(selector){
 			var s;
+			// console.log('selector',selector);
 			do{
 				s = selector;
 				for(var i in _filter){
@@ -432,8 +476,10 @@
 					}else{
 						selector = selector.replace(item['exp'],item['str']);
 					}
+					console.log(item,selector);
 				}
 			}while(s!=selector);
+			// console.log('??',selector);
 			if(selector.indexOf('#')>-1){
 				var arr = selector.split('#');
 				for(var i=0;i<arr.length;i++){
@@ -441,17 +487,14 @@
 				}
 			}else{
 				selector = selector.substr(1); 	//去前面逗号
-				if(_attr&&!selector){			//如果存在属性,不可能为自己
-				}else{
-					if(_attr){
-						if(selector.match(/,[ds]$/)){
-							selector += '&'+_attr;
-						}else if(selector.match(/^x[sb]$/)){ //兄弟姐妹加属性
-							selector = selector.replace(/x/,_attr);
-						}
-					}
-					result.push(selector);					
-				}
+				// if(_attr){
+				// 	if(selector.match(/,[ds]$/)){
+				// 		selector += '&'+_attr;
+				// 	}else if(selector.match(/^x[sb]$/)){ //兄弟姐妹加属性
+				// 		selector = selector.replace(/x/,_attr);
+				// 	}
+				// }
+				result.push(selector);
 			}
 		}
 		getId(selector);
@@ -476,21 +519,18 @@
 		var result = [];							//匹配结果
 		for(var i = 0;i<selectors.length;i++){		//遍历所有可能性
 			var ids = selector2id(selectors[i]);
+			console.log('id**',id,_data[id]);
 			for(var j=0;j<ids.length;j++){
 				var id = ids[j];
-				console.log('id',id,_data[id]);
 				if(_data[id]){							//直接匹配称呼
 					result.push(_data[id][0]);
 				}else{									//高级查找
+					// console.log('id###');
 					var data = getDataById(id);			//忽略属性查找
-					if(!data.length){					//当无精确数据时，忽略年龄条件查找
-						id = id.replace(/&[ol]/g,'');
-						data = getDataById(id);
-					}
-					if(!data.length){
-						id = id.replace(/[ol]/g,'x');
-						data = getDataById(id);
-					}
+					// if(!data.length){
+					// 	id = id.replace(/[ol]/g,'x');
+					// 	data = getDataById(id);
+					// }
 					if(!data.length){
 						var l = id.replace(/x/g,'l');
 						data = getDataById(l);
@@ -509,4 +549,10 @@
 	window.relationship = relationship;
 })(window);
 
-console.log(relationship('老婆的外孙的姥姥'));
+//弟弟的爸爸的女儿
+//老婆的爸爸的女儿
+//表哥的表哥
+//表哥的表妹
+
+//大舅的女儿
+console.log(relationship('表哥的表姐'));
