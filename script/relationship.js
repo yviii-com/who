@@ -487,6 +487,10 @@
 					result.push(_data[id][0]);
 				}else{									//高级查找
 					var data = getDataById(id);			//忽略属性查找
+					if(!data.length){					//当无精确数据时，忽略年龄条件查找
+						id = id.replace(/&[ol]/g,'');
+						data = getDataById(id);
+					}
 					if(!data.length){
 						id = id.replace(/[ol]/g,'x');
 						data = getDataById(id);
@@ -515,4 +519,5 @@
 //表哥的表妹
 //大舅的女儿
 //表哥的姐姐
-console.log(relationship('老婆的爸爸的女儿'));
+//爸爸的表姐
+console.log(relationship('爸爸的表姐'));
