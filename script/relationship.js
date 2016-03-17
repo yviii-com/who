@@ -140,19 +140,19 @@
 			str:''
 		},
 		{//自己是女性，女儿或儿子的妈妈是自己
-			exp:/(,[mwd]|([olx]s)),[ds](&[ol])?,m/g,
+			exp:/(,[mwd](&[ol])?|([olx]s)),[ds](&[ol])?,m/g,
 			str:'$1'
 		},
 		{//自己是女性，女儿或儿子的爸爸是自己的丈夫
-			exp:/(,[mwd]|([olx]s)),[ds](&[ol])?,f/g,
+			exp:/(,[mwd](&[ol])?|([olx]s)),[ds](&[ol])?,f/g,
 			str:'$1,h'
 		},
 		{//自己是男性，女儿或儿子的爸爸是自己
-			exp:/(,[fhs]|([olx]b)),[ds](&[ol])?,f/g,
+			exp:/(,[fhs](&[ol])?|([olx]b)),[ds](&[ol])?,f/g,
 			str:'$1'
 		},
 		{//自己是男性，女儿或儿子的妈妈是自己的妻子
-			exp:/(,[fhs]|([olx]b)),[ds](&[ol])?,m/g,
+			exp:/(,[fhs](&[ol])?|([olx]b)),[ds](&[ol])?,m/g,
 			str:'$1,w'
 		},
 		{//不知道性别，子女的妈妈是自己或妻子
@@ -526,7 +526,7 @@
 		var result = [];							//匹配结果
 		for(var i = 0;i<selectors.length;i++){		//遍历所有可能性
 			var ids = selector2id(selectors[i]);
-			// console.log('ids#',ids);
+			console.log('ids#',ids);
 			for(var j=0;j<ids.length;j++){
 				var id = ids[j];
 				if(_data[id]){							//直接匹配称呼
@@ -566,4 +566,5 @@
 //大舅的女儿
 //表哥的姐姐
 //爸爸的表姐
-console.log(relationship('爸爸的表姐'));
+//表嫂的女儿的爸爸
+console.log(relationship('表嫂的女儿的爸爸'));
