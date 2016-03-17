@@ -97,10 +97,11 @@
 				var index = value.lastIndexOf('的');
 				index = Math.max(0,index);
 				$textarea[0].value = value.substr(0,index);
+				$textarea[1].value = '';
 			}
 
 			$buttons[2].onclick = function(){
-				$textarea[0].value = '';
+				$textarea[1].value = $textarea[0].value = '';
 			}
 		</script>
 	</body>
