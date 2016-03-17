@@ -42,12 +42,12 @@
 		},
 		{//如果自己是男性,父母的儿子是自己或者兄弟
 			con:/(,[fhs]|([olx]b)),[mf],s/,
-			exp:/^(.+)?,[mf],s(.+)$/,
+			exp:/^(.+)?,[mf],s(.+)?$/,
 			str:'$1$2#$1,xb$2'
 		},
 		{//如果自己是女性,父母的女儿是自己或者姐妹
 			con:/(,[mwd]|([olx]s)),[mf],d/,
-			exp:/^(.+)?,[mf],d(.+)$/,
+			exp:/^(.+)?,[mf],d(.+)?$/,
 			str:'$1$2#$1,xs$2'
 		},
 		{//如果自己是女性,父母的儿子是自己兄弟
@@ -476,11 +476,11 @@
 
 	function relationship(str){
 		var selectors = getSelectors(str);
-		console.log('selectors#',selectors);
+		// console.log('selectors#',selectors);
 		var result = [];							//匹配结果
 		for(var i = 0;i<selectors.length;i++){		//遍历所有可能性
 			var ids = selector2id(selectors[i]);
-			console.log('ids#',ids);
+			// console.log('ids#',ids);
 			for(var j=0;j<ids.length;j++){
 				var id = ids[j];
 				if(_data[id]){							//直接匹配称呼
@@ -515,4 +515,4 @@
 //表哥的表妹
 //大舅的女儿
 //表哥的姐姐
-console.log(relationship('表哥的姐姐'));
+console.log(relationship('老婆的爸爸的女儿'));
