@@ -129,9 +129,13 @@
 			exp:/^,[olx][sb],[olx]s$/,
 			str:',#,xs'
 		},
-		{//父母的子女年龄判断不准确，可过滤
-			exp:/(,[mf],[ds])&[ol]/,
-			str:'$1'
+		{//父母的女儿年龄判断是哥哥还是弟弟
+			exp:/,[mf],d&([ol])/,
+			str:',$1s'
+		},
+		{//父母的女儿年龄判断是姐姐还是妹妹
+			exp:/,[mf],s&([ol])/,
+			str:',$1b'
 		},
 		{//如果自己是男性,父母的儿子是自己或者兄弟
 			con:/(,[fhs]|([olx]b)),[mf],s/,
@@ -441,21 +445,6 @@
 				}
 			}
 		}
-		// if(result.length){		//对年龄进行智能过滤
-		// 	var item = result[0];
-		// 	var o = item.match(/&o/);
-		// 	var l = item.match(/&l/);
-		// 	if(o&&l){
-		// 		var filter = /&[ol]/g;
-		// 		for(var i=0;i<result.length;i++){
-		// 			result[i]=result[i].replace(filter,'');
-		// 		}
-		// 	}else if(o&&!l){
-		// 		_attr = 'o';
-		// 	}else if(!o&&l){
-		// 		_attr = 'l';
-		// 	}
-		// }
 		return result;
 	}
 
@@ -464,7 +453,7 @@
 		var result = [];
 		var getId = function(selector){
 			var s;
-			// console.log('selector',selector);
+			// console.log('in#',selector);
 			do{
 				s = selector;
 				for(var i in _filter){
@@ -476,10 +465,10 @@
 					}else{
 						selector = selector.replace(item['exp'],item['str']);
 					}
-					console.log(item,selector);
+					// console.log(item,selector);
 				}
 			}while(s!=selector);
-			// console.log('??',selector);
+			// console.log('out#',selector);
 			if(selector.indexOf('#')>-1){
 				var arr = selector.split('#');
 				for(var i=0;i<arr.length;i++){
@@ -487,13 +476,6 @@
 				}
 			}else{
 				selector = selector.substr(1); 	//去前面逗号
-				// if(_attr){
-				// 	if(selector.match(/,[ds]$/)){
-				// 		selector += '&'+_attr;
-				// 	}else if(selector.match(/^x[sb]$/)){ //兄弟姐妹加属性
-				// 		selector = selector.replace(/x/,_attr);
-				// 	}
-				// }
 				result.push(selector);
 			}
 		}
@@ -515,22 +497,21 @@
 
 	function relationship(str){
 		var selectors = getSelectors(str);
-		console.log('selectors',selectors);
+		// console.log('selectors#',selectors);
 		var result = [];							//匹配结果
 		for(var i = 0;i<selectors.length;i++){		//遍历所有可能性
 			var ids = selector2id(selectors[i]);
-			console.log('id**',id,_data[id]);
+			// console.log('ids#',ids);
 			for(var j=0;j<ids.length;j++){
 				var id = ids[j];
 				if(_data[id]){							//直接匹配称呼
 					result.push(_data[id][0]);
 				}else{									//高级查找
-					// console.log('id###');
 					var data = getDataById(id);			//忽略属性查找
-					// if(!data.length){
-					// 	id = id.replace(/[ol]/g,'x');
-					// 	data = getDataById(id);
-					// }
+					if(!data.length){
+						id = id.replace(/[ol]/g,'x');
+						data = getDataById(id);
+					}
 					if(!data.length){
 						var l = id.replace(/x/g,'l');
 						data = getDataById(l);
@@ -553,6 +534,5 @@
 //老婆的爸爸的女儿
 //表哥的表哥
 //表哥的表妹
-
 //大舅的女儿
 console.log(relationship('表哥的表姐'));
