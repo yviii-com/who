@@ -52,12 +52,12 @@
 		},
 		{//如果自己是女性,父母的儿子是自己兄弟
 			con:/(,[mwd]|([olx]s)),[mf],s/,
-			exp:/,[mf],s/,
+			exp:/,[mf],s/g,
 			str:',xb'
 		},
 		{//如果自己是男性,父母的女儿是自己姐妹
 			con:/(,[fhs]|([olx]b)),[mf],d/,
-			exp:/,[mf],d/,
+			exp:/,[mf],d/g,
 			str:',xs'
 		},
 		{//父母的儿子是自己或兄妹
@@ -89,12 +89,12 @@
 		},
 		{//如果自己是女性,兄弟姐妹的兄弟就是自己的兄弟
 			con:/(,[mwd]|([olx]s)),[olx][sb],[olx]b/,
-			exp:/,[olx][sb],[olx]b/,
+			exp:/,[olx][sb],[olx]b/g,
 			str:',xb',
 		},
 		{//如果自己是男性,兄弟姐妹的姐妹就是自己的姐妹
 			con:/(,[fhs]|([olx]b)),[olx][sb],[olx]s/,
-			exp:/,[olx][sb],[olx]s/,
+			exp:/,[olx][sb],[olx]s/g,
 			str:',xs',
 		},
 		{//不知道性别，兄弟姐妹的兄弟是自己或兄弟
