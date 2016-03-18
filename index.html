@@ -76,6 +76,14 @@
 					}else{
 						$textarea[0].value= name;
 					}
+					console.log(name);
+					if('爸爸,老公,儿子,哥哥,弟弟'.indexOf(name)>-1){
+						$btns[2].disabled=true;
+						$btns[3].disabled=false;
+					}else{
+						$btns[2].disabled=false;
+						$btns[3].disabled=true;
+					}
 				}
 			}
 
