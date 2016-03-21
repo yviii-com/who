@@ -106,10 +106,6 @@
 			str:',$1#,xs$1'
 		},
 		/* 孩子 */
-		{//夫妻的孩子就是自己的孩子
-			exp:/,[wh](,[ds])/g,
-			str:'$1'
-		},
 		{//孩子的姐妹是自己的女儿(年龄判断)
 			exp:/,[ds]&o,ob/g,
 			str:',s&o',
@@ -135,10 +131,6 @@
 			str:',s',
 		},
 		/* 夫妻 */
-		{//夫妻的对方是自己
-			exp:/(,w,h)|(,h,w)/g,
-			str:''
-		},
 		{//自己是女性，女儿或儿子的妈妈是自己
 			exp:/(,[mwd](&[ol])?|([olx]s)),[ds](&[ol])?,m/g,
 			str:'$1'
@@ -162,6 +154,14 @@
 		{//不知道性别，子女的爸爸是自己或丈夫
 			exp:/^,[ds],f(.+)?$/,
 			str:'$1#,h$1'
+		},
+		{//夫妻的孩子就是自己的孩子
+			exp:/,[wh](,[ds])/g,
+			str:'$1'
+		},
+		{//夫妻的对方是自己
+			exp:/(,w,h)|(,h,w)/g,
+			str:''
 		},
 	];
 
@@ -476,32 +476,37 @@
 	//简化选择器
 	function selector2id(selector){
 		var result = [];
+		var hash = {};
 		var getId = function(selector){
-			var s;
-			// console.log('in#',selector);
-			do{
-				s = selector;
-				for(var i in _filter){
-					var item = _filter[i];
-					if(item['con']){
-						if(selector.match(item['con'])){
+			var s='';
+			if(!hash[selector]){
+				hash[selector] = true;
+				var status = true;
+				do{
+					s = selector;
+					for(var i in _filter){
+						var item = _filter[i];
+						if(item['con']){
+							if(selector.match(item['con'])){
+								selector = selector.replace(item['exp'],item['str']);
+							}
+						}else{
 							selector = selector.replace(item['exp'],item['str']);
 						}
-					}else{
-						selector = selector.replace(item['exp'],item['str']);
+						if(selector.indexOf('#')>-1){
+							var arr = selector.split('#');
+							for(var i=0;i<arr.length;i++){
+								getId(arr[i]);
+							}
+							status=false;
+							break;
+						}
 					}
-					// console.log(item,selector);
+				}while(s!=selector);
+				if(status){
+					selector = selector.substr(1); 	//去前面逗号
+					result.push(selector);
 				}
-			}while(s!=selector);
-			// console.log('out#',selector);
-			if(selector.indexOf('#')>-1){
-				var arr = selector.split('#');
-				for(var i=0;i<arr.length;i++){
-					getId(arr[i]);
-				}
-			}else{
-				selector = selector.substr(1); 	//去前面逗号
-				result.push(selector);
 			}
 		}
 		getId(selector);
@@ -567,4 +572,6 @@
 //表哥的姐姐
 //爸爸的表姐
 //表嫂的女儿的爸爸
+//老公的老婆的儿子的爸爸的老婆的儿子的爸爸
+//我的三舅的儿子的爸爸的妹妹的儿子的叔叔的哥哥
 // console.log(relationship('表嫂的女儿的爸爸'));
