@@ -454,8 +454,8 @@
 			var has = false;
 			for(var i in _data){
 				var value = _data[i];
-				if(value.indexOf(name)>-1){	//是否存在该关系
-					if(i){
+				if(value.indexOf(name)>-1){		//是否存在该关系
+					if(i||!lists.length){		//对‘我’的优化
 						arr.push(i);
 					}
 					has = true;
