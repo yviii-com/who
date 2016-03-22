@@ -454,8 +454,10 @@
 			var has = false;
 			for(var i in _data){
 				var value = _data[i];
-				if(i&value.indexOf(name)>-1){	//是否存在该关系
-					arr.push(i);
+				if(value.indexOf(name)>-1){	//是否存在该关系
+					if(i){
+						arr.push(i);
+					}
 					has = true;
 				}
 			}
@@ -581,7 +583,7 @@
 	window.relationship = relationship;
 })(window);
 
-// console.log(relationship('老婆的外孙的姥姥'));
+// console.log(relationship('我的大爷'));
 //弟弟的爸爸的女儿
 //老婆的爸爸的女儿
 //表哥的表哥
