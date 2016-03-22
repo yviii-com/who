@@ -477,6 +477,13 @@
 	function selector2id(selector){
 		var result = [];
 		var hash = {};
+		var sex1 = sex2 = -1;//自己或对方性别:-1未知,0女性,1男性
+		if(selector.indexOf(',w')==0){
+			sex1 = 1;
+		}else if(selector.indexOf(',h')==0){
+			sex1 = 0;
+		}
+		sex2 = selector.match(/,[mw]|([olx]s)|(d(&[ol]))$/)?0:1;
 		var getId = function(selector){
 			var s='';
 			if(!hash[selector]){
@@ -502,10 +509,14 @@
 							break;
 						}
 					}
+					// console.log('selector#',selector);
 				}while(s!=selector);
 				if(status){
-					selector = selector.substr(1); 	//去前面逗号
-					result.push(selector);
+					if(selector==''&&sex1>-1&&sex1!=sex2){
+					}else{
+						selector = selector.substr(1); 	//去前面逗号
+						result.push(selector);						
+					}
 				}
 			}
 		}
@@ -564,14 +575,14 @@
 	window.relationship = relationship;
 })(window);
 
+// console.log(relationship('老婆的外孙的姥姥'));
 //弟弟的爸爸的女儿
 //老婆的爸爸的女儿
 //表哥的表哥
-//表哥的表妹
 //大舅的女儿
 //表哥的姐姐
 //爸爸的表姐
 //表嫂的女儿的爸爸
 //老公的老婆的儿子的爸爸的老婆的儿子的爸爸
 //我的三舅的儿子的爸爸的妹妹的儿子的叔叔的哥哥
-// console.log(relationship('表嫂的女儿的爸爸'));
+//老婆的外孙的姥姥
