@@ -166,7 +166,7 @@
 	];
 
 	var _data = {
-		'':['自己'],
+		'':['自己','我'],
 		//外家
 		'm,m':['外婆','姥姥'],
 		'm,f':['外公','姥爷'],
@@ -447,6 +447,7 @@
 	function getSelectors(str){
 		var lists = str.split('的');
 		var result = [];						//所有可能性
+		var match = true;
 		while(lists.length){
 			var name = lists.shift();			//当前匹配词
 			var arr = [];						//当前匹配词可能性
@@ -454,9 +455,12 @@
 				var value = _data[i];
 				if(value.indexOf(name)>-1){		//是否存在该关系
 					arr.push(i);
+				}else{
+					match = false;				//是否存在不可解析的内容
+					break;
 				}
 			}
-			if(result.length){				//当前匹配词与之前可能性组合
+			if(result.length){					//当前匹配词与之前可能性组合
 				var res = [];
 				for(var i=0;i<result.length;i++){
 					for(var j=0;j<arr.length;j++){
@@ -470,7 +474,7 @@
 				}
 			}
 		}
-		return result;
+		return match?result:[];
 	}
 
 	//简化选择器
