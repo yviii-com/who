@@ -451,14 +451,16 @@
 		while(lists.length){
 			var name = lists.shift();			//当前匹配词
 			var arr = [];						//当前匹配词可能性
+			var has = false;
 			for(var i in _data){
 				var value = _data[i];
 				if(value.indexOf(name)>-1){		//是否存在该关系
 					arr.push(i);
-				}else{
-					match = false;				//是否存在不可解析的内容
-					break;
+					has = true;
 				}
+			}
+			if(!has){
+				match = false;
 			}
 			if(result.length){					//当前匹配词与之前可能性组合
 				var res = [];
