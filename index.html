@@ -94,9 +94,7 @@
 				var result = relationship(value);
 				$textarea[1].value = '';
 				if(result.length){
-					for(var i=0;i<result.length;i++){
-						$textarea[1].value += result[i]+'\n';
-					}
+					$textarea[1].value = result.join('\n');
 				}else{
 					$textarea[1].value = '貌似他/她跟你不是很熟哦!';
 				}
