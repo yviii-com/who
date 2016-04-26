@@ -277,15 +277,15 @@
 		'f,ob,w':['伯母','大娘'],	
 		'f,lb':['叔叔','叔父','叔','二叔','三叔'],
 		'f,lb,w':['婶婶','婶母','婶'],
-		'f,f,xs,s&o,':['表伯'],
-		'f,f,xs,s&l,':['表叔'],
-		'f,f,xs,s,w':['表婶'],
 		'f,m,xs,s&o':['表伯'],
 		'f,m,xs,s&l':['表叔'],
 		'f,m,xs,s,w':['表婶'],
 		'f,m,xb,s&o':['表伯'],
 		'f,m,xb,s&l':['表叔'],
 		'f,m,xb,s,w':['表婶'],
+		'f,f,xs,s&o':['表伯'],
+		'f,f,xs,s&l':['表叔'],
+		'f,f,xs,s,w':['表婶'],
 		'f,f,xb,s&o':['堂伯'],
 		'f,f,xb,s&l':['堂叔'],
 		'f,f,xb,s,w':['堂婶'],
@@ -623,7 +623,7 @@
 	window.relationship = relationship;
 })(window);
 
-// console.log(relationship('我的大爷'));
+// console.log(relationship('爸爸的爸爸的姐姐的儿子'));
 //老公的老婆的儿子的爸爸的老婆的儿子的爸爸
 //我的三舅的儿子的爸爸的妹妹的儿子的叔叔的哥哥
 //老婆的外孙的姥姥
