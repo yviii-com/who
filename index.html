@@ -78,7 +78,6 @@
 					}else{
 						$textarea[0].value= name;
 					}
-					console.log(name);
 					if('爸爸,老公,儿子,哥哥,弟弟'.indexOf(name)>-1){
 						$btns[2].disabled=true;
 						$btns[3].disabled=false;
@@ -91,7 +90,7 @@
 
 			$buttons[0].onclick = function(){
 				var value = $textarea[0].value.trim();
-				var result = relationship(value);
+				var result = relationship({text:value});
 				$textarea[1].value = '';
 				if(result.length){
 					$textarea[1].value = result.join('\n');
