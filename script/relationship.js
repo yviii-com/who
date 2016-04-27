@@ -74,12 +74,12 @@
 		},
 		/* 兄弟姐妹 */
 		{//哥哥姐姐的哥哥姐姐还是自己的哥哥姐姐(年龄判断)
-			exp:/,o[sb](,o[sb])/,
-			str:'$1'
+			exp:/(,o[sb])+(,o[sb])/,
+			str:'$2'
 		},
 		{//弟弟妹妹的弟弟妹妹还是自己的弟弟妹妹(年龄判断)
-			exp:/,l[sb](,l[sb])/,
-			str:'$1'
+			exp:/(,l[sb])+(,l[sb])/,
+			str:'$2'
 		},
 		{//如果自己是男性,兄弟姐妹的兄弟就是自己的兄弟或自己
 			con:/(,[fhs]|([olx]b)),[olx][sb],[olx]b/,
@@ -274,7 +274,7 @@
 		'f,xb,d,s':['堂外甥'],
 		'f,xb,d,d':['堂外甥女'],
 		'f,ob':['伯父','伯伯','大伯','二伯','三伯'],
-		'f,ob,w':['伯母','大娘'],	
+		'f,ob,w':['伯母','大娘'],
 		'f,lb':['叔叔','叔父','叔','二叔','三叔'],
 		'f,lb,w':['婶婶','婶母','婶'],
 		'f,m,xs,s&o':['表伯'],
@@ -563,7 +563,7 @@
 					if(selector==''&&sex1>-1&&sex1!=sex2){
 					}else{
 						selector = selector.substr(1); 	//去前面逗号
-						result.push(selector);						
+						result.push(selector);
 					}
 				}
 			}
@@ -586,11 +586,11 @@
 
 	function relationship(str){
 		var selectors = getSelectors(str);
-		// console.log('selectors#',selectors);
+		console.log('selectors#',selectors);
 		var result = [];							//匹配结果
 		for(var i = 0;i<selectors.length;i++){		//遍历所有可能性
 			var ids = selector2id(selectors[i]);
-			// console.log('ids#',ids);
+			console.log('ids#',ids);
 			for(var j=0;j<ids.length;j++){
 				var id = ids[j];
 				if(_data[id]){							//直接匹配称呼
@@ -613,7 +613,7 @@
 					}
 					for(var d=0;d<data.length;d++){
 						result.push(data[d][0]);
-					}	
+					}
 				}
 			}
 		}
@@ -623,7 +623,7 @@
 	window.relationship = relationship;
 })(window);
 
-// console.log(relationship('爸爸的爸爸的姐姐的儿子'));
+// console.log(relationship('姐姐的姐姐的姐姐'));
 //老公的老婆的儿子的爸爸的老婆的儿子的爸爸
 //我的三舅的儿子的爸爸的妹妹的儿子的叔叔的哥哥
 //老婆的外孙的姥姥
