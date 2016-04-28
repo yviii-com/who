@@ -1,7 +1,7 @@
 /**
- * BY: haole zheng
- * http://passer-by.com
- */
+* BY: haole zheng
+* http://passer-by.com
+*/
 (function(window){
 	//简写
 	var _filter = [
@@ -103,11 +103,11 @@
 		},
 		{//不知道性别，兄弟姐妹的兄弟是自己或兄弟
 			exp:/^,[olx][sb],[olx]b(.+)?$/,
-			str:',$1#,xb$1'
+			str:'$1#,xb$1'
 		},
 		{//不知道性别，兄弟姐妹的姐妹是自己或姐妹
 			exp:/^,[olx][sb],[olx]s(.+)?$/,
-			str:',$1#,xs$1'
+			str:'$1#,xs$1'
 		},
 		/* 孩子 */
 		{//孩子的姐妹是自己的女儿(年龄判断)
@@ -514,14 +514,14 @@
 
 	//数组去重
 	var unique = function(arr) {
-	    var result = [], hash = {};
-	    for (var i = 0, elem; (elem = arr[i]) != null; i++) {
-	        if (!hash[elem]) {
-	            result.push(elem);
-	            hash[elem] = true;
-	        }
-	    }
-	    return result;
+		var result = [], hash = {};
+		for (var i = 0, elem; (elem = arr[i]) != null; i++) {
+			if (!hash[elem]) {
+				result.push(elem);
+				hash[elem] = true;
+			}
+		}
+		return result;
 	};
 
 	//分词解析
@@ -563,14 +563,16 @@
 	}
 
 	//简化选择器
-	function selector2id(selector){
+	function selector2id(selector,sex){
 		var result = [];
 		var hash = {};
-		var sex1 = sex2 = -1;//自己或对方性别:-1未知,0女性,1男性
-		if(selector.indexOf(',w')==0){
-			sex1 = 1;
-		}else if(selector.indexOf(',h')==0){
-			sex1 = 0;
+		var sex2 = -1;	//对方性别:-1未知,0女性,1男性
+		if(sex<0){			//如果自己的性别不确定
+			if(selector.indexOf(',w')==0){
+				sex = 1;
+			}else if(selector.indexOf(',h')==0){
+				sex = 0;
+			}
 		}
 		sex2 = selector.match(/,[mw]|([olx]s)|(d(&[ol]))$/)?0:1;
 		var getId = function(selector){
@@ -599,10 +601,11 @@
 						}
 					}
 				}while(s!=selector);
+				// console.log('selector#',selector);
 				if(status){
-					if(selector==''&&sex1>-1&&sex1!=sex2){
+					selector = selector.substr(1); 	//去前面逗号
+					if(selector==''&&sex>-1&&sex!=sex2){
 					}else{
-						selector = selector.substr(1); 	//去前面逗号
 						result.push(selector);
 					}
 				}
@@ -646,32 +649,36 @@
 		}else if(id.indexOf('&l')>-1){
 			age = '&o';
 		}
-		id = id.replace(/&[ol]/g,'');
-		var sid = (','+sex+','+id).replace(/,[fhs]|,[olx]b/g,',1').replace(/,[mwd]|,[olx]s/g,',0');
-		sid = sid.substring(0,sid.lastIndexOf(','));
-		var id_arr = id.split(',').reverse();
-		var sid_arr = sid.split(',').reverse();
-		var arr = [];
-		for(var i=0;i<id_arr.length;i++){
+		if(id){
+			id = id.replace(/&[ol]/g,'');
+			sex = sex?1:0;		//逆转运算自身性别必须确定
+			var sid = (','+sex+','+id).replace(/,[fhs]|,[olx]b/g,',1').replace(/,[mwd]|,[olx]s/g,',0');
+			sid = sid.substring(0,sid.lastIndexOf(','));
+			var id_arr = id.split(',').reverse();
+			var sid_arr = sid.split(',').reverse();
+			var arr = [];
+			for(var i=0;i<id_arr.length;i++){
 				arr.push(hash[id_arr[i]][sid_arr[i]]);
+			}
+			return arr.join(',')+age;
 		}
-		return arr.join(',')+age;
+		return '';
 	}
 
 	function relationship(parameter){
 		var options = {
 			text:'',
-			sex:1,
+			sex:-1,
 			reverse:false
 		};
 		for (var p in parameter) {
-				options[p] = parameter[p];
+			options[p] = parameter[p];
 		}
 		var selectors = getSelectors(options.text);
 		// console.log('selectors#',selectors);
 		var result = [];							//匹配结果
 		for(var i = 0;i<selectors.length;i++){		//遍历所有可能性
-			var ids = selector2id(selectors[i]);
+			var ids = selector2id(selectors[i],options.sex);
 			// console.log('ids#',ids);
 			for(var j=0;j<ids.length;j++){
 				var id = ids[j];
@@ -708,7 +715,7 @@
 	window.relationship = relationship;
 })(window);
 
-// console.log(relationship('爸爸的妈妈的儿子'));
+// console.log(relationship({text:'姐姐的弟弟的女儿',sex:1,reverse:true}));
 //老公的老婆的儿子的爸爸的老婆的儿子的爸爸
 //我的三舅的儿子的爸爸的妹妹的儿子的叔叔的哥哥
 //老婆的外孙的姥姥
