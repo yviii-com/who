@@ -109,6 +109,10 @@
 			exp:/^,[olx][sb],[olx]s(.+)?$/,
 			str:'$1#,xs$1'
 		},
+		{//将复合称谓拆分
+			exp:/^,x([sb])$/,
+			str:',o$1#,l$1'
+		},
 		/* 孩子 */
 		{//孩子的姐妹是自己的女儿(年龄判断)
 			exp:/,[ds]&o,ob/g,
@@ -715,7 +719,7 @@
 	window.relationship = relationship;
 })(window);
 
-// console.log(relationship({text:'姐姐的弟弟的女儿',sex:1,reverse:true}));
+// console.log(relationship({text:'姐姐的妹妹的姐姐',sex:1}));
 //老公的老婆的儿子的爸爸的老婆的儿子的爸爸
 //我的三舅的儿子的爸爸的妹妹的儿子的叔叔的哥哥
 //老婆的外孙的姥姥
