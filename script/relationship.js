@@ -7,19 +7,19 @@
 	var _filter = [
 		/* 表亲 */
 		{//表亲的关系
-			exp:/^(.+)&o([^#].+)&o/g,
+			exp:/^(.+)&o([^#]+)&o/g,
 			str:'$1$2&o'
 		},
 		{//表亲的关系
-			exp:/^(.+)&l([^#].+)&l/g,
+			exp:/^(.+)&l([^#]+)&l/g,
 			str:'$1$2&l'
 		},
 		{//表亲的关系
-			exp:/^(.+)&o(.+)&l/g,
+			exp:/^(.+)&o([^#]+)&l/g,
 			str:'$1$2'
 		},
 		{//表亲的关系
-			exp:/^(.+)&l(.+)&o/g,
+			exp:/^(.+)&l([^#]+)&o/g,
 			str:'$1$2'
 		},
 		/* 父母 */
@@ -45,24 +45,20 @@
 			str:',$1b'
 		},
 		{//如果自己是男性,父母的儿子是自己或者兄弟
-			con:/(,[fhs]|,[olx]b),[mf],s/,
-			exp:/^(.+)?,[mf],s(.+)?$/,
-			str:'$1$2#$1,xb$2'
+			exp:/^(.*)(,[fh]|[xol]b),[mf],s(.*)$/,
+			str:'$1$2,xb$3#$1$2$3'
 		},
 		{//如果自己是女性,父母的女儿是自己或者姐妹
-			con:/(,[mwd]|,[olx]s),[mf],d/,
-			exp:/^(.+)?,[mf],d(.+)?$/,
-			str:'$1$2#$1,xs$2'
+			exp:/^(.*)(,[mw]|[xol]s),[mf],d(.*)$/,
+			str:'$1$2,xs$3#$1$2$3'
 		},
 		{//如果自己是女性,父母的儿子是自己兄弟
-			con:/(,[mwd]|,[olx]s),[mf],s/,
-			exp:/,[mf],s/g,
-			str:',xb'
+			exp:/(,[mw]|[xol]s),[mf],s/,
+			str:'$1,xb'
 		},
 		{//如果自己是男性,父母的女儿是自己姐妹
-			con:/(,[fhs]|,[olx]b),[mf],d/,
-			exp:/,[mf],d/g,
-			str:',xs'
+			exp:/(,[fh]|[xol]b),[mf],d/,
+			str:'$1,xs'
 		},
 		{//父母的儿子是自己或兄妹
 			exp:/^,[mf],s(.+)?$/,
@@ -82,24 +78,20 @@
 			str:'$2'
 		},
 		{//如果自己是男性,兄弟姐妹的兄弟就是自己的兄弟或自己
-			con:/(,[fhs]|,[olx]b),[olx][sb],[olx]b/,
-			exp:/^(.+)?,[olx][sb],[olx]b(.+)?$/,
-			str:'$1,xb$2#$1$2'
+			exp:/^(.*)(,[fh])(,[olx][sb])+,[olx]b(.*)$/,
+			str:'$1$2,xb$4#$1$2$4'
 		},
 		{//如果自己是女性,兄弟姐妹的姐妹就是自己的姐妹或自己
-			con:/(,[mwd]|,[olx]s),[olx][sb],[olx]s/,
-			exp:/^(.+)?,[olx][sb],[olx]s(.+)?$/,
-			str:'$1,xs$2#$1$2'
-		},
-		{//如果自己是女性,兄弟姐妹的兄弟就是自己的兄弟
-			con:/(,[mwd]|,[olx]s),[olx][sb],[olx]b/,
-			exp:/,[olx][sb],[olx]b/g,
-			str:',xb'
+			exp:/^(.*)(,[mw])(,[olx][sb])+,[olx]s(.*)$/,
+			str:'$1$2,xs$4#$1$2$4'
 		},
 		{//如果自己是男性,兄弟姐妹的姐妹就是自己的姐妹
-			con:/(,[fhs]|,[olx]b),[olx][sb],[olx]s/,
-			exp:/,[olx][sb],[olx]s/g,
-			str:',xs'
+			exp:/(,[fh])(,[olx][sb])+,[olx]s/g,
+			str:'$1,xs'
+		},
+		{//如果自己是女性,兄弟姐妹的兄弟就是自己的兄弟
+			exp:/(,[mw])(,[olx][sb])+,[olx]b/g,
+			str:'$1,xb'
 		},
 		{//不知道性别，兄弟姐妹的兄弟是自己或兄弟
 			exp:/^,[olx][sb],[olx]b(.+)?$/,
@@ -588,13 +580,7 @@
 					s = selector;
 					for(var i in _filter){
 						var item = _filter[i];
-						if(item['con']){
-							if(selector.match(item['con'])){
-								selector = selector.replace(item['exp'],item['str']);
-							}
-						}else{
-							selector = selector.replace(item['exp'],item['str']);
-						}
+						selector = selector.replace(item['exp'],item['str']);
 						if(selector.indexOf('#')>-1){
 							var arr = selector.split('#');
 							for(var i=0;i<arr.length;i++){
@@ -605,7 +591,6 @@
 						}
 					}
 				}while(s!=selector);
-				// console.log('selector#',selector);
 				if(status){
 					selector = selector.substr(1); 	//去前面逗号
 					if(selector==''&&sex>-1&&sex!=sex2){
@@ -719,7 +704,7 @@
 	window.relationship = relationship;
 })(window);
 
-// console.log(relationship({text:'姐姐的妹妹的姐姐',sex:1}));
+// console.log(relationship({text:'妈妈的爸爸的姐姐的妹妹的哥哥的妹妹的姐姐',sex:1}));
 //老公的老婆的儿子的爸爸的老婆的儿子的爸爸
 //我的三舅的儿子的爸爸的妹妹的儿子的叔叔的哥哥
 //老婆的外孙的姥姥
