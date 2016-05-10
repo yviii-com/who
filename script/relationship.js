@@ -578,7 +578,7 @@
 				sex = 0;
 			}
 		}
-		sex2 = selector.match(/,[mw]|([olx]s)|(d(&[ol]))$/)?0:1;
+		sex2 = selector.match(/,([mw]|[olx]s|d(&[ol]))$/)?0:1;
 		var getId = function(selector){
 			var s='';
 			if(!hash[selector]){
@@ -712,7 +712,7 @@
 	window.relationship = relationship;
 })(window);
 
-// console.log(relationship({text:'妈妈的爸爸的姐姐的妹妹的哥哥的妹妹的姐姐',sex:1}));
+// console.log(relationship({text:'老婆的老公'}));
 //老公的老婆的儿子的爸爸的老婆的儿子的爸爸
 //我的三舅的儿子的爸爸的妹妹的儿子的叔叔的哥哥
 //老婆的外孙的姥姥
