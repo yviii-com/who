@@ -60,13 +60,13 @@
 			exp:/(,[fh]|[xol]b),[mf],d/,
 			str:'$1,xs'
 		},
-		{//父母的儿子是自己或兄妹
+		{//父母的儿子是自己或兄弟
 			exp:/^,[mf],s(.+)?$/,
-			str:'$1#,xb$1'
+			str:',1$1#,xb$1'
 		},
 		{//父母的女儿是自己或者姐妹
 			exp:/^,[mf],d(.+)?$/,
-			str:'$1#,xs$1'
+			str:',0$1#,xs$1'
 		},
 		/* 兄弟姐妹 */
 		{//哥哥姐姐的哥哥姐姐还是自己的哥哥姐姐(年龄判断)
@@ -78,19 +78,19 @@
 			str:'$2'
 		},
 		{//如果自己是男性,兄弟姐妹的兄弟就是自己的兄弟或自己
-			exp:/^(.*)(,[fh])(,[olx][sb])+,[olx]b(.*)$/,
+			exp:/^(.*)(,[fh1])(,[olx][sb])+,[olx]b(.*)$/,
 			str:'$1$2,xb$4#$1$2$4'
 		},
 		{//如果自己是女性,兄弟姐妹的姐妹就是自己的姐妹或自己
-			exp:/^(.*)(,[mw])(,[olx][sb])+,[olx]s(.*)$/,
+			exp:/^(.*)(,[mw0])(,[olx][sb])+,[olx]s(.*)$/,
 			str:'$1$2,xs$4#$1$2$4'
 		},
 		{//如果自己是男性,兄弟姐妹的姐妹就是自己的姐妹
-			exp:/(,[fh])(,[olx][sb])+,[olx]s/g,
+			exp:/(,[fh1])(,[olx][sb])+,[olx]s/g,
 			str:'$1,xs'
 		},
 		{//如果自己是女性,兄弟姐妹的兄弟就是自己的兄弟
-			exp:/(,[mw])(,[olx][sb])+,[olx]b/g,
+			exp:/(,[mw0])(,[olx][sb])+,[olx]b/g,
 			str:'$1,xb'
 		},
 		{//不知道性别，兄弟姐妹的兄弟是自己或兄弟
@@ -132,19 +132,19 @@
 		},
 		/* 夫妻 */
 		{//自己是女性，女儿或儿子的妈妈是自己
-			exp:/(,[mwd](&[ol])?|[olx]s),[ds](&[ol])?,m/g,
+			exp:/(,[mwd0](&[ol])?|[olx]s),[ds](&[ol])?,m/g,
 			str:'$1'
 		},
 		{//自己是女性，女儿或儿子的爸爸是自己的丈夫
-			exp:/(,[mwd](&[ol])?|[olx]s),[ds](&[ol])?,f/g,
+			exp:/(,[mwd0](&[ol])?|[olx]s),[ds](&[ol])?,f/g,
 			str:'$1,h'
 		},
 		{//自己是男性，女儿或儿子的爸爸是自己
-			exp:/(,[fhs](&[ol])?|[olx]b),[ds](&[ol])?,f/g,
+			exp:/(,[fhs1](&[ol])?|[olx]b),[ds](&[ol])?,f/g,
 			str:'$1'
 		},
 		{//自己是男性，女儿或儿子的妈妈是自己的妻子
-			exp:/(,[fhs](&[ol])?|[olx]b),[ds](&[ol])?,m/g,
+			exp:/(,[fhs1](&[ol])?|[olx]b),[ds](&[ol])?,m/g,
 			str:'$1,w'
 		},
 		{//不知道性别，子女的妈妈是自己或妻子
@@ -589,6 +589,7 @@
 					for(var i in _filter){
 						var item = _filter[i];
 						selector = selector.replace(item['exp'],item['str']);
+						// console.log('filter#',item['exp'],selector);
 						if(selector.indexOf('#')>-1){
 							var arr = selector.split('#');
 							for(var i=0;i<arr.length;i++){
@@ -600,7 +601,7 @@
 					}
 				}while(s!=selector);
 				if(status){
-					selector = selector.substr(1); 	//去前面逗号
+					selector = selector.replace(/,[01]/,'').substr(1); 	//去前面逗号和性别信息
 					if(selector==''&&sex>-1&&sex!=sex2){
 					}else{
 						result.push(selector);
@@ -712,7 +713,8 @@
 	window.relationship = relationship;
 })(window);
 
-// console.log(relationship({text:'老婆的老公'}));
+// console.log(relationship({text:'爸爸的儿子的儿子的爸爸'}));
+//老婆的老公
 //老公的老婆的儿子的爸爸的老婆的儿子的爸爸
 //我的三舅的儿子的爸爸的妹妹的儿子的叔叔的哥哥
 //老婆的外孙的姥姥
