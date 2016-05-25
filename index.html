@@ -105,10 +105,20 @@
 				var value = $textarea[0].value.trim();
 				var index = value.lastIndexOf('的');
 				index = Math.max(0,index);
-				$textarea[0].value = value.substr(0,index);
+				var search = value.substr(0,index);
+				$textarea[0].value = search;
 				$textarea[1].value = '';
-				$btns[2].disabled=false;
-				$btns[3].disabled=false;
+				var name = search.split('的').pop();
+				if(!name){
+					$btns[2].disabled=false;
+					$btns[3].disabled=false;
+				}else if('爸爸,老公,儿子,哥哥,弟弟'.indexOf(name)>-1){
+					$btns[2].disabled=true;
+					$btns[3].disabled=false;
+				}else{
+					$btns[2].disabled=false;
+					$btns[3].disabled=true;
+				}
 			}
 
 			$buttons[2].onclick = function(){
