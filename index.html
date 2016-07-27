@@ -14,18 +14,20 @@
 					<div class="mod-panel">
 						<div class="hd"><h1>中国家庭称谓计算器</h1></div>
 						<div class="bd">
-							<p>我的性别：
-								<label for="male"><input id="male" type="radio" name="sex" value="1" checked>男</label>
-								<label for="female"><input id="female" type="radio" name="sex" value="0">女</label>
-							</p>
 							<p>计算类型：
 								<label for="default"><input id="default" type="radio" name="type" value="default" checked>找称呼</label>
 								<label for="chain"><input id="chain" type="radio" name="type" value="chain">找关系</label>
 							</p>
-							<p>称呼方式：
-								<label for="call"><input id="call" type="radio" name="reverse" value="0" checked>我称呼对方</label>
-								<label for="called"><input id="called" type="radio" name="reverse" value="1">对方称呼我</label>
-							</p>
+							<div class="group">
+								<p>我的性别：
+									<label for="male"><input id="male" type="radio" name="sex" value="1" checked>男</label>
+									<label for="female"><input id="female" type="radio" name="sex" value="0">女</label>
+								</p>
+								<p>称呼方式：
+									<label for="call"><input id="call" type="radio" name="reverse" value="0" checked>我称呼对方</label>
+									<label for="called"><input id="called" type="radio" name="reverse" value="1">对方称呼我</label>
+								</p>
+							</div>
 							<p>
 								<textarea id="input" placeholder="人物间用'的'字分开…"></textarea>
 							</p>
@@ -77,11 +79,12 @@
 		<script src="script/relationship.js"></script>
 		<script>
 			(function(){
-				var $sex = document.getElementsByName('sex');
 				var $type = document.getElementsByName('type');
+				var $sex = document.getElementsByName('sex');
 				var $reverse = document.getElementsByName('reverse');
 				var $radio = document.getElementsByTagName('INPUT');
 				var $textarea = document.getElementsByTagName('TEXTAREA');
+				var $group = DOMUtil.getElementsByClassName('group')[0];
 				var $btns = DOMUtil.getElementsByClassName('btn');
 				var $buttons = DOMUtil.getElementsByClassName('input-button');
 				var toggle = function(sex){
@@ -126,6 +129,7 @@
 				for(var i=0;i<$radio.length;i++){
 					$radio[i].onchange=function(){
 						toggle($sex[0].checked);
+						$group.style.display = $type[0].checked?'block':'none';
 						if($textarea[1].value){
 							count();
 						}
