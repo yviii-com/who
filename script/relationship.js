@@ -289,7 +289,7 @@
 		'm,m':['外婆','姥姥','阿婆'],
 		'm,m,f':['外曾外祖父','外太外公','太姥爷'],
 		'm,m,m':['外曾外祖母','外太外婆','太姥姥'],
-		'm,m,xb':['外舅公','外舅祖父','舅姥爷','舅外祖父','舅外公'],
+		'm,m,xb':['外舅公','外舅祖父','舅姥爷','舅外祖父','舅外公','舅公'],
 		'm,m,xb,w':['外舅婆','外舅祖母','舅姥姥'],
 		'm,m,xb,s':['表舅','表舅父'],
 		'm,m,xb,s,w':['表舅妈','表舅母'],
@@ -686,10 +686,22 @@
 		return '';
 	}
 
+	//简化选择器
+	function getChainById(id){
+		var arr = id.split(',');
+		var items = [];
+		for(var i = 0;i<arr.length;i++){
+			var key = arr[i].replace(/&[ol]/,'');
+			items.push(_data[key][0]);
+		}
+		return items.join('的');
+	}
+
 	function relationship(parameter){
 		var options = {
 			text:'',
 			sex:-1,
+			type:'default',		//为'chain'时,reverse无效
 			reverse:false
 		};
 		for (var p in parameter) {
@@ -703,29 +715,36 @@
 			// console.log('ids#',ids);
 			for(var j=0;j<ids.length;j++){
 				var id = ids[j];
-				if(options.reverse){
-					id = reverseId(id,options.sex);
-				}
-				if(_data[id]){										//直接匹配称呼
-					result.push(_data[id][0]);
-				}else{														//高级查找
-					var data = getDataById(id);			//忽略属性查找
-					if(!data.length){								//当无精确数据时，忽略年龄条件查找
-						id = id.replace(/&[ol]/g,'');
-						data = getDataById(id);
+				if(options.type=='chain'){
+					var data = getChainById(id);
+					if(data){
+						result.push(data);
 					}
-					if(!data.length){
-						id = id.replace(/[ol]/g,'x');
-						data = getDataById(id);
+				}else{
+					if(options.reverse){
+						id = reverseId(id,options.sex);
 					}
-					if(!data.length){
-						var l = id.replace(/x/g,'l');
-						data = getDataById(l);
-						var o = id.replace(/x/g,'o');
-						data = data.concat(getDataById(o));
-					}
-					for(var d=0;d<data.length;d++){
-						result.push(data[d][0]);
+					if(_data[id]){										//直接匹配称呼
+						result.push(_data[id][0]);
+					}else{														//高级查找
+						var data = getDataById(id);			//忽略属性查找
+						if(!data.length){								//当无精确数据时，忽略年龄条件查找
+							id = id.replace(/&[ol]/g,'');
+							data = getDataById(id);
+						}
+						if(!data.length){
+							id = id.replace(/[ol]/g,'x');
+							data = getDataById(id);
+						}
+						if(!data.length){
+							var l = id.replace(/x/g,'l');
+							data = getDataById(l);
+							var o = id.replace(/x/g,'o');
+							data = data.concat(getDataById(o));
+						}
+						for(var d=0;d<data.length;d++){
+							result.push(data[d][0]);
+						}
 					}
 				}
 			}

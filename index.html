@@ -18,11 +18,14 @@
 								<label for="male"><input id="male" type="radio" name="sex" value="1" checked>男</label>
 								<label for="female"><input id="female" type="radio" name="sex" value="0">女</label>
 							</p>
+							<p>计算类型：
+								<label for="default"><input id="default" type="radio" name="type" value="default" checked>找称呼</label>
+								<label for="chain"><input id="chain" type="radio" name="type" value="chain">找关系</label>
+							</p>
 							<p>称呼方式：
 								<label for="call"><input id="call" type="radio" name="reverse" value="0" checked>我称呼对方</label>
 								<label for="called"><input id="called" type="radio" name="reverse" value="1">对方称呼我</label>
 							</p>
-							<p>家庭关系：</p>
 							<p>
 								<textarea id="input" placeholder="人物间用'的'字分开…"></textarea>
 							</p>
@@ -74,7 +77,9 @@
 		<script>
 			(function(){
 				var $sex = document.getElementsByName('sex');
+				var $type = document.getElementsByName('type');
 				var $reverse = document.getElementsByName('reverse');
+				var $radio = document.getElementsByTagName('INPUT');
 				var $textarea = document.getElementsByTagName('TEXTAREA');
 				var $btns = DOMUtil.getElementsByClassName('btn');
 				var $buttons = DOMUtil.getElementsByClassName('input-button');
@@ -91,8 +96,9 @@
 					var value = $textarea[0].value.trim();
 					if(value){
 						var sex = $sex[0].checked?1:0;
+						var type = $type[0].checked?'default':'chain';
 						var reverse = !$reverse[0].checked;
-						var result = relationship({text:value,sex:sex,reverse:reverse});
+						var result = relationship({text:value,sex:sex,reverse:reverse,type:type});
 						$textarea[1].value = '';
 						if(result.length){
 							$textarea[1].value = result.join('\n');
@@ -116,20 +122,13 @@
 						toggle('爸爸,老公,儿子,哥哥,弟弟'.indexOf(name)>-1);
 					}
 				}
-				for(var i=0;i<$sex.length;i++){
-					$sex[i].onchange=function(){
+				for(var i=0;i<$radio.length;i++){
+					$radio[i].onchange=function(){
 						toggle($sex[0].checked);
 						if($textarea[1].value){
 							count();
 						}
 					}
-				}
-				for(var i=0;i<$reverse.length;i++){
-					$reverse[i].onchange = function(){
-						if($textarea[1].value){
-							count();
-						}
-					};
 				}
 				$buttons[0].onclick = function(){
 					var value = $textarea[0].value.trim();
