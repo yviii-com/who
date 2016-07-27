@@ -14,9 +14,17 @@
 					<div class="mod-panel">
 						<div class="hd"><h1>中国家庭称谓计算器</h1></div>
 						<div class="bd">
-							<p>关系：</p>
+							<p>我的性别：
+								<label for="male"><input id="male" type="radio" name="sex" value="1" checked>男</label>
+								<label for="female"><input id="female" type="radio" name="sex" value="0">女</label>
+							</p>
+							<p>称呼方式：
+								<label for="call"><input id="call" type="radio" name="reverse" value="0" checked>我称呼对方</label>
+								<label for="called"><input id="called" type="radio" name="reverse" value="1">对方称呼我</label>
+							</p>
+							<p>家庭关系：</p>
 							<p>
-								<textarea id="input" placeholder="注意:人物间用'的'字分开…"></textarea>
+								<textarea id="input" placeholder="人物间用'的'字分开…"></textarea>
 							</p>
 							<p>
 								<span>
@@ -41,9 +49,9 @@
 								</span>
 							</p>
 							<p>
-								<button class="input-button">计算</button>
 								<button class="input-button">回退</button>
 								<button class="input-button">清空</button>
+								<button class="input-button">计算</button>
 							</p>
 							<p>计算结果：</p>
 							<p>
@@ -51,17 +59,10 @@
 							</p>
 						</div>
 						<div class="ft">
-							<div class="about">
-								<p>由于工作生活节奏不同，如今很多关系稍疏远的亲戚之间来往并不多。因此放假回家过年时，往往会搞不清楚哪位亲戚应该喊什么称呼，很是尴尬。然而搞不清亲戚关系和亲戚称谓的不仅是小孩，就连年轻一代的大人也都常常模糊混乱。</p>
-								<p>“中国家庭称谓计算器”为你避免了这种尴尬，只需简单的输入即可算出称谓。输入框兼容了不同的叫法，你可以称呼父亲为：“老爸”、“爹地”、“老爷子”等等，方面不同地域的习惯叫法。快捷输入按键，只需简单的点击即可完成关系输入。</p>
-								<br>
-								<p>另有APP版本，支持反向查询：<a href="http://passer-by.com/relationship/app.html" target="_blank">三姑六婆计算器</a></p>
-								<br>
-								<p>本计算器为开源软件，引用还请注明来源“passer-by.com制作”,直接引用脚本可以获取最新更新！</p>
-							</div>
-							<div class="buttons">
-								<a class="github-button" href="https://github.com/mumuy" data-style="mega" data-count-href="/mumuy/followers" data-count-api="/users/mumuy#followers" data-count-aria-label="# followers on GitHub" aria-label="Follow @mumuy on GitHub">Follow @mumuy</a>
-					<a class="github-button" href="https://github.com/mumuy/relationship" data-style="mega" data-count-href="/mumuy/relationship/stargazers" data-count-api="/repos/mumuy/relationship#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star mumuy/relationship on GitHub">Star</a>
+							<div class="copy">
+								<p><a class="github-button" href="https://github.com/mumuy" data-style="mega" data-count-href="/mumuy/followers" data-count-api="/users/mumuy#followers" data-count-aria-label="# followers on GitHub" aria-label="Follow @mumuy on GitHub">Follow @mumuy</a>
+					<a class="github-button" href="https://github.com/mumuy/relationship" data-style="mega" data-count-href="/mumuy/relationship/stargazers" data-count-api="/repos/mumuy/relationship#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star mumuy/relationship on GitHub">Star</a></p>
+								<p>android版下载：<a href="http://passer-by.com/relationship/app.html" target="_blank">三姑六婆计算器</a></p>
 							</div>
 						</div>
 					</div>
@@ -71,20 +72,14 @@
 		<script src="script/common.js"></script>
 		<script src="script/relationship.js"></script>
 		<script>
-			var $textarea = document.getElementsByTagName('TEXTAREA');
-			var $btns = DOMUtil.getElementsByClassName('btn');
-			var $buttons = DOMUtil.getElementsByClassName('input-button');
-
-			for(var i=0;i<$btns.length;i++){
-				$btns[i].onclick = function(){
-					var value = $textarea[0].value.trim();
-					var name = this.getAttribute('data-value');
-					if(value){
-						$textarea[0].value= value+'的'+name;
-					}else{
-						$textarea[0].value= name;
-					}
-					if('爸爸,老公,儿子,哥哥,弟弟'.indexOf(name)>-1){
+			(function(){
+				var $sex = document.getElementsByName('sex');
+				var $reverse = document.getElementsByName('reverse');
+				var $textarea = document.getElementsByTagName('TEXTAREA');
+				var $btns = DOMUtil.getElementsByClassName('btn');
+				var $buttons = DOMUtil.getElementsByClassName('input-button');
+				var toggle = function(sex){
+					if(sex){		//男女判断
 						$btns[2].disabled=true;
 						$btns[3].disabled=false;
 					}else{
@@ -92,44 +87,72 @@
 						$btns[3].disabled=true;
 					}
 				}
-			}
-
-			$buttons[0].onclick = function(){
-				var value = $textarea[0].value.trim();
-				var result = relationship({text:value});
-				$textarea[1].value = '';
-				if(result.length){
-					$textarea[1].value = result.join('\n');
-				}else{
-					$textarea[1].value = '貌似他/她跟你不是很熟哦!';
+				var count = function(){
+					var value = $textarea[0].value.trim();
+					if(value){
+						var sex = $sex[0].checked?1:0;
+						var reverse = !$reverse[0].checked;
+						var result = relationship({text:value,sex:sex,reverse:reverse});
+						$textarea[1].value = '';
+						if(result.length){
+							$textarea[1].value = result.join('\n');
+						}else{
+							$textarea[1].value = '貌似他/她跟你不是很熟哦!';
+						}
+					}else{
+						$textarea[1].value = '';
+					}
 				}
-			}
 
-			$buttons[1].onclick = function(){
-				var value = $textarea[0].value.trim();
-				var index = value.lastIndexOf('的');
-				index = Math.max(0,index);
-				var search = value.substr(0,index);
-				$textarea[0].value = search;
-				$textarea[1].value = '';
-				var name = search.split('的').pop();
-				if(!name){
-					$btns[2].disabled=false;
-					$btns[3].disabled=false;
-				}else if('爸爸,老公,儿子,哥哥,弟弟'.indexOf(name)>-1){
-					$btns[2].disabled=true;
-					$btns[3].disabled=false;
-				}else{
-					$btns[2].disabled=false;
-					$btns[3].disabled=true;
+				for(var i=0;i<$btns.length;i++){
+					$btns[i].onclick = function(){
+						var value = $textarea[0].value.trim();
+						var name = this.getAttribute('data-value');
+						if(value){
+							$textarea[0].value= value+'的'+name;
+						}else{
+							$textarea[0].value= name;
+						}
+						toggle('爸爸,老公,儿子,哥哥,弟弟'.indexOf(name)>-1);
+					}
 				}
-			}
+				for(var i=0;i<$sex.length;i++){
+					$sex[i].onchange=function(){
+						toggle($sex[0].checked);
+						if($textarea[1].value){
+							count();
+						}
+					}
+				}
+				for(var i=0;i<$reverse.length;i++){
+					$reverse[i].onchange = function(){
+						if($textarea[1].value){
+							count();
+						}
+					};
+				}
+				$buttons[0].onclick = function(){
+					var value = $textarea[0].value.trim();
+					var index = value.lastIndexOf('的');
+					index = Math.max(0,index);
+					var search = value.substr(0,index);
+					$textarea[0].value = search;
+					$textarea[1].value = '';
+					var name = search.split('的').pop();
+					if(!name){
+						toggle($sex[0].checked);
+					}else{
+						toggle('爸爸,老公,儿子,哥哥,弟弟'.indexOf(name)>-1);
+					}
+				}
+				$buttons[1].onclick = function(){
+					$textarea[1].value = $textarea[0].value = '';
+					toggle($sex[0].checked);
+				}
+				$buttons[2].onclick = count;
 
-			$buttons[2].onclick = function(){
-				$textarea[1].value = $textarea[0].value = '';
-				$btns[2].disabled=false;
-				$btns[3].disabled=false;
-			}
+				toggle($sex[0].checked);
+			})();
 		</script>
 		<script async defer src="https://buttons.github.io/buttons.js"></script>
 	</body>

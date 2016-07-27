@@ -68,7 +68,7 @@ a:hover{
     cursor: pointer;
     outline: none;
 }
-.mod-panel p span{
+.mod-panel label,.mod-panel p span{
     margin-right:10px;
 }
 .mod-panel .btn{
@@ -97,8 +97,11 @@ a:hover{
 	line-height: 24px;
 	text-indent: 2em;
 }
-.mod-panel .buttons{
+.mod-panel .copy{
     padding: 0 20px;
     margin-bottom: 20px;
     text-align: center;
+}
+.mod-panel .copy p{
+    line-height: 24px;
 }
