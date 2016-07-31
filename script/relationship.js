@@ -680,7 +680,7 @@
 				sex = 0;
 			}
 		}
-		sex2 = selector.match(/,([mw]|[olx]s|d(&[ol]))$/)?0:1;
+		sex2 = selector.match(/,([mw]|[olx]s|d(&[ol])?)$/)?0:1;
 		var getId = function(selector){
 			var s='';
 			if(!hash[selector]){
@@ -834,7 +834,7 @@
 	window.relationship = relationship;
 })(window);
 
-// console.log(relationship({text:'表姐的表哥'}));
+// console.log(relationship({text:'爸爸的妈妈的老公的儿子的女儿'}));
 //老婆的老公
 //老公的老婆的儿子的爸爸的老婆的儿子的爸爸
 //我的三舅的儿子的爸爸的妹妹的儿子的叔叔的哥哥
