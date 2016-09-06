@@ -32,11 +32,11 @@
 			str:'$1'
 		},
 		/* 父母的子女 */
-		{//父母的女儿年龄判断是哥哥还是弟弟
+		{//父母的女儿年龄判断是姐姐还是妹妹
 			exp:/,[mf],d&([ol])/,
 			str:',$1s'
 		},
-		{//父母的女儿年龄判断是姐姐还是妹妹
+		{//父母的儿子年龄判断是哥哥还是弟弟
 			exp:/,[mf],s&([ol])/,
 			str:',$1b'
 		},
@@ -730,6 +730,13 @@
 					}
 				}while(s!=selector);
 				if(status){
+					if(sex>-1){			//如果自己的性别确定
+						if(sex==0&&selector.indexOf(',1')==0){
+							return false;
+						}else if(sex==1&&selector.indexOf(',0')==0){
+							return false;
+						}
+					}
 					selector = selector.replace(/,[01]/,'').substr(1); 	//去前面逗号和性别信息
 					if(selector==''&&sex>-1&&sex!=sex2){
 					}else{
@@ -861,7 +868,8 @@
 	window.relationship = relationship;
 })(window);
 
-// console.log(relationship({text:'爸爸的妈妈的老公的儿子的女儿'}));
+// console.log(relationship({text:'爸爸的女儿的儿子'}));
+//爸爸的妈妈的老公的儿子的女儿
 //老婆的老公
 //老公的老婆的儿子的爸爸的老婆的儿子的爸爸
 //我的三舅的儿子的爸爸的妹妹的儿子的叔叔的哥哥
