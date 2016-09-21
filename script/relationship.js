@@ -41,19 +41,19 @@
 			str:',$1b'
 		},
 		{//如果自己是男性,父母的儿子是自己或者兄弟
-			exp:/^(.*)(,[fh]|[xol]b),[mf],s(.*)$/,
+			exp:/^(.*)(,[fh1]|[xol]b),[mf],s(.*)$/,
 			str:'$1$2,xb$3#$1$2$3'
 		},
 		{//如果自己是女性,父母的女儿是自己或者姐妹
-			exp:/^(.*)(,[mw]|[xol]s),[mf],d(.*)$/,
+			exp:/^(.*)(,[mw0]|[xol]s),[mf],d(.*)$/,
 			str:'$1$2,xs$3#$1$2$3'
 		},
 		{//如果自己是女性,父母的儿子是自己兄弟
-			exp:/(,[mw]|[xol]s),[mf],s/,
+			exp:/(,[mw0]|[xol]s),[mf],s/,
 			str:'$1,xb'
 		},
 		{//如果自己是男性,父母的女儿是自己姐妹
-			exp:/(,[fh]|[xol]b),[mf],d/,
+			exp:/(,[fh1]|[xol]b),[mf],d/,
 			str:'$1,xs'
 		},
 		{//父母的儿子是自己或兄弟
@@ -707,6 +707,9 @@
 				sex = 0;
 			}
 		}
+		if(sex>-1){
+			selector = ','+sex+selector;
+		}
 		sex2 = selector.match(/,([mw]|[olx]s|d(&[ol])?)$/)?0:1;
 		var getId = function(selector){
 			var s='';
@@ -730,19 +733,8 @@
 					}
 				}while(s!=selector);
 				if(status){
-					if(sex>-1){			//如果自己的性别确定
-						if(sex==0&&selector.indexOf(',1')==0){
-							return false;
-						}else if(sex==1&&selector.indexOf(',0')==0){
-							return false;
-						}
-					}
 					selector = selector.replace(/,[01]/,'').substr(1); 	//去前面逗号和性别信息
-					if(selector==''&&sex>-1&&sex!=sex2){
-					}else if(selector!=''&&sex>-1&&sex==sex2){
-					}else{
-						result.push(selector);
-					}
+					result.push(selector);
 				}
 			}
 		}
@@ -869,7 +861,7 @@
 	window.relationship = relationship;
 })(window);
 
-// console.log(relationship({text:'儿子的爸爸',sex:1}));
+// console.log(relationship({text:'儿子的爸爸的妈妈',sex:1}));
 //爸爸的妈妈的老公的儿子的女儿
 //老婆的老公
 //老公的老婆的儿子的爸爸的老婆的儿子的爸爸
