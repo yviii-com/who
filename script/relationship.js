@@ -738,7 +738,8 @@
 						}
 					}
 					selector = selector.replace(/,[01]/,'').substr(1); 	//去前面逗号和性别信息
-					if(selector==''&&sex>-1&&sex==sex2){
+					if(selector==''&&sex>-1&&sex!=sex2){
+					}else if(selector!=''&&sex>-1&&sex==sex2){
 					}else{
 						result.push(selector);
 					}
