@@ -738,7 +738,7 @@
 						}
 					}
 					selector = selector.replace(/,[01]/,'').substr(1); 	//去前面逗号和性别信息
-					if(selector==''&&sex>-1&&sex!=sex2){
+					if(selector==''&&sex>-1&&sex==sex2){
 					}else{
 						result.push(selector);
 					}
@@ -868,10 +868,11 @@
 	window.relationship = relationship;
 })(window);
 
-// console.log(relationship({text:'爸爸的女儿的儿子'}));
+// console.log(relationship({text:'儿子的爸爸',sex:1}));
 //爸爸的妈妈的老公的儿子的女儿
 //老婆的老公
 //老公的老婆的儿子的爸爸的老婆的儿子的爸爸
 //我的三舅的儿子的爸爸的妹妹的儿子的叔叔的哥哥
 //老婆的外孙的姥姥
 //大姨的女儿的表哥
+//爸爸的女儿的儿子
