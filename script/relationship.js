@@ -699,7 +699,6 @@
 	function selector2id(selector,sex){
 		var result = [];
 		var hash = {};
-		var sex2 = -1;	//对方性别:-1未知,0女性,1男性
 		if(sex<0){			//如果自己的性别不确定
 			if(selector.indexOf(',w')==0){
 				sex = 1;
@@ -710,7 +709,6 @@
 		if(sex>-1){
 			selector = ','+sex+selector;
 		}
-		sex2 = selector.match(/,([mw]|[olx]s|d(&[ol])?)$/)?0:1;
 		var getId = function(selector){
 			var s='';
 			if(!hash[selector]){
