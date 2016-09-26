@@ -1,8 +1,12 @@
 language: node_js
 
 node_js:
-    - "4.4.4"
-    - "0.12"
+  - "4.4.4"
+  - "0.12"
+
+install:
+  - npm install
 
 script:
-  - npm run ci
+  - npm run build
+  - npm test
