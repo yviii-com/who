@@ -7,7 +7,7 @@
     module.exports = factory();
   else
     root.relationship = factory();
-}(typeof window !== 'undefined' ? window : this, 
+}(typeof window !== 'undefined' ? window : this,
 function () {
 	//简写
 	var _filter = [
@@ -864,12 +864,3 @@ function () {
 
 	return relationship;
 });
-
-// console.log(relationship({text:'儿子的爸爸的妈妈',sex:1}));
-//爸爸的妈妈的老公的儿子的女儿
-//老婆的老公
-//老公的老婆的儿子的爸爸的老婆的儿子的爸爸
-//我的三舅的儿子的爸爸的妹妹的儿子的叔叔的哥哥
-//老婆的外孙的姥姥
-//大姨的女儿的表哥
-//爸爸的女儿的儿子
