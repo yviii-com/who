@@ -3,11 +3,11 @@
 * http://passer-by.com
 */
 !function (root, factory) {
-  	if (typeof module === 'object' && module.exports){
-  		module.exports = factory();
-  	}else{
-  		root.relationship = factory();
-  	}
+	if (typeof module === 'object' && module.exports){
+		module.exports = factory();
+	}else{
+		root.relationship = factory();
+	}
 }(typeof window !== 'undefined' ? window : this,function (){
 	//简写
 	var _filter = [
