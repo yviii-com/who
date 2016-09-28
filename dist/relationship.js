@@ -167,6 +167,7 @@
 		}
 	];
 
+	//关系数据
 	var _data = {
 		'':['自己','我'],
 		//本家
@@ -864,14 +865,37 @@
 
 	//获取数据
 	function getDataById(id){
-		var result = [];
-		var filter = /&[olx]/g;			//忽略属性查找数据
-		for(var i in _data){
-			if(i.replace(filter,'')==id){
-				result.push(_data[i]);
+		var items = [];
+		var filter = /&[olx]/g;  //忽略属性
+		var getData = function(d){
+			var res = [];
+			for(var i in _data){
+				if(i.replace(filter,'')==d){
+					res.push(_data[i][0]);
+				}
+			}
+			return res;
+		};
+		if(_data[id]){  //直接匹配称呼
+			items.push(_data[id][0]);
+		}else{
+			items = getData(id);
+			if(!items.length){  //忽略年龄条件查找
+				id = id.replace(/&[ol]/g,'');
+				items = getData(id);
+			}
+			if(!items.length){  //忽略年龄条件查找
+				id = id.replace(/[ol]/g,'x');
+				result = getData(id);
+			}
+			if(!items.length){  //缩小访问查找
+				var l = id.replace(/x/g,'l');
+				items = getData(l);
+				var o = id.replace(/x/g,'o');
+				items = result.concat(getData(o));
 			}
 		}
-		return result;
+		return items;
 	}
 
 	//逆转ID
@@ -912,7 +936,7 @@
 		return '';
 	}
 
-	//简化选择器
+	//获取关系链条
 	function getChainById(id){
 		var arr = id.split(',');
 		var items = [];
@@ -923,7 +947,7 @@
 		return items.join('的');
 	}
 
-	function relationship(parameter){
+	return (function (parameter){
 		var options = {
 			text:'',
 			sex:-1,
@@ -942,41 +966,26 @@
 			for(var j=0;j<ids.length;j++){
 				var id = ids[j];
 				if(options.type=='chain'){
-					var data = getChainById(id);
-					if(data){
-						result.push(data);
+					var item = getChainById(id);
+					if(item){
+						result.push(item);
 					}
 				}else{
 					if(options.reverse){
 						id = reverseId(id,options.sex);
 					}
-					if(_data[id]){										//直接匹配称呼
-						result.push(_data[id][0]);
-					}else{														//高级查找
-						var data = getDataById(id);			//忽略属性查找
-						if(!data.length){								//当无精确数据时，忽略年龄条件查找
-							id = id.replace(/&[ol]/g,'');
-							data = getDataById(id);
-						}
-						if(!data.length){
-							id = id.replace(/[ol]/g,'x');
-							data = getDataById(id);
-						}
-						if(!data.length){
-							var l = id.replace(/x/g,'l');
-							data = getDataById(l);
-							var o = id.replace(/x/g,'o');
-							data = data.concat(getDataById(o));
-						}
-						for(var d=0;d<data.length;d++){
-							result.push(data[d][0]);
+					var items = getDataById(id);
+					if(items.length){
+						result = result.concat(items);
+					}else if(id.indexOf('w')==0||id.indexOf('h')==0){  //找不到关系，随爱人叫
+						items = getDataById(id.substr(2));
+						if(items.length){
+							result = result.concat(items);
 						}
 					}
 				}
 			}
 		}
 		return unique(result);
-	}
-
-	return relationship;
+	});
 });
