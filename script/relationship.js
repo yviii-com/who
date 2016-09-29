@@ -886,13 +886,13 @@
 			}
 			if(!items.length){  //忽略年龄条件查找
 				id = id.replace(/[ol]/g,'x');
-				result = getData(id);
+				items = getData(id);
 			}
 			if(!items.length){  //缩小访问查找
 				var l = id.replace(/x/g,'l');
 				items = getData(l);
 				var o = id.replace(/x/g,'o');
-				items = result.concat(getData(o));
+				items = items.concat(getData(o));
 			}
 		}
 		return items;
