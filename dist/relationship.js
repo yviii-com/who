@@ -822,7 +822,8 @@
 	function selector2id(selector,sex){
 		var result = [];
 		var hash = {};
-		if(sex<0){			//如果自己的性别不确定
+		var sex2 = -1;
+		if(sex<0){	//如果自己的性别不确定
 			if(selector.indexOf(',w')==0){
 				sex = 1;
 			}else if(selector.indexOf(',h')==0){
@@ -831,6 +832,9 @@
 		}
 		if(sex>-1){
 			selector = ','+sex+selector;
+		}
+		if(selector.match(/,[w0],w|,[h1],h/)){	//同志关系去除
+			return false;
 		}
 		var getId = function(selector){
 			var s='';
