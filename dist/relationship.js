@@ -858,6 +858,9 @@
 					}
 				}while(s!=selector);
 				if(status){
+					if(selector.match(/,[w0],w|,[h1],h/)){	//同志关系去除
+						return false;
+					}
 					selector = selector.replace(/,[01]/,'').substr(1); 	//去前面逗号和性别信息
 					result.push(selector);
 				}
