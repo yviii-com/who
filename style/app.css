@@ -43,3 +43,18 @@ a:hover{
   height: 300px;
   margin-right: 10px;
 }
+
+.mod-qrcode{
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    text-align: center;
+}
+.mod-qrcode .box{
+    width: 150px;
+    height: 148px;
+    overflow: hidden;
+}
+.mod-qrcode p{
+    line-height: 30px;
+}

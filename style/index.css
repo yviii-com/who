@@ -84,7 +84,6 @@ a:hover{
 	resize: none;
 	outline: none;
 }
-
 .mod-panel .ft{
     padding-top: 20px;
     border-top:1px dotted #e0e0e0;
@@ -104,4 +103,19 @@ a:hover{
 }
 .mod-panel .copy p{
     line-height: 24px;
+}
+
+.mod-qrcode{
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    text-align: center;
+}
+.mod-qrcode .box{
+    width: 150px;
+    height: 148px;
+    overflow: hidden;
+}
+.mod-qrcode p{
+    line-height: 30px;
 }
