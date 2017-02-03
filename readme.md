@@ -74,8 +74,17 @@ npm test
 
 他们都在用：
 
-查询网 http://ip138.com/
+查询网
+http://ip138.com/
 
-在线查询网 http://qinshu.supfree.net/
+在线查询网
+http://qinshu.supfree.net/
 
-在线工具 http://atool.org/
+在线工具
+http://atool.org/
+
+有道语文达人
+http://dict.youdao.com/k12yuwen/html/relation.html
+
+小米MIUI系统计算器
+http://www.miui.com/
