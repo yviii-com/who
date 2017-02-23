@@ -876,10 +876,12 @@
 	//数组去重
 	var unique = function(arr) {
 		var result = [], hash = {};
-		for (var i = 0, elem; (elem = arr[i]) != null; i++) {
-			if (!hash[elem]) {
-				result.push(elem);
-				hash[elem] = true;
+		var item;
+		for (var i = 0; (item = arr[i]) != null; i++) {
+			var temp = item.replace(/[ol](?=s|b)/,'x').replace(/&[ol]/,''); //对特殊语法标识相互包含的行为去重
+			if (!hash[item]&&!hash[temp]){
+				result.push(item);
+				hash[item] = true;
 			}
 		}
 		return result;
@@ -973,7 +975,7 @@
 			}
 		}
 		getId(selector);
-		return result;
+		return unique(result);
 	}
 
 	//获取数据
