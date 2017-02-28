@@ -10,6 +10,7 @@
 借助这套算法结合react native开发的APP: [http://passer-by.com/relationship/app.html](http://passer-by.com/relationship/app.html)
 
 在微信中搜索“亲戚关系”，还可以体验小程序版本
+
 ![亲戚关系计算器](http://passer-by.com/relationship/image/qrcode.jpg)
 
 ## 一、下载 & 安装
