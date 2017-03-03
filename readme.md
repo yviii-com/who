@@ -9,6 +9,9 @@
 
 借助这套算法结合react native开发的APP: [http://passer-by.com/relationship/app.html](http://passer-by.com/relationship/app.html)
 
+在微信中搜索“亲戚关系”，还可以体验小程序版本
+
+![亲戚关系计算器](http://passer-by.com/relationship/image/qrcode.jpg)
 
 ## 一、下载 & 安装
 
@@ -88,3 +91,6 @@ http://dict.youdao.com/k12yuwen/html/relation.html
 
 小米MIUI系统计算器
 http://www.miui.com/
+
+小米MIUI网页版本
+http://www.miui.com/zt/calculator2016/dist.php
