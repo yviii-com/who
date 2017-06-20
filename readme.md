@@ -78,13 +78,13 @@ npm test
 他们都在用：
 
 查询网
-http://ip138.com/
+http://www.ip138.com/chengwei/
 
 在线查询网
 http://qinshu.supfree.net/
 
 在线工具
-http://atool.org/
+http://www.atool.org/relateship.php
 
 有道语文达人
 http://dict.youdao.com/k12yuwen/html/relation.html
@@ -94,3 +94,6 @@ http://www.miui.com/
 
 小米MIUI网页版本
 http://www.miui.com/zt/calculator2016/dist.php
+
+符号库
+http://www.fuhaoku.com/tool/qinqiguanxi.html
