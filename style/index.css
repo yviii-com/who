@@ -23,11 +23,21 @@ a:hover{
     text-decoration: underline;
 }
 
+.wrapper{
+    max-width: 740px;
+    margin: 0 auto;
+    _width: 740px;
+}
+.container{
+    margin-bottom: 30px;
+}
+
+.mod-head{
+    line-height: 36px;
+    text-align: right;
+}
 .mod-panel {
     width: 100%;
-    max-width: 740px;
-    margin: 0 auto 30px;
-    _width: 740px;
 }
 .mod-panel .hd{
 	padding-top: 25px;
