@@ -129,3 +129,18 @@ a:hover{
 .mod-qrcode p{
     line-height: 30px;
 }
+
+.mod-my{
+    position: fixed;
+    left: 25px;
+    bottom: 25px;
+    text-align: center;
+}
+.mod-my .box{
+    width: 189px;
+    /*height: 148px;*/
+    overflow: hidden;
+}
+.mod-my p{
+    line-height: 30px;
+}
