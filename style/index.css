@@ -94,6 +94,9 @@ a:hover{
     min-width: 90px;
     margin-right:10px;
 }
+.mod-panel p span{
+    margin-right: 10px;
+}
 .mod-panel .btn{
     width: 36px;
     cursor: pointer;
