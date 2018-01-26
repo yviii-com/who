@@ -23,25 +23,48 @@
 							<p>逢年过节遇到三姑六婆，拒绝叫不出口的尴尬！轻松搞定亲戚关系～</p>
 						</div>
 						<div class="bd">
-							<p>计算类型：
-								<label for="default"><input id="default" type="radio" name="type" value="default" checked>找称呼</label>
-								<label for="chain"><input id="chain" type="radio" name="type" value="chain">找关系</label>
+							<div class="group">
+								<div class="field">
+									计算类型：
+									<label for="default">
+										<input id="default" type="radio" name="type" value="default" checked>
+										<span>找称呼</span>
+									</label>
+									<label for="chain">
+										<input id="chain" type="radio" name="type" value="chain">
+										<span>找关系</span>
+									</label>
+								</div>
 							</p>
 							<div class="group">
-								<p>我的性别：
-									<label for="male"><input id="male" type="radio" name="sex" value="1" checked>男</label>
-									<label for="female"><input id="female" type="radio" name="sex" value="0">女</label>
-								</p>
-								<p>称呼方式：
-									<label for="call"><input id="call" type="radio" name="reverse" value="0" checked>我称呼对方</label>
-									<label for="called"><input id="called" type="radio" name="reverse" value="1">对方称呼我</label>
-								</p>
+								<div class="field">
+									我的性别：
+									<label for="male">
+										<input id="male" type="radio" name="sex" value="1" checked>
+										<span>男</span>
+									</label>
+									<label for="female">
+										<input id="female" type="radio" name="sex" value="0">
+										<span>女</span>
+									</label>
+								</div>
+								<div class="field">
+									称呼方式：
+									<label for="call">
+										<input id="call" type="radio" name="reverse" value="0" checked>
+										<span>我称呼对方</span>
+									</label>
+									<label for="called">
+										<input id="called" type="radio" name="reverse" value="1">
+										<span>对方称呼我</span>
+									</label>
+								</div>
 							</div>
 							<p>
 								<textarea id="input" placeholder="称谓间用'的'字分开…"></textarea>
 							</p>
 							<p>
-								<span>快速选择：</span><br/>
+								<label>快速选择：</label><br/>
 								<span>
 									<button class="btn" data-value="爸爸">父</button>
 									<button class="btn" data-value="妈妈">母</button>
