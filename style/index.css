@@ -58,6 +58,9 @@ a:hover{
 .mod-panel .bd p{
     overflow: hidden;
 }
+.mod-panel .group{
+    margin-bottom: 5px;
+}
 .mod-panel .field{
     line-height: 28px;
 }
