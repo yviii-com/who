@@ -58,7 +58,7 @@ a:hover{
 .mod-panel .bd p{
     overflow: hidden;
 }
-.mod-panel .group{
+.mod-panel .row{
     margin-bottom: 5px;
 }
 .mod-panel .field{
