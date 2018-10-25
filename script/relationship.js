@@ -902,7 +902,12 @@
 		'd,h,f,ob':['姻兄','姻亲'],
 		'd,h,f,lb':['姻弟','姻亲'],
 		's,w,f,os':['姻姐','姻亲'],
-		's,w,f,ls':['姻妹','姻亲']
+		's,w,f,ls':['姻妹','姻亲'],
+		//其他
+		't':['老师','师父','师'],
+		't,w':['师娘','师母'],
+		't,t':['师祖','师公','师爷','太师父'],
+		't,t,t':['太师祖']
 	};
 
 	//数组去重
@@ -922,7 +927,7 @@
 	//分词解析
 	function getSelectors(str){
 		str = str.replace(/[二|三|四|五|六|七|八|九|十]{1,2}/g,'x');
-		var lists = str.replace('家','的').split('的');
+		var lists = str.replace('我','').replace('家的','的').replace('家','的').split('的');
 		var result = [];						//所有可能性
 		var match = true;
 		while(lists.length){
