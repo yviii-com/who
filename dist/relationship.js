@@ -967,7 +967,6 @@
 	function selector2id(selector,sex){
 		var result = [];
 		var hash = {};
-		var sex2 = -1;
 		if(sex<0){	//如果自己的性别不确定
 			if(selector.indexOf(',w')==0){
 				sex = 1;
