@@ -27,16 +27,15 @@
     "url": "https://github.com/mumuy/relationship/issues"
   },
   "devDependencies": {
-    "gulp": "^3.9.0",
-    "gulp-uglify": "^1.5.3",
-    "gulp-rename": "^1.2.2",
-    "tape": "^3.6.1",
-    "pys": "^1.0.2"
+    "gulp": "^3.9.1",
+    "gulp-rename": "^1.4.0",
+    "gulp-uglify": "^1.5.4",
+    "pys": "^1.0.2",
+    "tape": "^3.6.1"
   },
   "scripts": {
     "test": "node tests/test.js",
     "build": "gulp mini && npm run test"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
