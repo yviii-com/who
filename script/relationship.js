@@ -929,7 +929,7 @@
 	//分词解析
 	function getSelectors(str){
 		str = str.replace(/[二|三|四|五|六|七|八|九|十]{1,2}/g,'x');
-		var lists = str.replace('我','').replace('家的','的').replace('家','的').split('的');
+		var lists = str.replace(/我的?/,'').replace(/家的?/,'的').split('的');
 		var result = [];						//所有可能性
 		var match = true;
 		while(lists.length){
