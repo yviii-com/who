@@ -6,7 +6,6 @@ body{
     height: 100%;
     font-size: 14px;
     font-family: Arial,Helvetica,"Microsoft Yahei";
-    background: #fdfdfd;
     color:#757575;
 }
 button, input {
@@ -24,13 +23,14 @@ a:hover{
 }
 
 .wrapper{
-    max-width: 740px;
-    margin: 0 auto;
-    _width: 740px;
+    background: #fdfdfd;
 }
 .container{
-    padding: 0 15px;
-    margin-bottom: 30px;
+    padding: 0 15px 30px;
+}
+.inner{
+    max-width: 720px;
+    margin: 0 auto;
 }
 
 .mod-head{
