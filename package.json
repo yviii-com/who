@@ -27,7 +27,9 @@
     "gulp": "^4.0.2",
     "gulp-rename": "^2.0.0",
     "gulp-uglify": "^3.0.2",
-    "tape": "^5.3.1"
+    "tape": "^5.3.1",
+    "set-value": ">=4.0.1",
+    "glob-parent": ">=5.1.2"
   },
   "scripts": {
     "test": "node tests/test.js",
