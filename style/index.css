@@ -33,11 +33,42 @@ a:hover{
     margin: 0 auto;
 }
 
-.mod-head{
-    padding: 0 20px;
+.mod-head .bd{
+    padding: 10px 15px;
     line-height: 36px;
     text-align: right;
 }
+.mod-head .btn{
+    position: relative;
+    display: inline-block;
+    min-width: 90px;
+    height: 30px;
+    padding: 0 15px;
+    border: medium none;
+    background: #eee;
+    line-height: 30px;
+    text-align: center;
+    font-family: Tahoma,Arial, Helvetica,"Microsoft YaHei";
+    font-size: 15px;
+    color: #333;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 3px;
+    box-sizing: border-box;
+    outline: none;
+    -webkit-appearance: none;
+}
+.mod-head .btn:hover{
+    background: #e4e4e4;
+}
+.mod-head .btn-blue{
+    background: #2095f2;
+    color: #fff;
+}
+.mod-head .btn-blue:hover {
+    background: #207fcc;
+}
+
 .mod-panel {
     width: 100%;
 }
@@ -166,21 +197,6 @@ a:hover{
 .mod-qrcode p{
     line-height: 30px;
 }
-
-.mod-my{
-    position: fixed;
-    left: 25px;
-    bottom: 25px;
-    text-align: center;
-}
-.mod-my .box{
-    width: 189px;
-    overflow: hidden;
-}
-.mod-my p{
-    line-height: 30px;
-}
-
 @media screen and (max-width: 800px)  {
     .mod-panel .hd{
         padding-top: 10px;
@@ -198,7 +214,7 @@ a:hover{
         height: 80px;
         box-sizing: border-box;
     }
-    .mod-panel p span{
+    .mod-panel .bd p span{
         float: left;
         width: 50%;
         text-align: center;
@@ -209,12 +225,11 @@ a:hover{
         margin-bottom: 5px;
         line-height: 24px;
     }
-
-    .mod-qrcode,.mod-my{
+    .mod-qrcode{
         position: static;
         margin-bottom: 10px;
     }
-    .mod-qrcode .box,.mod-my .box{
+    .mod-qrcode .box{
         margin: 0 auto;
     }
 }
