@@ -147,13 +147,14 @@
 		<script src="script/relationship.js"></script>
 		<script>
 			(function(){
+				var $module = document.getElementsByName('mod-panel')[0];
 				var $type = document.getElementsByName('type');
 				var $sex = document.getElementsByName('sex');
 				var $reverse = document.getElementsByName('reverse');
 				var $radio = document.getElementsByTagName('INPUT');
 				var $textarea = document.getElementsByTagName('TEXTAREA');
 				var $group = DOMUtil.getElementsByClassName('group')[0];
-				var $btns = DOMUtil.getElementsByClassName('btn');
+				var $btns = DOMUtil.getElementsByClassName('btn',$module);
 				var $buttons = DOMUtil.getElementsByClassName('input-button');
 				var toggle = function(sex){
 					if(sex){		//男女判断
