@@ -16,6 +16,7 @@ test('relationship.js show to be tested', function (t) {
   t.deepEqual(relationship({text:'哥哥的弟弟的爸爸的儿子',sex:1}),['兄弟','自己']);
   t.deepEqual(relationship({text:'爸爸的舅舅',sex:0,reverse:true}),['甥孙女']);
   t.deepEqual(relationship({text:'舅爷爷',type:'chain'}),['爸爸的妈妈的兄弟']);
+  t.deepEqual(relationship({text:'堂兄弟的孩子',sex:1}),['堂侄','堂侄女']);
 
   t.end();
 });
