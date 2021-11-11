@@ -73,14 +73,18 @@ a:hover{
     width: 100%;
 }
 .mod-panel .hd{
-	padding-top: 25px;
-	margin-bottom: 30px;
-	line-height: 30px;
+	padding: 15px 0;
+	line-height: 24px;
 	text-align: center;
 }
 .mod-panel .hd h1{
+	line-height: 30px;
 	font-size: 24px;
 	color:#212121;
+}
+.mod-panel .hd b{
+	margin: 0 3px;
+	color: #fd7474;
 }
 .mod-panel .bd{
 	max-width: 500px;
