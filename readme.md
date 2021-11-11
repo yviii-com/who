@@ -7,7 +7,7 @@
 
 演示地址：[https://passer-by.com/relationship/](http://passer-by.com/relationship/ )
 
-借助这套算法结合react native开发的APP: [https://passer-by.com/relationship/app.html](http://passer-by.com/relationship/app.html)
+借助这套算法结合vue开发的APP: [https://passer-by.com/relationship/vue/](http://passer-by.com/relationship/vue/)
 
 在微信中搜索“亲戚关系”，还可以体验小程序版本
 
