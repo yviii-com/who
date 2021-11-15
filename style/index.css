@@ -93,57 +93,133 @@ a:hover{
 .mod-panel .bd p{
     overflow: hidden;
 }
+.mod-panel .c-hd{
+	height: 36px;
+	margin-bottom: 15px;
+	border-bottom: 1px solid #e2e2e2;
+}
+.mod-panel .c-hd li{
+	float: left;
+	width: 33.33%;
+	height: 36px;
+	line-height: 36px;
+}
+.mod-panel .c-hd li a{
+	display: block;
+	text-align: center;
+	text-decoration: none;
+	color: #999;
+}
+.mod-panel .c-hd li.active a{
+	position: relative;
+	color: #333;
+}
+.mod-panel .c-hd li.active a::after{
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	display: block;
+	content: '';
+	width: 16px;
+	height: 4px;
+	margin-left: -8px;
+	background: #2095f2;
+	border-radius: 3px;
+}
+.mod-panel .c-panel{
+	display: none;
+}
+.mod-panel .operation{
+	margin: 15px 0;
+}
 .mod-panel .row{
     margin-bottom: 5px;
 }
 .mod-panel .field{
     line-height: 28px;
 }
-.mod-panel .field span,.mod-panel .field input{
+.mod-panel .bd label{
+	display: inline-block;
+	min-width: 90px;
+	margin-right: 15px;
+}
+.mod-panel .bd label span,.mod-panel .bd label input{
     vertical-align: middle;
 }
-.mod-panel .input-text{
-    width: 60px;
-    height: 20px;
-    margin-right:20px;
-    border: 1px solid #ebebeb;
-    padding: 4px 8px;
+.mod-panel .bd .input-text{
+	display: inline-block;
+    width: 100%;
+    height: 30px;
+    border: 1px solid #e8e8e8;
+    padding: 5px 10px;
+	box-sizing: border-box;
     line-height: 20px;
     outline: none;
 }
-.mod-panel .input-button {
-    height: 30px;
-    width: 80px;
-    margin: 10px 10px 10px 0;
-    background: #4bae4f;
+.mod-panel .bd .input-text-small{
+	width: 200px;
+}
+.mod-panel .bd .btn {
+    height: 32px;
+    min-width: 90px;
+    background: #eeeeee;
     border: medium none;
     line-height: 30px;
     vertical-align: middle;
     font-size: 16px;
-    color: #fff;
+    color: #333333;
     cursor: pointer;
     outline: none;
 }
-.mod-panel label{
-    display: inline-block;
-    min-width: 90px;
-    margin-right:10px;
+.mod-panel .bd .btn:hover{
+	background: #e4e4e4;
 }
-.mod-panel p span{
-    margin-right: 10px;
+.mod-panel .bd .btn-green{
+	background: #4bae4f;
+	color: #fff;
 }
-.mod-panel .btn{
-    width: 36px;
+.mod-panel .bd .btn-green:hover{
+	background: #47a04b;
+}
+.mod-panel .bd .btn-red{
+	background: #f56954;
+	color: #fff;
+}
+.mod-panel .bd .btn-red:hover{
+	background: #f4543c;;
+}
+.mod-panel .bd .btn-orange{
+	background: #ff9000;
+	color: #fff;
+}
+.mod-panel .bd .btn-orange:hover{
+	background: #e18309;
+}
+.mod-panel .bd .btn-small{
+    min-width: 40px;
     cursor: pointer;
 }
-.mod-panel textarea{
+.mod-panel .bd .btn[disabled]{
+	background: #f0f0f0;
+	color: #aaa;
+}
+.mod-panel .bd textarea{
     display: block;
-	width: 90%;
+	width: 100%;
 	height: 150px;
 	padding:5px 10px;
-	border: 1px solid #ebebeb;
+	background: #f8f8f8;
+	border: 1px solid #e8e8e8;
+	box-sizing: border-box;
+	border-radius: 5px;
 	resize: none;
 	outline: none;
+}
+.mod-panel .bd p{
+    line-height: 30px;
+}
+.mod-panel .bd p span{
+    margin-right: 10px;
 }
 .mod-panel .ft{
     padding-top: 20px;

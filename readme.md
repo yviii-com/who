@@ -43,8 +43,9 @@ relationship(options);
 ```js
 var options = {
 	text:'',		//输入的文本
+	target:'',		//针对对象：空表示自己
 	sex:-1,			//自己的性别：0女性,1男性
-	type:'default',		//转换类型：'default'算称谓,'chain'算关系(此时reverse无效)
+	type:'default',		//转换类型：'default'算称谓,'chain'算关系
 	reverse:false		//称呼方式：true对方称呼我,false我称呼对方
 };
 ```

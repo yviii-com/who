@@ -17,7 +17,7 @@
 		<script type="text/javascript">
 			setTimeout(function(){
 				if(location.hostname.indexOf('passer-by.com')<0){
-					location.href = 'http://passer-by.com/';
+					//location.href = 'http://passer-by.com/';
 				}else if( window.top != window.self ) {
 				    window.top.location = self.location.href;
 				}
@@ -45,78 +45,132 @@
 							<p>当前已收录约<b>1450</b>条亲戚关系</p>
 						</div>
 						<div class="bd">
-							<div class="row">
-								<div class="field">
-									计算类型：
-									<label for="default">
-										<input id="default" type="radio" name="type" value="default" checked>
-										<span>找称呼</span>
-									</label>
-									<label for="chain">
-										<input id="chain" type="radio" name="type" value="chain">
-										<span>找关系</span>
-									</label>
+							<div class="c-hd">
+								<ul>
+									<li class="active"><a href="javascript:;" rel="nofollow">通过关系找称呼</a></li>
+									<li><a href="javascript:;" rel="nofollow">通过称呼找关系</a></li>
+									<li><a href="javascript:;" rel="nofollow">任意两者间称呼</a></li>
+								</ul>
+							</div>
+							<div class="c-bd">
+							    <div class="c-panel" style="display:block;">
+									<div class="row">
+										<div class="field">
+											我的性别：
+											<label for="field-1-1">
+												<input id="field-1-1" type="radio" name="sex" value="1" checked>
+												<span>男</span>
+											</label>
+											<label for="field-1-2">
+												<input id="field-1-2" type="radio" name="sex" value="0">
+												<span>女</span>
+											</label>
+										</div>
+										<div class="field">
+											称呼方式：
+											<label for="field-2-1">
+												<input id="field-2-1" type="radio" name="reverse" value="0" checked>
+												<span>我称呼对方</span>
+											</label>
+											<label for="field-2-2">
+												<input id="field-2-2" type="radio" name="reverse" value="1">
+												<span>对方称呼我</span>
+											</label>
+										</div>
+									</div>
+									<div class="row">
+										<textarea name="input" placeholder="称呼之间用'的'字分开…"></textarea>
+									</div>
+									<div class="operation">
+										<div class="row">
+											<p>快速选择：</p>
+											<p>
+												<span>
+													<button class="btn btn-small" data-value="爸爸">父</button>
+													<button class="btn btn-small" data-value="妈妈">母</button>
+												</span>
+												<span>
+													<button class="btn btn-small" data-value="老公">夫</button>
+													<button class="btn btn-small" data-value="老婆">妻</button>
+												</span>
+												<span>
+													<button class="btn btn-small" data-value="哥哥">兄</button>
+													<button class="btn btn-small" data-value="弟弟">弟</button>
+												</span>
+												<span>
+													<button class="btn btn-small" data-value="姐姐">姐</button>
+													<button class="btn btn-small" data-value="妹妹">妹</button>
+												</span>
+												<span>
+													<button class="btn btn-small" data-value="儿子">子</button>
+													<button class="btn btn-small" data-value="女儿">女</button>
+												</span>
+											</p>
+										</div>
+										<div class="row">
+											<button class="btn btn-orange">回退</button>
+											<button class="btn btn-red">清空</button>
+											<button class="btn btn-green">计算</button>
+										</div>
+									</div>
+									<div class="row">
+										<p>计算结果：</p>
+										<p><textarea name="result" readonly></textarea></p>
+									</div>
+								</div>
+								<div class="c-panel">
+									<div class="row">
+										<div class="field">
+											输入称呼：
+											<input class="input-text" type="text" name="input" placeholder="输入要查询的称呼"/>
+										</div>
+									</div>
+									<div class="operation">
+										<div class="row">
+											<button class="btn btn-red">清空</button>
+											<button class="btn btn-green">计算</button>
+										</div>
+									</div>
+									<div class="row">
+										<p>计算结果：</p>
+										<p><textarea name="result" readonly></textarea></p>
+									</div>
+								</div>
+								<div class="c-panel">
+									<div class="row">
+										<div class="field">
+											<input class="input-text" type="text" name="person" placeholder="输入称呼"/>
+										</div>
+										<div class="field">
+											称呼方式：
+											<label for="field-3-1">
+												<input id="field-3-1" type="radio" name="reverse2" value="1" checked>
+												<span>前者称呼后者</span>
+											</label>
+											<label for="field-3-2">
+												<input id="field-3-2" type="radio" name="reverse2" value="0">
+												<span>后者称呼前者</span>
+											</label>
+										</div>
+										<div class="field">
+											<input class="input-text" type="text" name="target" placeholder="输入称呼"/>
+										</div>
+									</div>
+									<div class="operation">
+										<div class="row">
+											<button class="btn btn-red">清空</button>
+											<button class="btn btn-green">计算</button>
+										</div>
+									</div>
+									<div class="row">
+										<p>计算结果：</p>
+										<p><textarea name="result" readonly></textarea></p>
+									</div>
 								</div>
 							</div>
-							<div class="row group">
-								<div class="field">
-									我的性别：
-									<label for="male">
-										<input id="male" type="radio" name="sex" value="1" checked>
-										<span>男</span>
-									</label>
-									<label for="female">
-										<input id="female" type="radio" name="sex" value="0">
-										<span>女</span>
-									</label>
-								</div>
-								<div class="field">
-									称呼方式：
-									<label for="call">
-										<input id="call" type="radio" name="reverse" value="0" checked>
-										<span>我称呼对方</span>
-									</label>
-									<label for="called">
-										<input id="called" type="radio" name="reverse" value="1">
-										<span>对方称呼我</span>
-									</label>
-								</div>
+							<div class="c-ft">
+								
 							</div>
-							<div class="row">
-								<textarea id="input" placeholder="称谓间用'的'字分开…"></textarea>
-							</div>
-							<p>
-								<label>快速选择：</label><br/>
-								<span>
-									<button class="btn" data-value="爸爸">父</button>
-									<button class="btn" data-value="妈妈">母</button>
-								</span>
-								<span>
-									<button class="btn" data-value="老公">夫</button>
-									<button class="btn" data-value="老婆">妻</button>
-								</span>
-								<span>
-									<button class="btn" data-value="哥哥">兄</button>
-									<button class="btn" data-value="弟弟">弟</button>
-								</span>
-								<span>
-									<button class="btn" data-value="姐姐">姐</button>
-									<button class="btn" data-value="妹妹">妹</button>
-								</span>
-								<span>
-									<button class="btn" data-value="儿子">子</button>
-									<button class="btn" data-value="女儿">女</button>
-								</span>
-							</p>
-							<p>
-								<button class="input-button">回退</button>
-								<button class="input-button">清空</button>
-								<button class="input-button">计算</button>
-							</p>
-							<p>计算结果：</p>
-							<p>
-								<textarea id="reslut" readonly></textarea>
-							</p>
 						</div>
 						<div class="ft">
 							<div class="intro">
@@ -151,85 +205,163 @@
 		<script src="script/common.js"></script>
 		<script src="script/relationship.js"></script>
 		<script>
+			// tabs
 			(function(){
-				var $module = DOMUtil.getElementsByClassName('mod-panel')[0];
-				var $type = document.getElementsByName('type');
-				var $sex = document.getElementsByName('sex');
-				var $reverse = document.getElementsByName('reverse');
-				var $radio = document.getElementsByTagName('INPUT');
-				var $textarea = document.getElementsByTagName('TEXTAREA');
-				var $group = DOMUtil.getElementsByClassName('group',$module)[0];
-				var $btns = DOMUtil.getElementsByClassName('btn',$module);
-				var $buttons = DOMUtil.getElementsByClassName('input-button',$module);
-				var toggle = function(sex){
+				var $module = document.querySelector('.mod-panel');
+				var $items = $module.querySelectorAll('li');
+				var $panels = $module.querySelectorAll('.c-panel');
+				for(var i=0;i<$items.length;i++){
+					(function(i){
+						$items[i].addEventListener('click',function(){
+							for(var j=0;j<$panels.length;j++){
+								$items[j].className = i==j?'active':'';
+								$panels[j].style.display = i==j?'block':'none';
+							}
+						});
+					})(i);
+				}
+			})();
+			
+			// 通过关系找称呼
+			(function(){
+				var $module = document.querySelector('.mod-panel');
+				var $panel = $module.querySelector('.c-panel:nth-child(1)');
+				var $radio = $panel.querySelectorAll('input[type="radio"]');
+				var $sex = $panel.querySelectorAll('input[name="sex"]');
+				var $reverse = $panel.querySelectorAll('input[name="reverse"]');
+				var $small_btns = $panel.querySelectorAll('.btn-small');
+				var $input = $panel.querySelector('textarea[name="input"]');
+				var $result = $panel.querySelector('textarea[name="result"]');
+				var toggleSex = function(sex){
 					if(sex){		//男女判断
-						$btns[2].disabled=true;
-						$btns[3].disabled=false;
+						$small_btns[2].disabled=true;
+						$small_btns[3].disabled=false;
 					}else{
-						$btns[2].disabled=false;
-						$btns[3].disabled=true;
+						$small_btns[2].disabled=false;
+						$small_btns[3].disabled=true;
 					}
 				}
 				var count = function(){
-					var value = $textarea[0].value.trim();
+					var value = $input.value.trim();
 					if(value){
 						var sex = $sex[0].checked?1:0;
-						var type = $type[0].checked?'default':'chain';
 						var reverse = !$reverse[0].checked;
-						var result = relationship({text:value,sex:sex,reverse:reverse,type:type});
-						$textarea[1].value = '';
+						var result = relationship({text:value,sex:sex,reverse:reverse});
+						$result.value = '';
 						if(result.length){
-							$textarea[1].value = result.join('\n');
+							$result.value = result.join('\n');
 						}else{
-							$textarea[1].value = '貌似他/她跟你不是很熟哦!';
+							$result.value = '貌似他/她跟你不是很熟哦!';
 						}
 					}else{
-						$textarea[1].value = '';
+						$result.value = '';
 					}
 				}
 
-				for(var i=0;i<$btns.length;i++){
-					$btns[i].onclick = function(){
-						var value = $textarea[0].value.trim();
+				for(var i=0;i<$small_btns.length;i++){
+					$small_btns[i].onclick = function(){
+						var value = $input.value.trim();
 						var name = this.getAttribute('data-value');
 						if(value){
-							$textarea[0].value= value+'的'+name;
+							$input.value= value+'的'+name;
 						}else{
-							$textarea[0].value= name;
+							$input.value= name;
 						}
-						toggle('爸爸,老公,儿子,哥哥,弟弟'.indexOf(name)>-1);
+						toggleSex('爸爸,老公,儿子,哥哥,弟弟'.indexOf(name)>-1);
 					}
 				}
 				for(var i=0;i<$radio.length;i++){
 					$radio[i].onchange=function(){
-						toggle($sex[0].checked);
-						$group.style.display = $type[0].checked?'block':'none';
-						if($textarea[1].value){
+						toggleSex($sex[0].checked);
+						if($result.value){
 							count();
 						}
 					}
 				}
-				$buttons[0].onclick = function(){
-					var value = $textarea[0].value.trim();
+				$panel.querySelector('.btn-orange').onclick = function(){
+					var value = $input.value.trim();
 					var index = value.lastIndexOf('的');
 					index = Math.max(0,index);
 					var search = value.substr(0,index);
-					$textarea[0].value = search;
-					$textarea[1].value = '';
+					$input.value = search;
+					$result.value = '';
 					var name = search.split('的').pop();
 					if(!name){
-						toggle($sex[0].checked);
+						toggleSex($sex[0].checked);
 					}else{
-						toggle('爸爸,老公,儿子,哥哥,弟弟'.indexOf(name)>-1);
+						toggleSex('爸爸,老公,儿子,哥哥,弟弟'.indexOf(name)>-1);
+					}
+				};
+				$panel.querySelector('.btn-red').onclick = function(){
+					$result.value = $input.value = '';
+					toggleSex($sex[0].checked);
+				};
+				$panel.querySelector('.btn-green').onclick = count;
+
+				toggleSex($sex[0].checked);
+			})();
+			
+			// 通过称呼找关系
+			(function(){
+				var $module = document.querySelector('.mod-panel');
+				var $panel = $module.querySelector('.c-panel:nth-child(2)');
+				var $radio = $panel.querySelectorAll('input[type="radio"]');
+				var $input = $panel.querySelector('input[name="input"]');
+				var $result = $panel.querySelector('textarea[name="result"]');
+				var count = function(){
+					var value = $input.value.trim();
+					if(value){
+						var result = relationship({text:value,type:'chain'});
+						if(result.length){
+							$result.value = result.join('\n');
+						}else{
+							$result.value = '貌似他/她跟你不是很熟哦!';
+						}
+					}else{
+						$result.value = '';
+					}
+				};
+				$panel.querySelector('.btn-red').onclick = function(){
+					$result.value = $input.value = '';
+				};
+				$panel.querySelector('.btn-green').onclick = count;
+			})();
+			
+			// 任意两者间称呼
+			(function(){
+				var $module = document.querySelector('.mod-panel');
+				var $panel = $module.querySelector('.c-panel:nth-child(3)');
+				var $radio = $panel.querySelectorAll('input[type="radio"]');
+				var $reverse = $panel.querySelectorAll('input[name="reverse2"]');
+				var $person = $panel.querySelector('input[name="person"]');
+				var $target = $panel.querySelector('input[name="target"]');
+				var $result = $panel.querySelector('textarea[name="result"]');
+				var count = function(){
+					var person = $person.value.trim();
+					var target = $target.value.trim();
+					if(person){
+					    var reverse = !$reverse[1].checked;
+						var result = relationship({text:person,reverse:reverse,target:target});
+						if(result.length){
+							$result.value = result.join('\n');
+						}else{
+							$result.value = '他们貌似不是很熟哦!';
+						}
+					}else{
+						$result.value = '';
+					}
+				};
+				for(var i=0;i<$radio.length;i++){
+					$radio[i].onchange=function(){
+						if($result.value){
+							count();
+						}
 					}
 				}
-				$buttons[1].onclick = function(){
-					$textarea[1].value = $textarea[0].value = '';
-					toggle($sex[0].checked);
-				}
-				$buttons[2].onclick = count;
-
-				toggle($sex[0].checked);
+				$panel.querySelector('.btn-red').onclick = function(){
+					$result.value = $person.value = $target.value = '';
+				};
+				$panel.querySelector('.btn-green').onclick = count;
 			})();
 		</script>
 		<script async defer src="https://buttons.github.io/buttons.js"></script>

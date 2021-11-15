@@ -610,7 +610,7 @@
 		'f,m,m,xs,d,d':['再从母姑母'],
 		'f,m,m,xs,d,d,h':['再从母姑父'],
 		// 舅表*
-		'f,m,xb':['舅公','舅祖父','舅老爷','舅爷爷','舅爷','舅祖','舅奶爷','太舅父','x舅公'],
+		'f,m,xb':['舅公','舅祖父','舅老爷','舅爷爷','舅爷','舅祖','舅奶爷','太舅父','x舅老爷','x舅公'],
 		'f,m,xb,w':['舅婆','舅祖母','舅奶奶','舅奶','妗婆','太舅母'],
 		// 舅表叔表
 		'f,m,xb,s&o':['舅表伯父','表伯父','表伯'],
@@ -1438,6 +1438,8 @@
 		'ob':['哥哥','哥','兄','阿哥','大佬','老哥','兄长','胞哥','大哥','x哥'],
 		'ob,w':['嫂子','嫂','嫂嫂','阿嫂','兄嫂','大嫂','x嫂'],
 		'ob,w,f':['兄姻父','兄眷父','姻父'],
+		'ob,w,f,f':['兄姻公'],
+		'ob,w,f,m':['兄姻婆'],
 		'ob,w,m':['兄姻母','兄眷母','姻母'],
 		'ob,w,ob':['兄姻兄','兄眷兄','姻兄'],
 		'ob,w,ob,w':['兄姻兄妇','兄眷兄妇'],
@@ -1453,8 +1455,10 @@
 		'ob,w,xs,d':['兄姻甥女','兄眷甥女'],
 		'lb':['弟弟','弟','细佬','胞弟','老弟','x弟'],
 		'lb,w':['弟妹','弟媳','弟媳妇','弟妇','x弟妹'],
-		'lb,w,f':['弟姻父','姻父'],
-		'lb,w,m':['弟姻母','姻母'],
+		'lb,w,f':['弟姻父','弟眷母','姻父'],
+		'lb,w,f,f':['弟姻公'],
+		'lb,w,f,m':['弟姻婆'],
+		'lb,w,m':['弟姻母','弟眷母','姻母'],
 		'lb,w,ob':['弟姻兄','弟眷兄','姻兄'],
 		'lb,w,ob,w':['弟姻兄妇','弟眷兄妇'],
 		'lb,w,lb':['弟姻弟','弟眷弟','姻弟'],
@@ -1468,10 +1472,10 @@
 		'lb,w,xs,s':['弟姻甥男','弟眷甥男'],
 		'lb,w,xs,d':['弟姻甥女','弟眷甥女'],
 		'xb':['兄弟'],
-		'xb,w,f':['姻伯父','姻世伯'],
-		'xb,w,f,f':['姻伯公'],
-		'xb,w,f,m':['姻伯婆'],
-		'xb,w,m':['姻伯母'],
+		'xb,w,f,ob':['姻伯父'],
+		'xb,w,f,ob,w':['姻伯母'],
+		'xb,w,f,lb':['姻叔父'],
+		'xb,w,f,lb,w':['姻叔母'],
 		'0,xb,w,xb,s':['舅眷舅男'],
 		'1,xb,w,xb,s':['叔眷舅男'],
 		'0,xb,w,xb,d':['舅眷舅女'],
@@ -1558,10 +1562,10 @@
 		'ls,h,xs,s':['妹姻侄男'],
 		'ls,h,xs,d':['妹姻侄女'],
 		'xs':['姐妹','姊妹'],
-		'xs,h,f':['姻伯父','姻世伯'],
-		'xs,h,f,f':['姻伯公'],
-		'xs,h,f,m':['姻伯婆'],
-		'xs,h,m':['姻伯母'],
+		'xs,h,f,ob':['姻伯父'],
+		'xs,h,f,ob,w':['姻伯母'],
+		'xs,h,f,lb':['姻叔父'],
+		'xs,h,f,lb,w':['姻叔母'],
 		'0,xs,h,xb,s':['姨姻叔男'],
 		'1,xs,h,xb,s':['姑姻叔男'],
 		'0,xs,h,xb,d':['姨姻叔女'],
@@ -1767,15 +1771,24 @@
 		'd,h,xs,d':['女息姻外孙女','息姻外孙女'],
 	};
 
-	//数组去重
+	// 数组去重
 	var unique = function(arr) {
 		var result = [], hash = {};
 		var item;
 		for (var i = 0; (item = arr[i]) != null; i++) {
 			var temp = item.replace(/[ol](?=s|b)/,'x').replace(/&[ol]/,''); //对特殊语法标识相互包含的行为去重
-			if (!hash[item]&&!hash[temp]){
-				result.push(item);
+			if (temp==item&&!hash[temp]){
 				hash[item] = true;
+			}
+		}
+		for (var i = 0; (item = arr[i]) != null; i++) {
+			var temp = item.replace(/[ol](?=s|b)/,'x').replace(/&[ol]/,''); //对特殊语法标识相互包含的行为去重
+			if (temp!=item){
+				if(!hash[temp]){
+					result.push(item);
+				}
+			}else{
+				result.push(item);
 			}
 		}
 		return result;
@@ -1820,7 +1833,7 @@
 		return match?result:[];
 	}
 
-	// 简化选择器
+	// 选择器转ID
 	function selector2id(selector,sex){
 		var result = [];
 		var hash = {};
@@ -1872,7 +1885,7 @@
 		return unique(result);
 	}
 
-	//获取数据
+	// 通过ID获取数据
 	function getDataById(id){
 		var items = [];
 		var getData = function(d){
@@ -1918,7 +1931,7 @@
 		return items;
 	}
 
-	//逆转ID
+	// 逆转ID
 	function reverseId(id,sex){
 		var hash = {
 			f:['d','s'],
@@ -1956,7 +1969,7 @@
 		return '';
 	}
 
-	//获取关系链条
+	// 通过ID获取关系链条
 	function getChainById(id){
 		var arr = id.split(',');
 		var items = [];
@@ -1967,45 +1980,93 @@
 		return items.join('的');
 	}
 
+	// 合并选择器，查找两个对象之间的关系
+	function mergeSelector(from,to){
+		var Index = 0;
+		var from_arr = from.split(',');
+		var to_arr = to.split(',');
+		for(var i=0;i<from_arr.length&&i<to_arr.length;i++){
+			if(from_arr[i]!=to_arr[i]){
+				break;
+			}
+		}
+		var mid_sex = 0;
+		if(to_arr[i-1].match(/([fhs1](&[ol])?|[olx]b)$/)){
+			mid_sex=1;
+		}
+		var sex = -1;
+		if(to){			
+			if(to.match(/,([fhs1](&[ol])?|[olx]b)$/)){
+				sex=1;
+			}else{
+				sex=0;
+			}
+		}
+		if(i){	
+			var from_sub = from_arr.slice(i).join(',');
+			var to_sub = to_arr.slice(i).join(',');
+			return {
+				'selector':(to_sub?','+reverseId(to_sub,mid_sex):'')+(from_sub?','+from_sub:''),
+				'sex':sex
+			};
+		}else{
+			return {
+				'selector':from,
+				'sex':sex
+			};
+		}
+	}
+
 	return (function (parameter){
 		var options = Object.assign({
 			text:'',
+			target:'',
 			sex:-1,
 			type:'default',		//为'chain'时,reverse无效
 			reverse:false
 		},parameter);
-		var selectors = getSelectors(options.text);
-		// console.log('[selectors]',selectors);
+		var sex = options.sex;
+		var from_selectors = getSelectors(options.text);
+		var to_selectors = options.target?getSelectors(options.target):[''];
+		// console.log('[selectors]',from_selectors,to_selectors);
 		var result = [];							//匹配结果
-		for(var i = 0;i<selectors.length;i++){		//遍历所有可能性
-			var ids = selector2id(selectors[i],options.sex);
-			// console.log('[ids]',ids);
-			for(var j=0;j<ids.length;j++){
-				var id = ids[j];
-				if(options.type=='chain'){
-					var item = getChainById(id);
-					if(item){
-						result.push(item);
-					}
-				}else{
-					if(options.reverse){
-						id = reverseId(id,options.sex);
-					}
-					var items = getDataById(options.sex+','+id);
-					if(!items.length){
-						items = getDataById(id);
-					}
-					if(!items.length){
-						if(id.indexOf('w')==0||id.indexOf('h')==0){  //找不到关系，随爱人叫
-							items = getDataById(id.substr(2));
+		from_selectors.forEach(function(from){
+			to_selectors.forEach(function(to){
+				var data = mergeSelector(from,to);
+				// console.log('#data#',data);
+				sex = data['sex']>-1?data['sex']:options.sex;
+				var ids = selector2id(data['selector'],sex);
+				// console.log('[ids]',ids);
+				for(var j=0;j<ids.length;j++){
+					var id = ids[j];
+					if(options.type=='chain'){
+						if(options.reverse){
+							id = reverseId(id,sex);
+						}
+						var item = getChainById(id);
+						if(item){
+							result.push(item);
+						}
+					}else{
+						if(options.reverse){
+							id = reverseId(id,sex);
+						}
+						var items = getDataById(sex+','+id);
+						if(!items.length){
+							items = getDataById(id);
+						}
+						if(!items.length){
+							if(id.indexOf('w')==0||id.indexOf('h')==0){  //找不到关系，随爱人叫
+								items = getDataById(id.substr(2));
+							}
+						}
+						if(items.length){
+							result = result.concat(items);
 						}
 					}
-					if(items.length){
-						result = result.concat(items);
-					}
 				}
-			}
-		}
+			});
+		});
 		return unique(result);
 	});
 });
