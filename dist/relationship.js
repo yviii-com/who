@@ -1968,15 +1968,12 @@
 	}
 
 	return (function (parameter){
-		var options = {
+		var options = Object.assign({
 			text:'',
 			sex:-1,
 			type:'default',		//为'chain'时,reverse无效
 			reverse:false
-		};
-		for (var p in parameter) {
-			options[p] = parameter[p];
-		}
+		},parameter);
 		var selectors = getSelectors(options.text);
 		// console.log('[selectors]',selectors);
 		var result = [];							//匹配结果
