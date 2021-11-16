@@ -1990,9 +1990,13 @@
 				break;
 			}
 		}
-		var mid_sex = 0;
-		if(to_arr[i-1].match(/([fhs1](&[ol])?|[olx]b)$/)){
-			mid_sex=1;
+		var mid_sex = -1;
+		if(to_arr[i-1]){			
+			if(to_arr[i-1].match(/([fhs1](&[ol])?|[olx]b)$/)){
+				mid_sex=1;
+			}else{
+				mid_sex=0;
+			}
 		}
 		var sex = -1;
 		if(to){			
@@ -2005,6 +2009,8 @@
 		if(i){	
 			var from_sub = from_arr.slice(i).join(',');
 			var to_sub = to_arr.slice(i).join(',');
+			
+			console.log('#from_sub#',mid_sex,from_sub,to_sub,reverseId(to_sub,mid_sex));
 			return {
 				'selector':(to_sub?','+reverseId(to_sub,mid_sex):'')+(from_sub?','+from_sub:''),
 				'sex':sex
@@ -2033,7 +2039,7 @@
 		from_selectors.forEach(function(from){
 			to_selectors.forEach(function(to){
 				var data = mergeSelector(from,to);
-				// console.log('#data#',data);
+				 console.log('#data#',data);
 				sex = data['sex']>-1?data['sex']:options.sex;
 				var ids = selector2id(data['selector'],sex);
 				// console.log('[ids]',ids);
