@@ -17,7 +17,7 @@
 		<script type="text/javascript">
 			setTimeout(function(){
 				if(location.hostname.indexOf('passer-by.com')<0){
-					location.href = 'http://passer-by.com/';
+					//location.href = 'http://passer-by.com/';
 				}else if( window.top != window.self ) {
 				    window.top.location = self.location.href;
 				}
@@ -43,7 +43,7 @@
 						<div class="hd">
 							<h1>中国亲戚关系计算器</h1>
 							<p>逢年过节遇到三姑六婆，拒绝叫不出口的尴尬！轻松搞定亲戚关系～</p>
-							<p>当前已收录约<b>1450</b>条亲戚关系</p>
+							<p>当前已收录约<b>1650</b>条亲戚关系</p>
 						</div>
 						<div class="bd">
 							<div class="c-hd">
@@ -215,7 +215,6 @@
 				</div>
 			</div>
 		</div>
-		<script src="script/common.js"></script>
 		<script src="script/relationship.js"></script>
 		<script>
 			// tabs
@@ -269,7 +268,16 @@
 					}else{
 						$result.value = '';
 					}
-				}
+				};
+				var bindChange = function(){
+					var value = $input.value.trim();
+					var name = value.split('的').pop();
+					if(!name){
+						toggleSex($sex[0].checked);
+					}else{
+						toggleSex('爸爸,老公,儿子,哥哥,弟弟'.indexOf(name)>-1);
+					}
+				};
 
 				for(var i=0;i<$small_btns.length;i++){
 					$small_btns[i].onclick = function(){
@@ -291,7 +299,16 @@
 						}
 					}
 				}
-				$panel.querySelector('.btn-orange').onclick = function(){
+				var hander = null;
+				$input.addEventListener('paste',function(){
+					hander&&clearTimeout(bindChange,250);
+					hander = setTimeout(bindChange,250);
+				});
+				$input.addEventListener('input',function(){
+					hander&&clearTimeout(bindChange,250);
+					hander = setTimeout(bindChange,250);
+				});
+				$panel.querySelector('.btn-orange').addEventListener('click',function(){
 					var value = $input.value.trim();
 					var index = value.lastIndexOf('的');
 					index = Math.max(0,index);
@@ -304,12 +321,12 @@
 					}else{
 						toggleSex('爸爸,老公,儿子,哥哥,弟弟'.indexOf(name)>-1);
 					}
-				};
-				$panel.querySelector('.btn-red').onclick = function(){
+				});
+				$panel.querySelector('.btn-red').addEventListener('click',function(){
 					$result.value = $input.value = '';
 					toggleSex($sex[0].checked);
-				};
-				$panel.querySelector('.btn-green').onclick = count;
+				});
+				$panel.querySelector('.btn-green').addEventListener('click',count);
 
 				toggleSex($sex[0].checked);
 			})();
