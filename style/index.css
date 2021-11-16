@@ -289,6 +289,18 @@ a:hover{
         line-height: 24px;
         overflow: hidden;
     }
+	.mod-panel .c-hd ul{
+		overflow-x: auto;
+		white-space: nowrap;
+	}
+	.mod-panel .c-hd li{
+		float: none;
+		display: inline-block;
+		width: auto;
+	}
+	.mod-panel .c-hd li a{
+		padding: 0 4px;
+	}
     .mod-panel textarea{
         width: 100%;
         height: 80px;
