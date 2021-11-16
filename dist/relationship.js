@@ -1785,10 +1785,14 @@
 			var temp = item.replace(/[ol](?=s|b)/,'x').replace(/&[ol]/,''); //对特殊语法标识相互包含的行为去重
 			if (temp!=item){
 				if(!hash[temp]){
-					result.push(item);
+					if(result.indexOf(item)==-1){
+						result.push(item);
+					}
 				}
 			}else{
-				result.push(item);
+				if(result.indexOf(item)==-1){
+					result.push(item);
+				}
 			}
 		}
 		return result;
@@ -2009,8 +2013,6 @@
 		if(i){	
 			var from_sub = from_arr.slice(i).join(',');
 			var to_sub = to_arr.slice(i).join(',');
-			
-			console.log('#from_sub#',mid_sex,from_sub,to_sub,reverseId(to_sub,mid_sex));
 			return {
 				'selector':(to_sub?','+reverseId(to_sub,mid_sex):'')+(from_sub?','+from_sub:''),
 				'sex':sex
@@ -2039,7 +2041,7 @@
 		from_selectors.forEach(function(from){
 			to_selectors.forEach(function(to){
 				var data = mergeSelector(from,to);
-				 console.log('#data#',data);
+				 // console.log('[data]',data);
 				sex = data['sex']>-1?data['sex']:options.sex;
 				var ids = selector2id(data['selector'],sex);
 				// console.log('[ids]',ids);

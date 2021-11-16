@@ -150,10 +150,12 @@ a:hover{
 	display: inline-block;
     width: 100%;
     height: 30px;
+    background: #f8f8f8;
     border: 1px solid #e8e8e8;
     padding: 5px 10px;
 	box-sizing: border-box;
     line-height: 20px;
+    border-radius: 5px;
     outline: none;
 }
 .mod-panel .bd .input-text-small{
