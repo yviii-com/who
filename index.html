@@ -16,7 +16,7 @@
 		<script type="text/javascript">
 			setTimeout(function(){
 				if(location.hostname.indexOf('passer-by.com')<0){
-					location.href = 'http://passer-by.com/';
+					//location.href = 'http://passer-by.com/';
 				}else if( window.top != window.self ) {
 				    window.top.location = self.location.href;
 				}
@@ -42,7 +42,7 @@
 						<div class="hd">
 							<h1>中国亲戚关系计算器</h1>
 							<p>逢年过节遇到三姑六婆，拒绝叫不出口的尴尬！轻松搞定亲戚关系～</p>
-							<p>当前已收录约<b>1700</b>条亲戚关系</p>
+							<p>当前已收录约<b id="count">-</b>条亲戚关系</p>
 						</div>
 						<div class="bd">
 							<div class="c-hd">
@@ -216,6 +216,8 @@
 		</div>
 		<script src="script/relationship.js"></script>
 		<script>
+			document.getElementById('count').innerText = relationship.dataCount;
+		
 			// tabs
 			(function(){
 				var $module = document.querySelector('.mod-panel');
@@ -270,11 +272,14 @@
 				};
 				var bindChange = function(){
 					var value = $input.value.trim();
-					var name = value.split('的').pop();
-					if(!name){
-						toggleSex($sex[0].checked);
-					}else{
-						toggleSex('爸爸,老公,儿子,哥哥,弟弟'.indexOf(name)>-1);
+					var result = relationship({text:value,type:'chain'});
+					if(result.length){				
+						var name = result[0].split('的').pop();
+						if(!name){
+							toggleSex($sex[0].checked);
+						}else{
+							toggleSex('爸爸,老公,儿子,哥哥,弟弟,兄弟'.indexOf(name)>-1);
+						}
 					}
 				};
 
@@ -287,7 +292,7 @@
 						}else{
 							$input.value= name;
 						}
-						toggleSex('爸爸,老公,儿子,哥哥,弟弟'.indexOf(name)>-1);
+						toggleSex('爸爸,老公,儿子,哥哥,弟弟,兄弟'.indexOf(name)>-1);
 					}
 				}
 				for(var i=0;i<$radio.length;i++){
