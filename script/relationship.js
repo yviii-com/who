@@ -11,16 +11,24 @@
 }(typeof window !== 'undefined' ? window : this,function (){
     //简写
     var _filter = [
-        /* 表亲 */
-        {//表亲的关系
+        /* 年龄 */
+        {//有大有小，增加不确定性
             exp:/^(.+)&o([^#]+)&l/g,
             str:'$1$2'
         },
-        {//表亲的关系
+        {//有大有小，增加不确定性
             exp:/^(.+)&l([^#]+)&o/g,
             str:'$1$2'
         },
-        {//表亲的关系
+        {//有大有小，增加不确定性
+            exp:/^(.+)?,o([sb])([^#]+)&l/g,
+            str:'$1,x$2$3'
+        },
+        {//有大有小，增加不确定性
+            exp:/^(.+)?,l([sb])([^#]+)&o/g,
+            str:'$1,x$2$3'
+        },
+        {//隔代跨越，增加不确定性
             exp:/(,[ds],(.+),[ds])&[ol]/g,
             str:'$1'
         },
@@ -2515,7 +2523,7 @@
         });
         return unique(result);
     };
-    
+    relationship({'text':'弟弟的表哥'});
     // 数据量
     relationship.dataCount = 0;
     for(var i in _data){
