@@ -33,7 +33,7 @@ var relationship = require("relationship.js");
 
 1. 内部属性：获取当前数据量 `relationship.dataCount`.
 
-2. 内部方法：用户自定义模式 `relationship.setMode(sign,data)`.
+2. 内部方法：用户自定义模式 `relationship.setMode(mode_name,mode_data)`.
 
 代码示例：
 
