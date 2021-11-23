@@ -5,8 +5,8 @@ const rename = require("gulp-rename");
 
 gulp.task('mini', () => (
   gulp.src('script/relationship.js')
-  .pipe(gulp.dest('dist/'))
-  .pipe(uglify())    //uglify
+  .pipe(uglify())
   .pipe(rename("relationship.min.js"))
   .pipe(gulp.dest('dist/'))
+  
 ));

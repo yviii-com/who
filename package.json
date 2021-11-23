@@ -32,12 +32,12 @@
     "glob-parent": ">=5.1.2"
   },
   "scripts": {
-    "test": "node tests/test.js",
+    "test": "node test/index.js",
     "build": "gulp mini && npm run test"
   },
   "dependencies": {},
   "homepage": "https://github.com/mumuy/relationship#readme",
   "directories": {
-    "test": "tests"
+    "test": "test"
   }
 }

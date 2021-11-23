@@ -31,23 +31,48 @@ var relationship = require("relationship.js");
 
 ## 二、使用
 
-使用很简单，只有一个 API 方法 `relationship(options)`.
+1. 内部属性：获取当前数据量 `relationship.dataCount`.
+
+2. 内部方法：用户自定义模式 `relationship.setMode(sign,data)`.
+
+代码示例：
 
 ```js
-var options = {text:'儿子的爸爸的妈妈',sex:1};
-relationship(options);
+relationship.setMode('northern',{
+	'm,f':['姥爷'],
+	'm,m':['姥姥']
+});
 ```
 
-另外，参数`options`结构为：
+3. 通用方法: 唯一的计算方法 `relationship(options)`.
+
+参数`options`结构为：
 
 ```js
 var options = {
-	text:'',		//输入的文本
-	target:'',		//针对对象：空表示自己
-	sex:-1,			//自己的性别：0女性,1男性
+	text:'',		    //输入文本(称谓的汉字表达，称谓间用‘的’字分割)
+	target:'',	    	//针对对象：空表示自己
+	sex:-1,			    //自己的性别：0女性,1男性
 	type:'default',		//转换类型：'default'算称谓,'chain'算关系
 	reverse:false		//称呼方式：true对方称呼我,false我称呼对方
+	mode:'default'		//模式选择，可由用户自定义
 };
+```
+
+代码示例：
+
+```js
+// 如：我应该叫外婆的哥哥什么？
+relationship({text:'妈妈的妈妈的哥哥'});
+
+// 如：七舅姥爷应该叫我什么？
+relationship({text:'七舅姥爷','reverse':true,'sex':1});
+
+// 如：舅公和我是什么关系？
+relationship({text:'舅公',sex:0,type:'chain'});
+
+// 如：舅妈如何称呼外婆？
+relationship({text:'外婆',target:'舅妈',sex:1});
 ```
 
 
@@ -69,10 +94,12 @@ npm test
 
 ## 四、关于分歧
 
-一些称呼存在南北方或地区差异，容易引起歧义，并不保证和你所处地区的称谓习惯一致。本程序主要以现代生活常见的理解为主。
+一些称呼存在南北方或地区差异，容易引起歧义，并不保证和你所处地区的称谓习惯一致。本程序默认以现代生活常见的理解为主。例如：
 * 媳妇：在古代或者当今北方地区指儿子的妻子，这里指自己的妻子。
 * 大爷：北方指父亲的哥哥，这里指爷爷的哥哥
 * 太太：一些地方指年长的妇人，这里指自己的妻子
+
+针对不同地区的使用，你可以通过上述所说的自定义模式实现。
 
 ## 五、其他
 
