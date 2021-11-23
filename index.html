@@ -56,6 +56,17 @@
 							    <div class="c-panel" style="display:block;">
 									<div class="row">
 										<div class="field">
+											区域模式：
+											<label for="field-0-1">
+												<input id="field-0-1" type="radio" name="mode" value="default" checked>
+												<span>默认</span>
+											</label>
+											<label for="field-0-2">
+												<input id="field-0-2" type="radio" name="mode" value="cantonese">
+												<span>粤语惯用</span>
+											</label>
+										</div>
+										<div class="field">
 											我的性别：
 											<label for="field-1-1">
 												<input id="field-1-1" type="radio" name="sex" value="1" checked>
@@ -217,190 +228,8 @@
 				</div>
 			</div>
 		</div>
-		<script src="script/relationship.js"></script>
-		<script>
-			document.getElementById('count').innerText = relationship.dataCount;
-		
-			// tabs
-			(function(){
-				var $module = document.querySelector('.mod-panel');
-				var $items = $module.querySelectorAll('li');
-				var $panels = $module.querySelectorAll('.c-panel');
-				for(var i=0;i<$items.length;i++){
-					(function(i){
-						$items[i].addEventListener('click',function(){
-							for(var j=0;j<$panels.length;j++){
-								$items[j].className = i==j?'active':'';
-								$panels[j].style.display = i==j?'block':'none';
-							}
-						});
-					})(i);
-				}
-			})();
-			
-			// 通过关系找称呼
-			(function(){
-				var $module = document.querySelector('.mod-panel');
-				var $panel = $module.querySelector('.c-panel:nth-child(1)');
-				var $radio = $panel.querySelectorAll('input[type="radio"]');
-				var $sex = $panel.querySelectorAll('input[name="sex"]');
-				var $reverse = $panel.querySelectorAll('input[name="reverse"]');
-				var $small_btns = $panel.querySelectorAll('.btn-small');
-				var $input = $panel.querySelector('textarea[name="input"]');
-				var $result = $panel.querySelector('textarea[name="result"]');
-				var toggleSex = function(sex){
-					if(sex){		//男女判断
-						$small_btns[2].disabled=true;
-						$small_btns[3].disabled=false;
-					}else{
-						$small_btns[2].disabled=false;
-						$small_btns[3].disabled=true;
-					}
-				}
-				var count = function(){
-					var value = $input.value.trim();
-					if(value){
-						var sex = $sex[0].checked?1:0;
-						var reverse = !$reverse[0].checked;
-						var result = relationship({text:value,sex:sex,reverse:reverse});
-						$result.value = '';
-						if(result.length){
-							$result.value = result.join('\n');
-						}else{
-							$result.value = '貌似他/她跟你不是很熟哦!';
-						}
-					}else{
-						$result.value = '';
-					}
-				};
-				var bindChange = function(){
-					var value = $input.value.trim();
-					var result = relationship({text:value,type:'chain'});
-					if(result.length){				
-						var name = result[0].split('的').pop();
-						if(!name){
-							toggleSex($sex[0].checked);
-						}else{
-							toggleSex('爸爸,老公,儿子,哥哥,弟弟,兄弟'.indexOf(name)>-1);
-						}
-					}
-				};
-
-				for(var i=0;i<$small_btns.length;i++){
-					$small_btns[i].onclick = function(){
-						var value = $input.value.trim();
-						var name = this.getAttribute('data-value');
-						if(value){
-							$input.value= value+'的'+name;
-						}else{
-							$input.value= name;
-						}
-						toggleSex('爸爸,老公,儿子,哥哥,弟弟,兄弟'.indexOf(name)>-1);
-					}
-				}
-				for(var i=0;i<$radio.length;i++){
-					$radio[i].onchange=function(){
-						toggleSex($sex[0].checked);
-						if($result.value){
-							count();
-						}
-					}
-				}
-				var hander = null;
-				$input.addEventListener('paste',function(){
-					hander&&clearTimeout(bindChange,250);
-					hander = setTimeout(bindChange,250);
-				});
-				$input.addEventListener('input',function(){
-					hander&&clearTimeout(bindChange,250);
-					hander = setTimeout(bindChange,250);
-				});
-				$panel.querySelector('.btn-orange').addEventListener('click',function(){
-					var value = $input.value.trim();
-					var index = value.lastIndexOf('的');
-					index = Math.max(0,index);
-					var search = value.substr(0,index);
-					$input.value = search;
-					$result.value = '';
-					var name = search.split('的').pop();
-					if(!name){
-						toggleSex($sex[0].checked);
-					}else{
-						toggleSex('爸爸,老公,儿子,哥哥,弟弟'.indexOf(name)>-1);
-					}
-				});
-				$panel.querySelector('.btn-red').addEventListener('click',function(){
-					$result.value = $input.value = '';
-					toggleSex($sex[0].checked);
-				});
-				$panel.querySelector('.btn-green').addEventListener('click',count);
-
-				toggleSex($sex[0].checked);
-			})();
-			
-			// 通过称呼找关系
-			(function(){
-				var $module = document.querySelector('.mod-panel');
-				var $panel = $module.querySelector('.c-panel:nth-child(2)');
-				var $radio = $panel.querySelectorAll('input[type="radio"]');
-				var $input = $panel.querySelector('input[name="input"]');
-				var $result = $panel.querySelector('textarea[name="result"]');
-				var count = function(){
-					var value = $input.value.trim();
-					if(value){
-						var result = relationship({text:value,type:'chain'});
-						if(result.length){
-							$result.value = result.join('\n');
-						}else{
-							$result.value = '貌似他/她跟你不是很熟哦!';
-						}
-					}else{
-						$result.value = '';
-					}
-				};
-				$panel.querySelector('.btn-red').onclick = function(){
-					$result.value = $input.value = '';
-				};
-				$panel.querySelector('.btn-green').onclick = count;
-			})();
-			
-			// 任意两者间称呼
-			(function(){
-				var $module = document.querySelector('.mod-panel');
-				var $panel = $module.querySelector('.c-panel:nth-child(3)');
-				var $radio = $panel.querySelectorAll('input[type="radio"]');
-				var $reverse = $panel.querySelectorAll('input[name="reverse2"]');
-				var $person = $panel.querySelector('input[name="person"]');
-				var $target = $panel.querySelector('input[name="target"]');
-				var $result = $panel.querySelector('textarea[name="result"]');
-				var count = function(){
-					var person = $person.value.trim();
-					var target = $target.value.trim();
-					if(person){
-					    var reverse = !$reverse[1].checked;
-						var result = relationship({text:person,reverse:reverse,target:target});
-						if(result.length){
-							$result.value = result.join('\n');
-						}else{
-							$result.value = '他们貌似不是很熟哦!';
-						}
-					}else{
-						$result.value = '';
-					}
-				};
-				for(var i=0;i<$radio.length;i++){
-					$radio[i].onchange=function(){
-						if($result.value){
-							count();
-						}
-					}
-				}
-				$panel.querySelector('.btn-red').onclick = function(){
-					$result.value = $person.value = $target.value = '';
-				};
-				$panel.querySelector('.btn-green').onclick = count;
-			})();
-		</script>
+		<script type="text/javascript" src="script/relationship.js"></script>
+		<script type="text/javascript" src="script/index.js"></script>
 		<script async defer src="https://buttons.github.io/buttons.js"></script>
 		<div style="display: none;">
 			<script src="https://s95.cnzz.com/z_stat.php?id=1258310068&web_id=1258310068"></script>
