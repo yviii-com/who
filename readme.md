@@ -38,9 +38,14 @@ var relationship = require("relationship.js");
 代码示例：
 
 ```js
+// 关系解析语法
+// 【关系链】f:父,m:母,h:夫,w:妻,s:子,d:女,xb:兄弟,ob:兄,lb:弟,xs:姐妹,os:姐,ls:妹
+// 【修饰符】 1:男性,0:女性,&o:年长,&l:年幼,#:隔断,[a|b]:并列
 relationship.setMode('northern',{
 	'm,f':['姥爷'],
-	'm,m':['姥姥']
+	'm,m':['姥姥'],
+	'm,xb,s&o':['表哥'],
+	'm,xb,s&l':['表弟'],
 });
 ```
 
@@ -50,7 +55,7 @@ relationship.setMode('northern',{
 
 ```js
 var options = {
-	text:'',		    //输入文本(称谓的汉字表达，称谓间用‘的’字分割)
+	text:'',		    //输入文本(称谓的汉字表达，称谓间用‘的’字分隔)
 	target:'',	    	//针对对象：空表示自己
 	sex:-1,			    //自己的性别：0女性,1男性
 	type:'default',		//转换类型：'default'算称谓,'chain'算关系
