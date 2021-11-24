@@ -197,6 +197,8 @@
         '[xb|xs]':['兄弟姐妹','同胞','手足'],
         '[f,xb,s&o|f,xb,s&l]':['堂兄弟'],
         '[f,xb,d&o|f,xb,d&l]':['堂姐妹'],
+		'[m,xs,s&o|m,xs,s&l]':['姨兄弟'],
+        '[m,xs,d&o|m,xs,d&l]':['姨姐妹'],
         '[f,xs,s&o|f,xs,s&l|m,xb,s&o|m,xb,s&l]':['表兄弟'],
         '[f,xs,d&o|f,xs,d&l|m,xb,d&o|m,xb,d&l]':['表姐妹'],
         '[s|d]':['子女','儿女','小孩','孩子','孩儿','宝宝','娃'],
@@ -2284,16 +2286,14 @@
     function selector2id(selector,sex){
         var result = [];
         var hash = {};
-        if(sex<0){  
-            if(selector.indexOf(',w')==0){
-                selector = ',1'+selector;
-            }else if(selector.indexOf(',h')==0){
-                selector = ',0'+selector;
-            }
-        }else if(selector.indexOf(',1')==0||selector.indexOf(',0')==0){
-        }else if(sex>-1){
+		//性别判断
+		if(sex<0){
+			sex = selector.match(/^,w/)?1:0;
+		}
+		sex = sex?1:0;
+		if(selector.indexOf(',1')==-1&&selector.indexOf(',0')==-1){			
             selector = ','+sex+selector;
-        }
+		}
         // console.log('[selector]',selector);
         if(selector.match(/,[w0],w|,[h1],h/)){  //同志关系去除
             return false;
@@ -2402,7 +2402,11 @@
         }
         if(id){
             id = id.replace(/&[ol]/g,'');
-            sex = sex?1:0;    //逆转运算自身性别必须确定
+			//性别判断
+			if(sex<0){
+				sex = id.match(/^w/)?1:0;
+			}
+            sex = sex?1:0;
             var sid = (','+sex+','+id).replace(/,[fhs]|,[olx]b/g,',1').replace(/,[mwd]|,[olx]s/g,',0');
             sid = sid.substring(0,sid.lastIndexOf(','));
             var id_arr = id.split(',').reverse();
@@ -2412,12 +2416,9 @@
                 arr.push(hash[id_arr[i]][sid_arr[i]]);
             }
             var g = 0;
+			var gMap = {'f':1,'m':1,'s':-1,'d':-1};
             arr.forEach(function(r){
-				if(['f','m'].indexOf(r)>-1){
-					g++;
-				}else if(['s','d'].indexOf(r)>-1){
-					g--;
-				}
+				g += gMap[r]||0;
             });
             return arr.join(',')+(g?'':age);
         }
@@ -2427,12 +2428,10 @@
     // 通过ID获取关系链条
     function getChainById(id){
         var arr = id.split(',');
-        var items = [];
-        for(var i = 0;i<arr.length;i++){
-            var key = arr[i].replace(/&[ol]/,'');
-            items.push(_data[key][0]);
-        }
-        return items.join('的');
+        return arr.map(function(sign){
+			var key = sign.replace(/&[ol]/,'');
+            return _data[key][0];
+		}).join('的');
     }
 
     // 合并选择器，查找两个对象之间的关系
@@ -2440,40 +2439,26 @@
         var Index = 0;
         var from_arr = from.split(',');
         var to_arr = to.split(',');
+        var mid_sex = -1;
+        var sex = -1;
+		var reg_sex = /([fhs1](&[ol])?|[olx]b)/;
         for(var i=0;i<from_arr.length&&i<to_arr.length;i++){
             if(from_arr[i]!=to_arr[i]){
                 break;
             }
-        }
-        var mid_sex = -1;
-        if(to_arr[i-1]){            
-            if(to_arr[i-1].match(/([fhs1](&[ol])?|[olx]b)$/)){
-                mid_sex=1;
-            }else{
-                mid_sex=0;
-            }
-        }
-        var sex = -1;
-        if(to){         
-            if(to.match(/,([fhs1](&[ol])?|[olx]b)$/)){
-                sex=1;
-            }else{
-                sex=0;
-            }
-        }
-        if(i){  
-            var from_sub = from_arr.slice(i).join(',');
-            var to_sub = to_arr.slice(i).join(',');
-            return {
-                'selector':(to_sub?','+reverseId(to_sub,mid_sex):'')+(from_sub?','+from_sub:''),
-                'sex':sex
-            };
-        }else{
-            return {
-                'selector':from,
-                'sex':sex
-            };
-        }
+        }        
+		if(to_arr[i-1]){
+			mid_sex = to_arr[i-1].match(reg_sex)?1:0;
+		}
+		if(to_arr[to_arr.length-1]){			
+			sex = to_arr[to_arr.length-1].match(reg_sex)?1:0;
+		}
+		var from_sub = from_arr.slice(i).join(',');
+		var to_sub = to_arr.slice(i).join(',');
+		return {
+			'selector':(to_sub?','+reverseId(to_sub,mid_sex):'')+(from_sub?','+from_sub:''),
+			'sex':sex
+		};
     }
 
     var relationship = function (parameter){
@@ -2483,19 +2468,14 @@
             sex:-1,
             type:'default',     // 'chain'表示关系链
             reverse:false,		// true表示反向
-			mode:'default', 	// 'cantonese'表示粤语地区
+			mode:'default', 	// 用户自定义模式
         },parameter);
         var sex = options.sex;
-		for(var lang in _mode){			
+		_data = Object.assign({},_map);
+		for(var lang in _mode){	
 			if(options.mode==lang){
 				for(var key in _mode[lang]){
-					_data[key] = _mode[lang][key].concat(_map[key]||[]);
-				}
-			}else{
-				for(var key in _mode[lang]){
-					if(_map[key]){
-						_data[key] = _map[key].concat(_mode[lang][key]);
-					}
+					_data[key] = [].concat(_mode[lang][key],_map[key]||[]);
 				}
 			}
 		}
@@ -2506,38 +2486,39 @@
         from_selectors.forEach(function(from){
             to_selectors.forEach(function(to){
                 var data = mergeSelector(from,to);
-                 // console.log('[data]',data);
+                // console.log('[data]',data);
                 sex = data['sex']>-1?data['sex']:options.sex;
                 var ids = selector2id(data['selector'],sex);
-                // console.log('[ids]',ids);
-                for(var j=0;j<ids.length;j++){
-                    var id = ids[j];
-                    if(options.type=='chain'){
-                        if(options.reverse){
-                            id = reverseId(id,sex);
-                        }
-                        var item = getChainById(id);
-                        if(item){
-                            result.push(item);
-                        }
-                    }else{
-                        if(options.reverse){
-                            id = reverseId(id,sex);
-                        }
-                        var items = getDataById(sex+','+id);
-                        if(!items.length){
-                            items = getDataById(id);
-                        }
-                        if(!items.length){
-                            if(id.indexOf('w')==0||id.indexOf('h')==0){  //找不到关系，随爱人叫
-                                items = getDataById(id.substr(2));
-                            }
-                        }
-                        if(items.length){
-                            result = result.concat(items);
-                        }
-                    }
-                }
+                // console.log('[ids]',data['selector'],sex,ids);
+				if(ids){					
+					ids.forEach(function(id){					
+						if(options.type=='chain'){
+							if(options.reverse){
+								id = reverseId(id,sex);
+							}
+							var item = getChainById(id);
+							if(item){
+								result.push(item);
+							}
+						}else{
+							if(options.reverse){
+								id = reverseId(id,sex);
+							}
+							var items = getDataById(sex+','+id);
+							if(!items.length){
+								items = getDataById(id);
+							}
+							if(!items.length){
+								if(id.indexOf('w')==0||id.indexOf('h')==0){  //找不到关系，随爱人叫
+									items = getDataById(id.substr(2));
+								}
+							}
+							if(items.length){
+								result = result.concat(items);
+							}
+						}
+					});
+				}
             });
         });
         return unique(result);
