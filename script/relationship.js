@@ -2436,27 +2436,20 @@
 
     // 合并选择器，查找两个对象之间的关系
     function mergeSelector(from,to){
-        var Index = 0;
-        var from_arr = from.split(',');
-        var to_arr = to.split(',');
-        var mid_sex = -1;
-        var sex = -1;
-		var reg_sex = /([fhs1](&[ol])?|[olx]b)/;
-        for(var i=0;i<from_arr.length&&i<to_arr.length;i++){
-            if(from_arr[i]!=to_arr[i]){
-                break;
-            }
-        }        
-		if(to_arr[i-1]){
-			mid_sex = to_arr[i-1].match(reg_sex)?1:0;
+		var mid_sex = -1;
+		if(mid_sex<0){
+			mid_sex = from.match(/^,w/)?1:0;
 		}
-		if(to_arr[to_arr.length-1]){			
-			sex = to_arr[to_arr.length-1].match(reg_sex)?1:0;
+		if(mid_sex<0){
+			mid_sex = to.match(/^,w/)?1:0;
 		}
-		var from_sub = from_arr.slice(i).join(',');
-		var to_sub = to_arr.slice(i).join(',');
+		mid_sex = mid_sex?1:0;
+		var sex = -1;
+		if(to){
+			sex = to.match(/([fhs1](&[ol])?|[olx]b)$/)?1:0;
+		}
 		return {
-			'selector':(to_sub?','+reverseId(to_sub,mid_sex):'')+(from_sub?','+from_sub:''),
+			'selector':(to?','+reverseId(to.substr(1),mid_sex):'')+from,
 			'sex':sex
 		};
     }
