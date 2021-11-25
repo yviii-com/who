@@ -174,7 +174,7 @@
             str:''
         },
         {//并列关系处理1
-            exp:/(.+)?\[([^\|]+?)\|([^\[\]]+?\|[^\[\]]+?)?\](.+)?/g,
+            exp:/(.+)?\[([^\|]+?)\|([^\[\]]+?\|[^\[\]]+?)\](.+)?/g,
             str:'$1$2$4#$1[$3]$4'
         },
         {//并列关系处理2
@@ -2456,23 +2456,45 @@
     }
 
     // 合并选择器，查找两个对象之间的关系
-    function mergeSelector(from,to,mid_sex){
-		var sex = mid_sex;
-		if(to){
-			sex = to.match(/([fhs1](&[ol])?|[olx]b)$/)?1:0;
-		}
-        var ids = reverseId(to.substr(1),mid_sex);
-        if(ids.length>1){
-            return {
-                'selector':(to?',['+ids.join('|')+']':'')+from,
-                'sex':sex
-            };
-        }else{        
-    		return {
-    			'selector':(to?','+ids[0]+'':'')+from,
-    			'sex':sex
-    		};
+    function mergeSelector(from,to,my_sex){
+		if(my_sex<0){
+            if(from.match(/^,w/)||to.match(/^,w/)){
+                my_sex = 1;
+            }else if(from.match(/^,h/)||to.match(/^,h/)){
+                my_sex = 0;
+            }
         }
+		var sex = my_sex;
+		var from_ids = selector2id(from,my_sex);
+		var to_ids = selector2id(to,my_sex);
+		var r_ids = [];
+		if(to){
+			var isMale = false;
+			var isFemale = false;
+			to_ids.forEach(function(id){			
+				if(id.match(/([fhs1](&[ol])?|[olx]b)$/)){
+					isMale = true;
+				}
+				if(id.match(/([mwd0](&[ol])?|[olx]s)$/)){
+					isFemale = true;
+				}
+				r_ids = r_ids.concat(reverseId(id,my_sex));
+			});
+			r_ids = unique(r_ids);
+			if(isMale&&isFemale){
+				sex = -1;
+			}else if(isMale){
+				sex = 1;
+			}else if(isFemale){
+				sex = 0;
+			}
+		}
+		var from_selector = from_ids.length>1?'['+from_ids.join('|')+']':from_ids[0];
+		var to_selector = r_ids.length>1?'['+r_ids.join('|')+']':r_ids[0];
+		return {
+			'selector':(to?','+to_selector:'')+','+from_selector,
+			'sex':sex
+		};
     }
 
     var relationship = function (parameter){
@@ -2501,7 +2523,7 @@
                 var data = mergeSelector(from,to,options.sex);
                 // console.log('[data]',data);
                 var ids = selector2id(data['selector'],data['sex']);
-                // console.log('[ids]',data['selector'],sex,ids);
+                // console.log('[ids]',data['selector'],data['sex'],ids);
 				if(ids){					
 					ids.forEach(function(id){	
                         var temps = [id];			
