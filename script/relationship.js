@@ -382,7 +382,7 @@
         'f,f,f,xs,d,s&l,w':['姑表姑表叔母'],
         'f,f,f,xs,d,d':['姑表姑表姑母'],
         'f,f,f,xs,d,d,h':['姑表姑表姑父'],
-        'f,f,m':['曾祖母','太奶奶','太婆','祖婆','祖奶奶'],
+        'f,f,m':['曾祖母','太婆','祖婆','太奶奶','祖奶奶'],
         'f,f,m,f':['高外祖父','老太姥爷','祖太姥爷','祖太公','高王父'],
         'f,f,m,m':['高外祖母','老太姥姥','祖太姥姥','祖太姥娘','祖太婆','高王母'],
         // 舅表*
@@ -2435,23 +2435,22 @@
     }
 
     // 合并选择器，查找两个对象之间的关系
-    function mergeSelector(from,to){
-		var mid_sex = -1;
-		if(mid_sex<0){
-			mid_sex = from.match(/^,w/)?1:0;
-		}
-		if(mid_sex<0){
-			mid_sex = to.match(/^,w/)?1:0;
-		}
-		mid_sex = mid_sex?1:0;
+    function mergeSelector(from,to,mid_sex){
 		var sex = -1;
 		if(to){
 			sex = to.match(/([fhs1](&[ol])?|[olx]b)$/)?1:0;
 		}
-		return {
-			'selector':(to?','+reverseId(to.substr(1),mid_sex):'')+from,
-			'sex':sex
-		};
+        if(mid_sex==-1){
+            return {
+                'selector':(to?','+reverseId(to.substr(1),1):'')+from+'#'+(to?','+reverseId(to.substr(1),0):'')+from,
+                'sex':sex
+            };
+        }else{        
+    		return {
+    			'selector':(to?','+reverseId(to.substr(1),mid_sex):'')+from,
+    			'sex':sex
+    		};
+        }
     }
 
     var relationship = function (parameter){
@@ -2478,7 +2477,7 @@
         var result = [];                            //匹配结果
         from_selectors.forEach(function(from){
             to_selectors.forEach(function(to){
-                var data = mergeSelector(from,to);
+                var data = mergeSelector(from,to,options.sex);
                 // console.log('[data]',data);
                 sex = data['sex']>-1?data['sex']:options.sex;
                 var ids = selector2id(data['selector'],sex);
