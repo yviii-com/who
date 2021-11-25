@@ -173,11 +173,11 @@
             exp:/,w,h|,h,w/g,
             str:''
         },
-        {//并列关系处理1
-            exp:/(.+)?\[([^\|]+?)\|([^\[\]]+?\|[^\[\]]+?)\](.+)?/g,
+        {//并列关系处理1 X[A|B|C]Y = XAY#X[B|C]Y
+            exp:/(.+)?\[([^\|]+?)\|([^\[\]]*\|[^\[\]]*)\](.+)?/g,
             str:'$1$2$4#$1[$3]$4'
         },
-        {//并列关系处理2
+        {//并列关系处理2 X[A|B]Y = XAY#XBY
             exp:/(.+)?\[([^\[\]\|]+?)\|([^\[\]\|]+?)?\](.+)?/g,
             str:'$1$2$4#$1$3$4'
         }
@@ -2488,7 +2488,10 @@
 			}else if(isFemale){
 				sex = 0;
 			}
+		}else{
+			r_ids = [''];
 		}
+		// console.log('[from_ids]',from_ids,'r_ids',r_ids);
 		var from_selector = from_ids.length>1?'['+from_ids.join('|')+']':from_ids[0];
 		var to_selector = r_ids.length>1?'['+r_ids.join('|')+']':r_ids[0];
 		return {
@@ -2513,7 +2516,7 @@
 					_data[key] = [].concat(_mode[lang][key],_map[key]||[]);
 				}
 			}
-		}
+		}	
         var from_selectors = getSelectors(options.text);
         var to_selectors = options.target?getSelectors(options.target):[''];
         // console.log('[selectors]',from_selectors,to_selectors);
@@ -2526,7 +2529,7 @@
                 // console.log('[ids]',data['selector'],data['sex'],ids);
 				if(ids){					
 					ids.forEach(function(id){	
-                        var temps = [id];			
+                        var temps = [id];					
 						if(options.type=='chain'){
 							if(options.reverse){
 								temps = reverseId(id,data['sex']);
