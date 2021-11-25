@@ -2288,17 +2288,20 @@
         var hash = {};
 		//性别判断
 		if(sex<0){
-			sex = selector.match(/^,w/)?1:0;
-		}
-		sex = sex?1:0;
-		if(selector.indexOf(',1')==-1&&selector.indexOf(',0')==-1){			
-            selector = ','+sex+selector;
-		}
-        // console.log('[selector]',selector);
-        if(selector.match(/,[w0],w|,[h1],h/)){  //同志关系去除
-            return false;
+            if(selector.match(/^,w/)){
+                sex = 1;
+            }else if(selector.match(/^,h/)){
+                sex = 0;
+            }
         }
-        var getId = function(selector){
+        // console.log('[selector]',selector);
+        var getId = function(selector,sex){
+    		if(selector.indexOf(',1')==-1&&selector.indexOf(',0')==-1){			
+                selector = ','+sex+selector;
+    		}
+            if(selector.match(/,[w0],w|,[h1],h/)){  //同志关系去除
+                return false;
+            }
             var s='';
             if(!hash[selector]){
                 hash[selector] = true;
@@ -2328,7 +2331,12 @@
                 }
             }
         }
-        getId(selector);
+        if(sex<0){
+            getId(selector,1);
+            getId(selector,0);
+        }else{
+            getId(selector,sex);
+        }
         return unique(result);
     }
 
@@ -2404,25 +2412,38 @@
             id = id.replace(/&[ol]/g,'');
 			//性别判断
 			if(sex<0){
-				sex = id.match(/^w/)?1:0;
+                if(id.match(/^w/)){
+				    sex = 1;
+                }else if(id.match(/^h/)){
+                    sex = 0;
+                }
 			}
-            sex = sex?1:0;
-            var sid = (','+sex+','+id).replace(/,[fhs]|,[olx]b/g,',1').replace(/,[mwd]|,[olx]s/g,',0');
-            sid = sid.substring(0,sid.lastIndexOf(','));
-            var id_arr = id.split(',').reverse();
-            var sid_arr = sid.split(',').reverse();
-            var arr = [];
-            for(var i=0;i<id_arr.length;i++){
-                arr.push(hash[id_arr[i]][sid_arr[i]]);
+            var result = [];
+            var doing = function(sex){
+                var sid = (','+sex+','+id).replace(/,[fhs]|,[olx]b/g,',1').replace(/,[mwd]|,[olx]s/g,',0');
+                sid = sid.substring(0,sid.lastIndexOf(','));
+                var id_arr = id.split(',').reverse();
+                var sid_arr = sid.split(',').reverse();
+                var arr = [];
+                for(var i=0;i<id_arr.length;i++){
+                    arr.push(hash[id_arr[i]][sid_arr[i]]);
+                }
+                var g = 0;
+    			var gMap = {'f':1,'m':1,'s':-1,'d':-1};
+                arr.forEach(function(r){
+    				g += gMap[r]||0;
+                });
+                return arr.join(',')+(g?'':age);
+            };
+            if(sex<0){
+                result.push(doing(1));
+                result.push(doing(0));
+            }else{
+                result.push(doing(sex));
             }
-            var g = 0;
-			var gMap = {'f':1,'m':1,'s':-1,'d':-1};
-            arr.forEach(function(r){
-				g += gMap[r]||0;
-            });
-            return arr.join(',')+(g?'':age);
+            return result;
         }
-        return '';
+        return [''];
     }
 
     // 通过ID获取关系链条
@@ -2436,18 +2457,19 @@
 
     // 合并选择器，查找两个对象之间的关系
     function mergeSelector(from,to,mid_sex){
-		var sex = -1;
+		var sex = mid_sex;
 		if(to){
 			sex = to.match(/([fhs1](&[ol])?|[olx]b)$/)?1:0;
 		}
-        if(mid_sex==-1){
+        var ids = reverseId(to.substr(1),mid_sex);
+        if(ids.length>1){
             return {
-                'selector':(to?','+reverseId(to.substr(1),1):'')+from+'#'+(to?','+reverseId(to.substr(1),0):'')+from,
+                'selector':(to?',['+ids.join('|')+']':'')+from,
                 'sex':sex
             };
         }else{        
     		return {
-    			'selector':(to?','+reverseId(to.substr(1),mid_sex):'')+from,
+    			'selector':(to?','+ids[0]+'':'')+from,
     			'sex':sex
     		};
         }
@@ -2462,7 +2484,6 @@
             reverse:false,		// true表示反向
 			mode:'default', 	// 用户自定义模式
         },parameter);
-        var sex = options.sex;
 		_data = Object.assign({},_map);
 		for(var lang in _mode){	
 			if(options.mode==lang){
@@ -2479,35 +2500,39 @@
             to_selectors.forEach(function(to){
                 var data = mergeSelector(from,to,options.sex);
                 // console.log('[data]',data);
-                sex = data['sex']>-1?data['sex']:options.sex;
-                var ids = selector2id(data['selector'],sex);
+                var ids = selector2id(data['selector'],data['sex']);
                 // console.log('[ids]',data['selector'],sex,ids);
 				if(ids){					
-					ids.forEach(function(id){					
+					ids.forEach(function(id){	
+                        var temps = [id];			
 						if(options.type=='chain'){
 							if(options.reverse){
-								id = reverseId(id,sex);
+								temps = reverseId(id,data['sex']);
 							}
-							var item = getChainById(id);
-							if(item){
-								result.push(item);
-							}
+                            temps.forEach(function(id){
+    							var item = getChainById(id);
+    							if(item){
+    								result.push(item);
+    							}
+                            });
 						}else{
 							if(options.reverse){
-								id = reverseId(id,sex);
+								temps = reverseId(id,data['sex']);
 							}
-							var items = getDataById(sex+','+id);
-							if(!items.length){
-								items = getDataById(id);
-							}
-							if(!items.length){
-								if(id.indexOf('w')==0||id.indexOf('h')==0){  //找不到关系，随爱人叫
-									items = getDataById(id.substr(2));
-								}
-							}
-							if(items.length){
-								result = result.concat(items);
-							}
+                            temps.forEach(function(id){                            
+    							var items = getDataById(data['sex']+','+id);
+    							if(!items.length){
+    								items = getDataById(id);
+    							}
+    							if(!items.length){
+    								if(id.indexOf('w')==0||id.indexOf('h')==0){  //找不到关系，随爱人叫
+    									items = getDataById(id.substr(2));
+    								}
+    							}
+    							if(items.length){
+    								result = result.concat(items);
+    							}
+                            });
 						}
 					});
 				}
