@@ -2235,8 +2235,6 @@
 		var replaceMap = {			
 			'哥':'兄',
 			'姐':'姊',
-			'媳妇':'妇',
-			'女婿':'婿',
 			'媳':'妇',
 			'夫':'婿',
 			'姪':'侄',
@@ -2245,6 +2243,10 @@
 			'兄弟眷':'眷',
 			'男眷':'眷'
 		};
+		var replaceMap2 = {
+			'媳妇':'妇',
+			'女婿':'婿'
+		}
         while(lists.length){
             var name = lists.shift();           //当前匹配词
             var items = [];                     //当前匹配词可能性
@@ -2256,6 +2258,11 @@
 					var r_name = name;
 					for(var word in replaceMap){
 						r_name = r_name.replace(word,replaceMap[word]);
+					}
+					for(var word in replaceMap2){
+						if(word!=name){
+							r_name = r_name.replace(word,replaceMap[word]);
+						}
 					}
 					var r_value = value.map(function(v){
 						for(var word in replaceMap){

@@ -23,6 +23,7 @@ test('relationship.js show to be tested', function (t) {
   t.deepEqual(relationship({text:'舅妈',target:'女儿',reverse:true}),['姑甥孙女','姑甥外孙女']);
   t.deepEqual(relationship({text:'老公的父母',target:'孩子'}),['爷爷','奶奶']);
   t.deepEqual(relationship({text:'爸爸的哥哥的弟弟的儿子'}),['堂哥','堂弟','兄弟','自己']);
+  t.deepEqual(relationship({text:'外婆',target:'女婿',reverse:true}),['外曾孙女婿','外曾外孙女婿']);
 
   t.end();
 });
