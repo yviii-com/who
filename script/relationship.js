@@ -2229,7 +2229,7 @@
     // 中文获取选择器
     function getSelectors(str){
         str = str.replace(/[二|三|四|五|六|七|八|九|十]{1,2}/g,'x');
-        var lists = str.replace(/我的?/,'').replace(/家的?/,'的').split('的');
+        var lists = str.replace(/我的?(.+)/,'$1').replace(/家的?/,'的').split('的');
         var result = [''];
         var isMatch = true;
 		var replaceMap = {			
@@ -2281,12 +2281,12 @@
 			var res = [];
 			result.forEach(function(a){
 				items.forEach(function(b){
-					res.push(a+','+b);
+					res.push(a+(b?','+b:''));
 				});
 			});
 			result = res;
         }
-        return isMatch?result:[];
+        return isMatch?result:[''];
     }
 
     // 选择器转ID
@@ -2502,7 +2502,7 @@
 		var from_selector = from_ids.length>1?'['+from_ids.join('|')+']':from_ids[0];
 		var to_selector = r_ids.length>1?'['+r_ids.join('|')+']':r_ids[0];
 		return {
-			'selector':(to?','+to_selector:'')+','+from_selector,
+			'selector':(to?','+to_selector:'')+(from?','+from_selector:''),
 			'sex':sex
 		};
     }
@@ -2525,7 +2525,7 @@
 			}
 		}	
         var from_selectors = getSelectors(options.text);
-        var to_selectors = options.target?getSelectors(options.target):[''];
+        var to_selectors = getSelectors(options.target);
         // console.log('[selectors]',from_selectors,to_selectors);
         var result = [];                            //匹配结果
         from_selectors.forEach(function(from){
