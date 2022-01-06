@@ -20,7 +20,7 @@
             exp:/^(.+)&l([^#]+)&o/g,
             str:'$1$2'
         },
-		{//有大有小，增加不确定性
+        {//有大有小，增加不确定性
             exp:/^(.+)?,o([sb])([^#]+)&l/g,
             str:'$1,x$2$3'
         },
@@ -197,7 +197,7 @@
         '[xb|xs]':['兄弟姐妹','同胞','手足'],
         '[f,xb,s&o|f,xb,s&l]':['堂兄弟'],
         '[f,xb,d&o|f,xb,d&l]':['堂姐妹'],
-		'[m,xs,s&o|m,xs,s&l]':['姨兄弟'],
+        '[m,xs,s&o|m,xs,s&l]':['姨兄弟'],
         '[m,xs,d&o|m,xs,d&l]':['姨姐妹'],
         '[f,xs,s&o|f,xs,s&l|m,xb,s&o|m,xb,s&l]':['表兄弟'],
         '[f,xs,d&o|f,xs,d&l|m,xb,d&o|m,xb,d&l]':['表姐妹'],
@@ -316,10 +316,6 @@
         'f,f,f,xb,s&o,w':['堂伯祖母','从父伯祖母','叔伯伯祖母','族伯祖母','族祖母'],
         'f,f,f,xb,s&l':['堂叔祖父','从父叔祖父','叔伯叔祖父','族叔祖父','族祖父'],
         'f,f,f,xb,s&l,w':['堂叔祖母','从父叔祖母','叔伯叔祖母','族叔祖母','族祖母'],
-        'f,f,f,xb,s&o':['堂伯祖父','从父伯祖父'],
-        'f,f,f,xb,s&o,w':['堂伯祖母','从父伯祖母'],
-        'f,f,f,xb,s&l':['堂叔祖父','从父叔祖父'],
-        'f,f,f,xb,s&l,w':['堂叔祖母','从父叔祖母'],
         'f,f,f,xb,s,s&o':['从堂伯父','再从父伯父','叔伯叔伯伯父','再从伯父','族伯父','族父'],
         'f,f,f,xb,s,s&o,w':['从堂伯母','再从父伯母','叔伯叔伯伯母','再从伯母','族伯母','族母'],
         'f,f,f,xb,s,s&l':['从堂叔父','再从父叔父','叔伯叔伯叔父','再从叔父','族叔父','族父'],
@@ -1240,9 +1236,9 @@
         'm,xb,w,xs,d&o,h':['舅眷姨表姐夫'],
         'm,xb,w,xs,d&l':['舅眷姨表妹'],
         'm,xb,w,xs,d&l,h':['舅眷姨表妹夫'],
-        'm,xb,s&o':['舅表哥','表哥','表兄'],
+        'm,xb,s&o':['舅表哥','表哥','老表'],
         'm,xb,s&o,w':['舅表嫂','舅表兄妇','表嫂'],
-        'm,xb,s&l':['舅表弟','表弟'],
+        'm,xb,s&l':['舅表弟','表弟','老表'],
         'm,xb,s&l,w':['舅表弟媳','舅表弟妇','表弟媳','表弟妹'],
         'm,xb,s,s':['舅表侄男','表侄男','舅表侄','表侄'],
         'm,xb,s,s,w':['舅表侄妇','表侄妇'],
@@ -1251,14 +1247,14 @@
         'm,xb,s,s,d':['舅表侄孙女','表侄孙女','舅表侄孙','表侄孙'],
         'm,xb,s,s,d,h':['舅表侄孙婿','表侄孙婿'],
         'm,xb,s,d':['舅表侄女','表侄女','舅表侄','表侄'],
-        'm,xb,s,d,h':['舅表侄婿','表侄婿'],    
+        'm,xb,s,d,h':['舅表侄婿','表侄婿'],
         'm,xb,s,d,s':['舅表侄外孙男','表侄外孙男','舅表侄外孙','表侄外孙'],
         'm,xb,s,d,s,w':['舅表侄外孙妇','表侄外孙妇'],
         'm,xb,s,d,d':['舅表侄外孙女','表侄外孙女','舅表侄外孙','表侄外孙'],
         'm,xb,s,d,d,h':['舅表侄外孙婿','表侄外孙婿'],
-        'm,xb,d&o':['舅表姐','表姐'],
+        'm,xb,d&o':['舅表姐','表姐','老表'],
         'm,xb,d&o,h':['舅表姐夫','表姐夫','表姐丈'],
-        'm,xb,d&l':['舅表妹','表妹'],
+        'm,xb,d&l':['舅表妹','表妹','老表'],
         'm,xb,d&l,h':['舅表妹夫','舅表妹婿','表妹夫'],
         'm,xb,d,s':['舅表甥男','舅表甥男','表甥男','表甥'],
         'm,xb,d,s,w':['舅表甥妇','表甥妇'],
@@ -1740,25 +1736,25 @@
         'xb,s,w':['侄媳妇','侄妇'],
         'xb,s,w,f&o':['侄眷兄'],
         'xb,s,w,f&l':['侄眷弟'],
-		'xb,s,w,f,f':['侄眷父'],
-		'xb,s,w,f,m':['侄眷母'],
+        'xb,s,w,f,f':['侄眷父'],
+        'xb,s,w,f,m':['侄眷母'],
         'xb,s,w,m&o':['侄眷姊'],
         'xb,s,w,m&l':['侄眷妹'],
-		'xb,s,w,m,f':['侄眷父'],
-		'xb,s,w,m,m':['侄眷母'],
+        'xb,s,w,m,f':['侄眷父'],
+        'xb,s,w,m,m':['侄眷母'],
         'xb,s,w,xb':['侄眷男'],
         'xb,s,w,xb,w':['侄眷妇'],
         'xb,s,w,xs':['侄眷女'],
         'xb,s,w,xs,h':['侄眷婿'],
         'xb,s,s':['侄孙男','侄孙子','从孙男'],
         'xb,s,s,w':['侄孙妇','从孙妇'],
-		'xb,s,s,w,f':['侄孙眷男'],
-		'xb,s,s,w,f,f&o':['侄孙眷兄'],
+        'xb,s,s,w,f':['侄孙眷男'],
+        'xb,s,s,w,f,f&o':['侄孙眷兄'],
         'xb,s,s,w,f,f&l':['侄孙眷弟'],
         'xb,s,s,w,f,m&o':['侄孙眷姊'],
         'xb,s,s,w,f,m&l':['侄孙眷妹'],
         'xb,s,s,w,m':['侄孙眷女'],
-		'xb,s,s,w,m,f&o':['侄孙眷兄'],
+        'xb,s,s,w,m,f&o':['侄孙眷兄'],
         'xb,s,s,w,m,f&l':['侄孙眷弟'],
         'xb,s,s,w,m,m&o':['侄孙眷姊'],
         'xb,s,s,w,m,m&l':['侄孙眷妹'],
@@ -1776,13 +1772,13 @@
         'xb,s,s,d,d':['侄玄外孙女'],
         'xb,s,d':['侄孙女','从孙女'],
         'xb,s,d,h':['侄孙婿','从孙婿'],
-		'xb,s,d,h,f':['侄孙姻男'],
-		'xb,s,d,h,f,f&o':['侄孙姻兄'],
+        'xb,s,d,h,f':['侄孙姻男'],
+        'xb,s,d,h,f,f&o':['侄孙姻兄'],
         'xb,s,d,h,f,f&l':['侄孙姻弟'],
         'xb,s,d,h,f,m&o':['侄孙姻姊'],
         'xb,s,d,h,f,m&l':['侄孙姻妹'],
         'xb,s,d,h,m':['侄孙姻女'],
-		'xb,s,d,h,m,f&o':['侄孙姻兄'],
+        'xb,s,d,h,m,f&o':['侄孙姻兄'],
         'xb,s,d,h,m,f&l':['侄孙姻弟'],
         'xb,s,d,h,m,m&o':['侄孙姻姊'],
         'xb,s,d,h,m,m&l':['侄孙姻妹'],
@@ -1802,25 +1798,25 @@
         'xb,d,h':['侄女婿','侄婿'],
         'xb,d,h,f&o':['侄姻兄'],
         'xb,d,h,f&l':['侄姻弟'],
-		'xb,d,h,f,f':['侄姻父'],
-		'xb,d,h,f,m':['侄姻母'],
+        'xb,d,h,f,f':['侄姻父'],
+        'xb,d,h,f,m':['侄姻母'],
         'xb,d,h,m&o':['侄姻姊'],
         'xb,d,h,m&l':['侄姻妹'],
-		'xb,d,h,m,f':['侄姻父'],
-		'xb,d,h,m,m':['侄姻母'],
+        'xb,d,h,m,f':['侄姻父'],
+        'xb,d,h,m,m':['侄姻母'],
         'xb,d,h,xb':['侄姻男'],
         'xb,d,h,xb,w':['侄姻妇'],
         'xb,d,h,xs':['侄姻女'],
         'xb,d,h,xs,h':['侄姻婿'],
         'xb,d,s':['侄外孙','外侄孙'],
         'xb,d,s,w':['侄外孙妇','外侄孙妇'],
-		'xb,d,s,w,f':['侄外孙眷男'],
-		'xb,d,s,w,f,f&o':['侄外孙眷兄'],
+        'xb,d,s,w,f':['侄外孙眷男'],
+        'xb,d,s,w,f,f&o':['侄外孙眷兄'],
         'xb,d,s,w,f,f&l':['侄外孙眷弟'],
         'xb,d,s,w,f,m&o':['侄外孙眷姊'],
         'xb,d,s,w,f,m&l':['侄外孙眷妹'],
         'xb,d,s,w,m':['侄外孙眷女'],
-		'xb,d,s,w,m,f&o':['侄外孙眷兄'],
+        'xb,d,s,w,m,f&o':['侄外孙眷兄'],
         'xb,d,s,w,m,f&l':['侄外孙眷弟'],
         'xb,d,s,w,m,m&o':['侄外孙眷姊'],
         'xb,d,s,w,m,m&l':['侄外孙眷妹'],
@@ -1838,13 +1834,13 @@
         'xb,d,s,d,d':['侄外玄外孙女'],
         'xb,d,d':['侄外孙女','外侄孙女'],
         'xb,d,d,h':['侄外孙婿','外侄孙婿'],
-		'xb,d,d,h,f':['侄外孙姻男'],
-		'xb,d,d,h,f,f&o':['侄外孙姻兄'],
+        'xb,d,d,h,f':['侄外孙姻男'],
+        'xb,d,d,h,f,f&o':['侄外孙姻兄'],
         'xb,d,d,h,f,f&l':['侄外孙姻弟'],
         'xb,d,d,h,f,m&o':['侄外孙姻姊'],
         'xb,d,d,h,f,m&l':['侄外孙姻妹'],
         'xb,d,d,h,m':['侄外孙姻女'],
-		'xb,d,d,h,m,f&o':['侄外孙姻兄'],
+        'xb,d,d,h,m,f&o':['侄外孙姻兄'],
         'xb,d,d,h,m,f&l':['侄外孙姻弟'],
         'xb,d,d,h,m,m&o':['侄外孙姻姊'],
         'xb,d,d,h,m,m&l':['侄外孙姻妹'],
@@ -1962,25 +1958,25 @@
         'xs,s,w':['外甥媳妇','甥媳妇','甥妇'],
         'xs,s,w,f&o':['甥眷兄'],
         'xs,s,w,f&l':['甥眷弟'],
-		'xs,s,w,f,f':['甥眷父'],
-		'xs,s,w,f,m':['甥眷母'],
+        'xs,s,w,f,f':['甥眷父'],
+        'xs,s,w,f,m':['甥眷母'],
         'xs,s,w,m&o':['甥眷姊'],
         'xs,s,w,m&l':['甥眷妹'],
-		'xs,s,w,m,f':['甥眷父'],
-		'xs,s,w,m,m':['甥眷母'],
+        'xs,s,w,m,f':['甥眷父'],
+        'xs,s,w,m,m':['甥眷母'],
         'xs,s,w,xb':['甥眷男'],
         'xs,s,w,xb,w':['甥眷妇'],
         'xs,s,w,xs':['甥眷女'],
         'xs,s,w,xs,h':['甥眷婿'],
         'xs,s,s':['甥孙','甥孙男','从孙男'],
         'xs,s,s,w':['甥孙妇','从孙妇'],
-		'xs,s,s,w,f':['甥孙眷男'],
-		'xs,s,s,w,f,f&o':['甥孙眷兄'],
+        'xs,s,s,w,f':['甥孙眷男'],
+        'xs,s,s,w,f,f&o':['甥孙眷兄'],
         'xs,s,s,w,f,f&l':['甥孙眷弟'],
         'xs,s,s,w,f,m&o':['甥孙眷姊'],
         'xs,s,s,w,f,m&l':['甥孙眷妹'],
         'xs,s,s,w,m':['甥孙眷女'],
-		'xs,s,s,w,m,f&o':['甥孙眷兄'],
+        'xs,s,s,w,m,f&o':['甥孙眷兄'],
         'xs,s,s,w,m,f&l':['甥孙眷弟'],
         'xs,s,s,w,m,m&o':['甥孙眷姊'],
         'xs,s,s,w,m,m&l':['甥孙眷妹'],
@@ -1998,13 +1994,13 @@
         'xs,s,s,d,d':['甥玄外孙女'],
         'xs,s,d':['甥孙女','从孙女'],
         'xs,s,d,h':['甥孙婿','从孙婿'],
-		'xs,s,d,h,f':['甥孙姻男'],
-		'xs,s,d,h,f,f&o':['甥孙姻兄'],
+        'xs,s,d,h,f':['甥孙姻男'],
+        'xs,s,d,h,f,f&o':['甥孙姻兄'],
         'xs,s,d,h,f,f&l':['甥孙姻弟'],
         'xs,s,d,h,f,m&o':['甥孙姻姊'],
         'xs,s,d,h,f,m&l':['甥孙姻妹'],
         'xs,s,d,h,m':['甥孙姻女'],
-		'xs,s,d,h,m,f&o':['甥孙姻兄'],
+        'xs,s,d,h,m,f&o':['甥孙姻兄'],
         'xs,s,d,h,m,f&l':['甥孙姻弟'],
         'xs,s,d,h,m,m&o':['甥孙姻姊'],
         'xs,s,d,h,m,m&l':['甥孙姻妹'],
@@ -2024,25 +2020,25 @@
         'xs,d,h':['外甥女婿','甥女婿','甥婿'],
         'xs,d,h,f&o':['甥姻兄'],
         'xs,d,h,f&l':['甥姻弟'],
-		'xs,d,h,f,f':['甥姻父'],
-		'xs,d,h,f,m':['甥姻母'],
+        'xs,d,h,f,f':['甥姻父'],
+        'xs,d,h,f,m':['甥姻母'],
         'xs,d,h,m&o':['甥姻姊'],
         'xs,d,h,m&l':['甥姻妹'],
-		'xs,d,h,m,f':['甥姻父'],
-		'xs,d,h,m,m':['甥姻母'],
+        'xs,d,h,m,f':['甥姻父'],
+        'xs,d,h,m,m':['甥姻母'],
         'xs,d,h,xb':['甥姻男'],
         'xs,d,h,xb,w':['甥姻妇'],
         'xs,d,h,xs':['甥姻女'],
         'xs,d,h,xs,h':['甥姻婿'],
         'xs,d,s':['甥外孙'],
         'xs,d,s,w':['甥外孙妇'],
-		'xs,d,s,w,f':['甥外孙眷男'],
-		'xs,d,s,w,f,f&o':['甥外孙眷兄'],
+        'xs,d,s,w,f':['甥外孙眷男'],
+        'xs,d,s,w,f,f&o':['甥外孙眷兄'],
         'xs,d,s,w,f,f&l':['甥外孙眷弟'],
         'xs,d,s,w,f,m&o':['甥外孙眷姊'],
         'xs,d,s,w,f,m&l':['甥外孙眷妹'],
         'xs,d,s,w,m':['甥外孙眷女'],
-		'xs,d,s,w,m,f&o':['甥外孙眷兄'],
+        'xs,d,s,w,m,f&o':['甥外孙眷兄'],
         'xs,d,s,w,m,f&l':['甥外孙眷弟'],
         'xs,d,s,w,m,m&o':['甥外孙眷姊'],
         'xs,d,s,w,m,m&l':['甥外孙眷妹'],
@@ -2060,12 +2056,12 @@
         'xs,d,s,d,d':['甥外玄外孙女'],
         'xs,d,d':['甥外孙女'],
         'xs,d,d,h':['甥外孙婿'],
-		'xs,d,d,h,f,f&o':['甥外孙姻兄'],
+        'xs,d,d,h,f,f&o':['甥外孙姻兄'],
         'xs,d,d,h,f,f&l':['甥外孙姻弟'],
         'xs,d,d,h,f,m&o':['甥外孙姻姊'],
         'xs,d,d,h,f,m&l':['甥外孙姻妹'],
         'xs,d,d,h,m':['甥外孙姻女'],
-		'xs,d,d,h,m,f&o':['甥外孙姻兄'],
+        'xs,d,d,h,m,f&o':['甥外孙姻兄'],
         'xs,d,d,h,m,f&l':['甥外孙姻弟'],
         'xs,d,d,h,m,m&o':['甥外孙姻姊'],
         'xs,d,d,h,m,m&l':['甥外孙姻妹'],
@@ -2154,15 +2150,15 @@
         's,d,s':['曾外孙'],
         's,d,s,w':['曾外孙媳妇'],
         's,d,s,s':['曾外曾孙'],
-		's,d,s,s,w':['曾外曾孙媳妇'],
+        's,d,s,s,w':['曾外曾孙媳妇'],
         's,d,s,d':['曾外曾孙女'],
-		's,d,s,d,d':['曾外曾孙女婿'],
+        's,d,s,d,h':['曾外曾孙女婿'],
         's,d,d':['曾外孙女'],
         's,d,d,h':['曾外孙女婿'],
         's,d,d,s':['曾外曾外孙'],
-		's,d,d,s,w':['曾外曾外孙媳妇'],
+        's,d,d,s,w':['曾外曾外孙媳妇'],
         's,d,d,d':['曾外曾外孙女'],
-		's,d,d,d,h':['曾外曾外孙女婿'],
+        's,d,d,d,h':['曾外曾外孙女婿'],
         'd':['女儿','千金','闺女','掌上明珠','乖囡','囡囡','姑娘','女','阿女','女女','x女儿'],
         'd,h':['女婿','姑爷','女婿子','女婿儿','儿婿'],
         'd,s':['外孙'],
@@ -2170,29 +2166,29 @@
         'd,s,s':['外曾孙','重外孙'],
         'd,s,s,w':['外曾孙媳妇','外曾孙妇'],
         'd,s,s,s':['外玄孙'],
-		'd,s,s,s,w':['外玄孙媳妇'],
+        'd,s,s,s,w':['外玄孙媳妇'],
         'd,s,s,d':['外玄孙女'],
-		'd,s,s,d,h':['外玄孙女婿'],
+        'd,s,s,d,h':['外玄孙女婿'],
         'd,s,d':['外曾孙女','重外孙女'],
         'd,s,d,h':['外曾孙女婿','重外孙女婿'],
         'd,s,d,s':['外玄外孙'],
-		'd,s,d,s,w':['外玄外孙媳妇'],
+        'd,s,d,s,w':['外玄外孙媳妇'],
         'd,s,d,d':['外玄外孙女'],
-		'd,s,d,d,h':['外玄外孙女婿'],
+        'd,s,d,d,h':['外玄外孙女婿'],
         'd,d':['外孙女','外孙囡'],
         'd,d,h':['外孙女婿','外孙婿'],
         'd,d,s':['外曾外孙'],
         'd,d,s,w':['外曾外孙媳妇'],
         'd,d,s,s':['外曾外曾孙'],
-		'd,d,s,s,w':['外曾外曾孙媳妇'],
+        'd,d,s,s,w':['外曾外曾孙媳妇'],
         'd,d,s,d':['外曾外曾孙女'],
-		'd,d,s,d,h':['外曾外曾孙女婿'],
+        'd,d,s,d,h':['外曾外曾孙女婿'],
         'd,d,d':['外曾外孙女'],
         'd,d,d,h':['外曾外孙女婿'],
         'd,d,d,s':['外曾外曾外孙'],
-		'd,d,d,s,w':['外曾外曾外孙媳妇'],
+        'd,d,d,s,w':['外曾外曾外孙媳妇'],
         'd,d,d,d':['外曾外曾外孙女'],
-		'd,d,d,d,h':['外曾外曾外孙女婿'],
+        'd,d,d,d,h':['外曾外曾外孙女婿'],
         //亲家
         's,w,f':['亲家公','亲家翁','姻翁','亲家'],
         's,w,f&o':['男眷兄','息眷兄'],
@@ -2208,11 +2204,14 @@
         's,w,f,f,xb,s&o,w':['男眷家兄妇'],
         's,w,f,f,xb,s&l':['男眷家弟'],
         's,w,f,f,xb,s&l,w':['男眷家弟妇'],
-        's,w,f,f,xb,s,s':['男眷侄'],
+        's,w,f,f,xb,s,s':['男眷侄男'],
+        's,w,f,f,xb,s,d':['男眷侄女'],
         's,w,f,f,xb,d&o':['男眷家姊'],
         's,w,f,f,xb,d&o,w':['男眷家姊婿'],
         's,w,f,f,xb,d&l':['男眷家妹'],
         's,w,f,f,xb,d&l,w':['男眷家妹婿'],
+        's,w,f,f,xb,d,s':['男眷甥男'],
+        's,w,f,f,xb,d,d':['男眷甥女'],
         's,w,f,m':['男眷母','太姻姆'],
         's,w,f,m,f':['老太姻翁'],
         's,w,f,m,m':['老太姻姆'],
@@ -2271,11 +2270,14 @@
         'd,h,f,f,xb,s&o,w':['女姻家兄妇'],
         'd,h,f,f,xb,s&l':['女姻家弟'],
         'd,h,f,f,xb,s&l,w':['女姻家弟妇'],
-        'd,h,f,f,xb,s,s':['女姻侄'],
+        'd,h,f,f,xb,s,s':['女姻侄男'],
+        'd,h,f,f,xb,s,d':['女姻侄女'],
         'd,h,f,f,xb,d&o':['女姻家姊'],
         'd,h,f,f,xb,d&o,w':['女姻家姊婿'],
         'd,h,f,f,xb,d&l':['女姻家妹'],
         'd,h,f,f,xb,d&l,w':['女姻家妹婿'],
+        'd,h,f,f,xb,d,s':['女姻甥男'],
+        'd,h,f,f,xb,d,d':['女姻甥女'],
         'd,h,f,m':['女姻母','太姻姆'],
         'd,h,f,m,f':['老太姻翁'],
         'd,h,f,m,m':['老太姻姆'],
@@ -2321,10 +2323,10 @@
         'd,h,xs,d':['女姻外孙女','息姻外孙女'],
         'd,h,xs,d,h':['女姻外孙婿','息姻外孙婿'],
     };
-	
-	// 模式
-	var _data = Object.assign({},_map);
-	var _mode = {};
+
+    // 模式
+    var _data = Object.assign({},_map);
+    var _mode = {};
 
     // 数组去重
     var unique = function(arr) {
@@ -2359,21 +2361,21 @@
         var lists = str.replace(/我的?(.+)/,'$1').replace(/家的?/,'的').split('的');
         var result = [''];
         var isMatch = true;
-		var replaceMap = {			
-			'哥':'兄',
-			'姐':'姊',
-			'媳':'妇',
-			'夫':'婿',
-			'姪':'侄',
-			'姊妹姻':'姻',
-			'女姻':'姻',
-			'兄弟眷':'眷',
-			'男眷':'眷'
-		};
-		var replaceMap2 = {
-			'媳妇':'妇',
-			'女婿':'婿'
-		}
+        var replaceMap = {
+            '哥':'兄',
+            '姐':'姊',
+            '媳':'妇',
+            '夫':'婿',
+            '姪':'侄',
+            '姊妹姻':'姻',
+            '女姻':'姻',
+            '兄弟眷':'眷',
+            '男眷':'眷'
+        };
+        var replaceMap2 = {
+            '媳妇':'妇',
+            '女婿':'婿'
+        }
         while(lists.length){
             var name = lists.shift();           //当前匹配词
             var items = [];                     //当前匹配词可能性
@@ -2381,37 +2383,37 @@
                 var value = _data[i];
                 if(value.indexOf(name)>-1){     //是否存在该关系
                     items.push(i);
-                }else{							//同义词替换
-					var r_name = name;
-					for(var word in replaceMap){
-						r_name = r_name.replace(word,replaceMap[word]);
-					}
-					for(var word in replaceMap2){
-						if(word!=name){
-							r_name = r_name.replace(word,replaceMap[word]);
-						}
-					}
-					var r_value = value.map(function(v){
-						for(var word in replaceMap){
-							v = v.replace(word,replaceMap[word]);
-						}
-						return v;
-					});
-					if(r_value.indexOf(r_name)>-1){
-						items.push(i);
-					}
-				}
+                }else{              //同义词替换
+                    var r_name = name;
+                    for(var word in replaceMap){
+                        r_name = r_name.replace(word,replaceMap[word]);
+                    }
+                    for(var word in replaceMap2){
+                        if(word!=name){
+                            r_name = r_name.replace(word,replaceMap[word]);
+                        }
+                    }
+                    var r_value = value.map(function(v){
+                        for(var word in replaceMap){
+                            v = v.replace(word,replaceMap[word]);
+                        }
+                        return v;
+                    });
+                    if(r_value.indexOf(r_name)>-1){
+                        items.push(i);
+                    }
+                }
             }
-			if(!items.length){
+            if(!items.length){
                 isMatch = false;
             }
-			var res = [];
-			result.forEach(function(a){
-				items.forEach(function(b){
-					res.push(a+(b?','+b:''));
-				});
-			});
-			result = res;
+            var res = [];
+            result.forEach(function(a){
+                items.forEach(function(b){
+                    res.push(a+(b?','+b:''));
+                });
+            });
+            result = res;
         }
         return isMatch?result:[''];
     }
@@ -2420,8 +2422,8 @@
     function selector2id(selector,sex){
         var result = [];
         var hash = {};
-		//性别判断
-		if(sex<0){
+        //性别判断
+        if(sex<0){
             if(selector.match(/^,w/)){
                 sex = 1;
             }else if(selector.match(/^,h/)){
@@ -2430,9 +2432,9 @@
         }
         // console.log('[selector]',selector);
         var getId = function(selector,sex){
-    		if(selector.indexOf(',1')==-1&&selector.indexOf(',0')==-1){			
+            if(selector.indexOf(',1')==-1&&selector.indexOf(',0')==-1){
                 selector = ','+sex+selector;
-    		}
+            }
             if(selector.match(/,[w0],w|,[h1],h/)){  //同志关系去除
                 return false;
             }
@@ -2505,7 +2507,7 @@
                 items = getData(id);
             }
             // 忽略年龄条件查找
-            if(!items.length){  
+            if(!items.length){
                 id = id.replace(/[ol](b|s)/g,'x$1');
                 items = getData(id);
             }
@@ -2544,14 +2546,14 @@
         }
         if(id){
             id = id.replace(/&[ol]/g,'');
-			//性别判断
-			if(sex<0){
+            //性别判断
+            if(sex<0){
                 if(id.match(/^w/)){
-				    sex = 1;
+                    sex = 1;
                 }else if(id.match(/^h/)){
                     sex = 0;
                 }
-			}
+            }
             var result = [];
             var doing = function(sex){
                 var sid = (','+sex+','+id).replace(/,[fhs]|,[olx]b/g,',1').replace(/,[mwd]|,[olx]s/g,',0');
@@ -2563,9 +2565,9 @@
                     arr.push(hash[id_arr[i]][sid_arr[i]]);
                 }
                 var g = 0;
-    			var gMap = {'f':1,'m':1,'s':-1,'d':-1};
+                var gMap = {'f':1,'m':1,'s':-1,'d':-1};
                 arr.forEach(function(r){
-    				g += gMap[r]||0;
+                    g += gMap[r]||0;
                 });
                 return arr.join(',')+(g?'':age);
             };
@@ -2584,54 +2586,54 @@
     function getChainById(id){
         var arr = id.split(',');
         return arr.map(function(sign){
-			var key = sign.replace(/&[ol]/,'');
+            var key = sign.replace(/&[ol]/,'');
             return _data[key][0];
-		}).join('的');
+        }).join('的');
     }
 
     // 合并选择器，查找两个对象之间的关系
     function mergeSelector(from,to,my_sex){
-		if(my_sex<0){
+        if(my_sex<0){
             if(from.match(/^,w/)||to.match(/^,w/)){
                 my_sex = 1;
             }else if(from.match(/^,h/)||to.match(/^,h/)){
                 my_sex = 0;
             }
         }
-		var sex = my_sex;
-		var from_ids = selector2id(from,my_sex);
-		var to_ids = selector2id(to,my_sex);
-		var r_ids = [];
-		if(to){
-			var isMale = false;
-			var isFemale = false;
-			to_ids.forEach(function(id){			
-				if(id.match(/([fhs1](&[ol])?|[olx]b)$/)){
-					isMale = true;
-				}
-				if(id.match(/([mwd0](&[ol])?|[olx]s)$/)){
-					isFemale = true;
-				}
-				r_ids = r_ids.concat(reverseId(id,my_sex));
-			});
-			r_ids = unique(r_ids);
-			if(isMale&&isFemale){
-				sex = -1;
-			}else if(isMale){
-				sex = 1;
-			}else if(isFemale){
-				sex = 0;
-			}
-		}else{
-			r_ids = [''];
-		}
-		// console.log('[from_ids]',from_ids,'r_ids',r_ids);
-		var from_selector = from_ids.length>1?'['+from_ids.join('|')+']':from_ids[0];
-		var to_selector = r_ids.length>1?'['+r_ids.join('|')+']':r_ids[0];
-		return {
-			'selector':(to?','+to_selector:'')+(from?','+from_selector:''),
-			'sex':sex
-		};
+        var sex = my_sex;
+        var from_ids = selector2id(from,my_sex);
+        var to_ids = selector2id(to,my_sex);
+        var r_ids = [];
+        if(to){
+            var isMale = false;
+            var isFemale = false;
+            to_ids.forEach(function(id){
+                if(id.match(/([fhs1](&[ol])?|[olx]b)$/)){
+                    isMale = true;
+                }
+                if(id.match(/([mwd0](&[ol])?|[olx]s)$/)){
+                    isFemale = true;
+                }
+                r_ids = r_ids.concat(reverseId(id,my_sex));
+            });
+            r_ids = unique(r_ids);
+            if(isMale&&isFemale){
+                sex = -1;
+            }else if(isMale){
+                sex = 1;
+            }else if(isFemale){
+                sex = 0;
+            }
+        }else{
+            r_ids = [''];
+        }
+        // console.log('[from_ids]',from_ids,'r_ids',r_ids);
+        var from_selector = from_ids.length>1?'['+from_ids.join('|')+']':from_ids[0];
+        var to_selector = r_ids.length>1?'['+r_ids.join('|')+']':r_ids[0];
+        return {
+            'selector':(to?','+to_selector:'')+(from?','+from_selector:''),
+            'sex':sex
+        };
     }
 
     var relationship = function (parameter){
@@ -2640,17 +2642,17 @@
             target:'',
             sex:-1,
             type:'default',     // 'chain'表示关系链
-            reverse:false,		// true表示反向
-			mode:'default', 	// 用户自定义模式
+            reverse:false,    // true表示反向
+            mode:'default',   // 用户自定义模式
         },parameter);
-		_data = Object.assign({},_map);
-		for(var lang in _mode){	
-			if(options.mode==lang){
-				for(var key in _mode[lang]){
-					_data[key] = [].concat(_mode[lang][key],_map[key]||[]);
-				}
-			}
-		}	
+        _data = Object.assign({},_map);
+        for(var lang in _mode){
+            if(options.mode==lang){
+                for(var key in _mode[lang]){
+                    _data[key] = [].concat(_mode[lang][key],_map[key]||[]);
+                }
+            }
+        }
         var from_selectors = getSelectors(options.text);
         var to_selectors = getSelectors(options.target);
         // console.log('[selectors]',from_selectors,to_selectors);
@@ -2661,56 +2663,56 @@
                 // console.log('[data]',data);
                 var ids = selector2id(data['selector'],data['sex']);
                 // console.log('[ids]',data['selector'],data['sex'],ids);
-				if(ids){					
-					ids.forEach(function(id){	
-                        var temps = [id];					
-						if(options.type=='chain'){
-							if(options.reverse){
-								temps = reverseId(id,data['sex']);
-							}
+                if(ids){
+                    ids.forEach(function(id){
+                        var temps = [id];
+                        if(options.type=='chain'){
+                            if(options.reverse){
+                                temps = reverseId(id,data['sex']);
+                            }
                             temps.forEach(function(id){
-    							var item = getChainById(id);
-    							if(item){
-    								result.push(item);
-    							}
+                                var item = getChainById(id);
+                                if(item){
+                                    result.push(item);
+                                }
                             });
-						}else{
-							if(options.reverse){
-								temps = reverseId(id,data['sex']);
-							}
-                            temps.forEach(function(id){                            
-    							var items = getDataById(data['sex']+','+id);
-    							if(!items.length){
-    								items = getDataById(id);
-    							}
-    							if(!items.length){
-    								if(id.indexOf('w')==0||id.indexOf('h')==0){  //找不到关系，随爱人叫
-    									items = getDataById(id.substr(2));
-    								}
-    							}
-    							if(items.length){
-    								result = result.concat(items);
-    							}
+                        }else{
+                            if(options.reverse){
+                                temps = reverseId(id,data['sex']);
+                            }
+                            temps.forEach(function(id){
+                                var items = getDataById(data['sex']+','+id);
+                                if(!items.length){
+                                    items = getDataById(id);
+                                }
+                                if(!items.length){
+                                    if(id.indexOf('w')==0||id.indexOf('h')==0){  //找不到关系，随爱人叫
+                                        items = getDataById(id.substr(2));
+                                    }
+                                }
+                                if(items.length){
+                                    result = result.concat(items);
+                                }
                             });
-						}
-					});
-				}
+                        }
+                    });
+                }
             });
         });
         return unique(result);
     };
-    
+
     // 数据量
     relationship.dataCount = 0;
     for(var i in _data){
         relationship.dataCount++;
     }
-	// 设置语言模式
-	relationship.setMode = function(sign,data){
-		if(typeof _mode[sign]=='undefined'){
-			_mode[sign] = {};
-		}
-		_mode[sign] = Object.assign(_mode[sign],data);
-	};
+    // 设置语言模式
+    relationship.setMode = function(sign,data){
+        if(typeof _mode[sign]=='undefined'){
+            _mode[sign] = {};
+        }
+        _mode[sign] = Object.assign(_mode[sign],data);
+    };
     return relationship;
 });
