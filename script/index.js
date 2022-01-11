@@ -137,14 +137,21 @@ relationship.setMode('cantonese',{
 	};
 	var bindChange = function(){
 		var value = $input.value.trim();
-		var result = relationship({text:value,type:'chain'});
-		if(result.length){				
-			var name = result[0].split('的').pop();
-			if(!name){
-				toggleSex($sex[0].checked);
-			}else{
-				toggleSex('爸爸,老公,儿子,哥哥,弟弟,兄弟'.indexOf(name)>-1);
-			}
+		var sex = $sex[0].checked?1:0;
+		var mode = $mode[0].checked?$mode[0].value:$mode[1].value;
+		var reverse = !$reverse[0].checked;
+		if(value){
+			var result = relationship({text:value,sex:sex,reverse:reverse,mode:mode});
+			if(result.length){				
+				var name = result[0].split('的').pop();
+				if(!name){
+					toggleSex($sex[0].checked);
+				}else{
+					toggleSex('爸爸,老公,儿子,哥哥,弟弟,兄弟'.indexOf(name)>-1);
+				}
+			}			
+		}else{
+			$result.value = '';
 		}
 	};
 
