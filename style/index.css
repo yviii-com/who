@@ -264,6 +264,41 @@ a:hover{
 .mod-panel .intro p.a{
     color: #666;
 }
+.mod-panel table {
+    width: 100%;
+    border: 1px solid #cee1ee;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+.mod-panel tr {
+    border-bottom: 1px solid #cee1ee;
+    line-height: 24px;
+    font-size: 13px;
+}
+.mod-panel tr td {
+    word-break: break-all;
+    word-wrap: break-word;
+    padding: 5px 10px;
+    font-weight: normal;
+}
+.mod-panel tr p.name{
+    font-size: 15px;
+    font-weight: bold;
+}
+.mod-panel tr .download{
+    display: inline-block;
+    padding:  0 15px;
+    background: #32ccc8;
+    color: #fff;
+    line-height: 32px;
+    font-size: 13px;
+    text-align: center;
+    border-radius: 3px;
+    text-decoration: none;
+}
+.mod-panel tr .download:hover{
+    background: #2e9e9b;
+}
 
 .mod-qrcode{
     position: fixed;
@@ -319,6 +354,10 @@ a:hover{
         margin-bottom: 5px;
         line-height: 24px;
     }
+    .mod-panel .banner{
+        display: none;
+    }
+
     .mod-qrcode{
         position: static;
         margin-bottom: 10px;
