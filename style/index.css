@@ -1,4 +1,4 @@
-html{color:#000;background:#FFF}body,div,dl,dt,dd,ul,ol,li,h1,h3,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0}table{border-collapse:collapse;border-spacing:0}fieldset,img{border:0}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal}ol,ul{list-style:none}caption,th{text-align:left}h1,h3,h3,h4,h5,h6{font-size:100%;font-weight:normal}q:before,q:after{content:''}abbr,acronym{border:0;font-variant:normal}sup{vertical-align:text-top}sub{vertical-align:text-bottom}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;*font-size:100%}legend{color:#000}
+html{color:#000;background:#FFF}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0}table{border-collapse:collapse;border-spacing:0}fieldset,img{border:0}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal}ol,ul{list-style:none}caption,th{text-align:left}h1,h3,h3,h4,h5,h6{font-size:100%;font-weight:normal}q:before,q:after{content:''}abbr,acronym{border:0;font-variant:normal}sup{vertical-align:text-top}sub{vertical-align:text-bottom}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;*font-size:100%}legend{color:#000}
 html{
     height:100%;
 }
@@ -72,49 +72,53 @@ a:hover{
 .mod-panel {
     width: 100%;
 }
+.mod-panel h1{
+	line-height: 32px;
+	font-size: 24px;
+	color:#212121;
+}
+.mod-panel h2{
+    line-height: 30px;
+    text-align: center;
+    font-weight: normal;
+    font-size: 18px;
+}
 .mod-panel .hd{
 	padding: 10px 0;
 	line-height: 22px;
 	text-align: center;
 }
-.mod-panel .hd h1{
-	line-height: 32px;
-	font-size: 24px;
-	color:#212121;
-}
+
 .mod-panel .hd b{
 	margin: 0 3px;
 	color: #fd7474;
 }
-.mod-panel .bd{
+.mod-panel .box{
 	max-width: 500px;
 	margin:0 auto 15px;
 }
-.mod-panel .bd p{
-    overflow: hidden;
-}
-.mod-panel .c-hd{
+.mod-panel .box .c-hd{
 	height: 36px;
 	margin-bottom: 15px;
 	border-bottom: 1px solid #e2e2e2;
 }
-.mod-panel .c-hd li{
+.mod-panel .box .c-hd li{
 	float: left;
 	width: 33.33%;
 	height: 36px;
 	line-height: 36px;
 }
-.mod-panel .c-hd li a{
+.mod-panel .box .c-hd li a{
 	display: block;
 	text-align: center;
 	text-decoration: none;
 	color: #999;
 }
-.mod-panel .c-hd li.active a{
+.mod-panel .box .c-hd li.active a{
 	position: relative;
 	color: #333;
 }
-.mod-panel .c-hd li.active a::after{
+.mod-panel .box .c-hd li.active a::after{
 	position: absolute;
 	left: 50%;
 	bottom: 0;
@@ -126,17 +130,20 @@ a:hover{
 	background: #2095f2;
 	border-radius: 3px;
 }
-.mod-panel .c-panel{
+.mod-panel .box .c-panel{
 	display: none;
 }
-.mod-panel .operation{
+.mod-panel .box .operation{
 	margin: 10px 0;
 }
-.mod-panel .row{
+.mod-panel .box .row{
     margin-bottom: 5px;
 }
-.mod-panel .field{
+.mod-panel .box .field{
     line-height: 28px;
+}
+.mod-panel .bd p{
+    overflow: hidden;
 }
 .mod-panel .bd label{
 	display: inline-block;
@@ -218,7 +225,7 @@ a:hover{
 	outline: none;
 }
 .mod-panel .bd p{
-    line-height: 30px;
+    line-height: 22px;
 }
 .mod-panel .bd p span{
     margin-right: 10px;
@@ -268,21 +275,30 @@ a:hover{
     line-height: 22px;
     text-indent: 2em;
 }
+.mod-panel .table-inner{
+    overflow-x: auto;
+}
 .mod-panel table {
     width: 100%;
+    margin-bottom: 10px;
     border: 1px solid #cee1ee;
     border-collapse: collapse;
     border-spacing: 0;
+}
+.mod-panel thead{
+    background-color: #e3eef8;
 }
 .mod-panel tr {
     border-bottom: 1px solid #cee1ee;
     line-height: 24px;
     font-size: 13px;
 }
-.mod-panel tr td {
+.mod-panel tr td,.mod-panel tr th{
     word-break: break-all;
     word-wrap: break-word;
-    padding: 5px 10px;
+    padding: 5px 8px;
+    border: 1px solid #cee1ee;
+    line-height: 20px;
     font-weight: normal;
 }
 .mod-panel tr p.name{
