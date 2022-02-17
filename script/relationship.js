@@ -2359,7 +2359,7 @@
     function getSelectors(str){
         str = str.replace(/[二|三|四|五|六|七|八|九|十]{1,2}/g,'x');
         var lists = str.replace(/我的?(.+)/,'$1').replace(/家的?/,'的').split('的');
-        var result = [''];
+        var result = [];
         var isMatch = true;
         var replaceMap = {
             '哥':'兄',
@@ -2408,6 +2408,9 @@
                 isMatch = false;
             }
             var res = [];
+            if(!result.length){
+                result = [''];
+            }
             result.forEach(function(a){
                 items.forEach(function(b){
                     res.push(a+(b?','+b:''));
@@ -2415,7 +2418,7 @@
             });
             result = res;
         }
-        return isMatch?result:[''];
+        return isMatch?result:[];
     }
 
     // 选择器转ID
@@ -2655,6 +2658,9 @@
         }
         var from_selectors = getSelectors(options.text);
         var to_selectors = getSelectors(options.target);
+        if(!to_selectors.length){
+            to_selectors = [''];
+        }
         // console.log('[selectors]',from_selectors,to_selectors);
         var result = [];                            //匹配结果
         from_selectors.forEach(function(from){
