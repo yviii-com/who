@@ -205,7 +205,7 @@
         '[f,xs,d&o|f,xs,d&l|m,xb,d&o|m,xb,d&l]':['表姐妹'],
         '[ob|os]':['哥哥姐姐'],
         '[lb|ls]':['弟弟妹妹'],
-        '[s|d]':['子女','儿女','小孩','孩子','孩儿','宝宝','宝贝','娃','儿辈','子辈'],
+        '[s|d]':['子女','儿女','小孩','孩子','孩子们','孩儿','宝宝','宝贝','娃','儿辈','子辈'],
         '[s,s|s,d|d,s|d,d]':['孙辈'],
         '[s|d|s,s|s,d|d,s|d,d]':['儿孙','子孙'],
         // 本家
@@ -2605,42 +2605,61 @@
     // 合并选择器，查找两个对象之间的关系
     function mergeSelector(from,to,my_sex){
         if(my_sex<0){
-            if(from.match(/^,w/)||from.match(/^,1/)||to.match(/^,w/)||to.match(/^,1/)){
-                my_sex = 1;
-            }else if(from.match(/^,h/)||from.match(/^,0/)||to.match(/^,h/)||to.match(/^,0/)){
-                my_sex = 0;
+            var to_sex = -1;
+            var from_sex = -1;
+            if(from.match(/^,w/)||from.match(/^,1/)){
+                from_sex = 1;
+            }
+            if(from.match(/^,h/)||from.match(/^,0/)){
+                from_sex = 0;
+            }
+            if(to.match(/^,w/)||to.match(/^,1/)){
+                to_sex = 1;
+            }
+            if(to.match(/^,h/)||to.match(/^,0/)){
+                to_sex = 0;
+            }
+            if(from_sex==-1&&to_sex>-1){
+                my_sex = to_sex;
+            }else if(from_sex>-1&&to_sex==-1){
+                my_sex = from_sex;
+            }else if(from_sex==to_sex){
+                my_sex = from_sex;
+            }else{
+                return false;
             }
         }
         var sex = my_sex;
         var from_ids = selector2id(from,my_sex);
         var to_ids = selector2id(to,my_sex);
-        var r_ids = [];
+        var from_rids = [];
+        var to_rids = [];
         if(to){
-            var isMale = false;
-            var isFemale = false;
+            var toIsMale = false;
+            var toIsFemale = false;
             to_ids.forEach(function(id){
                 if(id.match(/([fhs1](&[ol])?|[olx]b)$/)){
-                    isMale = true;
+                    toIsMale = true;
                 }
                 if(id.match(/([mwd0](&[ol])?|[olx]s)$/)){
-                    isFemale = true;
+                    toIsFemale = true;
                 }
-                r_ids = r_ids.concat(reverseId(id,my_sex));
+                to_rids = to_rids.concat(reverseId(id,my_sex));
             });
-            r_ids = unique(r_ids);
-            if(isMale&&isFemale){
+            to_rids = unique(to_rids);
+            if(toIsMale&&toIsFemale){
                 sex = -1;
-            }else if(isMale){
+            }else if(toIsMale){
                 sex = 1;
-            }else if(isFemale){
+            }else if(toIsFemale){
                 sex = 0;
             }
         }else{
-            r_ids = [''];
+            to_rids = [''];
         }
-        // console.log('[from_ids]',from_ids,'r_ids',r_ids);
+        // console.log('[from_ids]',from_ids,'to_rids',to_rids);
         var from_selector = from_ids.length>1?'['+from_ids.join('|')+']':from_ids[0];
-        var to_selector = r_ids.length>1?'['+r_ids.join('|')+']':r_ids[0];
+        var to_selector = to_rids.length>1?'['+to_rids.join('|')+']':to_rids[0];
         return {
             'selector':(to?','+to_selector:'')+(from?','+from_selector:''),
             'sex':sex
@@ -2669,13 +2688,13 @@
         if(!to_selectors.length){
             to_selectors = [''];
         }
-        console.log('[selectors]',from_selectors,to_selectors);
+        // console.log('[selectors]',from_selectors,to_selectors);
         var result = [];                            //匹配结果
         from_selectors.forEach(function(from){
             to_selectors.forEach(function(to){
                 var data = mergeSelector(from,to,options.sex);
-                console.log('[data]',data);
-                var ids = selector2id(data['selector'],data['sex']);
+                // console.log('[data]',from,to,data);
+                var ids = data?selector2id(data['selector'],data['sex']):null;
                 // console.log('[ids]',data['selector'],data['sex'],ids);
                 if(ids){
                     ids.forEach(function(id){
