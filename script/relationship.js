@@ -2609,14 +2609,12 @@
             var from_sex = -1;
             if(from.match(/^,w/)||from.match(/^,1/)){
                 from_sex = 1;
-            }
-            if(from.match(/^,h/)||from.match(/^,0/)){
+            }else if(from.match(/^,h/)||from.match(/^,0/)){
                 from_sex = 0;
             }
             if(to.match(/^,w/)||to.match(/^,1/)){
                 to_sex = 1;
-            }
-            if(to.match(/^,h/)||to.match(/^,0/)){
+            }else if(to.match(/^,h/)||to.match(/^,0/)){
                 to_sex = 0;
             }
             if(from_sex==-1&&to_sex>-1){
