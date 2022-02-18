@@ -190,10 +190,12 @@
     var _map = {
         '':['自己','我','本人','在下'],
         //并称
-        '[f,f|f,m|m,f|m,m]':['祖辈','祖父母'],
-        '[f|m]':['父母','爹娘','爹妈','爸妈','双亲','二亲','两亲','二老','高堂'],
-        '[h,f|h,m]':['公婆','翁姑','大家官'],
-        '[w,f|w,m]':['岳父母'],
+        '[f,f|f,m|m,f|m,m]':['祖辈'],
+        '[f,f|f,m]':['祖父母','爷爷奶奶'],
+        '[m,f|m,m]':['外祖父母','外公外婆','姥姥姥爷'],
+        '[f|m]':['父母','爹娘','爹妈','爸妈','爸爸妈妈','双亲','二亲','两亲','二老','高堂'],
+        '[h,f|h,m]':['公婆','翁姑','大家官','公公婆婆'],
+        '[w,f|w,m]':['岳父母','岳父岳母'],
         '[xb|xs]':['兄弟姐妹','同胞','手足'],
         '[f,xb,s&o|f,xb,s&l]':['堂兄弟','叔伯兄弟'],
         '[f,xb,d&o|f,xb,d&l]':['堂姐妹','叔伯姐妹'],
@@ -201,8 +203,11 @@
         '[m,xs,d&o|m,xs,d&l]':['姨姐妹'],
         '[f,xs,s&o|f,xs,s&l|m,xb,s&o|m,xb,s&l]':['表兄弟'],
         '[f,xs,d&o|f,xs,d&l|m,xb,d&o|m,xb,d&l]':['表姐妹'],
-        '[s|d]':['子女','儿女','小孩','孩子','孩儿','宝宝','宝贝','娃'],
+        '[ob|os]':['哥哥姐姐'],
+        '[lb|ls]':['弟弟妹妹'],
+        '[s|d]':['子女','儿女','小孩','孩子','孩儿','宝宝','宝贝','娃','儿辈','子辈'],
         '[s,s|s,d|d,s|d,d]':['孙辈'],
+        '[s|d|s,s|s,d|d,s|d,d]':['儿孙','子孙'],
         // 本家
         'f':['爸爸','父亲','老爸','阿爸','阿爹','老窦','爸','父','爹','爹爹','爹地','爹啲','老爹','大大','老爷子'],
         // 爷爷
@@ -1735,6 +1740,7 @@
         '0,xb,w,xs,d':['舅眷姨女'],
         '1,xb,w,xs,d':['叔眷姨女'],
         'xb,s':['侄子','侄男','侄男儿','侄儿','阿侄','侄'],
+        '0,xb,s':['娘家侄子','娘家侄'],
         'xb,s,w':['侄媳妇','侄妇'],
         'xb,s,w,f&o':['侄眷兄'],
         'xb,s,w,f&l':['侄眷弟'],
@@ -2360,7 +2366,7 @@
     // 中文获取选择器
     function getSelectors(str){
         str = str.replace(/[二|三|四|五|六|七|八|九|十]{1,2}/g,'x');
-        var lists = str.replace(/我的?(.+)/,'$1').replace(/家的?/,'的').split('的');
+        var lists = str.replace(/我的?(.+)/,'$1').replace(/(?<!娘|婆)家的?/,'的').split('的');
         var result = [];
         var isMatch = true;
         var replaceMap = {
@@ -2599,9 +2605,9 @@
     // 合并选择器，查找两个对象之间的关系
     function mergeSelector(from,to,my_sex){
         if(my_sex<0){
-            if(from.match(/^,w/)||to.match(/^,w/)){
+            if(from.match(/^,w/)||from.match(/^,1/)||to.match(/^,w/)||to.match(/^,1/)){
                 my_sex = 1;
-            }else if(from.match(/^,h/)||to.match(/^,h/)){
+            }else if(from.match(/^,h/)||from.match(/^,0/)||to.match(/^,h/)||to.match(/^,0/)){
                 my_sex = 0;
             }
         }
@@ -2663,12 +2669,12 @@
         if(!to_selectors.length){
             to_selectors = [''];
         }
-        // console.log('[selectors]',from_selectors,to_selectors);
+        console.log('[selectors]',from_selectors,to_selectors);
         var result = [];                            //匹配结果
         from_selectors.forEach(function(from){
             to_selectors.forEach(function(to){
                 var data = mergeSelector(from,to,options.sex);
-                // console.log('[data]',data);
+                console.log('[data]',data);
                 var ids = selector2id(data['selector'],data['sex']);
                 // console.log('[ids]',data['selector'],data['sex'],ids);
                 if(ids){
