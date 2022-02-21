@@ -179,6 +179,7 @@ a:hover{
     color: #333333;
     cursor: pointer;
     outline: none;
+    border-radius: 4px;
 }
 .mod-panel .bd .btn:hover{
 	background: #e4e4e4;
@@ -243,12 +244,22 @@ a:hover{
 	text-indent: 2em;
 }
 .mod-panel .copy{
-    padding: 0 20px;
-    margin-bottom: 20px;
+    padding: 10px 20px;
+    margin-bottom: 15px;
     text-align: center;
 }
 .mod-panel .copy p{
-    line-height: 24px;
+    line-height: 22px;
+}
+.mod-panel .copy p a,.mod-panel .copy p span{
+    vertical-align: middle;
+}
+.mod-panel .copy p.buttons{
+    margin: 10px 0 5px;
+}
+.mod-panel .copy .text-red{
+    font-weight: bold;
+    color: #fd7474;
 }
 .mod-panel .intro,.mod-panel .article{
     padding:  10px 20px;
@@ -373,9 +384,6 @@ a:hover{
         width: 48%;
         margin-bottom: 5px;
         line-height: 24px;
-    }
-    .mod-panel .banner{
-        display: none;
     }
 
     .mod-qrcode{
