@@ -2366,7 +2366,11 @@
     // 中文获取选择器
     function getSelectors(str){
         str = str.replace(/[二|三|四|五|六|七|八|九|十]{1,2}/g,'x');
-        var lists = str.replace(/之/,'的').replace(/我的?(.+)/,'$1').replace(/(?<!娘|婆)家的?/,'的').split('的');
+        str = str.replace(/之/,'的').replace(/我的?(.+)/,'$1');
+        if(str.match(/[^娘婆]家的?/)){
+            str = str.replace(/(?<!娘|婆)家的?/,'的');
+        }
+        var lists = str.split('的');
         var result = [];
         var isMatch = true;
         var replaceMap = {
