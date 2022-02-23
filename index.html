@@ -15,8 +15,8 @@
 		<link rel="stylesheet" href="style/index.css">
 		<script type="text/javascript">
 			setTimeout(function(){
-				if(location.hostname.indexOf('passer-by.com')==-1){
-					// location.href = 'http://passer-by.com/';
+				if(location.protocol.indexOf('http')>-1&&location.hostname.indexOf('passer-by.com')==-1){
+					location.href = 'http://passer-by.com/';
 				}else if( window.top != window.self ) {
 				    window.top.location = self.location.href;
 				}
