@@ -11,8 +11,8 @@ test('relationship.js show to be tested', function (t) {
   t.deepEqual(relationship({text:'老婆的老公',sex:1}),['自己']);
   t.deepEqual(relationship({text:'老婆的外孙的姥爷',sex:1}),['自己']);
   t.deepEqual(relationship({text:'表姐的哥哥',sex:1}),['姑表哥','舅表哥']);
-  t.deepEqual(relationship({text:'表姐的妹妹',sex:1}),['姑表姐','姑表妹','舅表姐','舅表妹']);
-  t.deepEqual(relationship({text:'弟弟的表哥',sex:1}),['姑表哥','姑表弟','舅表哥','舅表弟']);
+  t.deepEqual(relationship({text:'表姐的妹妹',sex:1}),['姑表姐妹','舅表姐妹']);
+  t.deepEqual(relationship({text:'弟弟的表哥',sex:1}),['姑表兄弟', '舅表兄弟']);
   t.deepEqual(relationship({text:'老公的老婆的儿子的爸爸',sex:0}),['老公']);
   t.deepEqual(relationship({text:'哥哥的弟弟的爸爸的儿子',sex:1}),['兄弟','自己']);
   t.deepEqual(relationship({text:'爸爸的舅舅',sex:0,reverse:true}),['甥孙女']);
@@ -22,7 +22,7 @@ test('relationship.js show to be tested', function (t) {
   t.deepEqual(relationship({text:'姑妈',target:'舅妈',reverse:true}),['兄弟眷兄妇','兄弟眷弟妇']);
   t.deepEqual(relationship({text:'舅妈',target:'女儿',reverse:true}),['姑甥孙女','姑甥外孙女']);
   t.deepEqual(relationship({text:'老公的父母',target:'孩子'}),['爷爷','奶奶']);
-  t.deepEqual(relationship({text:'爸爸的哥哥的弟弟的儿子'}),['堂哥','堂弟','兄弟','自己']);
+  t.deepEqual(relationship({text:'爸爸的哥哥的弟弟的儿子'}),['堂兄弟', '兄弟', '自己']);
   t.deepEqual(relationship({text:'外婆',target:'女婿',reverse:true}),['外曾孙女婿','外曾外孙女婿']);
   t.deepEqual(relationship({text:'我',target:'爸爸'}),['儿子','女儿']);
   t.deepEqual(relationship({text:'爱人',target:'娘家侄子'}),['姑丈']);
