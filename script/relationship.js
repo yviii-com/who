@@ -2433,7 +2433,7 @@
     function getSelectors(str){
         str = str.replace(/[二|三|四|五|六|七|八|九|十]{1,2}/g,'x');
         str = str.replace(/之/,'的').replace(/我的?(.+)/,'$1');
-        if(str.match(/[^娘婆]家的?/)){
+        if(str.match(/[^娘婆亲]家的?/)){
             str = str.replace(/家的?/,'的');
         }
         var lists = str.split('的');
