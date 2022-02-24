@@ -33,6 +33,27 @@ a:hover{
     margin: 0 auto;
 }
 
+.mod-head .hd,.mod-head .bd{
+    max-width: 500px;
+    padding: 0 10px;
+	margin:0 auto;
+}
+.mod-head .hd{
+    position: relative;
+}
+.mod-head .hd span.tag{
+    position: absolute;
+    left: 10px;
+    top: 0;
+    display: block;
+    height: 20px;
+    padding: 5px 12px;
+    background: #eee;
+    line-height: 20px;
+    color: #444;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
 .mod-head .bd{
     padding: 10px;
     line-height: 30px;
@@ -83,43 +104,42 @@ a:hover{
     font-weight: normal;
     font-size: 18px;
 }
+.mod-panel .hd,.mod-panel .bd{
+    max-width: 500px;
+	margin:0 auto;
+}
 .mod-panel .hd{
 	padding: 10px 0;
 	line-height: 22px;
 	text-align: center;
 }
-
 .mod-panel .hd b{
 	margin: 0 3px;
 	color: #fd7474;
 }
-.mod-panel .box{
-	max-width: 500px;
-	margin:0 auto 15px;
-}
-.mod-panel .box .c-hd{
+.mod-panel .bd .c-hd{
 	height: 36px;
-	margin-bottom: 15px;
+	margin-bottom: 10px;
 	border-bottom: 1px solid #e2e2e2;
 }
-.mod-panel .box .c-hd li{
+.mod-panel .bd .c-hd li{
 	float: left;
 	width: 33.33%;
 	height: 36px;
 	line-height: 36px;
 }
-.mod-panel .box .c-hd li a{
+.mod-panel .bd .c-hd li a{
 	display: block;
 	text-align: center;
 	text-decoration: none;
 	color: #999;
     cursor: pointer;
 }
-.mod-panel .box .c-hd li.active a{
+.mod-panel .bd .c-hd li.active a{
 	position: relative;
 	color: #333;
 }
-.mod-panel .box .c-hd li.active a::after{
+.mod-panel .bd .c-hd li.active a::after{
 	position: absolute;
 	left: 50%;
 	bottom: 0;
@@ -131,16 +151,16 @@ a:hover{
 	background: #2095f2;
 	border-radius: 3px;
 }
-.mod-panel .box .c-panel{
+.mod-panel .bd .c-panel{
 	display: none;
 }
-.mod-panel .box .operation{
+.mod-panel .bd .operation{
 	margin: 10px 0;
 }
-.mod-panel .box .row{
+.mod-panel .bd .row{
     margin-bottom: 5px;
 }
-.mod-panel .box .field{
+.mod-panel .bd .field{
     line-height: 28px;
 }
 .mod-panel .bd p{
@@ -349,7 +369,6 @@ a:hover{
 @media screen and (max-width: 800px)  {
     .mod-panel .hd{
         padding-top: 10px;
-        margin-bottom: 5px;
     }
     .mod-panel .hd h1{
         font-size: 20px;
@@ -357,6 +376,11 @@ a:hover{
     .mod-panel .hd p{
         line-height: 22px;
         overflow: hidden;
+    }
+    .mod-panel .hd span.tag{
+        top: 5px;
+        margin-left: -148px;
+        font-size: 13px;
     }
 	.mod-panel .c-hd ul{
 		overflow-x: auto;
