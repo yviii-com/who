@@ -70,7 +70,11 @@
 											<div class="field">
 												我的性别：
 												<label for="field-1-1">
-													<input id="field-1-1" type="radio" name="sex" value="1" checked>
+													<input id="field-1-1" type="radio" name="sex" value="-1" checked>
+													<span>随意</span>
+												</label>
+												<label for="field-1-1">
+													<input id="field-1-1" type="radio" name="sex" value="1">
 													<span>男</span>
 												</label>
 												<label for="field-1-2">
@@ -134,7 +138,7 @@
 											<p class="q">1. 使用别称查询：</p>
 											<p class="a">姥姥的爸爸的老窦 / 娘子的爹地的母亲 / 岳丈的妈咪 </p>
 											<p class="q">2. 使用合称查询：</p>
-											<p class="a">舅舅的孙辈 / 爸爸的祖父母 / 姑妈的兄弟姐妹 / 表妹的孩子</p>
+											<p class="a">舅舅的孙辈 / 爸爸的祖父母 / 姑妈的兄弟姐妹 / 表姐妹的孩子</p>
 											<p class="q">3. 大小数字混合查询：</p>
 											<p class="a">儿子的大舅的二姑妈的七舅姥爷 / 女婿的小姨</p>
 											<p class="q">4. 不限制方向祖辈孙辈跨度，反复查询：</p>
@@ -142,7 +146,10 @@
 											<p class="q">5. 年龄推导：</p>
 											<p class="a">哥哥的表姐 = 姑表姐、舅表姐</p>
 											<p class="a">堂妹的姐姐 = 堂姐、堂妹</p>
-											<p class="a">弟弟的表哥 = 姑表哥、姑表弟、舅表哥、舅表弟</p>
+											<p class="a">弟弟的表哥 = 姑表兄弟、舅表兄弟</p>
+											<p class="q">6. 根据语境确认性别：</p>
+											<p class="a">老婆的女儿的外婆 = 岳母</p>
+											<p class="a">爱人的婆婆的儿子 = 兄弟</p>
 										</div>
 									</div>
 									<div class="c-panel">
@@ -219,11 +226,11 @@
 							<div class="article">
 								<p>亲属称谓指是以本人为中心确定亲族成员和本人关系的名称，是基于血亲姻亲基础上的亲属之间相互称呼的名称、叫法。汉族的家族亲属关系条理分明尊卑有序：比自己长一辈的称呼有姨姑舅叔伯，同辈的有兄弟姊妹、堂表亲等等，下一辈有甥侄等等。中国人由于姻亲而产生的亲戚关系相当庞杂，“祖宗十八代”“五服”“九族”让人难以区分，其派生出的各种称谓也是中华文化的一大特征。</p>
 								<p>如今由于工作生活节奏差异，很多关系稍疏远的亲戚之间来往并不多，年龄差异长幼辈分模糊。春节拜年走亲戚遇到七大姑八大姨，往往会搞不清楚哪位亲戚应该喊什么称呼，很是尴尬。不仅小孩搞不清亲戚关系和亲戚称谓，就连年轻一代的大人也都常常模糊混乱。</p>
-								<p>“中国亲戚关系计算器”为你避免了叫错、不会叫亲戚的尴尬，收录了中国亲戚关系称呼大全，只需简单的输入即可完成称呼计算。称呼计算器同时兼容了不同地域的方言叫法，你可以称呼父亲为：“老爸”、“爹地”、“老爷子”等等。让您准确的叫出亲戚称谓，理清亲属之间的亲戚关系，轻松掌握中国式的亲戚关系换算。</p>
+								<p>“中国亲戚关系计算器”为你避免了叫错、不会叫亲戚的尴尬，收录了中国亲戚关系称呼大全，只需简单的输入即可完成称呼计算。称呼计算器同时兼容了不同地域的方言叫法，你可以称呼父亲为：“老爸”、“爹地”、“老爷子”等等。让您准确的叫出亲戚称谓，理清亲属之间的亲戚关系，轻松掌握中国式的亲戚关系换算，让你更了解中国文化。</p>
 							</div>
 							<div class="copy">
 								<p><span>本程序算法已开源，使用请尊重版权保留出处信息</span></p>
-								<p><span>若在使用中发现逻辑问题，可在此</span><a class="text-red" href="https://github.com/mumuy/relationship/issues" rel="nofollow" target="_blank">反馈问题</a></p>
+								<p><span>程序持续更新，如发现错漏可在此</span><a class="text-red" href="https://github.com/mumuy/relationship/issues" rel="nofollow" target="_blank">反馈问题</a></p>
 								<p class="buttons">
 									<a class="github-button" href="https://github.com/mumuy" data-style="mega" data-count-href="/mumuy/followers" data-count-api="/users/mumuy#followers" data-count-aria-label="# followers on GitHub" aria-label="Follow @mumuy on GitHub" rel="nofollow">Follow @mumuy</a>
 									<a class="github-button" href="https://github.com/mumuy/relationship" data-style="mega" data-count-href="/mumuy/relationship/stargazers" data-count-api="/repos/mumuy/relationship#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star mumuy/relationship on GitHub" rel="nofollow">Star</a>
