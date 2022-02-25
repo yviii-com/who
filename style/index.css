@@ -334,6 +334,7 @@ a:hover{
 }
 .mod-panel .banner a{
     display: block;
+    position: relative;
     height: 160px;
     padding: 10px;
     background: #fcfcfc;
@@ -344,22 +345,26 @@ a:hover{
     background: #fffbf5;
 }
 .mod-panel .banner img{
-    float: left;
     margin-top: -5px;
-    margin-left: 30px;
 }
 .mod-panel .banner span{
     display: block;
-    margin-left: 50%;
     line-height: 32px;
+}
+.mod-panel .banner span.picture{
+    float: left;
+    width: 40%;
+    text-align: center;
 }
 .mod-panel .banner span.title{
     margin-top: 45px;
+    margin-left: 50%;
     font-weight: bold;
     font-size: 24px;
     color: #646464;
 }
 .mod-panel .banner span.subtitle{
+    margin-left: 50%;
     font-size: 18px;
 }
 .mod-panel .table-inner{
@@ -468,6 +473,27 @@ a:hover{
     }
     .mod-panel .btn-3{
         width: 32%;
+    }
+    .mod-panel .banner a{
+        height: 100px;
+    }
+    .mod-panel .banner img{
+        zoom:0.5;
+    }
+    .mod-panel .banner span{
+        line-height: 24px;
+    }
+    .mod-panel .banner span.picture{
+        width: 35%;
+    }
+    .mod-panel .banner span.title{
+        margin-top: 25px;
+        margin-left: 40%;
+        font-size: 18px;
+    }
+    .mod-panel .banner span.subtitle{
+        margin-left: 40%;
+        font-size: 14px;
     }
 
     .mod-qrcode{
