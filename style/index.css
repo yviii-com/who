@@ -34,7 +34,7 @@ a:hover{
 }
 
 .mod-head .hd,.mod-head .bd{
-    max-width: 500px;
+    max-width: 540px;
     padding: 0 10px;
 	margin:0 auto;
 }
@@ -120,7 +120,7 @@ a:hover{
     font-size: 18px;
 }
 .mod-panel .hd,.mod-panel .bd{
-    max-width: 500px;
+    max-width: 540px;
 	margin:0 auto;
 }
 .mod-panel .hd{
