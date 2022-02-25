@@ -34,7 +34,7 @@ a:hover{
 }
 
 .mod-head .hd,.mod-head .bd{
-    max-width: 500px;
+    max-width: 540px;
     padding: 0 10px;
 	margin:0 auto;
 }
@@ -95,8 +95,9 @@ a:hover{
 }
 .mod-panel h1{
 	line-height: 32px;
-	font-size: 24px;
-	color:#212121;
+    font-weight: 500;
+    font-size: 22px;
+    color:#333;
 }
 .mod-panel h2{
     line-height: 30px;
@@ -105,7 +106,7 @@ a:hover{
     font-size: 18px;
 }
 .mod-panel .hd,.mod-panel .bd{
-    max-width: 500px;
+    max-width: 540px;
 	margin:0 auto;
 }
 .mod-panel .hd{
@@ -178,7 +179,7 @@ a:hover{
 	display: inline-block;
     width: 100%;
     height: 30px;
-    background: #f8f8f8;
+    background: #fafafa;
     border: 1px solid #e8e8e8;
     padding: 5px 10px;
 	box-sizing: border-box;
@@ -239,8 +240,8 @@ a:hover{
 	width: 100%;
 	height: 120px;
 	padding:5px 10px;
-	background: #f8f8f8;
-	border: 1px solid #e8e8e8;
+	background: #fafafa;
+	border: 1px solid #e9e9e9;
 	box-sizing: border-box;
 	border-radius: 5px;
 	resize: none;
@@ -285,27 +286,27 @@ a:hover{
 .mod-panel .intro,.mod-panel .article{
     padding:  10px 20px;
     margin: 10px 0;
-    background: #f5f5f6;
+    background: #f6f8fa;
     border-radius: 6px;
+    color: #888;
 }
 .mod-panel .intro h3{
     margin-bottom: 10px;
     font-size: 16px;
     font-weight: bold;
+    color: #666;
 }
 .mod-panel .intro p{
     line-height: 22px;
 }
-.mod-panel .intro p.q{
-    margin-top: 10px;
-    font-weight: bold;
-}
-.mod-panel .intro p.a{
-    color: #666;
-}
 .mod-panel .article p{
     line-height: 22px;
     text-indent: 2em;
+}
+.mod-panel .intro p.q{
+    margin-top: 10px;
+    font-weight: bold;
+    color: #666;
 }
 .mod-panel .table-inner{
     overflow-x: auto;
