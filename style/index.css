@@ -301,7 +301,7 @@ a:hover{
 .mod-panel .intro,.mod-panel .article{
     padding: 15px 20px;
     margin: 10px 0;
-    background: #f6f6f6;
+    background: rgb(246, 248, 250);
     border-radius: 6px;
 }
 .mod-panel .intro h3{
