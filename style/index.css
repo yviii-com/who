@@ -286,15 +286,15 @@ a:hover{
 .mod-panel .intro,.mod-panel .article{
     padding:  10px 20px;
     margin: 10px 0;
-    background: #f6f8fa;
+    background: rgb(246, 248, 250);
     border-radius: 6px;
-    color: #888;
+    color: rgb(110, 119, 129);
 }
 .mod-panel .intro h3{
     margin-bottom: 10px;
     font-size: 16px;
     font-weight: bold;
-    color: #666;
+    color: rgba(36, 41, 47, 0.8);
 }
 .mod-panel .intro p{
     line-height: 22px;
@@ -306,7 +306,7 @@ a:hover{
 .mod-panel .intro p.q{
     margin-top: 10px;
     font-weight: bold;
-    color: #666;
+    color: rgba(36, 41, 47, 0.8);
 }
 .mod-panel .table-inner{
     overflow-x: auto;
