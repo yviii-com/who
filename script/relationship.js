@@ -1,8 +1,10 @@
 /*!
  * relationship - Chinese kinship library
- * Copyright (c) 2016-present, HaoLe Zheng
  * https://passer-by.com/relationship/
+ * 
+ * Copyright (c) 2016-present, HaoLe Zheng
  * Released under the MIT License.
+ * https://github.com/mumuy/relationship/blob/master/LICENSE
 */
 !function (root, factory) {
     if (typeof module === 'object' && module.exports){
