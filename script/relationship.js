@@ -807,7 +807,7 @@
         'm,m,{G1M},w':['?外曾外祖母','外曾外?祖母','?外太外婆','外太外?婆','外太外?奶','?外太外奶','?外太外奶奶','外太外?奶奶'],
         'm,m,{G1W}':['?外曾外祖母','外曾外?祖母','?外太外婆','外太外?婆','外太外?奶','?外太外奶','?外太外奶奶','外太外?奶奶'],
         'm,m,{G1W},h':['?外曾外祖父','外曾外?祖父','?外太外公','外太外?公','外太外?爷','?外太外爷','?外太外爷爷','外太?外爷爷'],
-        'f,{G1M}':['公','祖父','奶爷','爷'],
+        'f,{G1M}':['公','祖父','奶爷','爷爷','老爷','爷'],
         'f,{G1M},w':['婆','祖母','奶奶','奶'],
         'f,{G1W}':['婆','祖母','奶奶','奶'],
         'f,{G1W},h':['公','祖父','奶爷','爷'],
@@ -1365,16 +1365,20 @@
         var items = [];
         var getData = function(d){
             var res = [];
-            for(var i in _data){
-                if(i.replace(/&[ol]/g,'')==d){
-                    res.push(_data[i][0]);
-                }else{
-                    var expr = d;
-                    while (expr.match(/[ol](b|s)/)){
-                        expr = expr.replace(/[ol](b|s)/,'x$1');
-                        if(expr==i){
-                            res.push(_data[i][0]);
-                            break;
+            if(_data[d]){
+                res.push(_data[d][0]);
+            }else{
+                for(var i in _data){
+                    if(i.replace(/&[ol]/g,'')==d){
+                        res.push(_data[i][0]);
+                    }else{
+                        var expr = d;
+                        while (expr.match(/[ol](b|s)/)){
+                            expr = expr.replace(/[ol](b|s)/,'x$1');
+                            if(expr==i){
+                                res.push(_data[i][0]);
+                                break;
+                            }
                         }
                     }
                 }
