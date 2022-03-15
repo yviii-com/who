@@ -1242,7 +1242,6 @@
         while(lists.length){
             var name = lists.shift();           //当前匹配词
             var items = [];                     //当前匹配词可能性
-            var keywords = [name];
             for(var word in replaceMap){
                 var name1 = name.replace(word,replaceMap[word]);
                 var name2 = name.replace(replaceMap[word],word);
@@ -1253,6 +1252,7 @@
                     keywords.push(name2);
                 }
             }
+            var keywords = [name];
             var getList = function(name){
                 for(var filter in replaceFilter){
                     var word_list = replaceFilter[filter];
@@ -1265,14 +1265,15 @@
                     });
                 }
             };
-            keywords.forEach(getList);
+            getList(name);
             // 是否存在该关系
-            for(var i in _data){
-                var value = _data[i];
-                if(value.indexOf(name)>-1){
-                    items.push(i);
+            keywords.forEach(function(name){
+                for(var i in _data){
+                    if(_data[i].indexOf(name)>-1){
+                        items.push(i);
+                    }
                 }
-            }
+            });
             // 同义词替换
             if(!items.length){
                 for(var i in _data){
