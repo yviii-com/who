@@ -1242,6 +1242,7 @@
         while(lists.length){
             var name = lists.shift();           //当前匹配词
             var items = [];                     //当前匹配词可能性
+            var keywords = [name];
             for(var word in replaceMap){
                 var name1 = name.replace(word,replaceMap[word]);
                 var name2 = name.replace(replaceMap[word],word);
@@ -1252,7 +1253,6 @@
                     keywords.push(name2);
                 }
             }
-            var keywords = [name];
             var getList = function(name){
                 for(var filter in replaceFilter){
                     var word_list = replaceFilter[filter];
