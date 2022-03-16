@@ -24,18 +24,18 @@
     "url": "https://github.com/mumuy/relationship/issues"
   },
   "devDependencies": {
+    "glob-parent": ">=5.1.2",
     "gulp": "^4.0.2",
+    "gulp-cht": "^2.0.20",
     "gulp-rename": "^2.0.0",
     "gulp-uglify": "^3.0.2",
-    "tape": "^5.3.1",
     "set-value": ">=4.0.1",
-    "glob-parent": ">=5.1.2"
+    "tape": "^5.3.1"
   },
   "scripts": {
     "test": "node test/index.js",
     "build": "gulp mini && npm run test"
   },
-  "dependencies": {},
   "homepage": "https://github.com/mumuy/relationship#readme",
   "directories": {
     "test": "test"

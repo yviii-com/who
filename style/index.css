@@ -33,32 +33,30 @@ a:hover{
     margin: 0 auto;
 }
 
-.mod-head .hd,.mod-head .bd{
-    max-width: 540px;
-    padding: 0 10px;
-	margin:0 auto;
-}
-.mod-head .hd{
-    position: relative;
-}
-.mod-head .hd span.tag{
-    position: absolute;
-    left: 10px;
-    top: 0;
-    display: block;
-    height: 20px;
-    padding: 5px 12px;
-    background: #f0f0f0;
-    line-height: 20px;
-    color: #444;
-    border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;
-}
 .mod-head .bd{
+    max-width: 540px;
     height: 36px;
-    padding: 10px 10px 0;
-    margin-bottom: 5px;
+    padding: 10px;
+	margin:0 auto 5px;
     text-align: right;
+}
+.mod-head .bd span.language{
+    float: left;
+    display: inline-block;
+    height: 36px;
+    padding: 0 8px;
+    background: #f0f0f0;
+    line-height: 36px;
+    color: #666;
+    border-radius: 6px;
+}
+.mod-head .bd span.language a{
+    display: inline-block;
+    padding: 0 4px;
+}
+.mod-head .bd span.language a.active{
+    font-weight: bold;
+    color: #333;
 }
 .mod-head .btn{
     position: relative;
@@ -116,6 +114,17 @@ a:hover{
 	line-height: 32px;
 	font-size: 22px;
 	color:#212121;
+}
+.mod-panel h1 span.tag{
+    display: inline-block;
+    padding: 0 8px;
+    margin: 0 5px;
+    background: rgb(246, 248, 250);
+    line-height: 22px;
+    vertical-align: middle;
+    font-size: 13px;
+    color: rgb(110, 119, 129);
+    border-radius: 4px;
 }
 .mod-panel h2{
     line-height: 30px;
@@ -428,6 +437,14 @@ a:hover{
 }
 
 @media screen and (max-width: 800px)  {
+    .mod-head .hd span.tag{
+        padding: 5px 8px;
+    }
+    .mod-head .bd .btn{
+        padding: 0 6px;
+        font-size: 13px;
+    }
+
     .mod-panel .hd{
         padding-top: 10px;
     }
