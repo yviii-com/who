@@ -1591,8 +1591,8 @@
                 prefixList.forEach(function(prefix){
     				nameList.forEach(function(name){
                         var newName = prefix+name;
-                        if(nameList.indexOf(name)==-1){  // 配偶组合的称呼不得已原有称呼冲突(如：妻舅!=妻子的舅舅;外舅公!=老公的舅公)
-                            _map[newKey].push();
+                        if(nameList.indexOf(newName)==-1){  // 配偶组合的称呼不得已原有称呼冲突(如：妻舅!=妻子的舅舅;外舅公!=老公的舅公)
+                            _map[newKey].push(newName);
                         }
                     });
                 });
