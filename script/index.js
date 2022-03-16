@@ -138,7 +138,7 @@ relationship.setMode('cantonese',{
 	var bindChange = function(){
 		var value = $input.value.trim();
 		if(value){
-			var result = relationship({text:value,sex:-1,type:'chain'});
+			var result = relationship({text:value.split('的')[0],sex:-1,type:'chain'});
 			if(result.length){
 				var first_name = result[0].split('的').shift();
 				var name = result[0].split('的').pop();
