@@ -1575,6 +1575,10 @@
         'w':['内','妻','岳','岳家','丈人'],
         'h':['外','夫','婆家'],
     };
+    var nameList = [];
+    for(var key in _map){
+        nameList = [].concat(_map[key]);
+    }
     for(var key in _map){
         if(key.match(/^[fm]/)||key.match(/^[olx][bs]$|^[olx][bs],[^mf]/)){
             for(var k in branch){
@@ -1586,7 +1590,10 @@
                 var nameList = _map[key];
                 prefixList.forEach(function(prefix){
     				nameList.forEach(function(name){
-                        _map[newKey].push(prefix+name);
+                        var newName = prefix+name;
+                        if(nameList.indexOf(name)==-1){  // 配偶组合的称呼不得已原有称呼冲突(如：妻舅!=妻子的舅舅;外舅公!=老公的舅公)
+                            _map[newKey].push();
+                        }
                     });
                 });
             }
