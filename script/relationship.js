@@ -676,11 +676,11 @@
         },
     	'{G0}':{
     		'xb':['侄'],
-    		'h,xb':['叔侄','夫侄','外侄','婆家侄'],
-    		'w,xb':['舅侄','妻侄','岳侄','岳家侄','丈人侄','内侄'],
+    		'h,xb':['叔侄'],
+    		'w,xb':['舅侄'],
     		'xs':['甥'],
-    		'h,xs':['姑甥','夫甥','外甥','婆家甥'],
-    		'w,xs':['姨甥','妻甥','岳甥',,'岳家甥','丈人甥','内甥'],
+    		'h,xs':['姑甥'],
+    		'w,xs':['姨甥'],
     	},
     	'{M1W}':{
     		'f,xb,w':['叔眷'],
@@ -1572,11 +1572,11 @@
     }
     // 配偶关系
     var branch = {
-        'w':['内','岳','妻','丈人'],
-        'h':['外','夫'],
+        'w':['内','妻','岳','岳家','丈人'],
+        'h':['外','夫','婆家'],
     };
     for(var key in _map){
-        if(key.indexOf('f')==0||key.indexOf('m')==0){
+        if(key.match(/^[fm]/)||key.match(/^[olx][bs]$|^[olx][bs],[^mf]/)){
             for(var k in branch){
                 var newKey = k+','+key;
                 if(!_map[newKey]){
@@ -1593,6 +1593,7 @@
         }
     }
     _data = Object.assign({},_map);
+    // console.log('[data]',_data);
     // 对外方法
     var relationship = function (parameter){
         var options = Object.assign({
