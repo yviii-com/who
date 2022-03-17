@@ -12,7 +12,7 @@
     }else{
         root.relationship = factory();
     }
-}(typeof window !== 'undefined' ? window : this,function (){
+}(this,function (){
     /*
      * 关系数据语法说明：
      * 【关系符】 f:父; m:母; h:夫; w:妻; s:子; d:女; xb:兄弟; ob:兄; lb:弟; xs:姐妹; os:姐; ls:妹
@@ -1166,30 +1166,12 @@
     var _data = {};     // 最终数据
 
     // 数组去重
-    function unique(arr) {
-        var result = [], hash = {};
-        var item;
-        for (var i = 0; (item = arr[i]) != null; i++) {
-            var temp = item.replace(/[ol](?=s|b)/,'x').replace(/&[ol]/,''); //对特殊语法标识相互包含的行为去重
-            if (temp==item&&!hash[temp]){
-                hash[item] = true;
-            }
-        }
-        for (var i = 0; (item = arr[i]) != null; i++) {
-            var temp = item.replace(/[ol](?=s|b)/,'x').replace(/&[ol]/,''); //对特殊语法标识相互包含的行为去重
-            if (temp!=item){
-                if(!hash[temp]){
-                    if(result.indexOf(item)==-1){
-                        result.push(item);
-                    }
-                }
-            }else{
-                if(result.indexOf(item)==-1){
-                    result.push(item);
-                }
-            }
-        }
-        return result;
+    function unique(arr){
+        var sameList = arr.filter(item=>item==item.replace(/[ol](?=s|b)/,'x').replace(/&[ol]/,''));
+        return arr.filter(item=>{
+            var temp = item.replace(/[ol](?=s|b)/,'x').replace(/&[ol]/,'');
+            return sameList.indexOf(item)>-1||item!=temp&&sameList.indexOf(temp)==-1;
+        }).filter((item,idx,arr) => arr.indexOf(item) === idx);
     }
 
     // 中文获取选择器
@@ -1270,17 +1252,6 @@
                     }
                 }
             });
-            // 同义词替换
-            if(!items.length){
-                for(var i in _data){
-                    var value = _data[i];
-                    keywords.forEach(function(r_name){
-                        if(value.indexOf(r_name)>-1){
-                            items.push(i);
-                        }
-                    });
-                }
-            }
             if(!items.length){
                 isMatch = false;
             }
@@ -1312,7 +1283,7 @@
         }
         // console.log('[selector]',selector);
         var getId = function(selector,sex){
-            if(selector.indexOf(',1')==-1&&selector.indexOf(',0')==-1){
+            if(sex>-1&&selector.indexOf(',1')==-1&&selector.indexOf(',0')==-1){
                 selector = ','+sex+selector;
             }
             if(selector.match(/,[w0],w|,[h1],h/)){  //同志关系去除
@@ -1321,7 +1292,6 @@
             var s='';
             if(!hash[selector]){
                 hash[selector] = true;
-                var status = true;
                 do{
                     s = selector;
                     for(var i in _filter){
@@ -1329,30 +1299,19 @@
                         // console.log('[filter]',item['exp'],selector);
                         selector = selector.replace(item['exp'],item['str']);
                         if(selector.indexOf('#')>-1){
-                            var arr = selector.split('#');
-                            for(var j=0;j<arr.length;j++){
-                                getId(arr[j]);
-                            }
-                            status=false;
-                            break;
+                            selector.split('#').forEach(getId);
+                            return false;
                         }
                     }
                 }while(s!=selector);
-                if(status){
-                    if(selector.match(/,[w0],w|,[h1],h/)){  //同志关系去除
-                        return false;
-                    }
-                    selector = selector.replace(/,[01]/,'').substr(1);  //去前面逗号和性别信息
-                    result.push(selector);
+                if(selector.match(/,[w0],w|,[h1],h/)){  //同志关系去除
+                    return false;
                 }
+                selector = selector.replace(/,[01]/,'').substr(1);  //去前面逗号和性别信息
+                result.push(selector);
             }
         }
-        if(sex<0){
-            getId(selector,1);
-            getId(selector,0);
-        }else{
-            getId(selector,sex);
-        }
+        getId(selector,sex);
         return unique(result);
     }
 
@@ -1398,9 +1357,8 @@
             // 缩小访问查找
             if(!items.length){
                 var l = id.replace(/x/g,'l');
-                items = getData(l);
                 var o = id.replace(/x/g,'o');
-                items = items.concat(getData(o));
+                items = items.concat(getData(l),getData(o));
             }
         }
         return items;
@@ -1480,14 +1438,14 @@
         if(my_sex<0){
             var to_sex = -1;
             var from_sex = -1;
-            if(from.match(/^,w/)||from.match(/^,1/)){
+            if(from.match(/^,[w1]/)){
                 from_sex = 1;
-            }else if(from.match(/^,h/)||from.match(/^,0/)){
+            }else if(from.match(/^,[h0]/)){
                 from_sex = 0;
             }
-            if(to.match(/^,w/)||to.match(/^,1/)){
+            if(to.match(/^,[w1]/)){
                 to_sex = 1;
-            }else if(to.match(/^,h/)||to.match(/^,0/)){
+            }else if(to.match(/^,[h0]/)){
                 to_sex = 0;
             }
             if(from_sex==-1&&to_sex>-1){
