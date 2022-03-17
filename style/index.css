@@ -455,11 +455,6 @@ a:hover{
         line-height: 22px;
         overflow: hidden;
     }
-    .mod-panel .hd span.tag{
-        top: 5px;
-        margin-left: -148px;
-        font-size: 13px;
-    }
 	.mod-panel .c-hd ul{
 		overflow-x: auto;
 		white-space: nowrap;
