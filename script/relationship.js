@@ -12,7 +12,7 @@
     }else{
         root.relationship = factory();
     }
-}(typeof window !== 'undefined' ? window : this,function (){
+}(this,function (){
     /*
      * 关系数据语法说明：
      * 【关系符】 f:父; m:母; h:夫; w:妻; s:子; d:女; xb:兄弟; ob:兄; lb:弟; xs:姐妹; os:姐; ls:妹
@@ -272,6 +272,8 @@
         '[f,xs|m,xb],d':['姑舅姊妹','舅姑姊妹'],
         '[f,xs|m,xb],d&o':['姑舅姐','姑舅姐姐'],
         '[f,xs|m,xb],d&l':['姑舅妹','姑舅妹妹'],
+        '[f,xs|m,xb],s,s':['姑舅儿子'],
+        '[f,xs|m,xb],s,d':['姑舅女儿'],
         'xb,[s|d]':['侄子女','侄子侄女'],
         'xs,[s|d]':['甥子女','外甥子女'],
         '[w|s|d]':['妻儿'],
@@ -509,8 +511,6 @@
         'f,xb,s,s,w':['堂侄媳妇','堂侄妇','从父侄妇','叔伯侄妇'],
         'f,xb,d,s':['堂外甥','堂甥男','从父甥男','叔伯甥男'],
         'f,xb,d,s,w':['堂甥媳妇','堂甥妇','从父甥妇','叔伯甥妇'],
-        'm,xb,d,s':['姑舅儿子'],
-        'm,xb,d,d':['姑舅女儿'],
         // 子辈
         's':['儿子','男儿','息男','闺男','囝囝','囝男','小子','男亲','长子','次子','幼子','儿','仔','子','阿仔','仔仔','x儿子','一世孙'],
         's,w':['儿媳','儿媳妇','新妇','心抱','息妇','x儿媳'],
@@ -1170,30 +1170,12 @@
     var _data = {};     // 最终数据
 
     // 数组去重
-    function unique(arr) {
-        var result = [], hash = {};
-        var item;
-        for (var i = 0; (item = arr[i]) != null; i++) {
-            var temp = item.replace(/[ol](?=s|b)/,'x').replace(/&[ol]/,''); //对特殊语法标识相互包含的行为去重
-            if (temp==item&&!hash[temp]){
-                hash[item] = true;
-            }
-        }
-        for (var i = 0; (item = arr[i]) != null; i++) {
-            var temp = item.replace(/[ol](?=s|b)/,'x').replace(/&[ol]/,''); //对特殊语法标识相互包含的行为去重
-            if (temp!=item){
-                if(!hash[temp]){
-                    if(result.indexOf(item)==-1){
-                        result.push(item);
-                    }
-                }
-            }else{
-                if(result.indexOf(item)==-1){
-                    result.push(item);
-                }
-            }
-        }
-        return result;
+    function unique(arr){
+        var sameList = arr.filter(item=>item==item.replace(/[ol](?=s|b)/,'x').replace(/&[ol]/,''));
+        return arr.filter(item=>{
+            var temp = item.replace(/[ol](?=s|b)/,'x').replace(/&[ol]/,'');
+            return sameList.indexOf(item)>-1||item!=temp&&sameList.indexOf(temp)==-1;
+        }).filter((item,idx,arr) => arr.indexOf(item) === idx);
     }
 
     // 中文获取选择器
@@ -1274,17 +1256,6 @@
                     }
                 }
             });
-            // 同义词替换
-            if(!items.length){
-                for(var i in _data){
-                    var value = _data[i];
-                    keywords.forEach(function(r_name){
-                        if(value.indexOf(r_name)>-1){
-                            items.push(i);
-                        }
-                    });
-                }
-            }
             if(!items.length){
                 isMatch = false;
             }
@@ -1316,7 +1287,7 @@
         }
         // console.log('[selector]',selector);
         var getId = function(selector,sex){
-            if(selector.indexOf(',1')==-1&&selector.indexOf(',0')==-1){
+            if(sex>-1&&selector.indexOf(',1')==-1&&selector.indexOf(',0')==-1){
                 selector = ','+sex+selector;
             }
             if(selector.match(/,[w0],w|,[h1],h/)){  //同志关系去除
@@ -1325,7 +1296,6 @@
             var s='';
             if(!hash[selector]){
                 hash[selector] = true;
-                var status = true;
                 do{
                     s = selector;
                     for(var i in _filter){
@@ -1333,30 +1303,19 @@
                         // console.log('[filter]',item['exp'],selector);
                         selector = selector.replace(item['exp'],item['str']);
                         if(selector.indexOf('#')>-1){
-                            var arr = selector.split('#');
-                            for(var j=0;j<arr.length;j++){
-                                getId(arr[j]);
-                            }
-                            status=false;
-                            break;
+                            selector.split('#').forEach(getId);
+                            return false;
                         }
                     }
                 }while(s!=selector);
-                if(status){
-                    if(selector.match(/,[w0],w|,[h1],h/)){  //同志关系去除
-                        return false;
-                    }
-                    selector = selector.replace(/,[01]/,'').substr(1);  //去前面逗号和性别信息
-                    result.push(selector);
+                if(selector.match(/,[w0],w|,[h1],h/)){  //同志关系去除
+                    return false;
                 }
+                selector = selector.replace(/,[01]/,'').substr(1);  //去前面逗号和性别信息
+                result.push(selector);
             }
         }
-        if(sex<0){
-            getId(selector,1);
-            getId(selector,0);
-        }else{
-            getId(selector,sex);
-        }
+        getId(selector,sex);
         return unique(result);
     }
 
@@ -1402,9 +1361,8 @@
             // 缩小访问查找
             if(!items.length){
                 var l = id.replace(/x/g,'l');
-                items = getData(l);
                 var o = id.replace(/x/g,'o');
-                items = items.concat(getData(o));
+                items = items.concat(getData(l),getData(o));
             }
         }
         return items;
@@ -1484,14 +1442,14 @@
         if(my_sex<0){
             var to_sex = -1;
             var from_sex = -1;
-            if(from.match(/^,w/)||from.match(/^,1/)){
+            if(from.match(/^,[w1]/)){
                 from_sex = 1;
-            }else if(from.match(/^,h/)||from.match(/^,0/)){
+            }else if(from.match(/^,[h0]/)){
                 from_sex = 0;
             }
-            if(to.match(/^,w/)||to.match(/^,1/)){
+            if(to.match(/^,[w1]/)){
                 to_sex = 1;
-            }else if(to.match(/^,h/)||to.match(/^,0/)){
+            }else if(to.match(/^,[h0]/)){
                 to_sex = 0;
             }
             if(from_sex==-1&&to_sex>-1){

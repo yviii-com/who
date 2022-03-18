@@ -10,7 +10,7 @@ gulp.task('mini', () => {
     // .pipe(rename("zh-HK.html"))
     // .pipe(gulp.dest("./"));
 
-    gulp.src('script/relationship.js')
+    return gulp.src('script/relationship.js')
     .pipe(uglify({
         output:{
             comments: function(node, comment){
