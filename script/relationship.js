@@ -579,7 +579,7 @@
         's,d,d,d,h':['曾外曾外孙女婿'],
         'd':['女儿','千金','掌上明珠','息女','闺女','囡女','乖囡','囡囡','丫头','姑娘','女亲','长女','次女','幼女','女','阿女','女女','x女儿'],
         'd,h':['女婿','姑爷','女婿子','女婿儿','儿婿','子婿','息婿','囝婿','x女婿'],
-        'd,s':['外孙'],
+        'd,s':['外孙','外孙儿'],
         'd,s,w':['外孙媳妇','外孙妇','外孙新妇'],
         'd,s,s':['外曾孙','重外孙'],
         'd,s,s,w':['外曾孙媳妇','外曾孙妇'],
@@ -1286,7 +1286,7 @@
             if(sex>-1&&selector.indexOf(',1')==-1&&selector.indexOf(',0')==-1){
                 selector = ','+sex+selector;
             }
-            if(selector.match(/,[w0],w|,[h1],h/)){  //同志关系去除
+            if(selector.match(/,[mwd0](&[ol])?,w|,[hfs1](&[ol])?,h/)){  //同志关系去除
                 return false;
             }
             var s='';
@@ -1304,7 +1304,7 @@
                         }
                     }
                 }while(s!=selector);
-                if(selector.match(/,[w0],w|,[h1],h/)){  //同志关系去除
+                if(selector.match(/,[mwd0](&[ol])?,w|,[hfs1](&[ol])?,h/)){  //同志关系去除
                     return false;
                 }
                 selector = selector.replace(/,[01]/,'').substr(1);  //去前面逗号和性别信息
@@ -1463,6 +1463,9 @@
         var to_ids = selector2id(to,my_sex);
         var from_rids = [];
         var to_rids = [];
+        if(!from_ids.length||!to_ids.length){
+            return false;
+        }
         if(to){
             var toIsMale = false;
             var toIsFemale = false;

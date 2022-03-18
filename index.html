@@ -30,27 +30,31 @@
 					<div class="mod-head">
 						<div class="bd">
 							<span class="language">
-								<a class="active" href="index.html">简体</a>
+								<a class="active" href="/relationship/">简体</a>
 								<span>/</span>
 								<a href="zh-HK.html">繁體</a>
 							</span>
-							<a class="btn" href="/relationship/vue/" target="_blank">手机版</a>
+
 							<a class="btn" href="https://github.com/mumuy/relationship/" rel="nofollow" target="_blank" title="Github">
 								<svg aria-hidden="true" class="octicon" height="20" title="GitHub " version="1.1" viewBox="0 0 16 16" width="24"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59 0.4 0.07 0.55-0.17 0.55-0.38 0-0.19-0.01-0.82-0.01-1.49-2.01 0.37-2.53-0.49-2.69-0.94-0.09-0.23-0.48-0.94-0.82-1.13-0.28-0.15-0.68-0.52-0.01-0.53 0.63-0.01 1.08 0.58 1.23 0.82 0.72 1.21 1.87 0.87 2.33 0.66 0.07-0.52 0.28-0.87 0.51-1.07-1.78-0.2-3.64-0.89-3.64-3.95 0-0.87 0.31-1.59 0.82-2.15-0.08-0.2-0.36-1.02 0.08-2.12 0 0 0.67-0.21 2.2 0.82 0.64-0.18 1.32-0.27 2-0.27 0.68 0 1.36 0.09 2 0.27 1.53-1.04 2.2-0.82 2.2-0.82 0.44 1.1 0.16 1.92 0.08 2.12 0.51 0.56 0.82 1.27 0.82 2.15 0 3.07-1.87 3.75-3.65 3.95 0.29 0.25 0.54 0.73 0.54 1.48 0 1.07-0.01 1.93-0.01 2.2 0 0.21 0.15 0.46 0.55 0.38C13.71 14.53 16 11.53 16 8 16 3.58 12.42 0 8 0z"></path></svg>
 								<span>Github</span>
 							</a>
-							<a class="btn" href="/">返回首页</a>
+							<a class="btn" href="/">个人网站</a>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="container">
-				<div class="inner">
-					<div class="mod-panel">
+				<div class="mod-panel">
+					<div class="inner">
 						<div class="hd">
-							<h1>中国亲戚关系计算器<span class="tag">开源算法</span></h1>
+							<h1><span class="name">中国</span><span>亲戚关系计算器</span><span class="tag">开源算法</span></h1>
 							<p>逢年过节遇到三姑六婆，拒绝叫不出口的尴尬！轻松搞定亲戚关系～</p>
 							<p>当前亲戚称呼大全已收录约<b id="count">-</b>条亲戚关系</p>
+							<div class="picture">
+								<img src="image/app.png" width="320" alt="亲戚称呼换算APP"/>
+								<a class="btn" href="/relationship/vue/" target="_blank">访问手机版</a>
+							</div>
 						</div>
 						<div class="bd">
 							<div class="c-hd">
@@ -135,24 +139,6 @@
 										<p>计算结果：</p>
 										<p><textarea name="result" readonly></textarea></p>
 									</div>
-									<div class="intro">
-										<h3>使用案例</h3>
-										<p class="q">1. 使用别称查询：</p>
-										<p class="a">姥姥的爸爸的老窦 / 娘子的爹地的母亲 / 岳丈的妈咪 </p>
-										<p class="q">2. 使用合称查询：</p>
-										<p class="a">舅舅的孙辈 / 爸爸的祖父母 / 姑妈的兄弟姐妹 / 表姐妹的孩子</p>
-										<p class="q">3. 大小数字混合查询：</p>
-										<p class="a">儿子的大舅的二姑妈的七舅姥爷 / 女婿的小姨</p>
-										<p class="q">4. 不限制方向祖辈孙辈跨度，反复查询：</p>
-										<p class="a">舅妈的婆婆的外甥的姨妈的侄子的爷爷 / 老公的丈母娘的儿媳</p>
-										<p class="q">5. 年龄推导：</p>
-										<p class="a">哥哥的表姐 = 姑表姐、舅表姐</p>
-										<p class="a">堂妹的姐姐 = 堂姐妹</p>
-										<p class="a">弟弟的表哥 = 姑表兄弟、舅表兄弟</p>
-										<p class="q">6. 根据语境确认性别：</p>
-										<p class="a">老婆的女儿的外婆 = 岳母</p>
-										<p class="a">爱人的婆婆的儿子 = 兄弟</p>
-									</div>
 								</div>
 								<div class="c-panel">
 									<div class="row">
@@ -173,10 +159,10 @@
 									</div>
 									<div class="intro">
 										<h3>应用场景</h3>
-										<p class="q">“七舅姥爷”和我是什么关系？</p>
-										<p class="q">“堂弟”和“表弟”如何区分在？</p>
-										<p class="q">“外甥”和“侄子”的区别在哪里？</p>
-										<p class="q">“姑表舅表哥”是我的谁？</p>
+										<p class="q">外舅公是我妈的谁？</p>
+										<p class="q">我爸应该叫舅老爷什么？</p>
+										<p class="q">我岳父怎么叫我弟弟什么？</p>
+										<p class="q">我哥如何称呼我岳母？</p>
 									</div>
 								</div>
 								<div class="c-panel">
@@ -215,44 +201,104 @@
 									</div>
 									<div class="intro">
 										<h3>应用场景</h3>
-										<p class="q">外舅公是我妈的谁？</p>
-										<p class="q">我爸应该叫舅老爷什么？</p>
-										<p class="q">我岳父怎么叫我弟弟什么？</p>
-										<p class="q">我哥如何称呼我岳母？</p>
+										<p class="q">“七舅姥爷”和我“三叔公”是什么关系？</p>
+										<p class="q">我的“堂弟”要叫“表弟”什么？</p>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="ft">
-							<div class="banner">
-								<a href="/relationship/vue/" target="_blank">
-									<span class="picture">
-										<img src="image/app.png" width="213" alt="亲戚称呼换算APP"/>
-									</span>
-									<span class="title">亲戚称呼计算器移动版</span>
-									<span class="subtitle">无需下载APP，手机即查即用</span>
-								</a>
-							</div>
-							<div class="article">
-								<p>亲属是基于婚姻、血缘和法律拟制而形成的社会关系。亲属关系包括夫妻、父母、子女、兄弟姊妹、祖父母和外祖父母、孙子女和外孙子女、儿媳和公婆、女婿和岳父母、以及其他三代以内的旁系血亲，如伯、叔、姑、舅、姨、侄子女、甥子女、堂兄弟姊妹、表兄弟姊妹等。</p>
-								<p>亲属称谓指是以本人为中心确定亲族成员和本人关系的名称，是基于血亲姻亲基础上的亲属之间相互称呼的名称、叫法。汉族的家族亲属关系条理分明尊卑有序：比自己长一辈的称呼有姨姑舅叔伯，同辈的有兄弟姊妹、堂表亲等等，下一辈有甥侄等等。中国人由于姻亲而产生的亲戚关系相当庞杂，“祖宗十八代”“五服”“九族”让人难以区分，其派生出的各种称谓也是中华文化的一大特征。</p>
-								<p>如今由于工作生活节奏差异，很多关系稍疏远的亲戚之间来往并不多，年龄差异长幼辈分模糊。春节拜年走亲戚遇到七大姑八大姨，往往会搞不清楚哪位亲戚应该喊什么称呼，很是尴尬。不仅小孩搞不清亲戚关系和亲戚称谓，就连年轻一代的大人也都常常模糊混乱。</p>
-								<p>“中国亲戚关系计算器”为你避免了叫错、不会叫亲戚的尴尬，收录了中国亲戚关系称呼大全，只需简单的输入即可完成称呼计算。称呼计算器同时兼容了不同地域的方言叫法，你可以称呼父亲为：“老爸”、“爹地”、“老爷子”等等。让您准确的叫出亲戚称谓，理清亲属之间的亲戚关系，轻松掌握中国式的亲戚关系换算，让你更了解中国文化。</p>
-							</div>
-							<div class="copy">
-								<p><span>本程序基于MIT许可协议开源，使用请保留版权信息</span></p>
-								<p><span>程序持续更新，如发现错漏可在此</span><a class="text-red" href="https://github.com/mumuy/relationship/issues" rel="nofollow" target="_blank">反馈问题</a></p>
-								<p class="buttons">
-									<a class="github-button" href="https://github.com/mumuy" data-color-scheme="no-preference: light; light: light; dark: dark;" data-size="large" aria-label="Follow @mumuy on GitHub">Follow @mumuy</a>
-									<a class="github-button" href="https://github.com/mumuy/relationship" data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star mumuy/relationship on GitHub">Star</a>
-								</p>
-								<p>&copy; <a href="http://passer-by.com">passer-by.com</a></p>
+					</div>
+				</div>
+				<div class="mod-intro">
+					<div class="inner">
+						<div class="hd"><span>功能支持</span></div>
+						<div class="bd">
+							<ul>
+								<li>
+									<div class="item">
+										<p class="q">1. 使用别称查询：</p>
+										<p class="a">姥姥的爸爸的老窦 = 外曾外曾祖父</p>
+										<p class="a">娘子的爹地的母亲 = 祖岳母</p>
+										<p class="a">岳丈的妈咪的细佬 = 舅祖岳父</p>
+									</div>
+								</li>
+								<li>
+									<div class="item">
+										<p class="q">2. 使用合称查询：</p>
+										<p class="a">姐夫的双亲 = 姊妹姻父 / 姊妹姻母</p>
+										<p class="a">妈妈的祖父母 = 外曾祖父 / 外曾祖母</p>
+										<p class="a">弟弟的孩子 = 侄子 / 侄女</p>
+									</div>
+								</li>
+								<li>
+									<div class="item">
+										<p class="q">3. 大小数字混合查询：</p>
+										<p class="a">大哥的二姑妈的七舅姥爷 = 舅曾外祖父</p>
+										<p class="a">二女婿的小姨 = 女姻姨妹</p>
+										<p class="a">大佬的三舅公的次子 = 舅表伯父 / 舅表叔父</p>
+									</div>
+								</li>
+								<li>
+									<div class="item">
+										<p class="q">4. 不限制祖辈孙辈跨度查询：</p>
+										<p class="a">舅妈的婆婆的外甥的姨妈的侄子 = 舅表舅父</p>
+										<p class="a">老公的丈母娘的儿媳 = 兄弟媳妇</p>
+										<p class="a">外婆的孙子的舅妈的仔 = 舅表兄弟</p>
+									</div>
+								</li>
+								<li>
+									<div class="item">
+										<p class="q">5. 根据年龄推导可能性：</p>
+										<p class="a">哥哥的表姐 = 姑表姐、舅表姐</p>
+										<p class="a">堂妹的姐姐 = 堂姐妹</p>
+										<p class="a">弟弟的表哥 = 姑表兄弟、舅表兄弟</p>
+									</div>
+								</li>
+								<li>
+									<div class="item">
+										<p class="q">6. 根据语境确认性别：</p>
+										<p class="a">老婆的女儿的外婆 = 岳母</p>
+										<p class="a">爱人的婆婆的儿子 = 兄弟</p>
+										<p class="a">岳母的配偶的儿子的爸爸 = 岳父</p>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="mod-article">
+					<div class="inner">
+						<div class="bd">
+							<p>亲属是基于婚姻、血缘和法律拟制而形成的社会关系。亲属关系包括夫妻、父母、子女、兄弟姊妹、祖父母和外祖父母、孙子女和外孙子女、儿媳和公婆、女婿和岳父母、以及其他三代以内的旁系血亲，如伯、叔、姑、舅、姨、侄子女、甥子女、堂兄弟姊妹、表兄弟姊妹等。</p>
+							<p>亲属称谓指是以本人为中心确定亲族成员和本人关系的名称，是基于血亲姻亲基础上的亲属之间相互称呼的名称、叫法。汉族的家族亲属关系条理分明尊卑有序：比自己长一辈的称呼有姨姑舅叔伯，同辈的有兄弟姊妹、堂表亲等等，下一辈有甥侄等等。中国人由于姻亲而产生的亲戚关系相当庞杂，“祖宗十八代”“五服”“九族”让人难以区分，其派生出的各种称谓也是中华文化的一大特征。</p>
+							<p>如今由于工作生活节奏差异，很多关系稍疏远的亲戚之间来往并不多，年龄差异长幼辈分模糊。春节拜年走亲戚遇到七大姑八大姨，往往会搞不清楚哪位亲戚应该喊什么称呼，很是尴尬。不仅小孩搞不清亲戚关系和亲戚称谓，就连年轻一代的大人也都常常模糊混乱。</p>
+							<p>“中国亲戚关系计算器”为你避免了叫错、不会叫亲戚的尴尬，收录了中国亲戚关系称呼大全，只需简单的输入即可完成称呼计算。称呼计算器同时兼容了不同地域的方言叫法，你可以称呼父亲为：“老爸”、“爹地”、“老爷子”等等。让您准确的叫出亲戚称谓，理清亲属之间的亲戚关系，轻松掌握中国式的亲戚关系换算，让你更了解中国文化。</p>
+						</div>
+					</div>
+				</div>
+				<div class="mod-copy">
+					<div class="inner">
+						<div class="hd"><span>算法开源</span></div>
+						<div class="bd">
+							<p><span>本程序基于 <a href="https://github.com/mumuy/relationship/blob/master/LICENSE" rel="nofollow" target="_blank">MIT许可协议</a> 开源，除需在源码中保留版权信息和许可声明外，你有权利进行使用、复制、修改、合并、出版发行等</span></p>
+							<p><span>算法持续更新中，如发现错漏或有想法建议可在此</span> <a class="text-red" href="https://github.com/mumuy/relationship/issues" rel="nofollow" target="_blank">反馈问题</a></p>
+							<div class="buttons">
+								<a class="github-button" href="https://github.com/mumuy" data-color-scheme="no-preference: light; light: light; dark: dark;" data-size="large" aria-label="Follow @mumuy on GitHub">Follow @mumuy</a>
+								<a class="github-button" href="https://github.com/mumuy/relationship/fork" data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-repo-forked" data-size="large" data-show-count="true" aria-label="Fork mumuy/relationship on GitHub">Fork</a>
+								<a class="github-button" href="https://github.com/mumuy/relationship" data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star mumuy/relationship on GitHub">Star</a>
 							</div>
 						</div>
 					</div>
-					<div class="mod-qrcode">
-						<div class="box"><img src="image/qrcode.jpg" width="150" alt="亲戚关系微信小程序"/></div>
-						<p>微信扫一扫，使用小程序</p>
+				</div>
+				<div class="mod-foot">
+					<div class="inner">
+						<div class="bd">
+							<div class="box">
+								<p><img src="image/qrcode.jpg" width="150" alt="亲戚关系微信小程序"/></p>
+								<p>微信扫一扫，使用小程序</p>
+							</div>
+							<p>Copyright &copy; <a href="http://passer-by.com">passer-by.com</a></p>
+						</div>
 					</div>
 				</div>
 			</div>
