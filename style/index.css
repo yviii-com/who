@@ -408,6 +408,39 @@ a:hover{
     text-indent: 2em;
 }
 
+.mod-app{
+    margin-bottom: 65px;
+}
+.mod-app .hd{
+    margin: 0 5px 5px;
+    line-height: 30px;
+    text-align: center;
+}
+.mod-app .hd span{
+    font-size: 18px;
+    font-weight: bold;
+    color: #646464;
+}
+.mod-app .bd ul{
+    padding: 20px 0;
+    text-align: center;
+    overflow: hidden;
+}
+.mod-app .bd li{
+    display: inline-block;
+    width: 12%;
+    margin-bottom: 15px;
+}
+.mod-app .bd .app span{
+    display: block;
+    margin:0 15px;
+    line-height: 32px;
+    text-align: center;
+}
+.mod-app .bd .app span.icon{
+    margin-bottom: 5px;
+}
+
 .mod-copy{
     margin-bottom: 65px;
     padding: 35px 0 45px;
@@ -584,6 +617,17 @@ a:hover{
         margin-bottom: 7px;
         line-height: 22px;
         font-size: 14px;
+    }
+
+    .mod-app{
+        margin-bottom: 25px;
+    }
+    .mod-app .bd ul{
+        padding: 10px 0;
+    }
+    .mod-app .bd li{
+        display: inline-block;
+        width: 48%;
     }
 
     .mod-copy{
