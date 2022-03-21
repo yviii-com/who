@@ -23,7 +23,7 @@ a:hover{
 }
 
 .wrapper{
-    background: url('../image/bg.svg') center top no-repeat;
+    background: url('../image/bg.svg') center top repeat-x;
 }
 .header{
     margin-bottom: 15px;
