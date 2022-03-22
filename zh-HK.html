@@ -30,27 +30,30 @@
 					<div class="mod-head">
 						<div class="bd">
 							<span class="language">
-								<a href="index.html">简体</a>
+								<a href="/relationship/">简体</a>
 								<span>/</span>
 								<a class="active" href="zh-HK.html">繁體</a>
 							</span>
-							<a class="btn" href="/relationship/vue/" target="_blank">手機版</a>
 							<a class="btn" href="https://github.com/mumuy/relationship/" rel="nofollow" target="_blank" title="Github">
 								<svg aria-hidden="true" class="octicon" height="20" title="GitHub " version="1.1" viewBox="0 0 16 16" width="24"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59 0.4 0.07 0.55-0.17 0.55-0.38 0-0.19-0.01-0.82-0.01-1.49-2.01 0.37-2.53-0.49-2.69-0.94-0.09-0.23-0.48-0.94-0.82-1.13-0.28-0.15-0.68-0.52-0.01-0.53 0.63-0.01 1.08 0.58 1.23 0.82 0.72 1.21 1.87 0.87 2.33 0.66 0.07-0.52 0.28-0.87 0.51-1.07-1.78-0.2-3.64-0.89-3.64-3.95 0-0.87 0.31-1.59 0.82-2.15-0.08-0.2-0.36-1.02 0.08-2.12 0 0 0.67-0.21 2.2 0.82 0.64-0.18 1.32-0.27 2-0.27 0.68 0 1.36 0.09 2 0.27 1.53-1.04 2.2-0.82 2.2-0.82 0.44 1.1 0.16 1.92 0.08 2.12 0.51 0.56 0.82 1.27 0.82 2.15 0 3.07-1.87 3.75-3.65 3.95 0.29 0.25 0.54 0.73 0.54 1.48 0 1.07-0.01 1.93-0.01 2.2 0 0.21 0.15 0.46 0.55 0.38C13.71 14.53 16 11.53 16 8 16 3.58 12.42 0 8 0z"></path></svg>
 								<span>Github</span>
 							</a>
-							<a class="btn" href="/">返回首頁</a>
+							<a class="btn" href="/">個人網站</a>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="container">
-				<div class="inner">
-					<div class="mod-panel">
+				<div class="mod-panel">
+					<div class="inner">
 						<div class="hd">
-							<h1>中國親戚關系計算器<span class="tag">開源算法</span></h1>
+							<h1><span class="name">中國</span><span>親戚關系計算器</span><span class="tag">開源算法</span></h1>
 							<p>逢年過節遇到三姑六婆，拒絕叫不出口的尷尬！輕鬆搞定親戚關系～</p>
 							<p>當前親戚稱呼大全已收錄約<b id="count">-</b>條親戚關系</p>
+							<div class="picture">
+								<img src="image/app.png" width="320" alt="親戚稱呼換算APP"/>
+								<a class="btn" href="/relationship/vue/" target="_blank">訪問手機版</a>
+							</div>
 						</div>
 						<div class="bd">
 							<div class="c-hd">
@@ -135,24 +138,6 @@
 										<p>計算結果：</p>
 										<p><textarea name="result" readonly></textarea></p>
 									</div>
-									<div class="intro">
-										<h3>使用案例</h3>
-										<p class="q">1. 使用別稱查詢：</p>
-										<p class="a">姥姥的爸爸的老竇 / 娘子的爹地的母親 / 嶽丈的媽咪 </p>
-										<p class="q">2. 使用合稱查詢：</p>
-										<p class="a">舅舅的孫輩 / 爸爸的祖父母 / 姑媽的兄弟姐妹 / 表姐妹的孩子</p>
-										<p class="q">3. 大小數字混合查詢：</p>
-										<p class="a">兒子的大舅的二姑媽的七舅姥爺 / 女婿的小姨</p>
-										<p class="q">4. 不限制方向祖輩孫輩跨度，反復查詢：</p>
-										<p class="a">舅媽的婆婆的外甥的姨媽的侄子的爺爺 / 老公的丈母娘的兒媳</p>
-										<p class="q">5. 年齡推導：</p>
-										<p class="a">哥哥的表姐 = 姑表姐、舅表姐</p>
-										<p class="a">堂妹的姐姐 = 堂姐妹</p>
-										<p class="a">弟弟的表哥 = 姑表兄弟、舅表兄弟</p>
-										<p class="q">6. 根據語境確認性別：</p>
-										<p class="a">老婆的女兒的外婆 = 嶽母</p>
-										<p class="a">愛人的婆婆的兒子 = 兄弟</p>
-									</div>
 								</div>
 								<div class="c-panel">
 									<div class="row">
@@ -173,10 +158,10 @@
 									</div>
 									<div class="intro">
 										<h3>應用場景</h3>
-										<p class="q">“七舅姥爺”和我是什麼關系？</p>
-										<p class="q">“堂弟”和“表弟”如何區分在？</p>
-										<p class="q">“外甥”和“侄子”的區別在哪裏？</p>
-										<p class="q">“姑表舅表哥”是我的誰？</p>
+										<p class="q">外舅公是我媽的誰？</p>
+										<p class="q">我爸應該叫舅老爺什麼？</p>
+										<p class="q">我嶽父怎麼叫我弟弟什麼？</p>
+										<p class="q">我哥如何稱呼我嶽母？</p>
 									</div>
 								</div>
 								<div class="c-panel">
@@ -215,44 +200,137 @@
 									</div>
 									<div class="intro">
 										<h3>應用場景</h3>
-										<p class="q">外舅公是我媽的誰？</p>
-										<p class="q">我爸應該叫舅老爺什麼？</p>
-										<p class="q">我嶽父怎麼叫我弟弟什麼？</p>
-										<p class="q">我哥如何稱呼我嶽母？</p>
+										<p class="q">“七舅姥爺”和我“三叔公”是什麼關系？</p>
+										<p class="q">我的“堂弟”要叫“表弟”什麼？</p>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="ft">
-							<div class="banner">
-								<a href="/relationship/vue/" target="_blank">
-									<span class="picture">
-										<img src="image/app.png" width="213" alt="親戚稱呼換算APP"/>
-									</span>
-									<span class="title">親戚稱呼計算器移動版</span>
-									<span class="subtitle">無需下載APP，手機即查即用</span>
-								</a>
-							</div>
-							<div class="article">
-								<p>親屬是基於婚姻、血緣和法律擬制而形成的社會關系。親屬關系包括夫妻、父母、子女、兄弟姊妹、祖父母和外祖父母、孫子女和外孫子女、兒媳和公婆、女婿和嶽父母、以及其他三代以內的旁系血親，如伯、叔、姑、舅、姨、侄子女、甥子女、堂兄弟姊妹、表兄弟姊妹等。</p>
-								<p>親屬稱謂指是以本人爲中心確定親族成員和本人關系的名稱，是基於血親姻親基礎上的親屬之間相互稱呼的名稱、叫法。漢族的家族親屬關系條理分明尊卑有序：比自己長一輩的稱呼有姨姑舅叔伯，同輩的有兄弟姊妹、堂表親等等，下一輩有甥侄等等。中國人由於姻親而產生的親戚關系相當龐雜，“祖宗十八代”“五服”“九族”讓人難以區分，其派生出的各種稱謂也是中華文化的一大特征。</p>
-								<p>如今由於工作生活節奏差異，很多關系稍疏遠的親戚之間來往並不多，年齡差異長幼輩分模糊。春節拜年走親戚遇到七大姑八大姨，往往會搞不清楚哪位親戚應該喊什麼稱呼，很是尷尬。不僅小孩搞不清親戚關系和親戚稱謂，就連年輕一代的大人也都常常模糊混亂。</p>
-								<p>“中國親戚關系計算器”爲你避免了叫錯、不會叫親戚的尷尬，收錄了中國親戚關系稱呼大全，只需簡單的輸入即可完成稱呼計算。稱呼計算器同時兼容了不同地域的方言叫法，你可以稱呼父親爲：“老爸”、“爹地”、“老爺子”等等。讓您準確的叫出親戚稱謂，理清親屬之間的親戚關系，輕鬆掌握中國式的親戚關系換算，讓你更了解中國文化。</p>
-							</div>
-							<div class="copy">
-								<p><span>本程序基於MIT許可協議開源，使用請保留版權信息</span></p>
-								<p><span>程序持續更新，如發現錯漏可在此</span><a class="text-red" href="https://github.com/mumuy/relationship/issues" rel="nofollow" target="_blank">反饋問題</a></p>
-								<p class="buttons">
-									<a class="github-button" href="https://github.com/mumuy" data-color-scheme="no-preference: light; light: light; dark: dark;" data-size="large" aria-label="Follow @mumuy on GitHub">Follow @mumuy</a>
-									<a class="github-button" href="https://github.com/mumuy/relationship" data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star mumuy/relationship on GitHub">Star</a>
-								</p>
-								<p>&copy; <a href="http://passer-by.com">passer-by.com</a></p>
+					</div>
+				</div>
+				<div class="mod-intro">
+					<div class="inner">
+						<div class="hd"><span>功能支持</span></div>
+						<div class="bd">
+							<ul>
+								<li>
+									<div class="item">
+										<p class="q">1. 使用別稱查詢：</p>
+										<p class="a">姥姥的爸爸的老竇 = 外曾外曾祖父</p>
+										<p class="a">娘子的爹地的母親 = 祖嶽母</p>
+										<p class="a">嶽丈的媽咪的細佬 = 舅祖嶽父</p>
+									</div>
+								</li>
+								<li>
+									<div class="item">
+										<p class="q">2. 使用合稱查詢：</p>
+										<p class="a">姐夫的雙親 = 姊妹姻父 / 姊妹姻母</p>
+										<p class="a">媽媽的祖父母 = 外曾祖父 / 外曾祖母</p>
+										<p class="a">弟弟的孩子 = 侄子 / 侄女</p>
+									</div>
+								</li>
+								<li>
+									<div class="item">
+										<p class="q">3. 大小數字混合查詢：</p>
+										<p class="a">大哥的二姑媽的七舅姥爺 = 舅曾外祖父</p>
+										<p class="a">二女婿的小姨 = 女姻姨妹</p>
+										<p class="a">大佬的三舅公的次子 = 舅表伯父 / 舅表叔父</p>
+									</div>
+								</li>
+								<li>
+									<div class="item">
+										<p class="q">4. 不限制祖輩孫輩跨度查詢：</p>
+										<p class="a">舅媽的婆婆的外甥的姨媽的侄子 = 舅表舅父</p>
+										<p class="a">老公的丈母娘的兒媳 = 兄弟媳婦</p>
+										<p class="a">外婆的孫子的舅媽的仔 = 舅表兄弟</p>
+									</div>
+								</li>
+								<li>
+									<div class="item">
+										<p class="q">5. 根據年齡推導可能性：</p>
+										<p class="a">哥哥的表姐 = 姑表姐、舅表姐</p>
+										<p class="a">堂妹的姐姐 = 堂姐妹</p>
+										<p class="a">弟弟的表哥 = 姑表兄弟、舅表兄弟</p>
+									</div>
+								</li>
+								<li>
+									<div class="item">
+										<p class="q">6. 根據語境確認性別：</p>
+										<p class="a">老婆的女兒的外婆 = 嶽母</p>
+										<p class="a">愛人的婆婆的兒子 = 兄弟</p>
+										<p class="a">嶽母的配偶的兒子的爸爸 = 嶽父</p>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="mod-article">
+					<div class="inner">
+						<div class="bd">
+							<p>親屬是基於婚姻、血緣和法律擬制而形成的社會關系。親屬關系包括夫妻、父母、子女、兄弟姊妹、祖父母和外祖父母、孫子女和外孫子女、兒媳和公婆、女婿和嶽父母、以及其他三代以內的旁系血親，如伯、叔、姑、舅、姨、侄子女、甥子女、堂兄弟姊妹、表兄弟姊妹等。</p>
+							<p>親屬稱謂指是以本人爲中心確定親族成員和本人關系的名稱，是基於血親姻親基礎上的親屬之間相互稱呼的名稱、叫法。漢族的家族親屬關系條理分明尊卑有序：比自己長一輩的稱呼有姨姑舅叔伯，同輩的有兄弟姊妹、堂表親等等，下一輩有甥侄等等。中國人由於姻親而產生的親戚關系相當龐雜，“祖宗十八代”“五服”“九族”讓人難以區分，其派生出的各種稱謂也是中華文化的一大特征。</p>
+							<p>如今由於工作生活節奏差異，很多關系稍疏遠的親戚之間來往並不多，年齡差異長幼輩分模糊。春節拜年走親戚遇到七大姑八大姨，往往會搞不清楚哪位親戚應該喊什麼稱呼，很是尷尬。不僅小孩搞不清親戚關系和親戚稱謂，就連年輕一代的大人也都常常模糊混亂。</p>
+							<p>“中國親戚關系計算器”爲你避免了叫錯、不會叫親戚的尷尬，收錄了中國親戚關系稱呼大全，只需簡單的輸入即可完成稱呼計算。稱呼計算器同時兼容了不同地域的方言叫法，你可以稱呼父親爲：“老爸”、“爹地”、“老爺子”等等。讓您準確的叫出親戚稱謂，理清親屬之間的親戚關系，輕鬆掌握中國式的親戚關系換算，讓你更了解中國文化。</p>
+						</div>
+					</div>
+				</div>
+				<div class="mod-copy">
+					<div class="inner">
+						<div class="hd"><span>算法開源</span></div>
+						<div class="bd">
+							<p><span>本程序基於 <a href="https://github.com/mumuy/relationship/blob/master/LICENSE" rel="nofollow" target="_blank">MIT許可協議</a> 開源，除需在源碼中保留版權信息和許可聲明外，你有權利進行使用、復制、修改、合並、出版發行等</span></p>
+							<p><span>算法持續更新中，如發現錯漏或有想法建議可在此</span> <a class="text-red" href="https://github.com/mumuy/relationship/issues" rel="nofollow" target="_blank">反饋問題</a></p>
+							<div class="buttons">
+								<a class="github-button" href="https://github.com/mumuy" data-color-scheme="no-preference: light; light: light; dark: dark;" data-size="large" aria-label="Follow @mumuy on GitHub">Follow @mumuy</a>
+								<a class="github-button" href="https://github.com/mumuy/relationship/fork" data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-repo-forked" data-size="large" data-show-count="true" aria-label="Fork mumuy/relationship on GitHub">Fork</a>
+								<a class="github-button" href="https://github.com/mumuy/relationship" data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star mumuy/relationship on GitHub">Star</a>
 							</div>
 						</div>
 					</div>
-					<div class="mod-qrcode">
-						<div class="box"><img src="image/qrcode.jpg" width="150" alt="親戚關系微信小程序"/></div>
-						<p>微信掃一掃，使用小程序</p>
+				</div>
+				<div class="mod-app">
+					<div class="inner">
+						<div class="hd"><span>他們都在用</span></div>
+						<div class="bd">
+							<ul>
+								<li>
+									<div class="app">
+										<span class="icon"><img src="image/icon/miui.png" width="64" height="64"/></span>
+										<span class="name">小米計算器</span>
+									</div>
+								</li>
+								<li>
+									<div class="app">
+										<span class="icon"><img src="image/icon/quanneng.png" width="64" height="64"/></span>
+										<span class="name">全能計算器</span>
+									</div>
+								</li>
+								<li>
+									<div class="app">
+										<span class="icon"><img src="image/icon/yuwendaren.png" width="64" height="64"/></span>
+										<span class="name">有道語文達人</span>
+									</div>
+								</li>
+								<li>
+									<div class="app">
+										<span class="icon"><img src="image/icon/qinqi.png" width="64" height="64"/></span>
+										<span class="name">親戚計算器</span>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="mod-foot">
+					<div class="inner">
+						<div class="bd">
+							<div class="box">
+								<p><img src="image/qrcode.jpg" width="150" alt="親戚關系微信小程序"/></p>
+								<p>微信掃一掃，使用小程序</p>
+							</div>
+							<p>Copyright &copy; <a href="http://passer-by.com">passer-by.com</a></p>
+						</div>
 					</div>
 				</div>
 			</div>
