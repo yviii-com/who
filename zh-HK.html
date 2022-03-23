@@ -479,13 +479,15 @@
 					if(value){
 						var result = relationship({text:value.split('的')[0],sex:-1,type:'chain'});
 						if(result.length){
-							var first_name = result[0].split('的').shift();
-							var name = result[0].split('的').pop();
-							if(first_name=='老公'){
+							var isFamen = result.every(function(value){
+								return value.split('的').shift()=='老公';
+							});
+							if(isFamen){
 								$sex[1].checked = true;
-							}else if(first_name=='老婆'){
+							}else{
 								$sex[0].checked = true;
 							}
+							var last_name = result[0].split('的').pop();
 							if(!name){
 								toggleSex($sex[0].checked);
 							}else{
