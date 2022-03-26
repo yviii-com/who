@@ -490,9 +490,9 @@
         'w,xb':['舅子','妻舅'],
         'w,xb,w':['妻妗'],
         'w,lb,w':['小舅妇','小舅弟妇','舅弟媳','小舅妹','小舅媳妇','小妗子','妻妹夫','内妹夫','妻弟妇','内弟妇','岳弟妇','舅弟妇'],
-        'w,os':['大姨子','大姨姐'],
+        'w,os':['大姨子','大姨姐','姨姐'],
         'w,os,h':['大姨夫','大姨姐夫','襟兄','大尹子'],
-        'w,ls':['小姨子','小姨妹','小妹儿','姨妹子'],
+        'w,ls':['小姨子','小姨妹','姨妹','姨仔','姨妹子'],
         'w,ls,h':['小姨夫','小姨妹夫','襟弟','小尹子'],
         'w,xs':['姨子','妻姨'],
         'w,xs,h':['连襟','连桥','姨夫','姨夫爷','一担挑','老挑','担儿挑','连襟儿','妻尹'],
@@ -917,7 +917,7 @@
         'w,{G1},s&l,w':['小舅妇','小舅弟妇','舅弟妇','舅妹','小舅妹','小妗子'],
         'w,{G1},d&o':['大姨子','大姨姐','姨姐'],
         'w,{G1},d&o,h':['大姨夫','大姨姐夫','襟兄','姨兄','大姨哥','大尹子'],
-        'w,{G1},d&l':['小姨子','小姨妹','姨妹'],
+        'w,{G1},d&l':['小姨子','小姨妹','姨妹','姨仔'],
         'w,{G1},d&l,h':['小姨夫','小姨妹夫','襟弟','姨弟','小姨弟','小尹子'],
         '{X0},f,ob':['伯父','伯伯','伯'],
         '{X0},f,ob,w':['伯母'],
@@ -1256,16 +1256,6 @@
             var name = lists.shift();           //当前匹配词
             var items = [];                     //当前匹配词可能性
             var keywords = [name];
-            for(var word in replaceMap){
-                var name1 = name.replace(word,replaceMap[word]);
-                var name2 = name.replace(replaceMap[word],word);
-                if(name1!=name){
-                    keywords.push(name1);
-                }
-                if(name2!=name){
-                    keywords.push(name2);
-                }
-            }
             var getList = function(name){
                 for(var filter in replaceFilter){
                     var word_list = replaceFilter[filter];
@@ -1276,6 +1266,16 @@
                             getList(name1);
                         }
                     });
+                }
+                for(var word in replaceMap){
+                    var name1 = name.replace(word,replaceMap[word]);
+                    var name2 = name.replace(replaceMap[word],word);
+                    if(name1!=name){
+                        keywords.push(name1);
+                    }
+                    if(name2!=name){
+                        keywords.push(name2);
+                    }
                 }
             };
             getList(name);
