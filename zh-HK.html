@@ -160,7 +160,8 @@
 										<h3>應用場景</h3>
 										<p class="q">七舅姥爺和我什麼關系？</p>
 										<p class="q">三叔公是什麼親戚？</p>
-										<p class="q">太外公和外太公的區別在哪裏？</p>
+										<p class="q">侄子和外甥的區別在哪裏？</p>
+										<p class="q">太外公和外太公有什麽不同？</p>
 									</div>
 								</div>
 								<div class="c-panel">
@@ -240,16 +241,16 @@
 									<div class="item">
 										<p class="q">4. 不限制祖輩孫輩跨度查詢：</p>
 										<p class="a">舅媽的婆婆的外甥的姨媽的侄子 = 舅表舅父</p>
-										<p class="a">老公的丈母娘的兒媳 = 嫂子、弟妹</p>
-										<p class="a">外婆的孫子的爸爸的仔 = 舅表哥、舅表弟</p>
+										<p class="a">老公的丈母娘的兒媳 = 嫂子 / 弟妹</p>
+										<p class="a">外婆的孫子的爸爸的仔 = 舅表哥 / 舅表弟</p>
 									</div>
 								</li>
 								<li>
 									<div class="item">
 										<p class="q">5. 根據年齡推導可能性：</p>
-										<p class="a">哥哥的表姐 = 姑表姐、舅表姐</p>
-										<p class="a">堂妹的姐姐 = 堂姐、堂妹</p>
-										<p class="a">弟弟的表哥 = 姑表哥、姑表弟、舅表哥、舅表弟</p>
+										<p class="a">哥哥的表姐 = 姑表姐 / 舅表姐</p>
+										<p class="a">堂妹的姐姐 = 堂姐 / 堂妹</p>
+										<p class="a">弟弟的表哥 = 姑表哥 / 姑表弟 / 舅表哥 / 舅表弟</p>
 									</div>
 								</li>
 								<li>
@@ -479,12 +480,15 @@
 						var input_result = relationship({text:value.split('的')[0],sex:-1,type:'chain'});
 						var output_result = relationship({text:value,sex:-1,type:'chain'});
 						if(input_result.length){
-							var isFamen = input_result.every(function(value){
+							var isFamale = input_result.every(function(value){
 								return value.split('的').shift()=='老公';
 							});
-							if(isFamen){
+							var isMale = input_result.every(function(value){
+								return value.split('的').shift()=='老婆';
+							});
+							if(isFamale){
 								$sex[1].checked = true;
-							}else{
+							}else if(isMale){
 								$sex[0].checked = true;
 							}
 						}
