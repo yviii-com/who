@@ -30,26 +30,7 @@ var relationship = require("relationship.js");
 
 
 ## 二、使用
-
-1. 内部属性：获取当前数据量 `relationship.dataCount`.
-
-2. 内部方法：用户自定义模式 `relationship.setMode(mode_name,mode_data)`.
-
-代码示例：
-
-```js
-// 关系解析语法
-// 【关系链】f:父,m:母,h:夫,w:妻,s:子,d:女,xb:兄弟,ob:兄,lb:弟,xs:姐妹,os:姐,ls:妹
-// 【修饰符】 1:男性,0:女性,&o:年长,&l:年幼,#:隔断,[a|b]:并列
-relationship.setMode('northern',{
-	'm,f':['姥爷'],
-	'm,m':['姥姥'],
-	'm,xb,s&o':['表哥'],
-	'm,xb,s&l':['表弟'],
-});
-```
-
-3. 通用方法: 唯一的计算方法 `relationship(options)`.
+1. 通用方法: 唯一的计算方法 `relationship(options)`.
 
 参数`options`结构为：
 
@@ -79,13 +60,31 @@ relationship({text:'舅公',sex:0,type:'chain'});
 // 如：舅妈如何称呼外婆？
 relationship({text:'外婆',target:'舅妈',sex:1});
 ```
+2. 内部属性：获取当前数据表 `relationship.data`.
 
+3. 内部属性：获取当前数据量 `relationship.dataCount`.
+
+4. 内部方法：用户自定义模式 `relationship.setMode(mode_name,mode_data)`.
+
+代码示例(可参考数据表格式对数据进行覆盖)：
+
+```js
+// 关系解析语法
+// 【关系链】f:父,m:母,h:夫,w:妻,s:子,d:女,xb:兄弟,ob:兄,lb:弟,xs:姐妹,os:姐,ls:妹
+// 【修饰符】 1:男性,0:女性,&o:年长,&l:年幼,#:隔断,[a|b]:并列
+relationship.setMode('northern',{
+	'm,f':['姥爷'],
+	'm,m':['姥姥'],
+	'm,xb,s&o':['表哥'],
+	'm,xb,s&l':['表弟'],
+});
+```
 
 ## 三、开发 & 贡献
 
 ```sh
 # 安装开发依赖
-npm install 
+npm install
 
 # build 模块: 将 relationship 打包压缩
 npm run build
