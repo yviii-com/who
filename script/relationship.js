@@ -1315,6 +1315,7 @@
         while(lists.length){
             var name = lists.shift();           //当前匹配词
             var items = [];                     //当前匹配词可能性
+            var x_items = [];
             var r_items = [];
             var keywords = [name];
             var getList = function(name){
@@ -1349,7 +1350,7 @@
                         items.push(i);
                     }
                     if(name!=x_name&&_data[i].indexOf(x_name)>-1){
-                        items.push(i);
+                        x_items.push(i);
                     }
                     if(name!=r_name&&_data[i].indexOf(r_name)>-1){
                         r_items.push(i);
@@ -1358,6 +1359,9 @@
             });
             // console.log('[keywords]',keywords);
             // 如找不到结果，再是否存在称呼的排行问题(不直接判断，因存在"大舅""三从父兄""三世祖"这样特俗含义的情况)
+            if(!items.length){
+                items = x_items;
+            }
             if(!items.length){
                 items = r_items;
             }
