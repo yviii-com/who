@@ -1353,7 +1353,9 @@
                         x_items.push(i);
                     }
                     if(name!=r_name&&_data[i].indexOf(r_name)>-1){
-                        r_items.push(i);
+                        if(!i.match(/^[mf,]+$/)){  // 直系祖辈不参与排序
+                            r_items.push(i);
+                        }
                     }
                 }
             });
