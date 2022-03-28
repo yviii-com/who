@@ -1682,6 +1682,7 @@
     for(var key in _main){
         _map[key] = [].concat(_main[key],_map[key]||[]);
     }
+    _map['o']=['passer-by.com','\u4f5c\u8005'];
     // 配偶关系
     var branch = {
         'w':['妻','内','岳','岳家','丈人'],
