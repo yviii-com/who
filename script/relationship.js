@@ -466,7 +466,7 @@
         'h,f':['公公','公父','家公','家官','翁亲','大官','老公公','老人公','公爹','老公爹','婆父','婆爹'],
         'h,m':['婆婆','婆母','家婆','家娘','姑亲','大家','老婆婆','老人婆','婆妈','婆母娘','婆子妈'],
         'h,f,ob':['伯公父','伯公','伯翁'],
-        'h,f,ob,w':['伯婆母','伯婆','伯姆'],
+        'h,f,ob,w':['伯婆母','伯婆','姆婆','伯姆'],
         'h,f,lb':['叔公父','叔公','叔翁','叔祖'],
         'h,f,lb,w':['叔婆母','叔婆','婶婆','婶婆婆','婶亲'],
         'h,m,xb':['舅公父','舅公',],
@@ -509,7 +509,7 @@
         'w,m,m':['外祖岳母','外祖丈母娘','外祖丈母','外太岳母','姥岳母','姥丈姥','姥丈母','姥丈母娘'],
         'w,f':['岳父','岳丈','岳老子','老干爷','老丈人','丈母爷','老丈杆子','丈人爹','丈爷爹','岳翁','丈人','丈父','丈爷','外父','妻父','泰山','外舅','老亲爷'],
         'w,m':['岳母','丈母娘','丈姥娘','岳母娘','老干娘','老丈母','丈人娘','丈母','丈姥','外母','泰水','外姑','老亲娘'],
-        'w':['老婆','妻子','太太','媳妇儿','媳妇','夫人','女人','婆娘','妻','内人','内子','娘子','爱妻','老太婆','老婆子','堂客','爱人','老伴','那口子','配偶','伴侣','卿卿'],
+        'w':['老婆','妻子','太太','媳妇儿','媳妇','夫人','女人','婆娘','妻','内人','内子','娘子','爱妻','老太婆','老婆子','老婆仔','堂客','爱人','老伴','那口子','配偶','伴侣','卿卿'],
         'w,ob':['大舅子','大舅兄','舅兄'],
         'w,ob,w':['大舅妇','大舅姆','大舅兄嫂','舅嫂','大舅嫂','大舅姐','大舅媳妇','大妗子'],
         'w,lb':['小舅子','小舅弟','舅弟'],
@@ -1042,7 +1042,7 @@
         '{G0},s,s,d,s':['玄外孙','玄外孙男'],
         '{G0},s,s,d,d':['玄外孙女'],
         '{G0},s,d':['孙女'],
-        '{G0},s,d,w':['孙婿'],
+        '{G0},s,d,h':['孙婿'],
         '{G0},s,d,s':['曾外孙','曾外孙男'],
         '{G0},s,d,s,w':['曾外孙妇'],
         '{G0},s,d,s,s':['曾外曾孙','曾外曾孙男'],
@@ -1063,7 +1063,7 @@
         '{G0},d,s,d,s':['外玄外孙','外玄外孙男'],
         '{G0},d,s,d,d':['外玄外孙女'],
         '{G0},d,d':['外孙女'],
-        '{G0},d,d,w':['外孙婿'],
+        '{G0},d,d,h':['外孙婿'],
         '{G0},d,d,s':['外曾外孙','外曾外孙男'],
         '{G0},d,d,s,w':['外曾外孙妇'],
         '{G0},d,d,s,s':['外曾外曾孙','外曾外曾孙男'],
@@ -1343,10 +1343,8 @@
             '^玄([侄甥])':['$1玄'],
             '^外表([伯叔姑舅姨])':['姑表$1外','舅表$1外'],
             '^外甥':['甥'],
+            '([孙甥侄])$':['$1男','$1女'],
             '祖$':['祖父','祖母'],
-            '孙$':['孙男','孙女'],
-            '甥$':['甥男','甥女'],
-            '侄$':['侄男','侄女'],
             '外甥$':['甥'],
             '嫂$':['兄妇'],
         };
@@ -1429,9 +1427,9 @@
         var hash = {};
         //性别判断
         if(sex<0){
-            if(selector.match(/^,w/)){
+            if(selector.match(/^,[w1]/)){
                 sex = 1;
-            }else if(selector.match(/^,h/)){
+            }else if(selector.match(/^,[h0]/)){
                 sex = 0;
             }
         }else if(sex==1&&selector.match(/^,[h0]/)){
@@ -1557,7 +1555,7 @@
             var result = [];
             var doing = function(sex){
                 var sid = (','+sex+','+id).replace(/,[fhs]|,[olx]b/g,',1').replace(/,[mwd]|,[olx]s/g,',0');
-                sid = sid.substring(0,sid.lastIndexOf(','));
+                sid = sid.substring(0,sid.length-2);
                 var id_arr = id.split(',').reverse();
                 var sid_arr = sid.split(',').reverse();
                 var arr = id_arr.map((id,i)=>hash[id][sid_arr[i]]);
@@ -1620,7 +1618,6 @@
         var sex = my_sex;
         var from_ids = selector2id(from,my_sex);
         var to_ids = selector2id(to,my_sex);
-        var from_rids = [];
         var to_rids = [];
         if(!from_ids.length||!to_ids.length){
             return false;
@@ -1727,15 +1724,13 @@
             target:'',
             sex:-1,
             type:'default',     // 'chain'表示关系链
-            reverse:false,    // true表示反向
-            mode:'default',   // 用户自定义模式
+            reverse:false,      // true表示反向
+            mode:'default',     // 用户自定义模式
         },parameter);
         _data = Object.assign({},_map);
-        for(var lang in _mode){
-            if(options.mode==lang){
-                for(var key in _mode[lang]){
-                    _data[key] = [].concat(_mode[lang][key],_map[key]||[]);
-                }
+        if(_mode[options.mode]){
+            for(var key in _mode[options.mode]){
+                _data[key] = [].concat(_mode[options.mode][key],_map[key]||[]);
             }
         }
         var from_selectors = getSelectors(options.text);
@@ -1754,10 +1749,10 @@
                 if(ids){
                     ids.forEach(function(id){
                         var temps = [id];
+                        if(options.reverse){
+                            temps = reverseId(id,data['sex']);
+                        }
                         if(options.type=='chain'){
-                            if(options.reverse){
-                                temps = reverseId(id,data['sex']);
-                            }
                             temps.forEach(function(id){
                                 var item = getChainById(id);
                                 if(item){
@@ -1765,9 +1760,6 @@
                                 }
                             });
                         }else{
-                            if(options.reverse){
-                                temps = reverseId(id,data['sex']);
-                            }
                             temps.forEach(function(id){
                                 var items = getDataById(id);
                                 if(!items.length){
