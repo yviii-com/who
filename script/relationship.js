@@ -1662,12 +1662,7 @@
 		for(var k in _prefix[tag]){
 			var prefixList = _prefix[tag][k];
 			var newKey = key.replace(tag,k);
-            var isFilter = false;
-            ['h,h','w,w','w,h','h,w'].forEach(function(pair){
-                if(newKey.indexOf(pair)>-1){
-                    isFilter = true;
-                }
-            });
+            var isFilter = ['h,h','w,w','w,h','h,w'].some(pair=>(newKey.indexOf(pair)>-1));
 			var newList = [];
             if(!isFilter){
                 prefixList.forEach(function(prefix){
