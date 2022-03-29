@@ -1653,7 +1653,6 @@
             'sex':sex
         };
     }
-
     // 数据初始化
     // 分支关系
     for(var key in _branch){
@@ -1705,8 +1704,9 @@
                 var nameList = _map[key];
                 prefixList.forEach(function(prefix){
     				nameList.forEach(function(name){
-                        if(!allName[name]){  // 配偶组合的称呼不得已原有称呼冲突(如：妻舅!=妻子的舅舅;外舅公!=老公的舅公)
-                            _map[newKey].push(prefix+name);
+                        var newName = prefix+name;
+                        if(!allName[newName]){  // 配偶组合的称呼不得已原有称呼冲突(如：妻舅!=妻子的舅舅;外舅公!=老公的舅公)
+                            _map[newKey].push(newName);
                         }
                     });
                 });
