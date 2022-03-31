@@ -627,7 +627,7 @@
         's,s,d,s,w':['玄外孙媳妇'],
         's,s,d,d':['玄外孙女'],
         's,s,d,d,h':['玄外孙女婿'],
-        's,d':['孙女','孙女儿','孙囡'],
+        's,d':['孙女','孙女儿','孙囡','孙囡儿'],
         's,d,h':['孙女婿','孙婿','孙息婿'],
         's,d,s':['曾外孙','外息仔'],
         's,d,s,w':['曾外孙媳妇'],
@@ -1366,8 +1366,8 @@
             getList(name);
             // 通过关键词找关系
             keywords.forEach(function(name){
-                var x_name = name.replace(/^[大|小|老|二|三|四|五|六|七|八|九|十]/,'x');
-                var r_name = name.replace(/^[大|小|老|二|三|四|五|六|七|八|九|十]/,'');
+                var x_name = name.replace(/^[大|小|老]|^[一|二|三|四|五|六|七|八|九|十]{1,2}/,'x');
+                var r_name = name.replace(/^[大|小|老]|^[一|二|三|四|五|六|七|八|九|十]{1,2}/,'');
                 for(var i in _data){
                     if(_data[i].indexOf(name)>-1){
                         items.push(i);
