@@ -93,7 +93,7 @@ npm run build
 npm test
 ```
 
-直接浏览器打开 `index.html` 来在查看网页demo 或 访问[https://passer-by.com/relationship/](亲戚称呼计算器项目演示)
+直接浏览器打开 `index.html` 来在查看网页demo 或 访问[亲戚称呼计算器项目演示](https://passer-by.com/relationship/)
 
 
 ## 四、关于分歧
