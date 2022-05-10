@@ -5,13 +5,9 @@
 “中国家庭称谓计算器”为你避免了这种尴尬，只需简单的输入即可算出称谓。输入框兼容了不同的叫法，你可以称呼父亲为：“老爸”、“爹地”、“老爷子”等等，方便不同地域的习惯叫法。快捷输入按键，只需简单的点击即可完成关系输入，算法还支持逆向查找称呼哦～！
 
 
-演示地址：[https://passer-by.com/relationship/](http://passer-by.com/relationship/)
+项目演示地址：[https://passer-by.com/relationship/](https://passer-by.com/relationship/)
 
-借助这套算法结合vue开发的APP: [https://passer-by.com/relationship/vue/](http://passer-by.com/relationship/vue/)
-
-在微信中搜索“亲戚关系”，还可以体验小程序版本
-
-![亲戚关系计算器](https://passer-by.com/relationship/image/qrcode.jpg)
+移动版演示地址: [https://passer-by.com/relationship/vue/](https://passer-by.com/relationship/vue/)
 
 ## 一、下载 & 安装
 
@@ -93,8 +89,6 @@ npm run build
 npm test
 ```
 
-直接浏览器打开 `index.html` 来在查看网页demo 或 访问[亲戚称呼计算器项目演示](https://passer-by.com/relationship/)
-
 
 ## 四、关于分歧
 
@@ -115,9 +109,11 @@ npm test
 * 媳妇：在古代或者北方地区指儿子的妻子，这里指自己的妻子(儿媳妇写作“息妇”)；
 * 太太：一些地方指年长的妇人或曾祖父母，这里指自己的妻子；
 
-针对不同地区的使用习惯差异，你可以通过上述所说的自定义模式定制更符合自己习惯的版本。
+## 五、教程
 
-## 五、其他
+* [算法实现原理](https://github.com/mumuy/relationship/wiki/%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0)
+
+## 六、其他
 
 他们都在用：
 
