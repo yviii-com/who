@@ -459,16 +459,26 @@ a:hover{
     margin:0 5px;
 }
 .mod-copy .bd p{
-    line-height: 28px;
+    margin-bottom: 10px;
+    line-height: 26px;
+    text-indent: 2em;
     font-size: 15px;
-
 }
 .mod-copy .bd .buttons{
-    margin-top: 15px;
+    margin: 15px 0;
 }
 .mod-copy .bd .text-red{
     font-weight: bold;
     color: #fd7474;
+}
+.mod-copy .bd code{
+    display: block;
+    padding: 8px 15px;
+    line-height: 20px;
+    background: #fff;
+    border: 1px solid rgba(27,31,36,.15);
+    border-radius: 5px;
+    word-break: break-word;
 }
 
 
