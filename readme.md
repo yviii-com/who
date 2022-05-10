@@ -5,13 +5,9 @@
 “中国家庭称谓计算器”为你避免了这种尴尬，只需简单的输入即可算出称谓。输入框兼容了不同的叫法，你可以称呼父亲为：“老爸”、“爹地”、“老爷子”等等，方便不同地域的习惯叫法。快捷输入按键，只需简单的点击即可完成关系输入，算法还支持逆向查找称呼哦～！
 
 
-演示地址：[https://passer-by.com/relationship/](http://passer-by.com/relationship/)
+本项目演示地址：[https://passer-by.com/relationship/](http://passer-by.com/relationship/)
 
-借助这套算法结合vue开发的APP: [https://passer-by.com/relationship/vue/](http://passer-by.com/relationship/vue/)
-
-在微信中搜索“亲戚关系”，还可以体验小程序版本
-
-![亲戚关系计算器](https://passer-by.com/relationship/image/qrcode.jpg)
+移动版演示地址: [https://passer-by.com/relationship/vue/](http://passer-by.com/relationship/vue/)
 
 ## 一、下载 & 安装
 
