@@ -1871,7 +1871,7 @@
                 if(ids){
                     ids.forEach(function(id){
                         var temps = [id];
-                        var sex = options.sex;
+                        var sex = data['sex'];
                         if(options.reverse){
                             temps = reverseId(id,data['sex']);
                             if(id.match(/([fhs1](&[ol])?|[olx]b)$/)){
