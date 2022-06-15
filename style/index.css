@@ -147,9 +147,12 @@ a:hover{
 }
 .mod-panel .hd .picture{
     position: relative;
+    width: 400px;
     padding-top: 15px;
-    margin-right: 20%;
     text-align: center;
+}
+.mod-panel .hd .picture img{
+    margin-left: -56px;
 }
 .mod-panel .hd .picture .btn{
     display: inline-block;
@@ -548,11 +551,13 @@ a:hover{
         overflow: hidden;
     }
     .mod-panel .hd .picture{
-        margin-right: 0;
+        width: auto;
         padding-top: 0;
     }
     .mod-panel .hd .picture img{
-        width: 213.33px;
+        width: 256px;
+        height: 160px;
+        margin-left: 0;
     }
     .mod-panel .hd .picture .btn{
         display: block;
