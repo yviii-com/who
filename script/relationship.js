@@ -7,12 +7,14 @@
  * https://github.com/mumuy/relationship/blob/master/LICENSE
 */
 !function (root, factory) {
-    if (typeof module === 'object' && module.exports){
+    if (typeof define === 'function' && define.amd){
+        define([], factory);
+    }else if (typeof module === 'object' && module.exports){
         module.exports = factory();
     }else{
         root.relationship = factory();
     }
-}(this,function (){
+}(typeof self!=='undefined'?self:this,function (){
     /*
      * 关系数据语法说明：
      * 【关系符】 f:父; m:母; h:夫; w:妻; s:子; d:女; xb:兄弟; ob:兄; lb:弟; xs:姐妹; os:姐; ls:妹
