@@ -1,6 +1,5 @@
 const fs = require('fs');
 const gulp = require('gulp');
-const uglify = require('gulp-uglify');
 const rename = require("gulp-rename");
 const cht = require('gulp-cht');
 
@@ -10,16 +9,7 @@ gulp.task('mini', () => {
     // .pipe(rename("zh-HK.html"))
     // .pipe(gulp.dest("./"));
 
-    return gulp.src('script/relationship.js')
-    .pipe(uglify({
-        output:{
-            comments: function(node, comment){
-                return /^!/.test(comment.value);
-            }
-        }
-    }))
-    .pipe(rename("relationship.min.js"))
-    .pipe(gulp.dest('dist/'))
+    return gulp.src('dist/relationship.min.js')
     .pipe(cht())
     .pipe(rename("relationship.zh-HK.min.js"))
     .pipe(gulp.dest('dist/'))
