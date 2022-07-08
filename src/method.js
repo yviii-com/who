@@ -1,3 +1,4 @@
+// 通用方法
 import _filter from './filter';
 import _map from './map';
 

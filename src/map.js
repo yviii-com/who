@@ -1,8 +1,9 @@
+// 默认完整映射关系
 import _main from './main';
 import _prefix from './prefix';
 import _branch from './branch';
 
-var _map = {};  // 默认映射关系
+var _map = {};
 
 // 分支关系
 for(var key in _branch){
