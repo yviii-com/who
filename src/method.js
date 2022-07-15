@@ -58,7 +58,7 @@ export function getSelectors(str){
         '^([姨姑])([曾玄外]*)孙':['$1甥$2孙'],
         '([孙甥侄])$':['$1男','$1女'],
         '([姑舅姨叔])([孙外]*)([男女])$':['$1表侄$2$3','$1表甥$2$3'],
-        '祖$':['祖父','祖母'],
+        '祖$':['祖父'],
         '嫂$':['兄妇'],
         '女儿$':['女'],
         '外甥$':['甥'],
@@ -94,7 +94,7 @@ export function getSelectors(str){
         getList(name);
         // 通过关键词找关系
         keywords.forEach(function(name){
-            var x_name = name.replace(/^[大|小|老]|^[一|二|三|四|五|六|七|八|九|十]{1,2}/,'x');
+            var x_name = name.replace(/^[大|小|老]|^[一|二|三|四|五|六|七|八|九|十]{1,2}/,'几');
             var r_name = name.replace(/^[大|小|老]|^[一|二|三|四|五|六|七|八|九|十]{1,2}/,'');
             for(var i in _data){
                 if(_data[i].indexOf(name)>-1){
