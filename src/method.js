@@ -51,6 +51,7 @@ export function getSelectors(str){
         '^眷':['叔眷','舅眷','兄弟眷','男眷'],
         '^亲家':['姊妹姻','兄弟眷'],
         '^([堂表姨]?)([曾高天烈太远鼻]?)(祖?)([伯叔姑舅姨])':['$1$4$2$3'],
+        '^([曾高天烈太远鼻]?)祖?王姑':['姑$1祖母'],
         '^([曾玄来晜仍云耳])([侄甥])':['$2$1'],
         '^外表([伯叔姑舅姨])':['姑表$1外','舅表$1外'],
         '^([堂表姨]?)外甥':['$1甥'],
@@ -140,6 +141,9 @@ export function getSelectors(str){
 export function selector2id(selector,sex){
     var result = [];
     var hash = {};
+    if(!selector.match(/^,/)){
+        selector = ','+selector;
+    }
     //性别判断
     if(sex<0){
         if(selector.match(/^,[w1]/)){
