@@ -16,7 +16,7 @@ export function unique(arr){
 
 // 中文获取选择器
 export function getSelectors(str){
-    str = str.replace(/之/,'的').replace(/我的?(.+)/,'$1');
+    str = str.replace(/之/g,'的').replace(/吾之?(.+)/,'$1').replace(/我的?(.+)/,'$1');
     if(str.match(/[^娘婆岳亲]家的?/)){
         str = str.replace(/家的?/,'的');
     }
