@@ -1,15 +1,15 @@
 import {
     unique,
     getSelectors,
-    selector2id,
-    getItemsById,
-    reverseId,
-    getChainById,
     mergeSelector,
+    selector2id,
+    reverseId,
+    getItemsById,
+    getChainById,
+    getPairsByIds,
     setMode,
     getDataByMode
 } from './method';
-
 var _data = getDataByMode();     // 最终数据
 
 // 对外方法
@@ -51,15 +51,23 @@ var relationship = function (parameter){
                     if(options.type=='chain'){
                         temps.forEach(function(id){
                             var item = getChainById(id);
-                            if(item){
-                                if(id.match(/^[^hw]/)){
-                                    if(data['sex']==0){
-                                        item = '(女性)'+item;
-                                    }else if(data['sex']==1){
-                                        item = '(男性)'+item;
-                                    }
+                            if(data['sex']>-1&&_data[data['sex']+','+id]){
+                                if(data['sex']==0){
+                                    item = '(女性)'+item;
+                                }else if(data['sex']==1){
+                                    item = '(男性)'+item;
                                 }
+                            }
+                            if(item){
                                 result.push(item);
+                            }
+                        });
+                    }else if(options.type=='pair'){
+                        temps = reverseId(id,data['sex']);
+                        temps.forEach(function(r_id){
+                            var pairs = getPairsByIds(id,r_id);
+                            if(pairs.length){
+                                result = result.concat(pairs);
                             }
                         });
                     }else{

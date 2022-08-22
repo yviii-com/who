@@ -35,7 +35,7 @@ var options = {
 	text:'',		//目标对象：目标对象的称谓汉字表达，称谓间用‘的’字分隔
 	target:'',	    	//相对对象：相对对象的称谓汉字表达，称谓间用‘的’字分隔，空表示自己
 	sex:-1,			//本人性别：0表示女性,1表示男性
-	type:'default',		//转换类型：'default'计算称谓,'chain'计算关系
+	type:'default',		//转换类型：'default'计算称谓,'chain'计算关系链,'pair'计算关系合称
 	reverse:false,		//称呼方式：true对方称呼我,false我称呼对方
 	mode:'default'		//模式选择：使用setMode方法定制不同地区模式，在此选择自定义模式
 };
@@ -46,15 +46,24 @@ var options = {
 ```js
 // 如：我应该叫外婆的哥哥什么？
 relationship({text:'妈妈的妈妈的哥哥'});
+// => ['舅外公']
 
 // 如：七舅姥爷应该叫我什么？
-relationship({text:'七舅姥爷','reverse':true,'sex':1});
+relationship({text:'七舅姥爷',reverse:true,sex:1});
+// => ['甥外孙']
 
-// 如：舅公和我是什么关系？
-relationship({text:'舅公',sex:0,type:'chain'});
+// 如：舅公和我具体是什么关系？
+relationship({text:'舅公',type:'chain'});
+// => ['爸爸的妈妈的兄弟', '妈妈的妈妈的兄弟', '老公的妈妈的兄弟']
 
 // 如：舅妈如何称呼外婆？
 relationship({text:'外婆',target:'舅妈',sex:1});
+// => ['婆婆']
+
+// 如：外婆和奶奶之间是什么关系？
+relationship({text:'外婆',target:'奶奶',type:'pair'});
+// => ['儿女亲家']
+
 ```
 2. 内部属性：获取当前数据表 `relationship.data`.
 

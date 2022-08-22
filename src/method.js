@@ -1,6 +1,7 @@
 // 通用方法
 import _filter from './filter';
 import _map from './map';
+import _pair from './pair';
 
 var _mode = {};                         // 模式数据
 var _data = Object.assign({},_map);     // 最终数据
@@ -137,6 +138,71 @@ export function getSelectors(str){
     return isMatch?result:[];
 };
 
+// 合并选择器，查找两个对象之间的关系
+export function mergeSelector(from,to,my_sex){
+    if(my_sex<0){
+        var to_sex = -1;
+        var from_sex = -1;
+        if(from.match(/^,[w1]/)){
+            from_sex = 1;
+        }else if(from.match(/^,[h0]/)){
+            from_sex = 0;
+        }
+        if(to.match(/^,[w1]/)){
+            to_sex = 1;
+        }else if(to.match(/^,[h0]/)){
+            to_sex = 0;
+        }
+        if(from_sex==-1&&to_sex>-1){
+            my_sex = to_sex;
+        }else if(from_sex>-1&&to_sex==-1){
+            my_sex = from_sex;
+        }else if(from_sex==to_sex){
+            my_sex = from_sex;
+        }else{
+            return false;
+        }
+    }
+    var sex = my_sex;
+    var from_ids = selector2id(from,my_sex);
+    var to_ids = selector2id(to,my_sex);
+    var to_rids = [];
+    if(!from_ids.length||!to_ids.length){
+        return false;
+    }
+    if(to){
+        var toIsMale = false;
+        var toIsFemale = false;
+        to_ids.forEach(function(id){
+            var selector = ','+id;
+            if(selector.match(/,([fhs1](&[ol])?|[olx]b)$/)){
+                toIsMale = true;
+            }
+            if(selector.match(/,([mwd0](&[ol])?|[olx]s)$/)){
+                toIsFemale = true;
+            }
+            to_rids = to_rids.concat(reverseId(id,my_sex));
+        });
+        to_rids = unique(to_rids);
+        if(toIsMale&&toIsFemale){
+            sex = -1;
+        }else if(toIsMale){
+            sex = 1;
+        }else if(toIsFemale){
+            sex = 0;
+        }
+    }else{
+        to_rids = [''];
+    }
+    // console.log('[from_ids]',from_ids,'to_rids',to_rids);
+    var from_selector = from_ids.length>1?'['+from_ids.join('|')+']':from_ids[0];
+    var to_selector = to_rids.length>1?'['+to_rids.join('|')+']':to_rids[0];
+    return {
+        'selector':(to?','+to_selector:'')+(from?','+from_selector:''),
+        'sex':sex
+    };
+};
+
 // 选择器转ID
 export function selector2id(selector,sex){
     var result = [];
@@ -158,6 +224,9 @@ export function selector2id(selector,sex){
     }
     // console.log('[selector]',selector);
     var getId = function(selector,sex){
+        if(!selector.match(/^,/)){
+            selector = ','+selector;
+        }
         if(sex>-1&&selector.indexOf(',1')==-1&&selector.indexOf(',0')==-1){
             selector = ','+sex+selector;
         }
@@ -188,55 +257,6 @@ export function selector2id(selector,sex){
     }
     getId(selector,sex);
     return unique(result);
-};
-
-// 通过ID获取数据
-export function getItemsById(id){
-    var items = [];
-    var getData = function(d){
-        var res = [];
-        if(_data[d]){
-            res.push(_data[d][0]);
-        }else{
-            for(var i in _data){
-                if(i.replace(/&[ol]/g,'')==d){
-                    res.push(_data[i][0]);
-                }else{
-                    var expr = d;
-                    while (expr.match(/[ol](b|s)/)){
-                        expr = expr.replace(/[ol](b|s)/,'x$1');
-                        if(expr==i){
-                            res.push(_data[i][0]);
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-        return res;
-    };
-    if(_data[id]){  // 直接匹配称呼
-        items.push(_data[id][0]);
-    }else{
-        items = getData(id);
-        // 忽略年龄条件查找
-        if(!items.length){
-            id = id.replace(/&[ol]/g,'');
-            items = getData(id);
-        }
-        // 忽略年龄条件查找
-        if(!items.length){
-            id = id.replace(/[ol](b|s)/g,'x$1');
-            items = getData(id);
-        }
-        // 缩小访问查找
-        if(!items.length){
-            var l = id.replace(/x/g,'l');
-            var o = id.replace(/x/g,'o');
-            items = items.concat(getData(o),getData(l));
-        }
-    }
-    return items;
 };
 
 // 逆转ID
@@ -296,89 +316,103 @@ export function reverseId(id,sex){
     return [''];
 };
 
-// 通过ID获取关系链条
+// 通过ID获取关系称呼
+export function getItemsById(id){
+    var items = [];
+    var getData = function(d){
+        var res = [];
+        if(_data[d]){
+            res.push(_data[d][0]);
+        }else{
+            for(var i in _data){
+                if(i.replace(/&[ol]/g,'')==d){
+                    res.push(_data[i][0]);
+                }else{
+                    var expr = d;
+                    while (expr.match(/[ol](b|s)/)){
+                        expr = expr.replace(/[ol](b|s)/,'x$1');
+                        if(expr==i){
+                            res.push(_data[i][0]);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return res;
+    };
+    if(_data[id]){  // 直接匹配称呼
+        items.push(_data[id][0]);
+    }else{
+        items = getData(id);
+        // 忽略年龄条件查找
+        if(!items.length){
+            id = id.replace(/&[ol]/g,'');
+            items = getData(id);
+        }
+        // 忽略年龄条件查找
+        if(!items.length){
+            id = id.replace(/[ol](b|s)/g,'x$1');
+            items = getData(id);
+        }
+        // 缩小访问查找
+        if(!items.length){
+            var l = id.replace(/x/g,'l');
+            var o = id.replace(/x/g,'o');
+            items = items.concat(getData(o),getData(l));
+        }
+    }
+    return items;
+};
+
+// 通过ID获取关系链
 export function getChainById(id){
     var arr = id.split(',');
     return arr.map(function(sign){
         var key = sign.replace(/&[ol]/,'');
         var data = Object.assign({},_data,{
             'xb':['兄弟'],
-            'xs':['姐妹'],
+            'xs':['姐妹']
         });
         return data[key][0];
     }).join('的');
 };
 
-// 合并选择器，查找两个对象之间的关系
-export function mergeSelector(from,to,my_sex){
-    if(my_sex<0){
-        var to_sex = -1;
-        var from_sex = -1;
-        if(from.match(/^,[w1]/)){
-            from_sex = 1;
-        }else if(from.match(/^,[h0]/)){
-            from_sex = 0;
-        }
-        if(to.match(/^,[w1]/)){
-            to_sex = 1;
-        }else if(to.match(/^,[h0]/)){
-            to_sex = 0;
-        }
-        if(from_sex==-1&&to_sex>-1){
-            my_sex = to_sex;
-        }else if(from_sex>-1&&to_sex==-1){
-            my_sex = from_sex;
-        }else if(from_sex==to_sex){
-            my_sex = from_sex;
-        }else{
-            return false;
-        }
-    }
-    var sex = my_sex;
-    var from_ids = selector2id(from,my_sex);
-    var to_ids = selector2id(to,my_sex);
-    var to_rids = [];
-    if(!from_ids.length||!to_ids.length){
-        return false;
-    }
-    if(to){
-        var toIsMale = false;
-        var toIsFemale = false;
-        to_ids.forEach(function(id){
-            if(id.match(/([fhs1](&[ol])?|[olx]b)$/)){
-                toIsMale = true;
+// 通过ID获取关系合称
+export function getPairsByIds(id1,id2){
+    var result = [];
+    var result_r = [];
+    for(var key in _pair){
+        var selectors = key.split('#');
+        if(selectors.length>1){
+            var list1 = selector2id(selectors[0]);
+            var list2 = selector2id(selectors[1]);
+            var list1_r = list1.map(function(selector){
+                return selector.replace(/&[o|l]/,'').replace(/[o|l]b/,'xb').replace(/[o|l]s/,'xs');
+            });
+            var list2_r = list2.map(function(selector){
+                return selector.replace(/&[o|l]/,'').replace(/[o|l]b/,'xb').replace(/[o|l]s/,'xs');
+            });
+            if(list1.indexOf(id1)>-1&&list2.indexOf(id2)>-1||list1.indexOf(id2)>-1&&list2.indexOf(id1)>-1){
+                result.push(_pair[key][0]);
             }
-            if(id.match(/([mwd0](&[ol])?|[olx]s)$/)){
-                toIsFemale = true;
+            if(list1_r.indexOf(id1)>-1&&list2_r.indexOf(id2)>-1||list1_r.indexOf(id2)>-1&&list2_r.indexOf(id1)>-1){
+                result_r.push(_pair[key][0]);
             }
-            to_rids = to_rids.concat(reverseId(id,my_sex));
-        });
-        to_rids = unique(to_rids);
-        if(toIsMale&&toIsFemale){
-            sex = -1;
-        }else if(toIsMale){
-            sex = 1;
-        }else if(toIsFemale){
-            sex = 0;
         }
-    }else{
-        to_rids = [''];
     }
-    // console.log('[from_ids]',from_ids,'to_rids',to_rids);
-    var from_selector = from_ids.length>1?'['+from_ids.join('|')+']':from_ids[0];
-    var to_selector = to_rids.length>1?'['+to_rids.join('|')+']':to_rids[0];
-    return {
-        'selector':(to?','+to_selector:'')+(from?','+from_selector:''),
-        'sex':sex
-    };
+    if(!result.length){
+        result = result_r;
+    }
+    return result;
 };
 
-// 设置模式
+// 设置模式数据
 export function setMode(sign,data){
     _mode[sign] = Object.assign(_mode[sign]||{},data);
 };
 
-// 获取指定模式数据
+// 获取模式数据
 export function getDataByMode(sign){
     var data = Object.assign({},_map);
     if(sign&&_mode[sign]){
