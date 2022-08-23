@@ -12,6 +12,7 @@
 		<title>中国亲戚关系计算器 亲戚称谓计算器 亲戚称呼大全</title>
 		<meta name="keywords" content="家庭称谓,亲戚称呼,亲戚称谓,亲戚叫法,亲属关系,亲属称谓,关系计算器,亲戚计算器,称呼计算器,称谓计算器,辈分计算器,亲戚关系大全,亲戚称呼大全"/>
 		<meta name="description" content="中国亲戚关系计算器是一款最为全面准确的亲戚称呼计算器及亲戚关系在线查询工具，逢年过节走亲访友必备神器，亦可作为家庭启蒙教育应用。"/>
+		<link rel="canonical" href="https://passer-by.com/relationship/"/>
 		<link rel="stylesheet" href="static/style/index.css">
 		<script type="text/javascript">
 			setTimeout(function(){
@@ -58,9 +59,10 @@
 						<div class="bd">
 							<div class="c-hd">
 								<ul>
-									<li class="active"><a href="javascript:;" rel="nofollow">通过关系找称呼</a></li>
-									<li><a href="javascript:;" rel="nofollow">通过称呼找关系</a></li>
-									<li><a href="javascript:;" rel="nofollow">任意两者间称呼</a></li>
+									<li class="active"><a href="javascript:;" rel="nofollow">关系找称呼</a></li>
+									<li><a href="javascript:;" rel="nofollow">称呼找关系</a></li>
+									<li><a href="javascript:;" rel="nofollow">两者间称呼</a></li>
+									<li><a href="javascript:;" rel="nofollow">两者的合称</a></li>
 								</ul>
 							</div>
 							<div class="c-bd">
@@ -204,6 +206,38 @@
 										<p class="q">我爸应该叫舅老爷什么？</p>
 									</div>
 								</div>
+								<div class="c-panel">
+									<div class="row">
+										<div class="field">
+											<input class="input-text" type="text" name="person" placeholder="输入要查询的称呼"/>
+										</div>
+									</div>
+									<div class="row">
+										<div class="field" style="text-align:center;">
+											<span>+</span>
+										</div>
+									</div>
+									<div class="row">
+										<div class="field">
+											<input class="input-text" type="text" name="target" placeholder="输入要查询的称呼"/>
+										</div>
+									</div>
+									<div class="operation">
+										<div class="row">
+											<button class="btn btn-red">清空</button>
+											<button class="btn btn-green">计算</button>
+										</div>
+									</div>
+									<div class="row">
+										<p>计算结果：</p>
+										<p><textarea name="result" readonly></textarea></p>
+									</div>
+									<div class="intro">
+										<h3>应用场景</h3>
+										<p class="q">奶奶和外婆之间什么关系？</p>
+										<p class="q">舅公和爷爷是什么关系？</p>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -259,6 +293,30 @@
 										<p class="a">老婆的女儿的外婆 = 岳母</p>
 										<p class="a">爱人的婆婆的儿子 = 哥哥 / 弟弟 / 自己</p>
 										<p class="a">岳母的配偶的儿子的爸爸 = 岳父</p>
+									</div>
+								</li>
+								<li>
+									<div class="item">
+										<p class="q">7. 支持古文式表达：</p>
+										<p class="a">吾父之舅父 = 舅爷爷</p>
+										<p class="a">母之兄长之妻 = 大舅妈</p>
+										<p class="a">泰山之高堂 = 祖岳父 / 祖岳母</p>
+									</div>
+								</li>
+								<li>
+									<div class="item">
+										<p class="q">8. 解析某称谓关系链：</p>
+										<p class="a">七舅姥爷 = 妈妈的妈妈的兄弟</p>
+										<p class="a">姑奶奶 = 爸爸的爸爸的姐妹</p>
+										<p class="a">外太公 = 妈妈的爸爸的爸爸</p>
+									</div>
+								</li>
+								<li>
+									<div class="item">
+										<p class="q">9. 算两个亲戚间的合称关系：</p>
+										<p class="a">奶奶 + 外婆 = 儿女亲家</p>
+										<p class="a">妈妈 + 婶婶 = 妯娌</p>
+										<p class="a">岳父 + 我 = 翁婿</p>
 									</div>
 								</li>
 							</ul>
@@ -440,7 +498,7 @@
 				}
 			})();
 
-			// 通过关系找称呼
+			// 关系找称呼
 			(function(){
 				var $module = document.querySelector('.mod-panel');
 				var $panel = $module.querySelector('.c-panel:nth-child(1)');
@@ -560,7 +618,7 @@
 				toggleSex($sex[0].checked);
 			})();
 
-			// 通过称呼找关系
+			// 称呼找关系
 			(function(){
 				var $module = document.querySelector('.mod-panel');
 				var $panel = $module.querySelector('.c-panel:nth-child(2)');
@@ -586,7 +644,7 @@
 				$panel.querySelector('.btn-green').onclick = count;
 			})();
 
-			// 任意两者间称呼
+			// 两者间称呼
 			(function(){
 				var $module = document.querySelector('.mod-panel');
 				var $panel = $module.querySelector('.c-panel:nth-child(3)');
@@ -605,6 +663,42 @@
 							$result.value = result.join('\n');
 						}else{
 							$result.value = '他们貌似不是很熟哦!';
+						}
+					}else{
+						$result.value = '';
+					}
+				};
+				for(var i=0;i<$radio.length;i++){
+					$radio[i].onchange=function(){
+						if($result.value){
+							count();
+						}
+					}
+				}
+				$panel.querySelector('.btn-red').onclick = function(){
+					$result.value = $person.value = $target.value = '';
+				};
+				$panel.querySelector('.btn-green').onclick = count;
+			})();
+
+			// 两者的称呼
+			(function(){
+				var $module = document.querySelector('.mod-panel');
+				var $panel = $module.querySelector('.c-panel:nth-child(4)');
+				var $radio = $panel.querySelectorAll('input[type="radio"]');
+				var $reverse = $panel.querySelectorAll('input[name="reverse2"]');
+				var $person = $panel.querySelector('input[name="person"]');
+				var $target = $panel.querySelector('input[name="target"]');
+				var $result = $panel.querySelector('textarea[name="result"]');
+				var count = function(){
+					var person = $person.value.trim();
+					var target = $target.value.trim();
+					if(person){
+						var result = relationship({text:person,target:target,type:'pair'});
+						if(result.length){
+							$result.value = result.join('\n');
+						}else{
+							$result.value = '未找到合称!';
 						}
 					}else{
 						$result.value = '';
