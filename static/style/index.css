@@ -276,6 +276,9 @@ a:hover{
 .mod-panel .bd .input-text-small{
 	width: 200px;
 }
+.mod-panel .bd .text-right{
+   text-align: right;
+}
 .mod-panel .bd .btn {
     height: 32px;
     min-width: 80px;

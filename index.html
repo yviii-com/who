@@ -167,6 +167,12 @@
 									</div>
 								</div>
 								<div class="c-panel">
+									<div class="row text-right">
+										<label for="field-3-0">
+											<input id="field-3-0" type="checkbox" name="optimal" value="1" checked>
+											<span>最短关系</span>
+										</label>
+									</div>
 									<div class="row">
 										<div class="field">
 											<input class="input-text" type="text" name="person" placeholder="输入要查询的称呼"/>
@@ -207,6 +213,12 @@
 									</div>
 								</div>
 								<div class="c-panel">
+									<div class="row text-right">
+										<label for="field-4-0">
+											<input id="field-4-0" type="checkbox" name="optimal" value="1" checked>
+											<span>最短关系</span>
+										</label>
+									</div>
 									<div class="row">
 										<div class="field">
 											<input class="input-text" type="text" name="person" placeholder="输入要查询的称呼"/>
@@ -650,6 +662,7 @@
 				var $panel = $module.querySelector('.c-panel:nth-child(3)');
 				var $radio = $panel.querySelectorAll('input[type="radio"]');
 				var $reverse = $panel.querySelectorAll('input[name="reverse2"]');
+				var $optimal = $panel.querySelectorAll('input[name="optimal"]');
 				var $person = $panel.querySelector('input[name="person"]');
 				var $target = $panel.querySelector('input[name="target"]');
 				var $result = $panel.querySelector('textarea[name="result"]');
@@ -658,7 +671,7 @@
 					var target = $target.value.trim();
 					if(person){
 						var reverse = !$reverse[1].checked;
-						var result = relationship({text:person,reverse:reverse,target:target});
+						var result = relationship({text:person,reverse:reverse,target:target,optimal:$optimal[0].checked});
 						if(result.length){
 							$result.value = result.join('\n');
 						}else{
@@ -686,7 +699,7 @@
 				var $module = document.querySelector('.mod-panel');
 				var $panel = $module.querySelector('.c-panel:nth-child(4)');
 				var $radio = $panel.querySelectorAll('input[type="radio"]');
-				var $reverse = $panel.querySelectorAll('input[name="reverse2"]');
+				var $optimal = $panel.querySelectorAll('input[name="optimal"]');
 				var $person = $panel.querySelector('input[name="person"]');
 				var $target = $panel.querySelector('input[name="target"]');
 				var $result = $panel.querySelector('textarea[name="result"]');
@@ -694,7 +707,7 @@
 					var person = $person.value.trim();
 					var target = $target.value.trim();
 					if(person){
-						var result = relationship({text:person,target:target,type:'pair'});
+						var result = relationship({text:person,target:target,type:'pair',optimal:$optimal[0].checked});
 						if(result.length){
 							$result.value = result.join('\n');
 						}else{

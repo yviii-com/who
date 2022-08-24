@@ -15,12 +15,13 @@ var _data = getDataByMode();     // 最终数据
 // 对外方法
 var relationship = function (parameter){
     var options = Object.assign({
-        text:'',
-        target:'',
-        sex:-1,
-        type:'default',     // 'chain'表示关系链
-        reverse:false,      // true表示反向
-        mode:'default',     // 用户自定义模式
+        text:'',            // 目标对象：目标对象的称谓汉字表达，称谓间用‘的’字分隔
+        target:'',          // 相对对象：相对对象的称谓汉字表达，称谓间用‘的’字分隔，空表示自己
+        sex:-1,             // 本人性别：0表示女性,1表示男性
+        type:'default',     // 转换类型：'default'计算称谓,'chain'计算关系链,'pair'计算关系合称
+        reverse:false,      // 称呼方式：true对方称呼我,false我称呼对方
+        mode:'default',     // 模式选择：使用setMode方法定制不同地区模式，在此选择自定义模式
+        optimal:false       // 最短关系：计算两者之间的最短关系
     },parameter);
     _data = getDataByMode(options.mode);
     var from_selectors = getSelectors(options.text);
@@ -32,7 +33,12 @@ var relationship = function (parameter){
     var result = [];                            //匹配结果
     from_selectors.forEach(function(from){
         to_selectors.forEach(function(to){
-            var data = mergeSelector(from,to,options.sex);
+            var data = mergeSelector({
+                from:from,
+                to:to,
+                sex:options.sex,
+                optimal:options.optimal
+            });
             // console.log('[data]',from,to,data);
             var ids = data?selector2id(data['selector'],data['sex']):null;
             // console.log('[ids]',data['selector'],data['sex'],ids);

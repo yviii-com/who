@@ -139,7 +139,19 @@ export function getSelectors(str){
 };
 
 // 合并选择器，查找两个对象之间的关系
-export function mergeSelector(from,to,my_sex){
+export function mergeSelector(options){
+    var my_sex = options['sex'];
+    var from = options['from'];
+    var to = options['to'];
+    if(from&&to&&options.optimal){
+        if(from.indexOf(to)==0){
+            from = from.replace(to,'');
+            to = '';
+        }else if(to.indexOf(from)==0){
+            to = to.replace(from,'');
+            from = '';
+        }
+    }
     if(my_sex<0){
         var to_sex = -1;
         var from_sex = -1;

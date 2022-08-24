@@ -38,6 +38,7 @@ var options = {
 	type:'default',		//转换类型：'default'计算称谓,'chain'计算关系链,'pair'计算关系合称
 	reverse:false,		//称呼方式：true对方称呼我,false我称呼对方
 	mode:'default'		//模式选择：使用setMode方法定制不同地区模式，在此选择自定义模式
+	optimal:false,       // 最短关系：计算两者之间的最短关系
 };
 ```
 
