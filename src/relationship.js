@@ -29,66 +29,67 @@ var relationship = function (parameter){
     if(!to_selectors.length){
         to_selectors = [''];
     }
-    // console.log('[selectors]',from_selectors,to_selectors);
     var result = [];                            //匹配结果
-    from_selectors.forEach(function(from){
-        to_selectors.forEach(function(to){
-            var data = mergeSelector({
-                from:from,
-                to:to,
+    from_selectors.forEach(function(from_selector){
+        to_selectors.forEach(function(to_selector){
+            var list = mergeSelector({
+                from:from_selector,
+                to:to_selector,
                 sex:options.sex,
                 optimal:options.optimal
             });
-            // console.log('[data]',from,to,data);
-            var ids = data?selector2id(data['selector'],data['sex']):null;
-            // console.log('[ids]',data['selector'],data['sex'],ids);
-            if(ids){
-                ids.forEach(function(id){
-                    var temps = [id];
-                    var sex = data['sex'];
-                    if(options.reverse){
-                        temps = reverseId(id,data['sex']);
-                        if(id.match(/([fhs1](&[ol])?|[olx]b)$/)){
-                            sex = 1;
-                        }else{
-                            sex = 0;
+            list.forEach(function(data){
+                // console.log('[data]',from_selector,to_selector,data);
+                var ids = data?selector2id(data['selector'],data['sex']):null;
+                // console.log('[ids]',data['selector'],data['sex'],ids);
+                if(ids){
+                    ids.forEach(function(id){
+                        var temps = [id];
+                        var sex = data['sex'];
+                        if(options.reverse){
+                            temps = reverseId(id,sex);
+                            if(id.match(/([fhs1](&[ol])?|[olx]b)$/)){
+                                sex = 1;
+                            }else{
+                                sex = 0;
+                            }
                         }
-                    }
-                    if(options.type=='chain'){
-                        temps.forEach(function(id){
-                            var item = getChainById(id);
-                            if(data['sex']>-1&&_data[data['sex']+','+id]){
-                                if(data['sex']==0){
-                                    item = '(女性)'+item;
-                                }else if(data['sex']==1){
-                                    item = '(男性)'+item;
+                        if(options.type=='chain'){
+                            temps.forEach(function(id){
+                                var item = getChainById(id);
+                                if(data['sex']>-1&&_data[data['sex']+','+id]){
+                                    if(data['sex']==0){
+                                        item = '(女性)'+item;
+                                    }else if(data['sex']==1){
+                                        item = '(男性)'+item;
+                                    }
                                 }
-                            }
-                            if(item){
-                                result.push(item);
-                            }
-                        });
-                    }else if(options.type=='pair'){
-                        temps = reverseId(id,data['sex']);
-                        temps.forEach(function(r_id){
-                            var pairs = getPairsByIds(id,r_id);
-                            if(pairs.length){
-                                result = result.concat(pairs);
-                            }
-                        });
-                    }else{
-                        temps.forEach(function(id){
-                            var items = getItemsById(id);
-                            if(!items.length){
-                                items = getItemsById(sex+','+id);
-                            }
-                            if(items.length){
-                                result = result.concat(items);
-                            }
-                        });
-                    }
-                });
-            }
+                                if(item){
+                                    result.push(item);
+                                }
+                            });
+                        }else if(options.type=='pair'){
+                            temps = reverseId(id,data['sex']);
+                            temps.forEach(function(r_id){
+                                var pairs = getPairsByIds(id,r_id);
+                                if(pairs.length){
+                                    result = result.concat(pairs);
+                                }
+                            });
+                        }else{
+                            temps.forEach(function(id){
+                                var items = getItemsById(id);
+                                if(!items.length){
+                                    items = getItemsById(sex+','+id);
+                                }
+                                if(items.length){
+                                    result = result.concat(items);
+                                }
+                            });
+                        }
+                    });
+                }
+            });
         });
     });
     return unique(result);

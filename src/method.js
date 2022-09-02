@@ -6,6 +6,116 @@ import _pair from './pair';
 var _mode = {};                         // 模式数据
 var _data = Object.assign({},_map);     // 最终数据
 
+// 中文数字转阿拉伯数字
+var zh2number = function(text){
+    var num = 0;
+    var map = {'大':1,'小':99};
+    var textAttr = ['','一','二','三','四','五','六','七','八','九','十'];
+    if(map[text]){
+        num = map[text];
+    }else{
+        if(text.indexOf('十')>-1){
+            var numAttr = text.split('十');
+            if(!numAttr[0]){
+                num = 10;
+            }else{
+                num = textAttr.indexOf(numAttr[0])*10;
+            }
+            num += textAttr.indexOf(numAttr[1]);
+        }else{
+            num += textAttr.indexOf(text)>-1?textAttr.indexOf(text):0;
+        }
+    }
+    return num;
+};
+
+// 阿拉伯数字转中文数字
+var number2zh = function(num){
+    var text = '';
+    var map = {1:'大',99:'小'};
+    var textAttr = ['','一','二','三','四','五','六','七','八','九','十'];
+    if(map[num]){
+        text = map[num];
+    }else{
+        var dec = ~~(num/10);
+        var unit = num%10;
+        if(dec){
+            if(dec>1){
+                text = dec<textAttr.length?textAttr[dec]:'';
+            }
+            text += '十';
+            text += unit<textAttr.length?textAttr[unit]:'';
+        }else{
+            text += num<textAttr.length?textAttr[num]:'';
+        }
+    }
+    return text;
+};
+
+// 获得代数
+var getGen = function(id){
+    var gMap = {'f':1,'m':1,'s':-1,'d':-1};
+    var arr = id.split(',');
+    var gen = 0;
+    arr.forEach(function(sub){
+        var s = sub.replace(/&[ol\d]+/,'');
+        gen += gMap[s]||0;
+    });
+    return gen;
+};
+
+// 获得最简
+var getOptimal = function(options){
+    var from = options['from'];
+    var to = options['to']
+    var from_chain = options['from'].split(',');
+    var to_chain = options['to'].split(',');
+    for(var i=0;i<from_chain.length&&i<to_chain.length;i++){
+        if(from_chain[i]==to_chain[i]){
+            from = from_chain.slice(i+1).join(',');
+            to = to_chain.slice(i+1).join(',');
+            continue;
+        }else{
+            if(getGen(from_chain[i])==getGen(to_chain[i])&&from_chain[i].match(/^[xol][bs]|^[sd]/)){
+                var from_match = from_chain[i].match(/&([ol\d]+)/);
+                var to_match = to_chain[i].match(/&([ol\d]+)/);
+                if(!from_match){
+                    from_match = from_chain[i].match(/([xol])[bs]/);
+                }
+                if(!to_match){
+                    to_match = to_chain[i].match(/([xol])[bs]/);
+                }
+                var from_attr = from_match?from_match[1]:'';
+                var to_attr = to_match?to_match[1]:'';
+                if(!isNaN(from_attr)&&!isNaN(to_attr)){
+                    if(from_attr>to_attr){
+                        from_chain[i] = from_chain[i].replace(/^[xol]b|^s/,'lb').replace(/^[xol]s|^d/,'ls');
+                        from = from_chain.slice(i).join(',');
+                        to = to_chain.slice(i+1).join(',');
+                    }else if(from_attr<to_attr){
+                        from_chain[i] = from_chain[i].replace(/^[xol]b|^s/,'ob').replace(/^[xol]s|^d/,'os');
+                        from = from_chain.slice(i).join(',');
+                        to = to_chain.slice(i+1).join(',');
+                    }
+                }else if(!isNaN(from_attr)&&to_attr=='o'||from_attr=='l'&&!isNaN(to_attr)){
+                    from_chain[i] = from_chain[i].replace(/^[xol]b|^s/,'lb').replace(/^[xol]s|^d/,'ls');
+                    from = from_chain.slice(i).join(',');
+                    to = to_chain.slice(i+1).join(',');
+                }else if(!isNaN(from_attr)&&to_attr=='l'||from_attr=='o'&&!isNaN(to_attr)){
+                    from_chain[i] = from_chain[i].replace(/^[xol]b|^s/,'ob').replace(/^[xol]s|^d/,'os');
+                    from = from_chain.slice(i).join(',');
+                    to = to_chain.slice(i+1).join(',');
+                }
+            }
+            break;
+        }
+    }
+    return {
+        'from':from,
+        'to':to
+    };
+};
+
 // 数组去重
 export function unique(arr){
     var sameList = arr.filter(item=>item==item.replace(/[ol](?=s|b)/,'x').replace(/&[ol]/,''));
@@ -96,18 +206,26 @@ export function getSelectors(str){
         getList(name);
         // 通过关键词找关系
         keywords.forEach(function(name){
-            var x_name = name.replace(/^[大|小|老]|^[一|二|三|四|五|六|七|八|九|十]{1,2}/,'几');
-            var r_name = name.replace(/^[大|小|老]|^[一|二|三|四|五|六|七|八|九|十]{1,2}/,'');
+            var x_name = name.replace(/^[大|小]|^[一|二|三|四|五|六|七|八|九|十]+/,'几');
+            var r_name = name.replace(/^[大|小]|^[一|二|三|四|五|六|七|八|九|十]+/,'');
+            var match = name.match(/^[大|小]|^[一|二|三|四|五|六|七|八|九|十]+/);
             for(var i in _data){
+                var isInclude = false;
                 if(_data[i].indexOf(name)>-1){
                     items.push(i);
                 }
-                if(name!=x_name&&_data[i].indexOf(x_name)>-1){
-                    x_items.push(i);
-                }
-                if(name!=r_name&&_data[i].indexOf(r_name)>-1){
-                    if(!i.match(/^[mf,]+$/)&&!r_name.match(/^[从世]/)){  // 直系祖辈不参与排序
-                        r_items.push(i);
+                if(match){
+                    if(_data[i].indexOf(x_name)>-1){
+                        var num = zh2number(match[0]);
+                        var r_i = i.replace(/(,[hw])$/,'&'+num+'$1').replace(/(,[^hw]+)$/,'$1&'+num);
+                        x_items.push(r_i);
+                    }
+                    if(_data[i].indexOf(r_name)>-1){
+                        if(!i.match(/^[mf,]+$/)&&!r_name.match(/^[从世]/)){  // 直系祖辈不参与排序
+                            var num = zh2number(match[0]);
+                            var r_i = i.replace(/(,[hw])$/,'&'+num+'$1').replace(/([^hw]+)$/,'$1&'+num);
+                            r_items.push(r_i);
+                        }
                     }
                 }
             }
@@ -139,30 +257,21 @@ export function getSelectors(str){
 };
 
 // 合并选择器，查找两个对象之间的关系
-export function mergeSelector(options){
-    var my_sex = options['sex'];
-    var from = options['from'];
-    var to = options['to'];
-    if(from&&to&&options.optimal){
-        if(from.indexOf(to)==0){
-            from = from.replace(to,'');
-            to = '';
-        }else if(to.indexOf(from)==0){
-            to = to.replace(from,'');
-            from = '';
-        }
-    }
+export function mergeSelector(param){
+    var from_selector = param['from'];
+    var to_selector = param['to'];
+    var my_sex = param['sex'];
     if(my_sex<0){
         var to_sex = -1;
         var from_sex = -1;
-        if(from.match(/^,[w1]/)){
+        if(from_selector.match(/^,[w1]/)){
             from_sex = 1;
-        }else if(from.match(/^,[h0]/)){
+        }else if(from_selector.match(/^,[h0]/)){
             from_sex = 0;
         }
-        if(to.match(/^,[w1]/)){
+        if(to_selector.match(/^,[w1]/)){
             to_sex = 1;
-        }else if(to.match(/^,[h0]/)){
+        }else if(to_selector.match(/^,[h0]/)){
             to_sex = 0;
         }
         if(from_sex==-1&&to_sex>-1){
@@ -172,47 +281,50 @@ export function mergeSelector(options){
         }else if(from_sex==to_sex){
             my_sex = from_sex;
         }else{
-            return false;
+            return [];
         }
     }
-    var sex = my_sex;
-    var from_ids = selector2id(from,my_sex);
-    var to_ids = selector2id(to,my_sex);
-    var to_rids = [];
+    var from_ids = selector2id(param['from'],my_sex);
+    var to_ids = selector2id(param['to'],my_sex);
     if(!from_ids.length||!to_ids.length){
-        return false;
+        return [];
     }
-    if(to){
-        var toIsMale = false;
-        var toIsFemale = false;
-        to_ids.forEach(function(id){
-            var selector = ','+id;
-            if(selector.match(/,([fhs1](&[ol])?|[olx]b)$/)){
-                toIsMale = true;
+    var result = [];
+    from_ids.forEach(function(from){
+        to_ids.forEach(function(to){
+            var sex = my_sex;
+            var selector = ','+to;
+            if(selector.match(/,([fhs1](&[ol\d]+)?|[olx]b)(&[ol\d]+)?$/)){
+                sex = 1;
             }
-            if(selector.match(/,([mwd0](&[ol])?|[olx]s)$/)){
-                toIsFemale = true;
+            if(selector.match(/,([mwd0](&[ol\d]+)?|[olx]s)(&[ol\d]+)?$/)){
+                sex = 0;
             }
-            to_rids = to_rids.concat(reverseId(id,my_sex));
+            if(from&&to){
+                var isOptimal = param.optimal;
+                if(from.match(/&\d+/)||to.match(/&\d+/)){
+                    isOptimal = true;
+                }
+                if(isOptimal){
+                    var ops = getOptimal({
+                        'from':from,
+                        'to':to
+                    });
+                    from = ops['from'];
+                    to = ops['to'];
+                }
+            }
+            var to_rids = to?reverseId(to,my_sex):[''];
+            to_rids.forEach(function(to_r){
+                var selector = (to_r?','+to_r:'')+(from?','+from:'');
+                result.push({
+                    'selector':selector,
+                    'sex':sex
+                });
+            });
         });
-        to_rids = unique(to_rids);
-        if(toIsMale&&toIsFemale){
-            sex = -1;
-        }else if(toIsMale){
-            sex = 1;
-        }else if(toIsFemale){
-            sex = 0;
-        }
-    }else{
-        to_rids = [''];
-    }
-    // console.log('[from_ids]',from_ids,'to_rids',to_rids);
-    var from_selector = from_ids.length>1?'['+from_ids.join('|')+']':from_ids[0];
-    var to_selector = to_rids.length>1?'['+to_rids.join('|')+']':to_rids[0];
-    return {
-        'selector':(to?','+to_selector:'')+(from?','+from_selector:''),
-        'sex':sex
-    };
+    });
+    return result;
 };
 
 // 选择器转ID
@@ -230,9 +342,9 @@ export function selector2id(selector,sex){
             sex = 0;
         }
     }else if(sex==1&&selector.match(/^,[h0]/)){
-        return false;
+        return [];
     }else if(sex==0&&selector.match(/^,[w1]/)){
-        return false;
+        return [];
     }
     // console.log('[selector]',selector);
     var getId = function(selector,sex){
@@ -242,8 +354,8 @@ export function selector2id(selector,sex){
         if(sex>-1&&selector.indexOf(',1')==-1&&selector.indexOf(',0')==-1){
             selector = ','+sex+selector;
         }
-        if(selector.match(/,[mwd0](&[ol])?,w|,[hfs1](&[ol])?,h/)){  //同志关系去除
-            return false;
+        if(selector.match(/,[mwd0](&[ol\d]+)?,w|,[hfs1](&[ol\d]+)?,h/)){  //同志关系去除
+            return [];
         }
         var s='';
         if(!hash[selector]){
@@ -260,7 +372,7 @@ export function selector2id(selector,sex){
                     }
                 }
             }while(s!=selector);
-            if(selector.match(/,[mwd0](&[ol])?,w|,[hfs1](&[ol])?,h/)){  //同志关系去除
+            if(selector.match(/,[mwd0](&[ol\d+])?,w|,[hfs1](&[ol\d]+)?,h/)){  //同志关系去除
                 return false;
             }
             selector = selector.replace(/,[01]/,'').substr(1);  //去前面逗号和性别信息
@@ -294,7 +406,7 @@ export function reverseId(id,sex){
         age = '&o';
     }
     if(id){
-        id = id.replace(/&[ol]/g,'');
+        id = id.replace(/&[ol\d+]/g,'');
         //性别判断
         if(sex<0){
             if(id.match(/^w/)){
@@ -310,12 +422,9 @@ export function reverseId(id,sex){
             var id_arr = id.split(',').reverse();
             var sid_arr = sid.split(',').reverse();
             var arr = id_arr.map((id,i)=>hash[id][sid_arr[i]]);
-            var g = 0;
-            var gMap = {'f':1,'m':1,'s':-1,'d':-1};
-            arr.forEach(function(r){
-                g += gMap[r]||0;
-            });
-            return arr.join(',')+(g?'':age);
+            var r_id = arr.join(',');
+            var gen = getGen(r_id);
+            return r_id +(gen?'':age);
         };
         if(sex<0){
             result.push(doing(1));
@@ -353,26 +462,44 @@ export function getItemsById(id){
         }
         return res;
     };
-    if(_data[id]){  // 直接匹配称呼
-        items.push(_data[id][0]);
-    }else{
+    // 对排序进行处理
+    while(id.match(/&\d+/)){
+        var num = id.match(/&([\d]+)/)[1];
+        var zh = number2zh(num);
+        id = id.replace(/&\d+/,'');
+        if(_data[id]){
+            var item = '';
+            _data[id].forEach(function(name){
+                if(!item&&name.indexOf('几')>-1){
+                    item = name.replace('几',zh);
+                }
+            });
+            if(!item){
+                item = _data[id][0].match(/^[大小]/)?_data[id][0].replace(/^[大小]/,zh):zh+_data[id][0];
+            }
+            items.push(item);
+            break;
+        }
+    }
+    // 直接匹配称呼
+    if(!items.length){
         items = getData(id);
-        // 忽略年龄条件查找
-        if(!items.length){
-            id = id.replace(/&[ol]/g,'');
-            items = getData(id);
-        }
-        // 忽略年龄条件查找
-        if(!items.length){
-            id = id.replace(/[ol](b|s)/g,'x$1');
-            items = getData(id);
-        }
-        // 缩小访问查找
-        if(!items.length){
-            var l = id.replace(/x/g,'l');
-            var o = id.replace(/x/g,'o');
-            items = items.concat(getData(o),getData(l));
-        }
+    }
+    // 忽略年龄条件查找
+    if(!items.length){
+        id = id.replace(/&[ol]/g,'');
+        items = getData(id);
+    }
+    // 忽略年龄条件查找
+    if(!items.length){
+        id = id.replace(/[ol](b|s)/g,'x$1');
+        items = getData(id);
+    }
+    // 缩小访问查找
+    if(!items.length){
+        var l = id.replace(/x/g,'l');
+        var o = id.replace(/x/g,'o');
+        items = items.concat(getData(o),getData(l));
     }
     return items;
 };
@@ -394,21 +521,25 @@ export function getChainById(id){
 export function getPairsByIds(id1,id2){
     var result = [];
     var result_r = [];
+    id1 = id1.replace(/&\d+/,'');
+    id2 = id2.replace(/&\d+/,'');
+    var id1_r = id1.replace(/([ol])([bs])/,'x$2');
+    var id2_r = id2.replace(/([ol])([bs])/,'x$2');
     for(var key in _pair){
         var selectors = key.split('#');
         if(selectors.length>1){
             var list1 = selector2id(selectors[0]);
             var list2 = selector2id(selectors[1]);
             var list1_r = list1.map(function(selector){
-                return selector.replace(/&[o|l]/,'').replace(/[o|l]b/,'xb').replace(/[o|l]s/,'xs');
+                return selector.replace(/&[ol\d]+/,'').replace(/([ol])([bs])/,'x$2');
             });
             var list2_r = list2.map(function(selector){
-                return selector.replace(/&[o|l]/,'').replace(/[o|l]b/,'xb').replace(/[o|l]s/,'xs');
+                return selector.replace(/&[ol\d]+/,'').replace(/([ol])([bs])/,'x$2');
             });
             if(list1.indexOf(id1)>-1&&list2.indexOf(id2)>-1||list1.indexOf(id2)>-1&&list2.indexOf(id1)>-1){
                 result.push(_pair[key][0]);
             }
-            if(list1_r.indexOf(id1)>-1&&list2_r.indexOf(id2)>-1||list1_r.indexOf(id2)>-1&&list2_r.indexOf(id1)>-1){
+            if(list1_r.indexOf(id1_r)>-1&&list2_r.indexOf(id2_r)>-1||list1_r.indexOf(id2_r)>-1&&list2_r.indexOf(id1_r)>-1){
                 result_r.push(_pair[key][0]);
             }
         }
