@@ -217,7 +217,7 @@ export function getSelectors(str){
                 if(match){
                     if(_data[i].indexOf(x_name)>-1){
                         var num = zh2number(match[0]);
-                        var r_i = i.replace(/(,[hw])$/,'&'+num+'$1').replace(/(,[^hw]+)$/,'$1&'+num);
+                        var r_i = i.replace(/(,[hw])$/,'&'+num+'$1').replace(/([^hw]+)$/,'$1&'+num);
                         x_items.push(r_i);
                     }
                     if(_data[i].indexOf(r_name)>-1){
@@ -463,23 +463,29 @@ export function getItemsById(id){
         return res;
     };
     // 对排序进行处理
-    while(id.match(/&\d+/)){
-        var num = id.match(/&([\d]+)/)[1];
+    if(id.match(/&([\d]+)(,[hw])?$/)){
+        var num = id.match(/&([\d]+)(,[hw])?$/)[1];
         var zh = number2zh(num);
-        id = id.replace(/&\d+/,'');
+        id = id.replace(/&\d+/g,'');
         if(_data[id]){
             var item = '';
-            _data[id].forEach(function(name){
-                if(!item&&name.indexOf('几')>-1){
-                    item = name.replace('几',zh);
+            var gen = getGen(id);
+            if(gen<3){
+                _data[id].forEach(function(name){
+                    if(!item&&name.indexOf('几')>-1){
+                        item = name.replace('几',zh);
+                    }
+                });
+                if(!item){
+                    item = _data[id][0].match(/^[大小]/)?_data[id][0].replace(/^[大小]/,zh):zh+_data[id][0];
                 }
-            });
-            if(!item){
-                item = _data[id][0].match(/^[大小]/)?_data[id][0].replace(/^[大小]/,zh):zh+_data[id][0];
+            }else{
+                item = _data[id][0]
             }
             items.push(item);
-            break;
         }
+    }else{
+        id = id.replace(/&\d+/g,'');
     }
     // 直接匹配称呼
     if(!items.length){
@@ -508,7 +514,7 @@ export function getItemsById(id){
 export function getChainById(id){
     var arr = id.split(',');
     return arr.map(function(sign){
-        var key = sign.replace(/&[ol]/,'');
+        var key = sign.replace(/&[ol\d]+/,'');
         var data = Object.assign({},_data,{
             'xb':['兄弟'],
             'xs':['姐妹']
