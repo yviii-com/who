@@ -209,23 +209,25 @@ export function getSelectors(str){
             var x_name = name.replace(/^[大|小]|^[一|二|三|四|五|六|七|八|九|十]+/,'几');
             var r_name = name.replace(/^[大|小]|^[一|二|三|四|五|六|七|八|九|十]+/,'');
             var match = name.match(/^[大|小]|^[一|二|三|四|五|六|七|八|九|十]+/);
-            for(var i in _data){
-                var isInclude = false;
-                if(_data[i].indexOf(name)>-1){
-                    items.push(i);
-                }
-                if(match){
+            if(match){
+                var num = zh2number(match[0]);
+                for(var i in _data){
+                    var r_i = i.replace(/(,[hw])$/,'&'+num+'$1').replace(/([^hw]+)$/,'$1&'+num);
                     if(_data[i].indexOf(x_name)>-1){
-                        var num = zh2number(match[0]);
-                        var r_i = i.replace(/(,[hw])$/,'&'+num+'$1').replace(/([^hw]+)$/,'$1&'+num);
                         x_items.push(r_i);
-                    }
-                    if(_data[i].indexOf(r_name)>-1){
+                    }else if(_data[i].indexOf(r_name)>-1){
                         if(!i.match(/^[mf,]+$/)&&!r_name.match(/^[从世]/)){  // 直系祖辈不参与排序
-                            var num = zh2number(match[0]);
-                            var r_i = i.replace(/(,[hw])$/,'&'+num+'$1').replace(/([^hw]+)$/,'$1&'+num);
                             r_items.push(r_i);
                         }
+                    }
+                    if(_data[i].indexOf(name)>-1){
+                        items.push(r_i);
+                    }
+                }
+            }else{
+                for(var i in _data){
+                    if(_data[i].indexOf(name)>-1){
+                        items.push(i);
                     }
                 }
             }

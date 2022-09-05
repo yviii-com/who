@@ -3,6 +3,7 @@ var test = require('tape');
 var relationship = require('..');
 
 test('relationship.js show to be tested', function (t) {
+
     t.deepEqual(relationship({text:'儿子的爸爸的妈妈',sex:1}),['妈妈']);
     t.deepEqual(relationship({text:'爱人',sex:1}),['老婆']);
     t.deepEqual(relationship({text:'爱人的爱人',sex:1}),['自己']);
@@ -18,7 +19,7 @@ test('relationship.js show to be tested', function (t) {
     t.deepEqual(relationship({text:'舅爷爷',type:'chain'}),['爸爸的妈妈的兄弟']);
     t.deepEqual(relationship({text:'堂兄弟的孩子',sex:1}),['堂侄','堂侄女']);
     t.deepEqual(relationship({text:'岳母',target:'女儿',reverse:true}),['外孙女']);
-    t.deepEqual(relationship({text:'姑妈',target:'舅妈',reverse:true}),['兄弟眷兄妇','兄弟眷弟妇']);
+    t.deepEqual(relationship({text:'姑妈',target:'舅妈',reverse:true}),['兄弟眷兄弟妇']);
     t.deepEqual(relationship({text:'舅妈',target:'女儿',reverse:true}),['姑甥孙女','姑甥外孙女']);
     t.deepEqual(relationship({text:'老公的父母',target:'孩子'}),['爷爷','奶奶']);
     t.deepEqual(relationship({text:'爸爸的哥哥的弟弟的儿子'}),['堂哥','堂弟','哥哥','弟弟','自己']);
