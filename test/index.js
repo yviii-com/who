@@ -3,7 +3,7 @@ var test = require('tape');
 var relationship = require('..');
 
 test('relationship.js show to be tested', function (t) {
-
+    // console.log('[test]',relationship({text:'大舅',target:'二舅的儿子'}));
     t.deepEqual(relationship({text:'儿子的爸爸的妈妈',sex:1}),['妈妈']);
     t.deepEqual(relationship({text:'爱人',sex:1}),['老婆']);
     t.deepEqual(relationship({text:'爱人的爱人',sex:1}),['自己']);
@@ -34,5 +34,6 @@ test('relationship.js show to be tested', function (t) {
     t.deepEqual(relationship({text:'二舅妈',target:'大舅',type:'pair'}),['叔嫂']);
     t.deepEqual(relationship({text:'二舅妈',target:'三舅'}),['二嫂']);
     t.deepEqual(relationship({text:'爸爸的二爸'}),['二爷爷']);
+    t.deepEqual(relationship({text:'大舅',target:'二舅的儿子'}),['大伯']);
     t.end();
 });

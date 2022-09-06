@@ -68,12 +68,14 @@ var getGen = function(id){
 var getOptimal = function(options){
     var from = options['from'];
     var to = options['to']
+    var sex = options['sex'];
     var from_chain = options['from'].split(',');
     var to_chain = options['to'].split(',');
     for(var i=0;i<from_chain.length&&i<to_chain.length;i++){
         if(from_chain[i]==to_chain[i]){
             from = from_chain.slice(i+1).join(',');
             to = to_chain.slice(i+1).join(',');
+            sex = from_chain[i].match(/^([fhs1](&[ol\d]+)?|[olx]b)(&[ol\d]+)?/)?1:0;
             continue;
         }else{
             if(getGen(from_chain[i])==getGen(to_chain[i])&&from_chain[i].match(/^[xol][bs]|^[sd]/)){
@@ -90,29 +92,25 @@ var getOptimal = function(options){
                 if(!isNaN(from_attr)&&!isNaN(to_attr)){
                     if(from_attr>to_attr){
                         from_chain[i] = from_chain[i].replace(/^[xol]b|^s/,'lb').replace(/^[xol]s|^d/,'ls');
-                        from = from_chain.slice(i).join(',');
-                        to = to_chain.slice(i+1).join(',');
                     }else if(from_attr<to_attr){
                         from_chain[i] = from_chain[i].replace(/^[xol]b|^s/,'ob').replace(/^[xol]s|^d/,'os');
-                        from = from_chain.slice(i).join(',');
-                        to = to_chain.slice(i+1).join(',');
                     }
                 }else if(!isNaN(from_attr)&&to_attr=='o'||from_attr=='l'&&!isNaN(to_attr)){
                     from_chain[i] = from_chain[i].replace(/^[xol]b|^s/,'lb').replace(/^[xol]s|^d/,'ls');
-                    from = from_chain.slice(i).join(',');
-                    to = to_chain.slice(i+1).join(',');
                 }else if(!isNaN(from_attr)&&to_attr=='l'||from_attr=='o'&&!isNaN(to_attr)){
                     from_chain[i] = from_chain[i].replace(/^[xol]b|^s/,'ob').replace(/^[xol]s|^d/,'os');
-                    from = from_chain.slice(i).join(',');
-                    to = to_chain.slice(i+1).join(',');
                 }
+                from = from_chain.slice(i).join(',');
+                to = to_chain.slice(i+1).join(',');
+                sex = to_chain[i].match(/^([fhs1](&[ol\d]+)?|[olx]b)(&[ol\d]+)?/)?1:0;
             }
             break;
         }
     }
     return {
         'from':from,
-        'to':to
+        'to':to,
+        'sex':sex
     };
 };
 
@@ -173,7 +171,6 @@ export function getSelectors(str){
         '祖$':['祖父'],
         '嫂$':['兄妇'],
         '女儿$':['女'],
-        '外甥$':['甥'],
     };
     while(lists.length){
         var name = lists.shift();           //当前匹配词
@@ -310,10 +307,12 @@ export function mergeSelector(param){
                 if(isOptimal){
                     var ops = getOptimal({
                         'from':from,
-                        'to':to
+                        'to':to,
+                        'sex':my_sex
                     });
                     from = ops['from'];
                     to = ops['to'];
+                    my_sex = ops['sex'];
                 }
             }
             var to_rids = to?reverseId(to,my_sex):[''];
@@ -472,7 +471,7 @@ export function getItemsById(id){
         if(_data[id]){
             var item = '';
             var gen = getGen(id);
-            if(gen<3){
+            if(gen<3&&!id.match(/[hw],/)){
                 _data[id].forEach(function(name){
                     if(!item&&name.indexOf('几')>-1){
                         item = name.replace('几',zh);

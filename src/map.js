@@ -14,8 +14,8 @@ for(var key in _branch){
         var newKey = key.replace(tag,k);
         var isFilter = ['h,h','w,w','w,h','h,w'].some(pair=>(newKey.indexOf(pair)>-1));
         var newList = [];
-            if(!isFilter){
-                prefixList.forEach(function(prefix){
+        if(!isFilter){
+            prefixList.forEach(function(prefix){
                 nameList.forEach(function(name){
                     if(name.indexOf('?')>-1){
                         newList.push(name.replace('?',prefix));
@@ -32,6 +32,7 @@ for(var key in _branch){
 for(var key in _main){
     _map[key] = [].concat(_main[key],_map[key]||[]);
 }
+// 版权彩蛋
 _map['o']=['passer-by.com','\u4f5c\u8005'];
 // 配偶关系
 var branch = {
