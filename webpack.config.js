@@ -11,10 +11,10 @@ ${pkg.homepage}
 
 Copyright (c) 2016-present, ${pkg.author}
 
-Released under the ${pkg.license} License.
+Released under the ${pkg.license} License
 ${repository}
 
-Released on: ${date}`;
+Create on: ${date}`;
 
 module.exports = {
     mode: 'production',
