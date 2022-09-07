@@ -670,8 +670,12 @@
 					var person = $person.value.trim();
 					var target = $target.value.trim();
 					if(person){
-						var reverse = !$reverse[1].checked;
-						var result = relationship({text:person,reverse:reverse,target:target,optimal:$optimal[0].checked});
+						if($reverse[0].checked){
+							var temp = target;
+							target = person;
+							person = temp;
+						}
+						var result = relationship({text:person,target:target,optimal:$optimal[0].checked});
 						if(result.length){
 							$result.value = result.join('\n');
 						}else{

@@ -82,27 +82,29 @@ var getOptimal = function(options){
                 var from_match = from_chain[i].match(/&([ol\d]+)/);
                 var to_match = to_chain[i].match(/&([ol\d]+)/);
                 if(!from_match){
-                    from_match = from_chain[i].match(/([xol])[bs]/);
+                    from_match = from_chain[i].match(/([ol])[bs]/);
                 }
                 if(!to_match){
-                    to_match = to_chain[i].match(/([xol])[bs]/);
+                    to_match = to_chain[i].match(/([ol])[bs]/);
                 }
                 var from_attr = from_match?from_match[1]:'';
                 var to_attr = to_match?to_match[1]:'';
-                if(!isNaN(from_attr)&&!isNaN(to_attr)){
-                    if(from_attr>to_attr){
+                if(from_attr&&to_attr){
+                    if(!isNaN(from_attr)&&!isNaN(to_attr)){
+                        if(+from_attr>+to_attr){
+                            from_chain[i] = from_chain[i].replace(/^[xol]b|^s/,'lb').replace(/^[xol]s|^d/,'ls');
+                        }else if(+from_attr<+to_attr){
+                            from_chain[i] = from_chain[i].replace(/^[xol]b|^s/,'ob').replace(/^[xol]s|^d/,'os');
+                        }
+                    }else if(!isNaN(from_attr)&&to_attr=='o'||from_attr=='l'&&!isNaN(to_attr)){
                         from_chain[i] = from_chain[i].replace(/^[xol]b|^s/,'lb').replace(/^[xol]s|^d/,'ls');
-                    }else if(from_attr<to_attr){
+                    }else if(!isNaN(from_attr)&&to_attr=='l'||from_attr=='o'&&!isNaN(to_attr)){
                         from_chain[i] = from_chain[i].replace(/^[xol]b|^s/,'ob').replace(/^[xol]s|^d/,'os');
                     }
-                }else if(!isNaN(from_attr)&&to_attr=='o'||from_attr=='l'&&!isNaN(to_attr)){
-                    from_chain[i] = from_chain[i].replace(/^[xol]b|^s/,'lb').replace(/^[xol]s|^d/,'ls');
-                }else if(!isNaN(from_attr)&&to_attr=='l'||from_attr=='o'&&!isNaN(to_attr)){
-                    from_chain[i] = from_chain[i].replace(/^[xol]b|^s/,'ob').replace(/^[xol]s|^d/,'os');
+                    from = from_chain.slice(i).join(',');
+                    to = to_chain.slice(i+1).join(',');
+                    sex = to_chain[i].match(/^([fhs1](&[ol\d]+)?|[olx]b)(&[ol\d]+)?/)?1:0;
                 }
-                from = from_chain.slice(i).join(',');
-                to = to_chain.slice(i+1).join(',');
-                sex = to_chain[i].match(/^([fhs1](&[ol\d]+)?|[olx]b)(&[ol\d]+)?/)?1:0;
             }
             break;
         }
