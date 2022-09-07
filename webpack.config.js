@@ -4,7 +4,8 @@ const TerserJSPlugin = require('terser-webpack-plugin');
 const pkg = require('./package');
 
 var repository = pkg.repository.url.replace(/(.+)(:\/\/.+)\.git$/,'https$2');
-var date = (new Date()).toISOString().substr(0,10);
+var now = new Date();
+var date = (new Date(now.getTime()-now.getTimezoneOffset()*60000)).toISOString().substr(0,10);
 var copyright = `${pkg.name} v${pkg.version}
 ${pkg.description}
 ${pkg.homepage}

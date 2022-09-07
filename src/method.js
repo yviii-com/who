@@ -529,11 +529,14 @@ export function getChainById(id){
 // 通过ID获取关系合称
 export function getPairsByIds(id1,id2){
     var result = [];
+    var result_x = [];
     var result_r = [];
     id1 = id1.replace(/&\d+/,'');
     id2 = id2.replace(/&\d+/,'');
-    var id1_r = id1.replace(/([ol])([bs])/,'x$2');
-    var id2_r = id2.replace(/([ol])([bs])/,'x$2');
+    var id1_x = id1.replace(/([ol])([bs])/,'x$2');
+    var id2_x = id2.replace(/([ol])([bs])/,'x$2');
+    var id1_r = id1.replace(/&[ol]/,'');
+    var id2_r = id2.replace(/&[ol]/,'');
     for(var key in _pair){
         var selectors = key.split('#');
         if(selectors.length>1){
@@ -548,10 +551,16 @@ export function getPairsByIds(id1,id2){
             if(list1.includes(id1)&&list2.includes(id2)||list1.includes(id2)&&list2.includes(id1)){
                 result.push(_pair[key][0]);
             }
+            if(list1_r.includes(id1_x)&&list2_r.includes(id2_x)||list1_r.includes(id2_x)&&list2_r.includes(id1_x)){
+                result_x.push(_pair[key][0]);
+            }
             if(list1_r.includes(id1_r)&&list2_r.includes(id2_r)||list1_r.includes(id2_r)&&list2_r.includes(id1_r)){
                 result_r.push(_pair[key][0]);
             }
         }
+    }
+    if(!result.length){
+        result = result_x;
     }
     if(!result.length){
         result = result_r;
