@@ -14,7 +14,7 @@ var zh2number = function(text){
     if(map[text]){
         num = map[text];
     }else{
-        if(text.indexOf('十')>-1){
+        if(text.includes('十')){
             var numAttr = text.split('十');
             if(!numAttr[0]){
                 num = 10;
@@ -23,7 +23,7 @@ var zh2number = function(text){
             }
             num += textAttr.indexOf(numAttr[1]);
         }else{
-            num += textAttr.indexOf(text)>-1?textAttr.indexOf(text):0;
+            num += textAttr.includes(text)?textAttr.indexOf(text):0;
         }
     }
     return num;
@@ -121,7 +121,7 @@ export function unique(arr){
     var sameList = arr.filter(item=>item==item.replace(/[ol](?=s|b)/,'x').replace(/&[ol]/,''));
     return arr.filter(item=>{
         var temp = item.replace(/[ol](?=s|b)/,'x').replace(/&[ol]/,'');
-        return sameList.indexOf(item)>-1||item!=temp&&sameList.indexOf(temp)==-1;
+        return sameList.includes(item)||item!=temp&&!sameList.includes(temp);
     }).filter((item,idx,arr) => arr.indexOf(item) === idx);
 };
 
@@ -212,20 +212,20 @@ export function getSelectors(str){
                 var num = zh2number(match[0]);
                 for(var i in _data){
                     var r_i = i.replace(/(,[hw])$/,'&'+num+'$1').replace(/([^hw]+)$/,'$1&'+num);
-                    if(_data[i].indexOf(x_name)>-1){
+                    if(_data[i].includes(x_name)){
                         x_items.push(r_i);
-                    }else if(_data[i].indexOf(r_name)>-1){
+                    }else if(_data[i].includes(r_name)){
                         if(!i.match(/^[mf,]+$/)&&!r_name.match(/^[从世]/)){  // 直系祖辈不参与排序
                             r_items.push(r_i);
                         }
                     }
-                    if(_data[i].indexOf(name)>-1){
+                    if(_data[i].includes(name)){
                         items.push(r_i);
                     }
                 }
             }else{
                 for(var i in _data){
-                    if(_data[i].indexOf(name)>-1){
+                    if(_data[i].includes(name)){
                         items.push(i);
                     }
                 }
@@ -354,7 +354,7 @@ export function selector2id(selector,sex){
         if(!selector.match(/^,/)){
             selector = ','+selector;
         }
-        if(sex>-1&&selector.indexOf(',1')==-1&&selector.indexOf(',0')==-1){
+        if(sex>-1&&!selector.includes(',1')&&!selector.includes(',0')){
             selector = ','+sex+selector;
         }
         if(selector.match(/,[mwd0](&[ol\d]+)?,w|,[hfs1](&[ol\d]+)?,h/)){  //同志关系去除
@@ -369,7 +369,7 @@ export function selector2id(selector,sex){
                     var item = _filter[i];
                     // console.log('[filter]',item['exp'],selector);
                     selector = selector.replace(item['exp'],item['str']);
-                    if(selector.indexOf('#')>-1){
+                    if(selector.includes('#')){
                         selector.split('#').forEach(getId);
                         return false;
                     }
@@ -475,7 +475,7 @@ export function getItemsById(id){
             var gen = getGen(id);
             if(gen<3&&!id.match(/[hw],/)){
                 _data[id].forEach(function(name){
-                    if(!item&&name.indexOf('几')>-1){
+                    if(!item&&name.includes('几')){
                         item = name.replace('几',zh);
                     }
                 });
@@ -545,10 +545,10 @@ export function getPairsByIds(id1,id2){
             var list2_r = list2.map(function(selector){
                 return selector.replace(/&[ol\d]+/,'').replace(/([ol])([bs])/,'x$2');
             });
-            if(list1.indexOf(id1)>-1&&list2.indexOf(id2)>-1||list1.indexOf(id2)>-1&&list2.indexOf(id1)>-1){
+            if(list1.includes(id1)&&list2.includes(id2)||list1.includes(id2)&&list2.includes(id1)){
                 result.push(_pair[key][0]);
             }
-            if(list1_r.indexOf(id1_r)>-1&&list2_r.indexOf(id2_r)>-1||list1_r.indexOf(id2_r)>-1&&list2_r.indexOf(id1_r)>-1){
+            if(list1_r.includes(id1_r)&&list2_r.includes(id2_r)||list1_r.includes(id2_r)&&list2_r.includes(id1_r)){
                 result_r.push(_pair[key][0]);
             }
         }

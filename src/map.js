@@ -12,12 +12,12 @@ for(var key in _branch){
     for(var k in _prefix[tag]){
         var prefixList = _prefix[tag][k];
         var newKey = key.replace(tag,k);
-        var isFilter = ['h,h','w,w','w,h','h,w'].some(pair=>(newKey.indexOf(pair)>-1));
+        var isFilter = ['h,h','w,w','w,h','h,w'].some(pair=>(newKey.includes(pair)));
         var newList = [];
         if(!isFilter){
             prefixList.forEach(function(prefix){
                 nameList.forEach(function(name){
-                    if(name.indexOf('?')>-1){
+                    if(name.includes('?')){
                         newList.push(name.replace('?',prefix));
                     }else{
                         newList.push(prefix+name);
@@ -39,12 +39,7 @@ var branch = {
     'w':['妻','内','岳','岳家','丈人'],
     'h':['夫','外','公','婆家','婆婆'],
 };
-var allName = {};
-for(var key in _map){
-    _map[key].forEach(function(name){
-        allName[name]=true;
-    });
-}
+var nameSet = new Set(Object.values(_map).flat());
 for(var key in _map){
     if(key.match(/^[fm]/)||key.match(/^[olx][bs]$|^[olx][bs],[^mf]/)){
         for(var k in branch){
@@ -57,7 +52,7 @@ for(var key in _map){
             prefixList.forEach(function(prefix){
                 nameList.forEach(function(name){
                     var newName = prefix+name;
-                    if(!allName[newName]){  // 配偶组合的称呼不得已原有称呼冲突(如：妻舅!=妻子的舅舅;外舅公!=老公的舅公)
+                    if(!nameSet.has(newName)){  // 配偶组合的称呼不得已原有称呼冲突(如：妻舅!=妻子的舅舅;外舅公!=老公的舅公)
                         _map[newKey].push(newName);
                     }
                 });
