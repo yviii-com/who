@@ -49,7 +49,7 @@ var relationship = function (parameter){
                         var sex = data['sex'];
                         if(options.reverse){
                             temps = reverseId(id,sex);
-                            if(id.match(/([fhs1](&[ol])?|[olx]b)$/)){
+                            if(id.match(/([fhs1](&[ol\d]+)?|[olx]b)$/)){
                                 sex = 1;
                             }else{
                                 sex = 0;
