@@ -4,6 +4,7 @@ var relationship = require('..');
 
 test('relationship.js show to be tested', function (t) {
     // console.log('[test]',relationship({text:'堂哥',target:'叔叔',type:'pair',optimal:true}));
+    
     t.deepEqual(relationship({text:'儿子的爸爸的妈妈',sex:1}),['妈妈']);
     t.deepEqual(relationship({text:'爱人',sex:1}),['老婆']);
     t.deepEqual(relationship({text:'爱人的爱人',sex:1}),['自己']);
@@ -37,5 +38,6 @@ test('relationship.js show to be tested', function (t) {
     t.deepEqual(relationship({text:'爸爸的二爸'}),['二爷爷']);
     t.deepEqual(relationship({text:'大舅',target:'二舅的儿子'}),['伯父']);
     t.deepEqual(relationship({text:'堂哥',target:'叔叔',type:'pair'}),['叔侄','父子']);
+    t.deepEqual(relationship({text:'堂哥',target:'叔叔',type:'pair',optimal:true}),['父子']);
     t.end();
 });

@@ -104,6 +104,17 @@ var getOptimal = function(options){
                     from = from_chain.slice(i).join(',');
                     to = to_chain.slice(i+1).join(',');
                     sex = to_chain[i].match(/^([fhs1](&[ol\d]+)?|[olx]b)(&[ol\d]+)?/)?1:0;
+                }else if(options['optimal']){
+                    from_match = from_chain[i].match(/([xol])[bs]/);
+                    to_match = to_chain[i].match(/([xol])[bs]/);
+                    from_attr = from_match?from_match[1]:'';
+                    to_attr = to_match?to_match[1]:'';
+                    if(from_attr=='x'||to_attr=='x'){
+                        from = from_chain.slice(i+1).join(',');
+                        to = to_chain.slice(i+1).join(',');
+                        sex = from_chain[i].match(/^([fhs1](&[ol\d]+)?|[olx]b)(&[ol\d]+)?/)?1:0;
+                        continue;
+                    }
                 }
             }
             break;
@@ -312,7 +323,8 @@ export function mergeSelector(param){
                     var ops = getOptimal({
                         'from':from,
                         'to':to,
-                        'sex':my_sex
+                        'sex':my_sex,
+                        'optimal':param.optimal
                     });
                     from = ops['from'];
                     to = ops['to'];
