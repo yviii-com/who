@@ -179,6 +179,7 @@ export function getSelectors(str){
         var items = [];                     //当前匹配词可能性
         var x_items = [];
         var r_items = [];
+        var i_items = [];
         var keywords = [name];
         var getList = function(name){
             for(var filter in replaceFilter){
@@ -218,16 +219,14 @@ export function getSelectors(str){
                         if(!i.match(/^[mf,]+$/)&&!r_name.match(/^[从世]/)){  // 直系祖辈不参与排序
                             r_items.push(r_i);
                         }
-                    }
-                    if(_data[i].includes(name)){
-                        items.push(r_i);
+                    }else if(_data[i].includes(name)){
+                        i_items.push(r_i);
                     }
                 }
-            }else{
-                for(var i in _data){
-                    if(_data[i].includes(name)){
-                        items.push(i);
-                    }
+            }
+            for(var i in _data){
+                if(_data[i].includes(name)){
+                    items.push(i);
                 }
             }
         });
@@ -238,6 +237,9 @@ export function getSelectors(str){
         }
         if(!items.length){
             items = r_items;
+        }
+        if(!items.length){
+            items = i_items;
         }
         // 完全匹配不到结果
         if(!items.length){

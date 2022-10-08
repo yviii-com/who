@@ -35,7 +35,7 @@ test('relationship.js show to be tested', function (t) {
     t.deepEqual(relationship({text:'舅妈',target:'二舅',type:'pair'}),['叔嫂','夫妻']);
     t.deepEqual(relationship({text:'二舅妈',target:'三舅'}),['二嫂']);
     t.deepEqual(relationship({text:'爸爸的二爸'}),['二爷爷']);
-    t.deepEqual(relationship({text:'大舅',target:'二舅的儿子'}),['大伯']);
+    t.deepEqual(relationship({text:'大舅',target:'二舅的儿子'}),['伯父']);
     t.deepEqual(relationship({text:'堂哥',target:'叔叔',type:'pair'}),['叔侄','父子']);
     t.end();
 });
