@@ -39,3 +39,22 @@ module.exports = {
         ]
     }
 };
+module.exports = {
+    mode: 'production',
+    entry:'./src/relationship-mode.js',
+    output: {
+        path: path.resolve(__dirname,'dist'),
+        filename: 'relationship-mode.min.js',
+        globalObject: 'this',
+        library: 'relationshipMode',
+        libraryTarget: 'umd',
+        libraryExport:'default'
+    },
+    optimization: {
+        minimizer: [
+            new TerserJSPlugin({
+                extractComments: false
+            }),
+        ]
+    }
+};

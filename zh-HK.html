@@ -75,7 +75,7 @@
 												<span>默認</span>
 											</label>
 											<label for="field-0-2">
-												<input id="field-0-2" type="radio" name="mode" value="cantonese">
+												<input id="field-0-2" type="radio" name="mode" value="guangdong">
 												<span>粵語慣用</span>
 											</label>
 										</div>
@@ -409,89 +409,15 @@
 			</div>
 		</div>
 		<script type="text/javascript" src="dist/relationship.zh-HK.min.js"></script>
+		<script type="text/javascript" src="dist/relationship-mode.zh-HK.min.js"></script>
 		<script type="text/javascript">
 			// 獲取數量
 			document.getElementById('count').innerText = relationship.dataCount;
 
 			// 自定義模式
-			relationship.setMode('cantonese',{
-				'f':['阿爸'],
-				'f,f':['阿爺'],
-				'f,f,f':['太公'],
-				'f,f,m':['太婆'],
-				'f,m':['阿嫲'],
-				'f,m,f':['太外公'],
-				'f,m,m':['太外婆'],
-				'f,ob':['大伯'],
-				'f,ob,w':['伯娘'],
-				'f,lb':['阿叔'],
-				'f,lb,w':['阿嬸'],
-				'0,f,xb,d,s':['堂姨甥'],
-				'1,f,xb,d,s':['堂外甥'],
-				'0,f,xb,d,d':['堂姨甥女'],
-				'1,f,xb,d,d':['堂外甥女'],
-				'f,os':['姑媽'],
-				'f,ls':['姑姐'],
-				'f,xs,h':['姑丈'],
-				'0,f,xs,d,s':['姑表姨甥'],
-				'1,f,xs,d,s':['姑表外甥'],
-				'0,f,xs,d,d':['姑表姨甥女'],
-				'1,f,xs,d,d':['姑表外甥女'],
-				'm':['阿媽','老母'],
-				'm,f':['阿公'],
-				'm,f,f':['外太公'],
-				'm,f,m':['外太婆'],
-				'm,m':['阿婆'],
-				'm,m,f':['外太外公'],
-				'm,m,m':['外太外婆'],
-				'm,ob':['舅父'],
-				'm,lb':['舅仔'],
-				'm,xb,w':['舅母'],
-				'0,m,xb,d,s':['舅表姨甥'],
-				'1,m,xb,d,s':['舅表外甥'],
-				'0,m,xb,d,d':['舅表姨甥女'],
-				'1,m,xb,d,d':['舅表外甥女'],
-				'm,os':['姨媽'],
-				'm,ls':['姨仔'],
-				'm,xs,h':['姨丈'],
-				'0,m,xb,d,s':['姨姨甥'],
-				'1,m,xb,d,s':['姨外甥'],
-				'0,m,xb,d,d':['姨姨甥女'],
-				'1,m,xb,d,d':['姨外甥女'],
-				'ob':['阿哥'],
-				'ob,w':['阿嫂'],
-				'lb':['阿弟','細佬'],
-				'lb,w':['弟婦'],
-				'xb,s':['侄'],
-				'xb,d':['侄女'],
-				'os':['阿姐'],
-				'os,h':['姐夫'],
-				'ls':['阿妹'],
-				'ls,h':['妹夫'],
-				'0,xs,s':['姨甥'],
-				'1,xs,s':['外甥'],
-				'0,xs,d':['姨甥女'],
-				'1,xs,d':['外甥女'],
-				's':['仔'],
-				's,w':['新婦'],
-				's,s':['孫'],
-				's,s,w':['孫新婦'],
-				's,s,s':['息仔'],
-				's,s,d':['息女'],
-				's,d':['孫女'],
-				's,d,h':['孫女婿'],
-				's,d,s':['外息仔'],
-				's,d,d':['外息女'],
-				'd':['女'],
-				'd,s':['外孫'],
-				'd,s,w':['外孫新婦'],
-				'd,s,s':['外息仔'],
-				'd,s,d':['外息女'],
-				'd,d':['外孫女'],
-				'd,d,h':['外孫女婿'],
-				'd,d,s':['外息仔'],
-				'd,d,d':['外息女'],
-			});
+			for(var key in relationshipMode){
+				relationship.setMode(key,relationshipMode[key]);
+			}
 
 			// 標籤頁
 			(function(){

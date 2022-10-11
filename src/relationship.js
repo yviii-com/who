@@ -9,7 +9,7 @@ import {
     getPairsByIds,
     setMode,
     getDataByMode
-} from './method';
+} from './module/method';
 var _data = getDataByMode();     // 最终数据
 
 // 对外方法
