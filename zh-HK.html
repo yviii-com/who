@@ -75,7 +75,11 @@
 												<span>默認</span>
 											</label>
 											<label for="field-0-2">
-												<input id="field-0-2" type="radio" name="mode" value="guangdong">
+												<input id="field-0-2" type="radio" name="mode" value="north">
+												<span>北方地區</span>
+											</label>
+											<label for="field-0-3">
+												<input id="field-0-3" type="radio" name="mode" value="guangdong">
 												<span>粵語慣用</span>
 											</label>
 										</div>
@@ -460,7 +464,12 @@
 					var value = $input.value.trim();
 					if(value){
 						var sex = $sex[0].checked?1:0;
-						var mode = $mode[0].checked?$mode[0].value:$mode[1].value;
+						var mode = 'default';
+						if($mode[1].checked){
+							mode = $mode[1].value;
+						}else if($mode[2].checked){
+							mode = $mode[2].value;
+						}
 						var reverse = !$reverse[0].checked;
 						var result = relationship({text:value,sex:sex,reverse:reverse,mode:mode});
 						$result.value = '';
