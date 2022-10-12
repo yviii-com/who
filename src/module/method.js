@@ -589,11 +589,11 @@ export function setMode(sign,data){
 
 // 获取模式数据
 export function getDataByMode(sign){
-    var data = Object.assign({},_map);
+    _data = Object.assign({},_map);
     if(sign&&_mode[sign]){
         for(var key in _mode[sign]){
-            data[key] = [].concat(_mode[sign][key],_map[key]||[]);
+            _data[key] = [].concat(_mode[sign][key],_map[key]||[]);
         }
     }
-    return data;
+    return _data;
 };

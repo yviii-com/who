@@ -1,4 +1,3 @@
-// 粤语
 export default {
     'name':'广东',
     'data':{
