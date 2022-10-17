@@ -1,9 +1,7 @@
 import guangdong from './locale/guangdong';
 import north from './locale/north';
 
-const relationshipMode = {
+export default {
     guangdong,
     north
 };
-
-export default relationshipMode;
