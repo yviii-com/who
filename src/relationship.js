@@ -1,5 +1,6 @@
 import {
     unique,
+    getOptions,
     getSelectors,
     mergeSelector,
     selector2id,
@@ -14,6 +15,9 @@ var _data = getDataByMode();     // 最终数据
 
 // 对外方法
 var relationship = function (parameter){
+    if(typeof parameter =='string'){
+        parameter = getOptions(parameter);
+    }
     var options = Object.assign({
         text:'',            // 目标对象：目标对象的称谓汉字表达，称谓间用‘的’字分隔
         target:'',          // 相对对象：相对对象的称谓汉字表达，称谓间用‘的’字分隔，空表示自己

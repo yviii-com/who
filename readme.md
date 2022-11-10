@@ -26,7 +26,9 @@ var relationship = require("relationship.js");
 
 
 ## 二、使用
-1. 通用方法: 唯一的计算方法 `relationship(options)`.
+1. 通用方法: 唯一的计算方法 `relationship`.
+
+(1) 参数模式`relationship(options)`
 
 参数`options`结构为：
 
@@ -53,7 +55,7 @@ relationship({text:'妈妈的妈妈的哥哥'});
 relationship({text:'七舅姥爷',reverse:true,sex:1});
 // => ['甥外孙']
 
-// 如：舅公和我具体是什么关系？
+// 如：舅公是什么亲戚
 relationship({text:'舅公',type:'chain'});
 // => ['爸爸的妈妈的兄弟', '妈妈的妈妈的兄弟', '老公的妈妈的兄弟']
 
@@ -66,6 +68,12 @@ relationship({text:'外婆',target:'奶奶',type:'pair'});
 // => ['儿女亲家']
 
 ```
+
+(2) 语句模式`relationship(exptession)`
+
+参数`exptession`句式可以为：`xxx是xxx的什么人`、`xxx叫xxx什么`、`xxx如何称呼xxx`等.
+
+
 2. 内部属性：获取当前数据表 `relationship.data`.
 
 3. 内部属性：获取当前数据量 `relationship.dataCount`.

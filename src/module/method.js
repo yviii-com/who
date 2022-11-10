@@ -2,6 +2,7 @@
 import _filter from './filter';
 import _map from './map';
 import _pair from './pair';
+import _expression from './expression';
 
 var _mode = {};                         // 模式数据
 var _data = Object.assign({},_map);     // 最终数据
@@ -379,8 +380,7 @@ export function selector2id(selector,sex){
             hash[selector] = true;
             do{
                 s = selector;
-                for(var i in _filter){
-                    var item = _filter[i];
+                for(var item of _filter){
                     // console.log('[filter]',item['exp'],selector);
                     selector = selector.replace(item['exp'],item['str']);
                     if(selector.includes('#')){
@@ -596,4 +596,15 @@ export function getDataByMode(sign){
         }
     }
     return _data;
+};
+
+// 获取配置
+export function getOptions(text){
+    for(var item of _expression){
+        var match = text.match(item['exp']);
+        if(match){
+            return item['opt'](match);
+        }
+    }
+    return {};
 };
