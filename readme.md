@@ -28,7 +28,7 @@ var relationship = require("relationship.js");
 ## 二、使用
 1. 通用方法: 唯一的计算方法 `relationship`.
 
-(1) 参数模式`relationship(options)`
+* 参数模式`relationship(options)`
 
 参数`options`结构为：
 
@@ -66,13 +66,23 @@ relationship({text:'外婆',target:'舅妈',sex:1});
 // 如：外婆和奶奶之间是什么关系？
 relationship({text:'外婆',target:'奶奶',type:'pair'});
 // => ['儿女亲家']
-
 ```
 
-(2) 语句模式`relationship(exptession)`
+* 语句模式`relationship(exptession)`
 
 参数`exptession`句式可以为：`xxx是xxx的什么人`、`xxx叫xxx什么`、`xxx如何称呼xxx`等.
 
+代码示例：
+
+```js
+// 如：舅妈如何称呼外婆？
+relationship('舅妈如何称呼外婆？');
+// => ['婆婆']
+
+// 如：外婆和奶奶之间是什么关系？
+relationship('外婆和奶奶之间是什么关系？');
+// => ['儿女亲家']
+```
 
 2. 内部属性：获取当前数据表 `relationship.data`.
 
