@@ -28,7 +28,7 @@ var relationship = require("relationship.js");
 ## 二、使用
 1. 通用方法: 唯一的计算方法 `relationship`.
 
-* 参数模式`relationship(options)`
+* 选项模式`relationship(options)`
 
 参数`options`结构为：
 
