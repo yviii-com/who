@@ -55,7 +55,7 @@ export default [
         })
     },
     {
-        exp:/^(\S+?)是(什么|啥)(关系|人)？?$/,
+        exp:/^(\S+?)(指的)?是(什么|啥)(意思|关系|辈分|人)？?$/,
         opt:match=>({
             text:match[1],
             type:'chain'
