@@ -209,9 +209,7 @@ var prefix = {
 for(var key in prefixMap){
     for(var selector in prefixMap[key]){
         var ids = selector2id(selector);
-        if(typeof prefix[key]=='undefined'){
-            prefix[key] = {};
-        }
+        prefix[key] = prefix[key]||{};
         ids.forEach(function(id){
             prefix[key][id] = prefixMap[key][selector];
         });
