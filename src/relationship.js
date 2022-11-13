@@ -76,9 +76,7 @@ var relationship = function (parameter){
                             temps = reverseId(id,data['sex']);
                             temps.forEach(function(r_id){
                                 var pairs = getPairsByIds(id,r_id);
-                                if(pairs.length){
-                                    result = result.concat(pairs);
-                                }
+                                result = result.concat(pairs);
                             });
                         }else{
                             temps.forEach(function(id){
@@ -86,9 +84,7 @@ var relationship = function (parameter){
                                 if(!items.length){
                                     items = getItemsById(sex+','+id);
                                 }
-                                if(items.length){
-                                    result = result.concat(items);
-                                }
+                                result = result.concat(items);
                             });
                         }
                     });
