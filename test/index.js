@@ -3,8 +3,8 @@ var test = require('tape');
 var relationship = require('..');
 
 test('relationship.js show to be tested', function (t) {
-    // console.log('[test]',relationship({text:'堂哥',target:'叔叔',type:'pair',optimal:true}));
-    
+    // console.log('[test]',relationship('妈妈应该如何称呼姑姑'));
+
     t.deepEqual(relationship({text:'儿子的爸爸的妈妈',sex:1}),['妈妈']);
     t.deepEqual(relationship({text:'爱人',sex:1}),['老婆']);
     t.deepEqual(relationship({text:'爱人的爱人',sex:1}),['自己']);
@@ -39,5 +39,13 @@ test('relationship.js show to be tested', function (t) {
     t.deepEqual(relationship({text:'大舅',target:'二舅的儿子'}),['伯父']);
     t.deepEqual(relationship({text:'堂哥',target:'叔叔',type:'pair'}),['叔侄','父子']);
     t.deepEqual(relationship({text:'堂哥',target:'叔叔',type:'pair',optimal:true}),['父子']);
+    t.deepEqual(relationship('妈妈应该如何称呼姑姑'),['姑子']);
+    t.deepEqual(relationship('姑奶奶是什么关系'),['爸爸的爸爸的姐妹']);
+    t.deepEqual(relationship('姑奶奶和爸爸是什么关系'),['姑侄']);
+    t.deepEqual(relationship('我应该叫外婆的哥哥什么？'),['舅外公']);
+    t.deepEqual(relationship('七舅姥爷应该叫我什么？'),['甥外孙','甥外孙女']);
+    t.deepEqual(relationship('舅公是什么关系？'),['爸爸的妈妈的兄弟', '妈妈的妈妈的兄弟', '老公的妈妈的兄弟']);
+    t.deepEqual(relationship('舅妈如何称呼外婆？'),['婆婆']);
+    t.deepEqual(relationship('外婆和奶奶之间是什么关系？'),['儿女亲家']);
     t.end();
 });

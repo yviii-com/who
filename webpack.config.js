@@ -17,25 +17,46 @@ ${repository}
 
 Create on: ${date}`;
 
-module.exports = {
-    mode: 'production',
-    entry: './src/relationship.js',
-    output: {
-        path: path.resolve(__dirname,'dist'),
-        filename: 'relationship.min.js',
-        globalObject: 'this',
-        library: 'relationship',
-        libraryTarget: 'umd',
-        libraryExport:'default'
+module.exports = [
+    {
+        mode: 'production',
+        entry: './src/relationship.js',
+        output: {
+            path: path.resolve(__dirname,'dist'),
+            filename: 'relationship.min.js',
+            globalObject: 'this',
+            library: 'relationship',
+            libraryTarget: 'umd',
+            libraryExport:'default'
+        },
+        plugins: [
+            new webpack.BannerPlugin(copyright)
+        ],
+        optimization: {
+            minimizer: [
+                new TerserJSPlugin({
+                    extractComments: false
+                }),
+            ]
+        }
     },
-    plugins: [
-        new webpack.BannerPlugin(copyright)
-    ],
-    optimization: {
-        minimizer: [
-            new TerserJSPlugin({
-                extractComments: false
-            }),
-        ]
+    {
+        mode: 'production',
+        entry:'./src/relationship-mode.js',
+        output: {
+            path: path.resolve(__dirname,'dist'),
+            filename: 'relationship-mode.min.js',
+            globalObject: 'this',
+            library: 'relationshipMode',
+            libraryTarget: 'umd',
+            libraryExport:'default'
+        },
+        optimization: {
+            minimizer: [
+                new TerserJSPlugin({
+                    extractComments: false
+                }),
+            ]
+        }
     }
-};
+];

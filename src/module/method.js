@@ -2,6 +2,7 @@
 import _filter from './filter';
 import _map from './map';
 import _pair from './pair';
+import _expression from './expression';
 
 var _mode = {};                         // 模式数据
 var _data = Object.assign({},_map);     // 最终数据
@@ -14,17 +15,8 @@ var zh2number = function(text){
     if(map[text]){
         num = map[text];
     }else{
-        if(text.includes('十')){
-            var numAttr = text.split('十');
-            if(!numAttr[0]){
-                num = 10;
-            }else{
-                num = textAttr.indexOf(numAttr[0])*10;
-            }
-            num += textAttr.indexOf(numAttr[1]);
-        }else{
-            num += textAttr.includes(text)?textAttr.indexOf(text):0;
-        }
+        var [unit,dec=0] = text.replace(/^十/,'一十').split('十').map(word=> textAttr.indexOf(word)).reverse();
+        num = dec*10+unit;
     }
     return num;
 };
@@ -39,15 +31,7 @@ var number2zh = function(num){
     }else{
         var dec = ~~(num/10);
         var unit = num%10;
-        if(dec){
-            if(dec>1){
-                text = dec<textAttr.length?textAttr[dec]:'';
-            }
-            text += '十';
-            text += unit<textAttr.length?textAttr[unit]:'';
-        }else{
-            text += num<textAttr.length?textAttr[num]:'';
-        }
+        text = (dec?(textAttr[dec]+'十').replace('一十','十'):'')+textAttr[unit];
     }
     return text;
 };
@@ -66,9 +50,7 @@ var getGen = function(id){
 
 // 获得最简
 var getOptimal = function(options){
-    var from = options['from'];
-    var to = options['to']
-    var sex = options['sex'];
+    var {from,to,sex} = options;
     var from_chain = options['from'].split(',');
     var to_chain = options['to'].split(',');
     for(var i=0;i<from_chain.length&&i<to_chain.length;i++){
@@ -217,10 +199,10 @@ export function getSelectors(str){
         getList(name);
         // 通过关键词找关系
         keywords.forEach(function(name){
-            var x_name = name.replace(/^[大|小]|^[一|二|三|四|五|六|七|八|九|十]+/,'几');
-            var r_name = name.replace(/^[大|小]|^[一|二|三|四|五|六|七|八|九|十]+/,'');
             var match = name.match(/^[大|小]|^[一|二|三|四|五|六|七|八|九|十]+/);
             if(match){
+                var x_name = name.replace(match[0],'几');
+                var r_name = name.replace(match[0],'');
                 var num = zh2number(match[0]);
                 for(var i in _data){
                     var r_i = i.replace(/(,[hw])$/,'&'+num+'$1').replace(/([^hw]+)$/,'$1&'+num);
@@ -272,9 +254,7 @@ export function getSelectors(str){
 
 // 合并选择器，查找两个对象之间的关系
 export function mergeSelector(param){
-    var from_selector = param['from'];
-    var to_selector = param['to'];
-    var my_sex = param['sex'];
+    var {from:from_selector,to:to_selector,sex:my_sex} = param;
     if(my_sex<0){
         var to_sex = -1;
         var from_sex = -1;
@@ -379,8 +359,7 @@ export function selector2id(selector,sex){
             hash[selector] = true;
             do{
                 s = selector;
-                for(var i in _filter){
-                    var item = _filter[i];
+                for(var item of _filter){
                     // console.log('[filter]',item['exp'],selector);
                     selector = selector.replace(item['exp'],item['str']);
                     if(selector.includes('#')){
@@ -457,19 +436,18 @@ export function reverseId(id,sex){
 // 通过ID获取关系称呼
 export function getItemsById(id){
     var items = [];
-    var getData = function(d){
+    var getData = function(key){
         var res = [];
-        if(_data[d]){
-            res.push(_data[d][0]);
+        if(_data[key]){
+            res.push(_data[key][0]);
         }else{
             for(var i in _data){
-                if(i.replace(/&[ol]/g,'')==d){
+                if(i.replace(/&[ol]/g,'')==key){
                     res.push(_data[i][0]);
                 }else{
-                    var expr = d;
-                    while (expr.match(/[ol](b|s)/)){
-                        expr = expr.replace(/[ol](b|s)/,'x$1');
-                        if(expr==i){
+                    while (key.match(/[ol](b|s)/)){
+                        key = key.replace(/[ol](b|s)/,'x$1');
+                        if(key==i){
                             res.push(_data[i][0]);
                             break;
                         }
@@ -589,11 +567,22 @@ export function setMode(sign,data){
 
 // 获取模式数据
 export function getDataByMode(sign){
-    var data = Object.assign({},_map);
+    _data = Object.assign({},_map);
     if(sign&&_mode[sign]){
         for(var key in _mode[sign]){
-            data[key] = [].concat(_mode[sign][key],_map[key]||[]);
+            _data[key] = [].concat(_mode[sign][key],_map[key]||[]);
         }
     }
-    return data;
+    return _data;
+};
+
+// 获取配置
+export function getOptions(text){
+    for(var item of _expression){
+        var match = text.match(item['exp']);
+        if(match){
+            return item['opt'](match);
+        }
+    }
+    return {};
 };

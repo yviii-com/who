@@ -1,5 +1,6 @@
 import {
     unique,
+    getOptions,
     getSelectors,
     mergeSelector,
     selector2id,
@@ -9,11 +10,14 @@ import {
     getPairsByIds,
     setMode,
     getDataByMode
-} from './method';
+} from './module/method';
 var _data = getDataByMode();     // 最终数据
 
 // 对外方法
 var relationship = function (parameter){
+    if(typeof parameter =='string'){
+        parameter = getOptions(parameter);
+    }
     var options = Object.assign({
         text:'',            // 目标对象：目标对象的称谓汉字表达，称谓间用‘的’字分隔
         target:'',          // 相对对象：相对对象的称谓汉字表达，称谓间用‘的’字分隔，空表示自己
@@ -33,13 +37,12 @@ var relationship = function (parameter){
     // console.log('[selectors]',from_selectors,to_selectors);
     from_selectors.forEach(function(from_selector){
         to_selectors.forEach(function(to_selector){
-            var list = mergeSelector({
+             mergeSelector({
                 from:from_selector,
                 to:to_selector,
                 sex:options.sex,
                 optimal:options.optimal
-            });
-            list.forEach(function(data){
+            }).forEach(function(data){
                 // console.log('[data]',from_selector,to_selector,data);
                 var ids = data?selector2id(data['selector'],data['sex']):null;
                 // console.log('[ids]',data['selector'],data['sex'],ids);
@@ -73,9 +76,7 @@ var relationship = function (parameter){
                             temps = reverseId(id,data['sex']);
                             temps.forEach(function(r_id){
                                 var pairs = getPairsByIds(id,r_id);
-                                if(pairs.length){
-                                    result = result.concat(pairs);
-                                }
+                                result = result.concat(pairs);
                             });
                         }else{
                             temps.forEach(function(id){
@@ -83,9 +84,7 @@ var relationship = function (parameter){
                                 if(!items.length){
                                     items = getItemsById(sex+','+id);
                                 }
-                                if(items.length){
-                                    result = result.concat(items);
-                                }
+                                result = result.concat(items);
                             });
                         }
                     });
