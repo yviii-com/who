@@ -13,10 +13,10 @@ export default [
         })
     },
     {
-        exp:/^(\S+?)是(谁|什么亲戚|啥亲戚|什么辈分|啥辈分)？?$/,
+        exp:/^(\S+?)是(谁|什么|什么亲戚|啥亲戚|什么人|什么辈分|啥辈分)？?$/,
         opt:match=>({
             text:match[1],
-            type:match[0].indexOf('的')>-1?'default':'chain'
+            type:match[1].indexOf('的')>-1?'default':'chain'
         })
     },
     {
@@ -37,7 +37,8 @@ export default [
         exp:/^(\S+?)是(\S+?)的(谁|什么|什么亲戚|啥亲戚|什么人)？?$/,
         opt:match=>({
             text:match[1],
-            target:match[2]
+            target:match[2],
+            type:match[1].indexOf('的')>-1?'default':'chain'
         })
     },
     {
