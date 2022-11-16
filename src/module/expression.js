@@ -14,12 +14,10 @@ export default [
     },
     {
         exp:/^(\S+?)是(谁|什么亲戚|啥亲戚|什么辈分|啥辈分)？?$/,
-        opt:match=>{
-            return {
-                text:match[1],
-                type:match[0].indexOf('的')>-1?'default':'chain'
-            };
-        }
+        opt:match=>({
+            text:match[1],
+            type:match[0].indexOf('的')>-1?'default':'chain'
+        })
     },
     {
         exp:/^(\S+?)(应该|得)?(称呼|叫|喊)(\S+?)(什么|啥)？?$/,
