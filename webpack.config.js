@@ -15,7 +15,7 @@ Copyright (c) 2016-present, ${pkg.author}
 Released under the ${pkg.license} License
 ${repository}
 
-Create on: ${date}`;
+Created on: ${date}`;
 
 module.exports = [
     {
