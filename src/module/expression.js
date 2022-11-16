@@ -57,24 +57,17 @@ export default [
         })
     },
     {
-        exp:/^(\S+?)(指的)?是(什么|啥)(意思|关系|辈分|人)？?$/,
-        opt:match=>({
-            text:match[1],
-            type:'chain'
-        })
-    },
-    {
-        exp:/^(\S+?)(指的)?是(什么|啥)亲戚关系？?$/,
-        opt:match=>({
-            text:match[1],
-            type:'chain'
-        })
-    },
-    {
         exp:/^(\S+?)对于(\S+?)是(什么|啥)关系？?$/,
         opt:match=>({
             text:match[1],
             target:match[2],
+            type:'chain'
+        })
+    },
+    {
+        exp:/^(\S+?)(指的)?是(什么|啥)(意思|关系|亲戚关系|辈分|人)？?$/,
+        opt:match=>({
+            text:match[1],
             type:'chain'
         })
     },
