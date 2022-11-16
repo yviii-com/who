@@ -122,10 +122,9 @@ export function unique(arr){
 export function getSelectors(str){
     str = str.replace(/之/g,'的').replace(/吾之?(.+)/,'$1').replace(/我的?(.+)/,'$1');
     // 惯用口语标准化
-    str = str.replace(/(?<=[^娘婆岳亲])家的/,'的'); // 反向否定预查 /(?<![娘婆岳亲])家的/ 兼容写法
-    str = str.replace(/(舅|姑)+(爸|父|丈|妈|母)?家的?(哥|姐|弟|妹)+/,'$1表$3');
-    str = str.replace(/(伯|叔)+(父|母)?家的?(哥|姐|弟|妹)+/,'$1堂$3');
-    str = str.replace(/姨+(爸|父|丈|妈|母)?家的?(哥|姐|弟|妹)+/,'姨$3');
+    str = str.replace(/(舅|姑)+(爸|父|丈|妈|母)?家的?(哥|姐|弟|妹)+/,'$1表$3').replace(/(舅|姑)+(爸|父|丈|妈|母)?家的?/,'$1表');
+    str = str.replace(/(伯|叔)+(父|母)?家的?(哥|姐|弟|妹)+/,'堂$3').replace(/(伯|叔)+(父|母)?家的?/,'堂');
+    str = str.replace(/姨+(爸|父|丈|妈|母)?家的?(哥|姐|弟|妹)+/,'姨$3').replace(/姨+(爸|父|丈|妈|母)?家的?/,'姨');
 
     var lists = str.split('的');
     var result = [];
