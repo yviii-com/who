@@ -25,7 +25,7 @@ export default [
     {
         exp:/^(\S+?)(应该|得)?管(\S+?)叫(什么|啥)？?$/,
         opt:match=>({
-            text:match[2],
+            text:match[3],
             target:match[1]
         })
     },
