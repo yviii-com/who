@@ -3,7 +3,7 @@ var test = require('tape');
 var relationship = require('..');
 
 test('relationship.js show to be tested', function (t) {
-    // console.log('[test]',relationship('妈妈应该如何称呼姑姑'));
+    // console.log('[test]',relationship({text:'舅舅家哥哥的老婆'}));
 
     t.deepEqual(relationship({text:'儿子的爸爸的妈妈',sex:1}),['妈妈']);
     t.deepEqual(relationship({text:'爱人',sex:1}),['老婆']);
