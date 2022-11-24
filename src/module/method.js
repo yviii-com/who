@@ -1,8 +1,10 @@
 // 通用方法
-import _filter from './filter';
+import _filter from './rule/filter';
+import _expression from './rule/expression';
+import _replace from './rule/replace';
+import _similar from './rule/similar';
 import _map from './map';
 import _pair from './data/pair';
-import _expression from './expression';
 
 var _mode = {};                         // 模式数据
 var _data = Object.assign({},_map);     // 最终数据
@@ -130,46 +132,6 @@ export function getSelectors(str){
     var lists = str.split('的');
     var result = [];
     var isMatch = true;
-    // 双向替换
-    var replaceMap = {
-        '晜':'兄',
-        '哥':'兄',
-        '姐':'姊',
-        '侄':'姪',
-        '婿':'壻',
-        '祖父':'王父',
-        '祖母':'王母',
-        '弟媳':'弟妇',
-        '嫂':'兄妇',
-        '孙女婿':'孙婿',
-        '甥女婿':'甥婿',
-        '侄女婿':'侄婿',
-        '孙媳妇':'孙妇',
-        '甥媳妇':'甥妇',
-        '侄媳妇':'侄妇',
-    };
-    // 含义扩展
-    var replaceFilter = {
-        '^从表':['从父姑表','从父舅表','从父姨表','从母姑表','从母舅表','从母叔表'],
-        '^表表':['姑表叔表','姑表姑表','姑表舅表','姑表姨表','舅表叔表','舅表姑表','舅表舅表','舅表姨表'],
-        '^([夫妻内外]?)表':['$1姑表','$1舅表'],
-        '^([姑舅])表(?=[^伯叔])':['$1表伯','$1表叔'],
-        '^姻':['姑姻','姨姻','姊妹姻','女姻'],
-        '^眷':['叔眷','舅眷','兄弟眷','男眷'],
-        '^亲家':['姊妹姻','兄弟眷'],
-        '^([堂表姨]?)([曾高天烈太远鼻]?)(祖?)([伯叔姑舅姨])':['$1$4$2$3'],
-        '^([曾高天烈太远鼻]?)祖?王姑':['姑$1祖母'],
-        '^([曾玄来晜仍云耳])([侄甥])':['$2$1'],
-        '^外表([伯叔姑舅姨])':['姑表$1外','舅表$1外'],
-        '([堂表姨]?)外甥':['$1甥'],
-        '^([舅叔])([曾玄外]*)孙':['$1侄$2孙'],
-        '^([姨姑])([曾玄外]*)孙':['$1甥$2孙'],
-        '([孙甥侄])$':['$1男','$1女'],
-        '([姑舅姨叔])([孙外]*)([男女])$':['$1表侄$2$3','$1表甥$2$3'],
-        '祖$':['祖父'],
-        '嫂$':['兄妇'],
-        '女儿$':['女'],
-    };
     while(lists.length){
         var name = lists.shift();           //当前匹配词
         var items = [];                     //当前匹配词可能性
@@ -178,19 +140,20 @@ export function getSelectors(str){
         var i_items = [];
         var keywords = [name];
         var getList = function(name){
-            for(var filter in replaceFilter){
-                var word_list = replaceFilter[filter];
-                word_list.forEach(function(word){
-                    var name1 = name.replace(new RegExp(filter),word);
+            // 词义扩展
+            _replace.forEach(item => {
+                item['arr'].forEach(word =>{
+                    var name1 = name.replace(item['exp'],word);
                     if(name1!=name){
                         keywords.push(name1);
                         getList(name1);
                     }
                 });
-            }
-            for(var word in replaceMap){
-                var name1 = name.replace(word,replaceMap[word]);
-                var name2 = name.replace(replaceMap[word],word);
+            });
+            // 同义词替换
+            for(var word in _similar){
+                var name1 = name.replace(word,_similar[word]);
+                var name2 = name.replace(_similar[word],word);
                 if(name1!=name){
                     keywords.push(name1);
                 }

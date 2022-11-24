@@ -1,4 +1,4 @@
-// 默认完整映射关系
+// 完整关系链数据 - 合并各类关系链数据
 import _prefix from './data/prefix';
 import _branch from './data/branch';
 import _main from './data/main';
