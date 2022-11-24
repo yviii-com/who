@@ -1,16 +1,32 @@
 // 默认完整映射关系
-import _main from './main';
-import _prefix from './prefix';
-import _branch from './branch';
+import _prefix from './data/prefix';
+import _branch from './data/branch';
+import _main from './data/main';
+import _multipie from './data/multiple';
 
-var _map = {};
+import {
+    selectorFormat
+} from './method';
+
+var _map = Object.assign({},_multipie);
+
+// 分支前缀处理
+var prefixMap = {};
+for(var key in _prefix){
+    prefixMap[key] = {};
+    for(var selector in _prefix[key]){
+        selectorFormat(selector).forEach(function(s){
+            prefixMap[key][s] = _prefix[key][selector];
+        });
+    }
+}
 
 // 分支关系
 for(var key in _branch){
     var tag = key.match(/\{.+?\}/)[0];
     var nameList = _branch[key];
-    for(var k in _prefix[tag]){
-        var prefixList = _prefix[tag][k];
+    for(var k in prefixMap[tag]){
+        var prefixList = prefixMap[tag][k];
         var newKey = key.replace(tag,k);
         var isFilter = ['h,h','w,w','w,h','h,w'].some(pair=>(newKey.includes(pair)));
         var newList = [];

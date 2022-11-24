@@ -1,16 +1,9 @@
 // 分支前缀
-import {
-    selector2id
-} from './method';
-// 合并写法
-var prefixMap = {
+export default {
     '{G2C}':{
-        '[f|m],[f|m],[f|m],[f,xs|m,xb|m,xs],[s|d],[s|d]':['重表'], // 曾祖辈的表兄弟姐妹的子女
-        '[f|m],[f|m],[f,xs|m,xb|m,xs],[s|d]':['重表'], // 祖辈的表兄弟姐妹的子女
+        '[f|m],[f|m],[f|m],[f,xs|m,xb|m,xs],[s|d],[s|d]':['重表'],    // 曾祖辈的表兄弟姐妹的子女
+        '[f|m],[f|m],[f,xs|m,xb|m,xs],[s|d]':['重表'],                // 祖辈的表兄弟姐妹的子女
     },
-};
-// 分解写法
-var prefix = {
     '{G2}':{
         'f,f,xb':['从祖'],
         'm,f,xb':['外从祖'],
@@ -205,15 +198,3 @@ var prefix = {
         'w,xs,d,d,h':['姨甥外孙姻','姨外孙姻'],
     }
 };
-
-for(var key in prefixMap){
-    for(var selector in prefixMap[key]){
-        var ids = selector2id(selector);
-        prefix[key] = prefix[key]||{};
-        ids.forEach(function(id){
-            prefix[key][id] = prefixMap[key][selector];
-        });
-    }
-}
-
-export default prefix;

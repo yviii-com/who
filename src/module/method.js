@@ -1,7 +1,7 @@
 // 通用方法
 import _filter from './filter';
 import _map from './map';
-import _pair from './pair';
+import _pair from './data/pair';
 import _expression from './expression';
 
 var _mode = {};                         // 模式数据
@@ -327,10 +327,37 @@ export function mergeSelector(param){
     return result;
 };
 
-// 选择器转ID
-export function selector2id(selector,sex){
+// 选择器扩展
+export function selectorFormat(selector){
     var result = [];
     var hash = {};
+    var getSelector = function(selector){
+        var s='';
+        if(!hash[selector]){
+            hash[selector] = true;
+            do{
+                s = selector;
+                for(var item of _filter){
+                    // console.log('[filter]',item['exp'],selector);
+                    selector = selector.replace(item['exp'],item['str']);
+                    if(selector.includes('#')){
+                        selector.split('#').forEach(getSelector);
+                        return false;
+                    }
+                }
+            }while(s!=selector);
+            if(selector.match(/,[mwd0](&[ol\d+])?,w|,[hfs1](&[ol\d]+)?,h/)){  //同志关系去除
+                return false;
+            }
+            result.push(selector);
+        }
+    };
+    getSelector(selector);
+    return result;
+};
+
+// 选择器转ID
+export function selector2id(selector,sex){
     if(!selector.match(/^,/)){
         selector = ','+selector;
     }
@@ -347,38 +374,18 @@ export function selector2id(selector,sex){
         return [];
     }
     // console.log('[selector]',selector);
-    var getId = function(selector,sex){
-        if(!selector.match(/^,/)){
-            selector = ','+selector;
-        }
-        if(sex>-1&&!selector.includes(',1')&&!selector.includes(',0')){
-            selector = ','+sex+selector;
-        }
-        if(selector.match(/,[mwd0](&[ol\d]+)?,w|,[hfs1](&[ol\d]+)?,h/)){  //同志关系去除
-            return [];
-        }
-        var s='';
-        if(!hash[selector]){
-            hash[selector] = true;
-            do{
-                s = selector;
-                for(var item of _filter){
-                    // console.log('[filter]',item['exp'],selector);
-                    selector = selector.replace(item['exp'],item['str']);
-                    if(selector.includes('#')){
-                        selector.split('#').forEach(getId);
-                        return false;
-                    }
-                }
-            }while(s!=selector);
-            if(selector.match(/,[mwd0](&[ol\d+])?,w|,[hfs1](&[ol\d]+)?,h/)){  //同志关系去除
-                return false;
-            }
-            selector = selector.replace(/,[01]/,'').substr(1);  //去前面逗号和性别信息
-            result.push(selector);
-        }
+    if(!selector.match(/^,/)){
+        selector = ','+selector;
     }
-    getId(selector,sex);
+    if(sex>-1&&!selector.includes(',1')&&!selector.includes(',0')){
+        selector = ','+sex+selector;
+    }
+    if(selector.match(/,[mwd0](&[ol\d]+)?,w|,[hfs1](&[ol\d]+)?,h/)){  //同志关系去除
+        return [];
+    }
+    var result = selectorFormat(selector).map(function(selector){
+        return selector.replace(/,[01]/,'').substr(1);  //去前面逗号和性别信息
+    });
     return unique(result);
 };
 
