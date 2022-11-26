@@ -2,11 +2,12 @@
  * 数值转换
 */
 
+var textAttr = ['','一','二','三','四','五','六','七','八','九','十'];
+
 // 中文数字转阿拉伯数字
 export function zh2number(text){
     var num = 0;
     var map = {'大':1,'小':99};
-    var textAttr = ['','一','二','三','四','五','六','七','八','九','十'];
     if(map[text]){
         num = map[text];
     }else{
@@ -20,7 +21,6 @@ export function zh2number(text){
 export function number2zh(num){
     var text = '';
     var map = {1:'大',99:'小'};
-    var textAttr = ['','一','二','三','四','五','六','七','八','九','十'];
     if(map[num]){
         text = map[num];
     }else{
