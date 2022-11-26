@@ -1,12 +1,14 @@
-// 完整关系链数据 - 合并各类关系链数据
+/*
+ * 完整关系链数据 - 合并各类关系链数据
+*/
 import _prefix from './data/prefix';
 import _branch from './data/branch';
 import _main from './data/main';
 import _multipie from './data/multiple';
 
 import {
-    selectorFormat
-} from './method';
+    expandSelector
+} from './selector';
 
 var _map = Object.assign({},_multipie);
 
@@ -15,7 +17,7 @@ var prefixMap = {};
 for(var key in _prefix){
     prefixMap[key] = {};
     for(var selector in _prefix[key]){
-        selectorFormat(selector).forEach(function(s){
+        expandSelector(selector).forEach(function(s){
             prefixMap[key][s] = _prefix[key][selector];
         });
     }

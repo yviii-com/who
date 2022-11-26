@@ -1,17 +1,7 @@
-import {
-    unique,
-    getOptions,
-    getSelectors,
-    mergeSelector,
-    selector2id,
-    reverseId,
-    getItemsById,
-    getChainById,
-    getPairsByIds,
-    setMode,
-    getDataByMode
-} from './module/method';
-var _data = getDataByMode();     // 最终数据
+import {getOptions} from './module/options';
+import {getSelectors,mergeSelector,selector2id} from './module/selector';
+import {reverseId,getItemsById,getChainById,getPairsById} from './module/id';
+import {setModeData,getModeData,modeData as _data} from './module/mode';
 
 // 对外方法
 var relationship = function (parameter){
@@ -27,7 +17,7 @@ var relationship = function (parameter){
         mode:'default',     // 模式选择：使用setMode方法定制不同地区模式，在此选择自定义模式
         optimal:false       // 最短关系：计算两者之间的最短关系
     },parameter);
-    _data = getDataByMode(options.mode);
+    _data = getModeData(options.mode);
     var from_selectors = getSelectors(options.text);
     var to_selectors = getSelectors(options.target);
     if(!to_selectors.length){
@@ -44,61 +34,53 @@ var relationship = function (parameter){
                 optimal:options.optimal
             }).forEach(function(data){
                 // console.log('[data]',from_selector,to_selector,data);
-                var ids = data?selector2id(data['selector'],data['sex']):null;
+                var ids = data?selector2id(data['selector'],data['sex']):[];
                 // console.log('[ids]',data['selector'],data['sex'],ids);
-                if(ids){
-                    ids.forEach(function(id){
-                        var temps = [id];
-                        var sex = data['sex'];
-                        if(options.reverse){
-                            temps = reverseId(id,sex);
-                            if(id.match(/([fhs1](&[ol\d]+)?|[olx]b)$/)){
-                                sex = 1;
-                            }else{
-                                sex = 0;
-                            }
-                        }
-                        if(options.type=='chain'){
-                            temps.forEach(function(id){
-                                var item = getChainById(id);
-                                if(data['sex']>-1&&_data[data['sex']+','+id]){
-                                    if(data['sex']==0){
-                                        item = '(女性)'+item;
-                                    }else if(data['sex']==1){
-                                        item = '(男性)'+item;
-                                    }
-                                }
-                                if(item){
-                                    result.push(item);
-                                }
-                            });
-                        }else if(options.type=='pair'){
-                            temps = reverseId(id,data['sex']);
-                            temps.forEach(function(r_id){
-                                var pairs = getPairsByIds(id,r_id);
-                                result = result.concat(pairs);
-                            });
+                ids.forEach(function(id){
+                    var temps = [id];
+                    var sex = data['sex'];
+                    if(options.reverse){
+                        temps = reverseId(id,sex);
+                        if(id.match(/([fhs1](&[ol\d]+)?|[olx]b)$/)){
+                            sex = 1;
                         }else{
-                            temps.forEach(function(id){
-                                var items = getItemsById(id);
-                                if(!items.length){
-                                    items = getItemsById(sex+','+id);
-                                }
-                                result = result.concat(items);
-                            });
+                            sex = 0;
                         }
-                    });
-                }
+                    }
+                    if(options.type=='chain'){
+                        temps.forEach(function(id){
+                            var item = getChainById(id,data['sex']);
+                            if(item){
+                                result.push(item);
+                            }
+                        });
+                    }else if(options.type=='pair'){
+                        temps = reverseId(id,data['sex']);
+                        temps.forEach(function(r_id){
+                            var pairs = getPairsById(id,r_id);
+                            result = result.concat(pairs);
+                        });
+                    }else{
+                        temps.forEach(function(id){
+                            var items = getItemsById(id);
+                            if(!items.length){
+                                items = getItemsById(sex+','+id);
+                            }
+                            result = result.concat(items);
+                        });
+                    }
+                });
             });
         });
     });
-    return unique(result);
+    return [...new Set(result)];
 };
+
 // 获取数据表
 relationship.data = _data;
 // 获取数据量
 relationship.dataCount = Object.keys(_data).length;
 // 设置语言模式
-relationship.setMode = setMode;
+relationship.setMode = setModeData;
 
 export default relationship;
