@@ -6,7 +6,7 @@ import _replace from './rule/replace';
 import _similar from './rule/similar';
 
 import {zh2number} from './unit';
-import {reverseId,getGenById} from './id';
+import {reverseId,filterId,getGenById} from './id';
 import {modeData as _data} from './mode';
 
 // 获得最简
@@ -70,20 +70,11 @@ var getOptimal = function(options){
     };
 };
 
-// 去重
-var unique = function(arr){
-    var sameList = arr.filter(item=>item==item.replace(/[ol](?=s|b)/,'x').replace(/&[ol]/,''));
-    return arr.filter(item=>{
-        var temp = item.replace(/[ol](?=s|b)/,'x').replace(/&[ol]/,'');
-        return sameList.includes(item)||item!=temp&&!sameList.includes(temp);
-    }).filter((item,idx,arr) => arr.indexOf(item) === idx);
-};
-
 // 中文获取选择器
 export function getSelectors(str){
     str = str.replace(/之/g,'的').replace(/吾之?(.+)/,'$1').replace(/我的?(.+)/,'$1');
     // 惯用口语标准化
-    // str = str.replace(/(?<![娘婆岳亲])家的?(?=(孩子|儿子|女儿))/,'的'); 
+    // str = str.replace(/(?<![娘婆岳亲])家的?(?=(孩子|儿子|女儿))/,'的');
     if(str.match(/[^娘婆岳亲]家的?(孩子|儿子|女儿)/)){
         str = str.replace(/家的?/,'的');
     }
@@ -307,5 +298,5 @@ export function selector2id(selector,sex){
     var result = expandSelector(selector).map(function(selector){
         return selector.replace(/,[01]/,'').substr(1);  //去前面逗号和性别信息
     });
-    return unique(result);
+    return filterId(result);
 };

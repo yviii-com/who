@@ -28,6 +28,7 @@ test('relationship.js show to be tested', function (t) {
     t.deepEqual(relationship({text:'我',target:'爸爸'}),['儿子','女儿']);
     t.deepEqual(relationship({text:'爱人',target:'娘家侄子'}),['姑丈']);
     t.deepEqual(relationship({text:'岳母的配偶的孩子的爸爸'}),['岳父']);
+    t.deepEqual(relationship({text:'姐姐的老公的姐姐的老公'}),['姊妹姻姊妹壻']);
     t.deepEqual(relationship({text:'舅妈',target:'外婆',type:'pair'}),['婆媳']);
     t.deepEqual(relationship({text:'妈妈的二哥'}),['二舅']);
     t.deepEqual(relationship({text:'爸爸的二哥'}),['二伯']);

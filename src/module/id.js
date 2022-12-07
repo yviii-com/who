@@ -61,6 +61,15 @@ export function reverseId(id,sex){
     return [''];
 };
 
+// ID列表去重
+export function filterId(arr){
+    var sameList = arr.filter(item=>item==item.replace(/[ol](?=[s|b])/g,'x').replace(/&[ol]/,''));
+    return arr.filter(item=>{
+        var temp = item.replace(/[ol](?=[s|b])/g,'x').replace(/&[ol]/,'');
+        return sameList.includes(item)||item!=temp&&!sameList.includes(temp);
+    }).filter((item,idx,arr) => arr.indexOf(item) === idx);
+};
+
 // 通过ID获取世代数
 export function getGenById(id){
     var gMap = {'f':1,'m':1,'s':-1,'d':-1};
@@ -81,19 +90,26 @@ export function getItemsById(id){
         if(_data[key]){
             res.push(_data[key][0]);
         }else{
+            var ids = [];
             for(var i in _data){
                 if(i.replace(/&[ol]/g,'')==key){
-                    res.push(_data[i][0]);
+                     // res.push(_data[i][0]);
+                    ids.push(i);
                 }else{
                     while (key.match(/[ol](b|s)/)){
                         key = key.replace(/[ol](b|s)/,'x$1');
                         if(key==i){
-                            res.push(_data[i][0]);
+                             // res.push(_data[i][0]);
+                            ids.push(i);
                             break;
                         }
                     }
                 }
             }
+            res = filterId(ids).map(function(id){
+                return _data[id][0];
+            });
+
         }
         return res;
     };
