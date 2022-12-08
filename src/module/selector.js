@@ -8,6 +8,7 @@ import _similar from './rule/similar';
 import {zh2number} from './unit';
 import {reverseId,filterId,getGenById} from './id';
 import {modeData as _data} from './mode';
+import {quickSearch} from './search';
 
 // 获得最简
 var getOptimal = function(options){
@@ -70,6 +71,8 @@ var getOptimal = function(options){
     };
 };
 
+var search = new quickSearch(_data);
+
 // 中文获取选择器
 export function getSelectors(str){
     str = str.replace(/之/g,'的').replace(/吾之?(.+)/,'$1').replace(/我的?(.+)/,'$1');
@@ -123,24 +126,29 @@ export function getSelectors(str){
                 var x_name = name.replace(match[0],'几');
                 var r_name = name.replace(match[0],'');
                 var num = zh2number(match[0]);
-                for(var i in _data){
-                    var r_i = i.replace(/(,[hw])$/,'&'+num+'$1').replace(/([^hw]+)$/,'$1&'+num);
-                    if(_data[i].includes(x_name)){
+                var x_ids = search.getKeyByName(x_name);
+                var r_ids = search.getKeyByName(r_name);
+                var i_ids = search.getKeyByName(name);
+                if(x_ids.length){
+                    x_ids.forEach(function(i){
+                        var r_i = i.replace(/(,[hw])$/,'&'+num+'$1').replace(/([^hw]+)$/,'$1&'+num);
                         x_items.push(r_i);
-                    }else if(_data[i].includes(r_name)){
+                    });
+                }else if(r_ids.length){
+                    r_ids.forEach(function(i){
+                        var r_i = i.replace(/(,[hw])$/,'&'+num+'$1').replace(/([^hw]+)$/,'$1&'+num);
                         if(!i.match(/^[mf,]+$/)&&!r_name.match(/^[从世]/)){  // 直系祖辈不参与排序
                             r_items.push(r_i);
                         }
-                    }else if(_data[i].includes(name)){
+                    });
+                }else{
+                    i_ids.forEach(function(i){
+                        var r_i = i.replace(/(,[hw])$/,'&'+num+'$1').replace(/([^hw]+)$/,'$1&'+num);
                         i_items.push(r_i);
-                    }
+                    });
                 }
             }
-            for(var i in _data){
-                if(_data[i].includes(name)){
-                    items.push(i);
-                }
-            }
+            items = items.concat(search.getKeyByName(name));
         });
         // console.log('[keywords]',keywords);
         // 如找不到结果，再是否存在称呼的排行问题(不直接判断，因存在"大舅""三从父兄""三世祖"这样特俗含义的情况)

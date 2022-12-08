@@ -91,20 +91,15 @@ export function getItemsById(id){
             res.push(_data[key][0]);
         }else{
             var ids = [];
-            for(var i in _data){
-                if(i.replace(/&[ol]/g,'')==key){
-                     // res.push(_data[i][0]);
-                    ids.push(i);
-                }else{
-                    while (key.match(/[ol](b|s)/)){
-                        key = key.replace(/[ol](b|s)/,'x$1');
-                        if(key==i){
-                             // res.push(_data[i][0]);
-                            ids.push(i);
-                            break;
-                        }
-                    }
-                }
+            if(_data[key+'&o']){
+                ids.push(key+'&o');
+            }
+            if(_data[key+'&l']){
+                ids.push(key+'&l');
+            }
+            var k = key.replace(/[ol](b|s)/,'x$1');
+            if(_data[k]){
+                ids.push(k);
             }
             res = filterId(ids).map(function(id){
                 return _data[id][0];
@@ -162,17 +157,17 @@ export function getItemsById(id){
 };
 
 // 通过ID获取关系链
+var data = Object.assign({},_data,{
+    'xb':['兄弟'],
+    'xs':['姐妹']
+});
 export function getChainById(id,sex){
     var arr = id.split(',');
     var item = arr.map(function(sign){
         var key = sign.replace(/&[ol\d]+/,'');
-        var data = Object.assign({},_data,{
-            'xb':['兄弟'],
-            'xs':['姐妹']
-        });
         return data[key][0];
     }).join('的');
-    if(sex&&sex>-1&&_data[sex+','+id]){
+    if(sex&&sex>-1&&data[sex+','+id]){
         if(sex==0){
             item = '(女性)'+item;
         }else if(sex==1){

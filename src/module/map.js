@@ -11,47 +11,62 @@ import {
 } from './selector';
 
 var _map = Object.assign({},_multipie);
-
-// 分支前缀处理
-var prefixMap = {};
-for(var key in _prefix){
-    prefixMap[key] = {};
-    for(var selector in _prefix[key]){
-        expandSelector(selector).forEach(function(s){
-            prefixMap[key][s] = _prefix[key][selector];
-        });
-    }
-}
-
-// 分支关系
-for(var key in _branch){
-    var tag = key.match(/\{.+?\}/)[0];
-    var nameList = _branch[key];
-    for(var k in prefixMap[tag]){
-        var prefixList = prefixMap[tag][k];
-        var newKey = key.replace(tag,k);
-        var isFilter = ['h,h','w,w','w,h','h,w'].some(pair=>(newKey.includes(pair)));
-        var newList = [];
-        if(!isFilter){
-            prefixList.forEach(function(prefix){
-                nameList.forEach(function(name){
-                    if(name.includes('?')){
-                        newList.push(name.replace('?',prefix));
-                    }else{
-                        newList.push(prefix+name);
-                    }
+var getMap = function(prefixMap,branch){
+    var map = {};
+    for(var key in branch){
+        var tag = key.match(/\{.+?\}/)[0];
+        var nameList = branch[key];
+        for(var k in prefixMap[tag]){
+            var prefixList = prefixMap[tag][k];
+            var newKey = key.replace(tag,k);
+            var isFilter = ['h,h','w,w','w,h','h,w'].some(pair=>(newKey.includes(pair)));
+            var newList = [];
+            if(!isFilter){
+                prefixList.forEach(function(prefix){
+                    nameList.forEach(function(name){
+                        if(name.includes('?')){
+                            newList.push(name.replace('?',prefix));
+                        }else{
+                            newList.push(prefix+name);
+                        }
+                    });
                 });
-            });
-            _map[newKey] = [].concat(_map[newKey]||[],newList);
+                map[newKey] = [].concat(_map[newKey]||[],newList);
+            }
+        }
+    }
+    return map;
+};
+// 分支前缀处理
+var prefixMap1 = {};
+for(var key in _prefix){
+    prefixMap1[key] = {};
+    for(var selector in _prefix[key]){
+        if(selector.indexOf(']')==-1){
+            prefixMap1[key][selector] = _prefix[key][selector];
         }
     }
 }
+var prefixMap2 = {};
+for(var key in _prefix){
+    prefixMap2[key] = {};
+    for(var selector in _prefix[key]){
+        if(selector.indexOf(']')>-1){
+            expandSelector(selector).forEach(function(s){
+                prefixMap2[key][s] = _prefix[key][selector];
+            });
+        }
+    }
+}
+_map = Object.assign({},_map,getMap(prefixMap1,_branch),getMap(prefixMap2,_branch));
 // 主要关系
 for(var key in _main){
     _map[key] = [].concat(_main[key],_map[key]||[]);
 }
+
 // 版权彩蛋
 _map['o']=['passer-by.com','\u4f5c\u8005'];
+
 // 配偶关系
 var branch = {
     'w':['妻','内','岳','岳家','丈人'],
