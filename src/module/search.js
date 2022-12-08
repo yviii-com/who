@@ -1,4 +1,6 @@
-// 数据快速搜索
+/*
+ * 数据快速搜索
+*/
 export function quickSearch(map){
     var _ = this;
     var _cacheKey = {};
