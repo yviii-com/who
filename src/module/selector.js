@@ -7,17 +7,7 @@ import _similar from './rule/similar';
 
 import {zh2number} from './unit';
 import {reverseId,filterId,getGenById} from './id';
-import {modeData as _data} from './mode';
-
-var _cache = {};
-for(var key in _data){
-    _data[key].forEach(function(name){
-        if(typeof _cache[name]=='undefined'){
-            _cache[name] = [];
-        }
-        _cache[name].push(key);
-    });
-}
+import _cache from './cache';
 
 // 获得最简
 var getOptimal = function(options){
