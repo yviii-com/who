@@ -8,7 +8,16 @@ import _similar from './rule/similar';
 import {zh2number} from './unit';
 import {reverseId,filterId,getGenById} from './id';
 import {modeData as _data} from './mode';
-import {quickSearch} from './search';
+
+var _cache = {};
+for(var key in _data){
+    _data[key].forEach(function(name){
+        if(typeof _cache[name]=='undefined'){
+            _cache[name] = [];
+        }
+        _cache[name].push(key);
+    });
+}
 
 // 获得最简
 var getOptimal = function(options){
@@ -71,8 +80,6 @@ var getOptimal = function(options){
     };
 };
 
-var search = new quickSearch(_data);
-
 // 中文获取选择器
 export function getSelectors(str){
     str = str.replace(/之/g,'的').replace(/吾之?(.+)/,'$1').replace(/我的?(.+)/,'$1');
@@ -126,9 +133,9 @@ export function getSelectors(str){
                 var x_name = name.replace(match[0],'几');
                 var r_name = name.replace(match[0],'');
                 var num = zh2number(match[0]);
-                var x_ids = search.getKeyByName(x_name);
-                var r_ids = search.getKeyByName(r_name);
-                var i_ids = search.getKeyByName(name);
+                var x_ids = _cache[x_name]||[];
+                var r_ids = _cache[r_name]||[];
+                var i_ids = _cache[name]||[];
                 if(x_ids.length){
                     x_ids.forEach(function(i){
                         var r_i = i.replace(/(,[hw])$/,'&'+num+'$1').replace(/([^hw]+)$/,'$1&'+num);
@@ -148,7 +155,7 @@ export function getSelectors(str){
                     });
                 }
             }
-            items = items.concat(search.getKeyByName(name));
+            items = items.concat(_cache[name]||[]);
         });
         // console.log('[keywords]',keywords);
         // 如找不到结果，再是否存在称呼的排行问题(不直接判断，因存在"大舅""三从父兄""三世祖"这样特俗含义的情况)
