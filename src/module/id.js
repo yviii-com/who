@@ -91,20 +91,21 @@ export function getItemsById(id){
             res.push(_data[key][0]);
         }else{
             var ids = [];
-            if(_data[key+'&o']){
-                ids.push(key+'&o');
-            }
-            if(_data[key+'&l']){
-                ids.push(key+'&l');
-            }
             var k = key.replace(/[ol](b|s)/,'x$1');
+            if(_data[k]){
+                ids.push(k);
+            }
+            k = key.replace(/(.+)(,[hw])$/,'$1&o$2').replace(/(,[^hw])$/,'$1&o');
+            if(_data[k]){
+                ids.push(k);
+            }
+            k = key.replace(/(.+)(,[hw])$/,'$1&l$2').replace(/(,[^hw])$/,'$1&l');
             if(_data[k]){
                 ids.push(k);
             }
             res = filterId(ids).map(function(id){
                 return _data[id][0];
             });
-
         }
         return res;
     };
