@@ -75,7 +75,9 @@ export default {
         'm,m,xb,d':['舅表姨'],
         'm,m,xs,d':['姨姨','从母姨'],
         'f,[f|m],[f|m],[f,xs|m,xb],[s|d],[s|d],d':['重表姑'],
+        'f,[f|m],[f,xs|m,xb],[s|d],d':['重表姑'],
         'm,[f|m],[f|m],[f,xs|m,xb],[s|d],[s|d],d':['重表姨'],
+        'm,[f|m],[f,xs|m,xb],[s|d],d':['重表姨'],
     },
     '{G0}':{
         'xb':['侄'],
