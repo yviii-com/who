@@ -142,8 +142,11 @@ a:hover{
     box-shadow: 0 1px 5px 0 rgba(0,0,0,0.03);
 }
 .mod-panel .hd p{
-    line-height: 26px;
+    line-height: 24px;
     font-size: 15px;
+}
+.mod-panel .hd p.text-gray{
+    color: rgba(0,0,0,0.25);
 }
 .mod-panel .hd .picture{
     position: relative;
@@ -291,6 +294,7 @@ a:hover{
     cursor: pointer;
     outline: none;
     border-radius: 4px;
+    box-sizing: border-box;
 }
 .mod-panel .bd .btn:hover{
 	background: #e4e4e4;
