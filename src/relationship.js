@@ -33,7 +33,7 @@ var relationship = function (parameter){
                 sex:options.sex,
                 optimal:options.optimal
             }).forEach(function(data){
-                // console.log('[data]',from_selector,to_selector,data);
+                // console.log('[data]',from_selector,to_selector,options.optimal,data);
                 var ids = data?selector2id(data['selector'],data['sex']):[];
                 // console.log('[ids]',data['selector'],data['sex'],ids);
                 ids.forEach(function(id){

@@ -21,7 +21,12 @@ var getOptimal = function(options){
             sex = from_chain[i].match(/^([fhs1](&[ol\d]+)?|[olx]b)(&[ol\d]+)?/)?1:0;
             continue;
         }else{
-            if(getGenById(from_chain[i])==getGenById(to_chain[i])&&from_chain[i].match(/^[xol][bs]|^[sd]/)){
+            if(getGenById(from_chain[i])==getGenById(to_chain[i])&&from_chain[i].match(/^[xol][bs]|^[sd]/)&&to_chain[i].match(/^[xol][bs]|^[sd]/)){
+                var form_type = from_chain[i].replace(/&([ol\d]+)/,'').replace(/^[xol]([bs])/,'$1');
+                var to_type = to_chain[i].replace(/&([ol\d]+)/,'').replace(/^[xol]([bs])/,'$1');
+                if(form_type!=to_type){
+                    break;
+                }
                 var from_match = from_chain[i].match(/&([ol\d]+)/);
                 var to_match = to_chain[i].match(/&([ol\d]+)/);
                 if(!from_match){
