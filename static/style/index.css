@@ -477,6 +477,10 @@ a:hover{
 .mod-copy .bd .buttons{
     margin: 15px 0;
 }
+.mod-copy .bd .text-blue{
+    font-weight: bold;
+    color: #48aeff;
+}
 .mod-copy .bd .text-red{
     font-weight: bold;
     color: #fd7474;
