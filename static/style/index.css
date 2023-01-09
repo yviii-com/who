@@ -402,7 +402,7 @@ a:hover{
 }
 
 .mod-intro{
-    margin-bottom: 65px;
+    margin-bottom: 75px;
 }
 .mod-intro .hd{
     margin: 0 5px 5px;
@@ -442,7 +442,7 @@ a:hover{
 }
 
 .mod-article{
-    margin-bottom: 65px;
+    margin-bottom: 75px;
 }
 .mod-article .bd{
     position: relative;
@@ -472,7 +472,7 @@ a:hover{
 }
 
 .mod-app{
-    margin-bottom: 65px;
+    margin-bottom: 75px;
 }
 .mod-app .hd{
     margin: 0 5px 5px;
@@ -505,9 +505,34 @@ a:hover{
 }
 
 .mod-copy{
-    margin-bottom: 65px;
-    padding: 35px 0 45px;
+    position: relative;
+    margin-bottom: 125px;
+    padding: 15px 0 45px;
     background: rgb(246, 248, 250);
+}
+.mod-copy::before {
+    position: absolute;
+    left: 0;
+    top: -64px;
+    display: block;
+    content: '';
+    width: 0px;
+    border-color: #fff;
+    border-style: solid;
+    border-width: 0 98vw 64px 0;
+    border-bottom-color: rgb(246, 248, 250);
+}
+.mod-copy::after {
+    position: absolute;
+    right: 0;
+    bottom: -75px;
+    display: block;
+    content: '';
+    width: 0px;
+    border-color: #fff;
+    border-style: solid;
+    border-width: 75px 22vw 0 61.8vw;
+    border-top-color: rgb(233 236 240);
 }
 .mod-copy .hd{
     margin: 0 5px 5px;
