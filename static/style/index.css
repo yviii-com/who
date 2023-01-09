@@ -22,9 +22,7 @@ a:hover{
     text-decoration: underline;
 }
 
-.wrapper{
-    background: url('../image/bg.svg') center top repeat-x;
-}
+
 .header{
     margin-bottom: 15px;
 }
@@ -35,6 +33,62 @@ a:hover{
     max-width: 1000px;
     padding: 0 10px;
     margin: 0 auto;
+}
+
+.mod-bg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 500px;
+    width: 100%;
+    z-index: -1;
+    background: url('../image/bg.svg') center top repeat-x;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.mod-bg:after {
+    display: block;
+    width: 100%;
+    height: 360px;
+    content: '';
+    margin-bottom: -240px
+}
+.mod-bg .waves {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    min-height: 80px;
+    max-height: 120px;
+    z-index: 0
+}
+.mod-bg .parallax>use {
+    animation: move-forever 25s cubic-bezier(0.55, 0.5, 0.45, 0.1) infinite
+}
+.mod-bg .parallax>use:nth-child(1) {
+    animation-delay: -2s;
+    animation-duration: 7s
+}
+.mod-bg .parallax>use:nth-child(2) {
+    animation-delay: -3s;
+    animation-duration: 10s
+}
+.mod-bg .parallax>use:nth-child(3) {
+    animation-delay: -4s;
+    animation-duration: 13s
+}
+.mod-bg .parallax>use:nth-child(4) {
+    animation-delay: -5s;
+    animation-duration: 20s
+}
+@keyframes move-forever {
+    0% {
+        transform: translate3d(-90px, 0, 0)
+    }
+    100% {
+        transform: translate3d(85px, 0, 0)
+    }
 }
 
 .mod-head .bd{
@@ -151,7 +205,6 @@ a:hover{
 .mod-panel .hd .picture{
     position: relative;
     width: 400px;
-    padding-top: 15px;
     text-align: center;
 }
 .mod-panel .hd .picture img{
@@ -161,11 +214,11 @@ a:hover{
     display: inline-block;
     height: 36px;
     margin-top: -20px;
-    padding: 0 20px;
+    padding: 0 24px;
     background: #2095f2;
     border: 1px solid rgba(0,0,0,0.05);
-    border-radius: 6px;
-    line-height: 36px;
+    border-radius: 18px;
+    line-height: 34px;
     text-decoration: none;
     text-align: center;
     font-size: 15px;
@@ -368,10 +421,10 @@ a:hover{
     width: 33.33%;
 }
 .mod-intro .bd .item{
-    padding: 15px 12px;
+    padding: 15px;
     margin: 0 5px 10px;
     background: rgb(246, 248, 250);
-    border-radius: 5px;
+    border-radius: 12px;
 }
 .mod-intro .bd p{
     line-height: 22px;
