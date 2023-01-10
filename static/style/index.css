@@ -695,7 +695,7 @@ a:hover{
     }
 
     .mod-intro{
-        margin-bottom: 25px;
+        margin-bottom: 35px;
     }
     .mod-intro .bd li{
         float: none;
@@ -706,7 +706,7 @@ a:hover{
     }
 
     .mod-article{
-        margin-bottom: 25px;
+        margin-bottom: 55px;
     }
     .mod-article .bd{
         padding: 15px 0;
@@ -736,11 +736,16 @@ a:hover{
 
     .mod-copy{
         padding: 15px 0 25px;
-        margin-bottom: 25px;
+        margin-bottom: 55px;
     }
     .mod-copy .bd p{
         line-height: 22px;
         font-size: 14px;
+    }
+
+    .mod-copy::after {
+        bottom: -45px;
+        border-width: 45px 22vw 0 61.8vw;
     }
 }
 
