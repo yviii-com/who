@@ -23,7 +23,7 @@
         <rect id="path-7" x="0" y="259" width="1440" height="189"></rect>
         <linearGradient x1="54.7550093%" y1="16.6478641%" x2="54.7550093%" y2="112.331979%" id="linearGradient-8">
             <stop stop-color="#FFFFFF" stop-opacity="0" offset="0%"></stop>
-            <stop stop-color="#D2ECFF" stop-opacity="0.225387893" offset="100%"></stop>
+            <stop stop-color="#84c1ec" stop-opacity="0.225387893" offset="100%"></stop>
         </linearGradient>
     </defs>
     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
