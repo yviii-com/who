@@ -77,7 +77,7 @@ for(var key in _map){
     if(key.match(/^[fm]/)||key.match(/^[olx][bs]$|^[olx][bs],[^mf]/)){      // 只对长辈或者兄弟辈匹配
         for(var k in branch){
             var newKey = k+','+key;
-            if(_map[newKey.replace(/,[ol]([sb])(,[wh])?$/,',x$1$2')]){       // 不扩大解释年龄
+            if(_map[newKey.replace(/,[ol]([sb])(,[wh])?$/,',x$1$2').replace(/(,[sd])&[ol](,[wh])?$/,'$1$2')]){       // 不扩大解释年龄
                 continue;
             }
             if(!_map[newKey]){
