@@ -4,8 +4,8 @@
 import _expression from './rule/expression';
 
 export function getOptions(text){
-    for(var item of _expression){
-        var match = text.match(item['exp']);
+    for(let item of _expression){
+        let match = text.match(item['exp']);
         if(match){
             return item['opt'](match);
         }

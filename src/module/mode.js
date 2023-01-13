@@ -3,8 +3,8 @@
 */
 import _map from './map';
 
-var _mode = {};                             // 模式缓存
-var _data = Object.assign({},_map);         // 最终数据
+let _mode = {};                             // 模式缓存
+let _data = Object.assign({},_map);         // 最终数据
 
 // 设置模式数据
 export function setModeData(sign,data){
@@ -15,7 +15,7 @@ export function setModeData(sign,data){
 export function getModeData(sign){
     _data = Object.assign({},_map);
     if(sign&&_mode[sign]){
-        for(var key in _mode[sign]){
+        for(let key in _mode[sign]){
             _data[key] = [].concat(_mode[sign][key],_map[key]||[]);
         }
     }
