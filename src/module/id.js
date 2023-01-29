@@ -86,28 +86,19 @@ export function getGenById(id){
 export function getItemsById(id){
     let items = [];
     let getData = function(key){
-        let res = [];
+        let ids = [];
         if(_data[key]){
-            res.push(_data[key][0]);
-        }else{
-            let ids = [];
-            let k = key.replace(/[ol](b|s)/,'x$1');
-            if(_data[k]){
-                ids.push(k);
+            let k1 = key.replace(/(,[sd])(,[wh])?$/,'$1&o$2');
+            let k2 = key.replace(/(,[sd])(,[wh])?$/,'$1&l$2');
+            if(_data[k1]&&_data[k2]){
+                ids = [k1,k2];
+            }else{
+                ids = [key];
             }
-            k = key.replace(/(.+)(,[hw])$/,'$1&o$2').replace(/(,[^hw])$/,'$1&o');
-            if(_data[k]){
-                ids.push(k);
-            }
-            k = key.replace(/(.+)(,[hw])$/,'$1&l$2').replace(/(,[^hw])$/,'$1&l');
-            if(_data[k]){
-                ids.push(k);
-            }
-            res = filterId(ids).map(function(id){
-                return _data[id][0];
-            });
         }
-        return res;
+        return filterId(ids).map(function(id){
+            return _data[id][0];
+        });
     };
     // 对排序进行处理
     if(id.match(/&([\d]+)(,[hw])?$/)){
