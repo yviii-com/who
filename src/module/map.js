@@ -20,8 +20,8 @@ let getMap = function(prefixMap,branch){
             let prefixList = prefixMap[tag][k];
             let newKey = key.replace(tag,k);
             let isFilter = ['h,h','w,w','w,h','h,w'].some(pair=>(newKey.includes(pair)));
-            let newList = [];
             if(!isFilter){
+                let newList = [];
                 prefixList.forEach(function(prefix){
                     nameList.forEach(function(name){
                         if(name.includes('?')){
@@ -31,7 +31,10 @@ let getMap = function(prefixMap,branch){
                         }
                     });
                 });
-                map[newKey] = [].concat(_map[newKey]||[],newList);
+                if(!map[newKey]){
+                    map[newKey] = _map[newKey]||[];
+                }
+                map[newKey] = newList.concat(map[newKey]);
             }
         }
     }
