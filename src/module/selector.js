@@ -121,7 +121,8 @@ export function getSelectors(str){
         // 通过关键词找关系
         let items_map = [[],[],[]];
         keywords.forEach(function(name){
-            let match = name.replace(/^[尕幺细满碎晚末尾幼]/,'小').match(/^[大|小]|^[一|二|三|四|五|六|七|八|九|十]+/);
+            name = name.replace(/^[尕幺细满碎晚末尾幼]/,'小');
+            let match = name.match(/^[大|小]|^[一|二|三|四|五|六|七|八|九|十]+/);
             if(match){  // 匹配排序
                 let x_name = name.replace(match[0],'几');
                 let r_name = name.replace(match[0],'');
