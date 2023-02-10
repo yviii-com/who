@@ -93,9 +93,6 @@ export function getSelectors(str){
     while(lists.length){
         let name = lists.shift();           //当前匹配词
         let items = [];                     //当前匹配词可能性
-        let x_items = [];
-        let r_items = [];
-        let i_items = [];
         let keywords = [name];
         let getList = function(name){
             // 词义扩展
@@ -122,47 +119,35 @@ export function getSelectors(str){
         };
         getList(name);
         // 通过关键词找关系
+        let items_map = [[],[],[]];
         keywords.forEach(function(name){
+            name = name.replace(/^[尕幺细满碎晚末尾幼]/,'小');
             let match = name.match(/^[大|小]|^[一|二|三|四|五|六|七|八|九|十]+/);
-            if(match){
+            if(match){  // 匹配排序
                 let x_name = name.replace(match[0],'几');
                 let r_name = name.replace(match[0],'');
                 let num = zh2number(match[0]);
-                let x_ids = _cache[x_name]||[];
-                let r_ids = _cache[r_name]||[];
-                let i_ids = _cache[name]||[];
-                if(x_ids.length){
-                    x_ids.forEach(function(i){
-                        let r_i = i.replace(/(,[hw])$/,'&'+num+'$1').replace(/([^hw]+)$/,'$1&'+num);
-                        x_items.push(r_i);
-                    });
-                }else if(r_ids.length){
-                    r_ids.forEach(function(i){
-                        let r_i = i.replace(/(,[hw])$/,'&'+num+'$1').replace(/([^hw]+)$/,'$1&'+num);
-                        if(!i.match(/^[mf,]+$/)&&!r_name.match(/^[从世]/)){  // 直系祖辈不参与排序
-                            r_items.push(r_i);
-                        }
-                    });
-                }else{
-                    i_ids.forEach(function(i){
-                        let r_i = i.replace(/(,[hw])$/,'&'+num+'$1').replace(/([^hw]+)$/,'$1&'+num);
-                        i_items.push(r_i);
-                    });
-                }
+                [x_name,r_name,name].forEach(function(name,index){
+                    let ids = _cache[name];
+                    if(ids&&ids.length){
+                        ids.forEach(function(i){
+                            let id = i.replace(/(,[hw])$/,'&'+num+'$1').replace(/([^hw]+)$/,'$1&'+num);
+                            if(!i.match(/^[mf,]+$/)&&!name.match(/^[从世]/)){  // 直系祖辈不参与排序
+                                items_map[index].push(id);
+                            }
+                        });
+                    }
+                });
             }
             items = items.concat(_cache[name]||[]);
         });
         // console.log('[keywords]',keywords);
         // 如找不到结果，再是否存在称呼的排行问题(不直接判断，因存在"大舅""三从父兄""三世祖"这样特俗含义的情况)
-        if(!items.length){
-            items = x_items;
-        }
-        if(!items.length){
-            items = r_items;
-        }
-        if(!items.length){
-            items = i_items;
-        }
+        items_map.forEach(function(items_x){
+            if(!items.length){
+                items = items_x;
+            }
+        });
         // 完全匹配不到结果
         if(!items.length){
             isMatch = false;
