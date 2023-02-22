@@ -27,7 +27,7 @@ var relationship = function (parameter){
     // console.log('[selectors]',from_selectors,to_selectors);
     from_selectors.forEach(function(from_selector){
         to_selectors.forEach(function(to_selector){
-             mergeSelector({
+            mergeSelector({
                 from:from_selector,
                 to:to_selector,
                 sex:options.sex,
@@ -73,6 +73,7 @@ var relationship = function (parameter){
             });
         });
     });
+    // console.log('[result]',result);
     return [...new Set(result)];
 };
 

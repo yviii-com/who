@@ -163,7 +163,7 @@ export function getSelectors(str){
         });
         result = res;
     }
-    return isMatch?result:[];
+    return isMatch?filterId(result):[];
 };
 
 // 合并选择器，查找两个对象之间的关系
