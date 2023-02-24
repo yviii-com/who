@@ -51,7 +51,7 @@ test('[type:pair]', function (t) {
     t.deepEqual(relationship({text:'舅妈',target:'哥哥',type:'pair'}),['舅甥']);
     t.deepEqual(relationship({text:'舅妈',target:'外婆',type:'pair'}),['婆媳']);
     t.deepEqual(relationship({text:'舅妈',target:'二舅',type:'pair'}),['叔嫂','夫妻']);
-    t.deepEqual(relationship({text:'堂哥',target:'叔叔',type:'pair'}),['叔侄','父子']);
+    t.deepEqual(relationship({text:'堂哥',target:'叔叔',type:'pair'}),['伯侄', '叔侄', '父子']);
     t.end();
 });
 test('[age]', function (t) {
