@@ -80,9 +80,11 @@ for(let key in _map){
     if(key.match(/^[fm]/)||key.match(/^[olx][bs]$|^[olx][bs],[^mf]/)){      // 只对长辈或者兄弟辈匹配
         for(let k in branch){
             let newKey = k+','+key;
-            let newKey_x = newKey.replace(/,[ol]([sb])(,[wh])?$/,',x$1$2').replace(/(,[sd])&[ol](,[wh])?$/,'$1$2');
-            if(newKey_x!=newKey&&_map[newKey_x]){       // 不扩大解释年龄
-                continue;
+            if(key.match(/[fm]/)){
+                let newKey_x = newKey.replace(/,[ol]([sb])(,[wh])?$/,',x$1$2').replace(/(,[sd])&[ol](,[wh])?$/,'$1$2');
+                if(newKey_x!=newKey&&_map[newKey_x]){       // 不扩大解释年龄
+                    continue;
+                }
             }
             if(!_map[newKey]){
                 _map[newKey] = [];
