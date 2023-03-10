@@ -2,6 +2,7 @@
     "name": "relationship.js",
     "version": "1.2.3",
     "description": "Chinese kinship library",
+    "homepage": "https://passer-by.com/relationship/",
     "author": "HaoLe Zheng",
     "license": "MIT",
     "keywords": [
@@ -9,7 +10,7 @@
         "relationship.js",
         "chinese",
         "family",
-        "relationship",
+        "kinship",
         "家庭亲戚称谓",
         "亲戚关系算法"
     ],
@@ -33,7 +34,6 @@
         "test": "node test/index.js",
         "build": "gulp && npm run test"
     },
-    "homepage": "https://passer-by.com/relationship/",
     "directories": {
         "test": "test"
     }
