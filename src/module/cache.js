@@ -1,7 +1,10 @@
 /*
  * 缓存数据
 */
-import {modeData as _data} from './mode';
+import inputData from './data/input';
+import {modeData} from './mode';
+
+let _data = Object.assign({},modeData,inputData);
 
 let _cache = {};
 for(let key in _data){
