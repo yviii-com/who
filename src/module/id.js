@@ -5,7 +5,7 @@ import _pair from './data/pair';
 
 import {number2zh} from './unit';
 import {selector2id} from './selector';
-import {modeData as _data} from './mode';
+import {modeData} from './mode';
 
 // 逆转ID
 export function reverseId(id,sex){
@@ -87,17 +87,17 @@ export function getItemsById(id){
     let items = [];
     let getData = function(key){
         let ids = [];
-        if(_data[key]){
+        if(modeData[key]){
             let k1 = key.replace(/(,[sd])(,[wh])?$/,'$1&o$2');
             let k2 = key.replace(/(,[sd])(,[wh])?$/,'$1&l$2');
-            if(_data[k1]&&_data[k2]){
+            if(modeData[k1]&&modeData[k2]){
                 ids = [k1,k2];
             }else{
                 ids = [key];
             }
         }
         return filterId(ids).map(function(id){
-            return _data[id][0];
+            return modeData[id][0];
         });
     };
     // 对排序进行处理
@@ -105,20 +105,20 @@ export function getItemsById(id){
         let num = id.match(/&([\d]+)(,[hw])?$/)[1];
         let zh = number2zh(num);
         id = id.replace(/&\d+/g,'');
-        if(_data[id]){
+        if(modeData[id]){
             let item = '';
             let gen = getGenById(id);
             if(gen<3&&!id.match(/[hw],/)){
-                _data[id].forEach(function(name){
+                modeData[id].forEach(function(name){
                     if(!item&&name.includes('几')){
                         item = name.replace('几',zh);
                     }
                 });
                 if(!item){
-                    item = _data[id][0].match(/^[大小]/)?_data[id][0].replace(/^[大小]/,zh):zh+_data[id][0];
+                    item = modeData[id][0].match(/^[大小]/)?modeData[id][0].replace(/^[大小]/,zh):zh+modeData[id][0];
                 }
             }else{
-                item = _data[id][0]
+                item = modeData[id][0]
             }
             items.push(item);
         }
@@ -149,7 +149,7 @@ export function getItemsById(id){
 };
 
 // 通过ID获取关系链
-let data = Object.assign({},_data,{
+let data = Object.assign({},modeData,{
     'xb':['兄弟'],
     'xs':['姐妹']
 });

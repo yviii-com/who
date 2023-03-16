@@ -1,19 +1,20 @@
 /*
  * 缓存数据
 */
-import inputData from './data/input';
+import _input from './data/input';
+
 import {modeData} from './mode';
 
-let _data = Object.assign({},modeData,inputData);
+let _hash = Object.assign({},modeData,_input);
+let cacheData = {};
 
-let _cache = {};
-for(let key in _data){
-    _data[key].forEach(function(name){
-        if(typeof _cache[name]=='undefined'){
-            _cache[name] = [];
+for(let key in _hash){
+    _hash[key].forEach(function(name){
+        if(typeof cacheData[name]=='undefined'){
+            cacheData[name] = [];
         }
-        _cache[name].push(key);
+        cacheData[name].push(key);
     });
 }
 
-export default _cache;
+export {cacheData};

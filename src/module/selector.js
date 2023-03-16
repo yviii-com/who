@@ -7,7 +7,7 @@ import _similar from './rule/similar';
 
 import {zh2number} from './unit';
 import {reverseId,filterId,getGenById} from './id';
-import _cache from './cache';
+import {cacheData} from './cache';
 
 // 获得最简
 let getOptimal = function(options){
@@ -128,7 +128,7 @@ export function getSelectors(str){
                 let r_name = name.replace(match[0],'');
                 let num = zh2number(match[0]);
                 [x_name,r_name,name].forEach(function(name,index){
-                    let ids = _cache[name];
+                    let ids = cacheData[name];
                     if(ids&&ids.length){
                         ids.forEach(function(i){
                             let id = i.replace(/(,[hw])$/,'&'+num+'$1').replace(/([^hw]+)$/,'$1&'+num);
@@ -139,7 +139,7 @@ export function getSelectors(str){
                     }
                 });
             }
-            items = items.concat(_cache[name]||[]);
+            items = items.concat(cacheData[name]||[]);
         });
         // console.log('[keywords]',keywords);
         // 如找不到结果，再是否存在称呼的排行问题(不直接判断，因存在"大舅""三从父兄""三世祖"这样特俗含义的情况)

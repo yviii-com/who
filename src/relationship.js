@@ -3,8 +3,6 @@ import {getSelectors,mergeSelector,selector2id} from './module/selector';
 import {reverseId,getItemsById,getChainById,getPairsById} from './module/id';
 import {setModeData,getModeData,modeData} from './module/mode';
 
-let _data = modeData;
-
 // 对外方法
 let relationship = function (parameter){
     if(typeof parameter =='string'){
@@ -19,7 +17,9 @@ let relationship = function (parameter){
         mode:'default',     // 模式选择：使用setMode方法定制不同地区模式，在此选择自定义模式
         optimal:false       // 最短关系：计算两者之间的最短关系
     },parameter);
-    _data = getModeData(options.mode);
+    // 切换模式
+    getModeData(options.mode);
+
     let from_selectors = getSelectors(options.text);
     let to_selectors = getSelectors(options.target);
     if(!to_selectors.length){
@@ -80,9 +80,9 @@ let relationship = function (parameter){
 };
 
 // 获取数据表
-relationship.data = _data;
+relationship.data = modeData;
 // 获取数据量
-relationship.dataCount = Object.keys(_data).length;
+relationship.dataCount = Object.keys(modeData).length;
 // 设置语言模式
 relationship.setMode = setModeData;
 

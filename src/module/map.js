@@ -6,9 +6,7 @@ import _branch from './data/branch';
 import _main from './data/main';
 import _multipie from './data/multiple';
 
-import {
-    expandSelector
-} from './selector';
+import {expandSelector} from './selector';
 
 let _map = Object.assign({},_multipie);
 let getMap = function(prefixMap,branch){
