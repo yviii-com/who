@@ -3,7 +3,7 @@ var test = require('tape');
 var relationship = require('..');
 
 test('[call]', function (t) {
-    // console.log('[test]',relationship({text:'内侄'}));
+    // console.log('[test]',relationship({text:'爸爸的妈妈的姐姐的儿子'}));
 
     t.deepEqual(relationship({text:'爸爸的哥哥的弟弟的儿子'}),['堂哥','堂弟','哥哥','弟弟','自己']);
     t.deepEqual(relationship({text:'爸爸的妹妹的女儿的老公'}),['姑表姐夫','姑表妹夫']);
@@ -21,6 +21,7 @@ test('[call]', function (t) {
     t.deepEqual(relationship({text:'堂兄弟的孩子',sex:1}),['堂侄','堂侄女']);
     t.deepEqual(relationship({text:'儿子的爸爸的妈妈',sex:1}),['妈妈']);
     t.deepEqual(relationship({text:'岳母的配偶的孩子的爸爸'}),['岳父']);
+    t.deepEqual(relationship({text:'爸爸的妈妈的姐姐的儿子'}),['姨伯父','姨叔父']);
     t.end();
 });
 test('[target]', function (t) {

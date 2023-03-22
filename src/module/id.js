@@ -87,16 +87,14 @@ export function getItemsById(id){
     let items = [];
     let getData = function(key){
         let ids = [];
-        if(modeData[key]){
-            let k1 = key.replace(/(,[sd])(,[wh])?$/,'$1&o$2');
-            let k2 = key.replace(/(,[sd])(,[wh])?$/,'$1&l$2');
-            if(modeData[k1]&&modeData[k2]){
-                ids = [k1,k2];
-            }else{
-                ids = [key];
-            }
+        let k1 = key.replace(/(,[sd])(,[wh])?$/,'$1&o$2');
+        let k2 = key.replace(/(,[sd])(,[wh])?$/,'$1&l$2');
+        if(modeData[k1]&&modeData[k2]){
+            ids = [k1,k2];
+        }else if(modeData[key]){
+            ids = [key];
         }
-        return filterId(ids).map(function(id){
+        return filterId(ids).filter(id=>modeData[id]).map(function(id){
             return modeData[id][0];
         });
     };
