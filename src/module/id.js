@@ -94,7 +94,7 @@ export function getItemsById(id){
         }else if(modeData[key]){
             ids = [key];
         }
-        return filterId(ids).filter(id=>modeData[id]).map(function(id){
+        return filterId(ids).map(function(id){
             return modeData[id][0];
         });
     };
