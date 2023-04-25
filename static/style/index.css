@@ -682,14 +682,21 @@ a:hover{
         width: auto;
         padding-top: 0;
     }
+    .mod-panel .hd .mobile{
+        width: auto;
+    }
     .mod-panel .hd .picture img{
         width: 256px;
         height: 160px;
         margin-left: 0;
     }
-    .mod-panel .hd .picture .btn{
+    .mod-panel .hd .btn{
         display: block;
         margin: 0 auto;
+    }
+    .mod-panel .hd .btn span.name{
+        padding-right: 0;
+        background: none;
     }
     .mod-panel .bd{
         margin-left: 0;
