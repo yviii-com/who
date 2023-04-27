@@ -214,7 +214,6 @@ a:hover{
     position: relative;
     display: inline-block;
     height: 36px;
-    margin-top: -20px;
     padding: 0 24px;
     background: #2095f2;
     border: 1px solid rgba(0,0,0,0.05);
@@ -240,20 +239,20 @@ a:hover{
     right: -160px;
     top: 50%;
     z-index:999;
-    width: 150px;
-    height: 150px;
-    padding: 5px;
-    background: #fff;
-    margin-top: -85px;
+    width: 160px;
+    height: 160px;
+    margin-top: -84px;
     border: 2px solid rgba(0,0,0,0.1);
 }
 .mod-panel .hd .btn span.qrcode img{
     width: 150px;
     height: 150px;
+    padding: 5px;
+    background: #fff;
 }
 .mod-panel .hd .btn span.qrcode::after{
     position: absolute;
-    left: -8px;
+    left: -6px;
     top: 50%;
     margin-top: -6px;
     display: block;
@@ -261,8 +260,7 @@ a:hover{
     width: 12px;
     height: 12px;
     background: #fff;
-    border-left: 2px solid rgba(0,0,0,0.1);
-    border-bottom: 2px solid rgba(0,0,0,0.1);
+    box-shadow: -2px 2px 0 rgba(0,0,0,0.1);
     transform: rotate(45deg);
 }
 .mod-panel .hd .btn:hover {
@@ -697,6 +695,9 @@ a:hover{
     .mod-panel .hd .btn span.name{
         padding-right: 0;
         background: none;
+    }
+    .mod-panel .hd .btn span.qrcode{
+        display: none!important;
     }
     .mod-panel .bd{
         margin-left: 0;
