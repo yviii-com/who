@@ -202,7 +202,7 @@ a:hover{
 .mod-panel .hd p.text-gray{
     color: rgba(0,0,0,0.25);
 }
-.mod-panel .hd .picture{
+.mod-panel .hd .picture,.mod-panel .hd .mobile{
     position: relative;
     width: 400px;
     text-align: center;
@@ -210,10 +210,10 @@ a:hover{
 .mod-panel .hd .picture img{
     margin-left: -56px;
 }
-.mod-panel .hd .picture .btn{
+.mod-panel .hd .btn{
+    position: relative;
     display: inline-block;
     height: 36px;
-    margin-top: -20px;
     padding: 0 24px;
     background: #2095f2;
     border: 1px solid rgba(0,0,0,0.05);
@@ -223,14 +223,51 @@ a:hover{
     text-align: center;
     font-size: 15px;
     color: #fff;
-    overflow: hidden;
     transition: color .2s,opacity .2s;
     font-family: Tahoma,Arial, Helvetica,"Microsoft YaHei";
     outline: none;
     -webkit-appearance: none;
 }
-.mod-panel .hd .picture .btn:hover {
+.mod-panel .hd .btn span.name{
+    display: inline-block;
+    padding-right: 30px;
+    background: url('../image/scan.png') right center / 16px 16px no-repeat;
+}
+.mod-panel .hd .btn span.qrcode{
+    display: none;
+    position: absolute;
+    right: -160px;
+    top: 50%;
+    z-index:999;
+    width: 160px;
+    height: 160px;
+    margin-top: -84px;
+    border: 2px solid rgba(0,0,0,0.1);
+}
+.mod-panel .hd .btn span.qrcode img{
+    width: 150px;
+    height: 150px;
+    padding: 5px;
+    background: #fff;
+}
+.mod-panel .hd .btn span.qrcode::after{
+    position: absolute;
+    left: -6px;
+    top: 50%;
+    margin-top: -6px;
+    display: block;
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    box-shadow: -2px 2px 0 rgba(0,0,0,0.1);
+    transform: rotate(45deg);
+}
+.mod-panel .hd .btn:hover {
     background: #207fcc;
+}
+.mod-panel .hd .btn:hover span.qrcode{
+    display: block;
 }
 .mod-panel .hd b{
 	margin: 0 3px;
@@ -643,14 +680,24 @@ a:hover{
         width: auto;
         padding-top: 0;
     }
+    .mod-panel .hd .mobile{
+        width: auto;
+    }
     .mod-panel .hd .picture img{
         width: 256px;
         height: 160px;
         margin-left: 0;
     }
-    .mod-panel .hd .picture .btn{
+    .mod-panel .hd .btn{
         display: block;
         margin: 0 auto;
+    }
+    .mod-panel .hd .btn span.name{
+        padding-right: 0;
+        background: none;
+    }
+    .mod-panel .hd .btn span.qrcode{
+        display: none!important;
     }
     .mod-panel .bd{
         margin-left: 0;
