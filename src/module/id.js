@@ -73,9 +73,8 @@ export function filterId(arr){
 // 通过ID获取世代数
 export function getGenById(id){
     let gMap = {'f':1,'m':1,'s':-1,'d':-1};
-    let arr = id.split(',');
     let gen = 0;
-    arr.forEach(function(sub){
+    id.split(',').forEach(function(sub){
         let s = sub.replace(/&[ol\d]+/,'');
         gen += gMap[s]||0;
     });
