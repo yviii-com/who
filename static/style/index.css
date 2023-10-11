@@ -627,13 +627,13 @@ a:hover{
 }
 .mod-foot .box{
     width: 200px;
-    height: 180px;
     margin: 0 auto 20px;
     line-height: 30px;
     text-align: center;
     overflow: hidden;
 }
 .mod-foot p{
+    margin-bottom: 10px;
     line-height: 30px;
 }
 
