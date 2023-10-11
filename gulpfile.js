@@ -3,7 +3,6 @@ const rename = require("gulp-rename");
 const cht = require('gulp-cht');
 const rollup = require('rollup');
 const terser = require('@rollup/plugin-terser');
-const terser = require('@rollup/plugin-terser');
 const resolve = require('@rollup/plugin-node-resolve');
 const babel = require('@rollup/plugin-babel');
 const pkg = require('./package');
