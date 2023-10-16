@@ -39,27 +39,20 @@ let getMap = function(prefixMap,branch){
     return map;
 };
 // 分支前缀处理
-let prefixMap1 = {};
+let prefixMap = {};
 for(let key in _prefix){
-    prefixMap1[key] = {};
+    prefixMap[key] = {};
     for(let selector in _prefix[key]){
         if(selector.indexOf(']')==-1){
-            prefixMap1[key][selector] = _prefix[key][selector];
-        }
-    }
-}
-let prefixMap2 = {};
-for(let key in _prefix){
-    prefixMap2[key] = {};
-    for(let selector in _prefix[key]){
-        if(selector.indexOf(']')>-1){
+            prefixMap[key][selector] = _prefix[key][selector];
+        }else{
             expandSelector(selector).forEach(function(s){
-                prefixMap2[key][s] = _prefix[key][selector];
+                prefixMap[key][s] = _prefix[key][selector];
             });
         }
     }
 }
-_map = Object.assign({},_map,getMap(prefixMap1,_branch),getMap(prefixMap2,_branch));
+_map = Object.assign({},_map,getMap(prefixMap,_branch));
 // 主要关系
 for(let key in _main){
     _map[key] = [].concat(_main[key],_map[key]||[]);

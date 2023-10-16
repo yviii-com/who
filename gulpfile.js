@@ -8,10 +8,10 @@ const babel = require('@rollup/plugin-babel');
 const pkg = require('./package');
 
 // copyright
-var repository = pkg.repository.url.replace(/(.+)(:\/\/.+)\.git$/,'https$2');
-var now = new Date();
-var date = (new Date(now.getTime()-now.getTimezoneOffset()*60000)).toISOString().substr(0,10);
-var banner = `/*!
+let repository = pkg.repository.url.replace(/(.+)(:\/\/.+)\.git$/,'https$2');
+let now = new Date();
+let date = (new Date(now.getTime()-now.getTimezoneOffset()*60000)).toISOString().substr(0,10);
+let banner = `/*!
  * ${pkg.name} v${pkg.version}
  * ${pkg.description}
  * ${pkg.homepage}
