@@ -3,6 +3,8 @@ const rename = require("gulp-rename");
 const cht = require('gulp-cht');
 const rollup = require('rollup');
 const terser = require('@rollup/plugin-terser');
+const resolve = require('@rollup/plugin-node-resolve');
+const babel = require('@rollup/plugin-babel');
 const pkg = require('./package');
 
 // copyright
@@ -26,7 +28,12 @@ gulp.task('build', () => {
     return rollup.rollup({
         input: './src/relationship.js',
         plugins: [
-            terser()
+            terser(),
+            resolve(),
+            babel({
+                babelHelpers: 'runtime',
+                exclude:'node_modules/**'
+            })
         ]
     }).then(bundle => {
         return bundle.write({
@@ -42,7 +49,12 @@ gulp.task('mode', () => {
     return rollup.rollup({
         input: './src/relationship-mode.js',
         plugins: [
-            terser()
+            terser(),
+            resolve(),
+            babel({
+                babelHelpers: 'runtime',
+                exclude:'node_modules/**'
+            })
         ]
     }).then(bundle => {
         return bundle.write({
