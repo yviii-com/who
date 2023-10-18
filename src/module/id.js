@@ -151,8 +151,7 @@ let data = Object.assign({},modeData,{
     'xs':['姐妹']
 });
 export function getChainById(id,sex){
-    let arr = id.split(',');
-    let item = arr.map(function(sign){
+    let item = id.split(',').map(function(sign){
         let key = sign.replace(/&[ol\d]+/,'');
         return data[key][0];
     }).join('的');

@@ -2,7 +2,6 @@
  * 缓存数据
 */
 import _input from './data/input';
-
 import {modeData} from './mode';
 
 let _hash = Object.assign({},modeData,_input);
