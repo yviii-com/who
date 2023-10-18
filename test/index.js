@@ -39,7 +39,7 @@ test('[reverse]', function (t) {
     t.end();
 });
 test('[filter]', function (t) {
-    t.deepEqual(relationship({text:'内侄'}),['舅侄男','舅侄女']);
+    t.deepEqual(relationship({text:'内侄'}),['舅侄','舅侄女']);
     t.end();
 });
 test('[type:chain]', function (t) {
