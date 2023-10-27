@@ -25,4 +25,4 @@ jobs:
     - name: Build
       run: |
         npm install
-        npn run build
+        npm run build
