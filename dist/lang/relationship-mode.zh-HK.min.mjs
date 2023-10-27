@@ -1,5 +1,5 @@
 /*!
- * relationship.js v1.2.3
+ * relationship.js v1.2.4
  * Chinese kinship library
  * https://passer-by.com/relationship/
  *
