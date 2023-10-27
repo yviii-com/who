@@ -1,4 +1,3 @@
-[![Build Status](https://travis-ci.org/mumuy/relationship.svg?branch=gh-pages)](https://travis-ci.org/mumuy/relationship/)
 
 由于工作生活节奏不同，如今很多关系稍疏远的亲戚之间来往并不多。因此放假回家过年时，往往会搞不清楚哪位亲戚应该喊什么称呼，很是尴尬。然而搞不清亲戚关系和亲戚称谓的不仅是小孩，就连年轻一代的大人也都常常模糊混乱。
 
