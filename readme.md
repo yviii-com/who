@@ -12,7 +12,7 @@
 
 脚本库可以用于浏览器，也可以用于 Nodejs 环境中。
 
-1. 直接在页面中引入 `<script type="text/javascript" src="https://passer-by.com/relationship/dist/relationship.min.js">`
+1. 在网页中引入 `<script src="https://passer-by.com/relationship/dist/relationship.min.js">`
 
    获取全局方法 `relationship`
    
@@ -20,7 +20,7 @@
 
 	> **npm install relationship.js**
 
-	在相应页面中引入模块
+	在脚本中引入模块
 
 	```js
 	// CommonJS 引入
