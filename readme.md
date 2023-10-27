@@ -19,6 +19,8 @@
 
 然后使用 `require` 引入模块
 
+![npm](https://img.shields.io/npm/v/relationship.js)  ![npm](https://img.shields.io/npm/dw/relationship.js)
+
 ```js
 var relationship = require("relationship.js");
 ```
