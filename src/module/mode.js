@@ -1,7 +1,7 @@
 /*
  * 模式数据
 */
-import _map from './map';
+import _map from './map.js';
 
 let _mode = {};                             // 模式缓存
 let modeData = Object.assign({},_map);      // 最终数据

@@ -1,13 +1,13 @@
 /*
  * 选择器 - 非唯一性关系链，将【中文表述】转换为【关系链】
 */
-import _filter from './rule/filter';
-import _replace from './rule/replace';
-import _similar from './rule/similar';
+import _filter from './rule/filter.js';
+import _replace from './rule/replace.js';
+import _similar from './rule/similar.js';
 
-import {zh2number} from './unit';
-import {reverseId,filterId,getGenById} from './id';
-import {cacheData} from './cache';
+import {zh2number} from './unit.js';
+import {reverseId,filterId,getGenById} from './id.js';
+import {cacheData} from './cache.js';
 
 // 获得最简
 let getOptimal = function(options){

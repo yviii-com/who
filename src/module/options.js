@@ -1,7 +1,7 @@
 /*
  * 通过表达式获取配置
 */
-import _expression from './rule/expression';
+import _expression from './rule/expression.js';
 
 export function getOptions(text){
     for(let item of _expression){

@@ -1,7 +1,7 @@
-import {getOptions} from './module/options';
-import {getSelectors,mergeSelector,selector2id} from './module/selector';
-import {reverseId,getItemsById,getChainById,getPairsById} from './module/id';
-import {setModeData,getModeData,modeData} from './module/mode';
+import {getOptions} from './module/options.js';
+import {getSelectors,mergeSelector,selector2id} from './module/selector.js';
+import {reverseId,getItemsById,getChainById,getPairsById} from './module/id.js';
+import {setModeData,getModeData,modeData} from './module/mode.js';
 
 // 对外方法
 let relationship = function (parameter){

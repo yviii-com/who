@@ -1,12 +1,12 @@
 /*
  * 完整关系链数据 - 合并各类关系链数据
 */
-import _prefix from './data/prefix';
-import _branch from './data/branch';
-import _main from './data/main';
-import _multipie from './data/multiple';
+import _prefix from './data/prefix.js';
+import _branch from './data/branch.js';
+import _main from './data/main.js';
+import _multipie from './data/multiple.js';
 
-import {expandSelector} from './selector';
+import {expandSelector} from './selector.js';
 
 let _map = Object.assign({},_multipie);
 let getMap = function(prefixMap,branch){

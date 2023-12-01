@@ -1,11 +1,11 @@
 /*
  * 标识符 - 唯一性关系链，将【关系链】转换成【中文表述】
 */
-import _pair from './data/pair';
+import _pair from './data/pair.js';
 
-import {number2zh} from './unit';
-import {selector2id} from './selector';
-import {modeData} from './mode';
+import {number2zh} from './unit.js';
+import {selector2id} from './selector.js';
+import {modeData} from './mode.js';
 
 // 逆转ID
 export function reverseId(id,sex){

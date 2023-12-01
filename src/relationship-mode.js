@@ -1,5 +1,5 @@
-import guangdong from './locale/guangdong';
-import north from './locale/north';
+import guangdong from './locale/guangdong.js';
+import north from './locale/north.js';
 
 export default {
     guangdong,
