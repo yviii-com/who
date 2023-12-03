@@ -16,8 +16,8 @@
     "main": "./dist/relationship.min.js",
     "module": "./dist/relationship.min.mjs",
     "exports": {
-        "default": "./dist/relationship.min.js",
-        "import": "./dist/relationship.min.mjs"
+        "import": "./dist/relationship.min.mjs",
+        "default": "./dist/relationship.min.js"
     },
     "repository": {
         "type": "git",
