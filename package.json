@@ -16,8 +16,26 @@
     "main": "./dist/relationship.min.js",
     "module": "./dist/relationship.min.mjs",
     "exports": {
-        "import": "./dist/relationship.min.mjs",
-        "default": "./dist/relationship.min.js"
+        ".": {
+            "import": "./dist/relationship.min.mjs",
+            "require": "./dist/relationship.min.js",
+            "default": "./dist/relationship.min.js"
+        },
+        "./mode": {
+            "import": "./dist/relationship-mode.min.mjs",
+            "require": "./dist/relationship-mode.min.js",
+            "default": "./dist/relationship-mode.min.js"
+        },
+        "./zh-HK": {
+            "import": "./dist/lang/relationship.zh-HK.min.mjs",
+            "require": "./dist/lang/relationship.zh-HK.min.js",
+            "default": "./dist/lang/relationship.zh-HK.min.js"
+        },
+        "./zh-HK/mode": {
+            "import": "./dist/lang/relationship-mode.zh-HK.min.mjs",
+            "require": "./dist/lang/relationship-mode.zh-HK.min.js",
+            "default": "./dist/lang/relationship-mode.zh-HK.min.js"
+        }
     },
     "repository": {
         "type": "git",
