@@ -11,7 +11,11 @@ import {cacheData} from './cache.js';
 
 // 获得最简
 let getOptimal = function(options){
-    let {from,to,sex} = options;
+    let {
+        from,
+        to,
+        sex
+    } = options;
     let from_chain = options['from'].split(',');
     let to_chain = options['to'].split(',');
     for(let i=0;i<from_chain.length&&i<to_chain.length;i++){
@@ -168,7 +172,11 @@ export function getSelectors(str){
 
 // 合并选择器，查找两个对象之间的关系
 export function mergeSelector(param){
-    let {from:from_selector,to:to_selector,sex:my_sex} = param;
+    let {
+        from:from_selector,
+        to:to_selector,
+        sex:my_sex
+    } = param;
     if(my_sex<0){
         let to_sex = -1;
         let from_sex = -1;
@@ -214,15 +222,16 @@ export function mergeSelector(param){
                     isOptimal = true;
                 }
                 if(isOptimal){
-                    let ops = getOptimal({
+                    ({
+                        from,
+                        to,
+                        sex:my_sex
+                    } =  getOptimal({
                         'from':from,
                         'to':to,
                         'sex':my_sex,
                         'optimal':param.optimal
-                    });
-                    from = ops['from'];
-                    to = ops['to'];
-                    my_sex = ops['sex'];
+                    }));
                 }
             }
             let to_rids = to?reverseId(to,my_sex):[''];
