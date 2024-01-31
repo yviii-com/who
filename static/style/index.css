@@ -91,6 +91,14 @@ a:hover{
     }
 }
 
+.header{
+    position: sticky;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 99;
+    backdrop-filter: blur(10px);
+}
 .mod-head .bd{
     height: 36px;
     padding: 10px 0;
@@ -643,6 +651,19 @@ a:hover{
 .mod-foot p{
     margin-bottom: 10px;
     line-height: 30px;
+}
+
+.mod-fixedbar .bd a{
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    display: block;
+    width: 48px;
+    height: 48px;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 1px 1px 6px rgba(0,0,0,0.1);
+    line-height: 48px;
+    text-align: center;
 }
 
 @media screen and (max-width: 1020px) {
