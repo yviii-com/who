@@ -9,11 +9,11 @@ import _multipie from './data/multiple.js';
 import {expandSelector} from './selector.js';
 
 let _map = Object.assign({},_multipie);
-let getMap = function(prefixMap,branch){
+let getMap = function(prefixMap,branchMap){
     let map = {};
-    for(let key in branch){
+    for(let key in branchMap){
         let tag = key.match(/\{.+?\}/)[0];
-        let nameList = branch[key];
+        let nameList = branchMap[key];
         for(let k in prefixMap[tag]){
             let prefixList = prefixMap[tag][k];
             let newKey = key.replace(tag,k);
@@ -38,21 +38,25 @@ let getMap = function(prefixMap,branch){
     }
     return map;
 };
+
 // 分支前缀处理
 let prefixMap = {};
 for(let key in _prefix){
     prefixMap[key] = {};
     for(let selector in _prefix[key]){
-        if(selector.indexOf(']')==-1){
-            prefixMap[key][selector] = _prefix[key][selector];
-        }else{
-            expandSelector(selector).forEach(function(s){
-                prefixMap[key][s] = _prefix[key][selector];
-            });
-        }
+        expandSelector(selector).forEach(function(s){
+            prefixMap[key][s] = _prefix[key][selector];
+        });
     }
 }
-_map = Object.assign({},_map,getMap(prefixMap,_branch));
+// 分支节点处理
+let branchMap = {};
+for(let selector in _branch){
+    expandSelector(selector).forEach(function(s){
+        branchMap[s] = _branch[selector];
+    });
+}
+_map = Object.assign({},_map,getMap(prefixMap,branchMap));
 // 主要关系
 for(let key in _main){
     _map[key] = [].concat(_main[key],_map[key]||[]);
