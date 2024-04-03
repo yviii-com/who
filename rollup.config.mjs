@@ -54,12 +54,10 @@ const commonPlugins = [
     output:[{
         file: './dist/relationship-mode.min.js',
         format: 'umd',
-        name: 'relationshipMode',
-        banner
+        name: 'relationshipMode'
     },{
         file: './dist/relationship-mode.min.mjs',
-        format: 'es',
-        banner
+        format: 'es'
     }],
     acornInjectPlugins: [ importAssertions ],
     plugins: commonPlugins,
