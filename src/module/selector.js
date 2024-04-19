@@ -16,8 +16,8 @@ let getOptimal = function(options){
         to,
         sex
     } = options;
-    let from_chain = options['from'].split(',');
-    let to_chain = options['to'].split(',');
+    let from_chain = from.split(',');
+    let to_chain = to.split(',');
     for(let i=0;i<from_chain.length&&i<to_chain.length;i++){
         if(from_chain[i]==to_chain[i]){
             from = from_chain.slice(i+1).join(',');
@@ -31,16 +31,8 @@ let getOptimal = function(options){
                 if(form_type!=to_type){
                     break;
                 }
-                let from_match = from_chain[i].match(/&([ol\d]+)/);
-                let to_match = to_chain[i].match(/&([ol\d]+)/);
-                if(!from_match){
-                    from_match = from_chain[i].match(/([ol])[bs]/);
-                }
-                if(!to_match){
-                    to_match = to_chain[i].match(/([ol])[bs]/);
-                }
-                let from_attr = from_match?from_match[1]:'';
-                let to_attr = to_match?to_match[1]:'';
+                let from_attr = from_chain[i].match(/&([ol\d]+)/)?.[1]||from_chain[i].match(/([ol])[bs]/)?.[1]||'';
+                let to_attr = to_chain[i].match(/&([ol\d]+)/)?.[1]||to_chain[i].match(/([ol])[bs]/)?.[1]||'';
                 if(from_attr&&to_attr){
                     if(!isNaN(from_attr)&&!isNaN(to_attr)){
                         if(+from_attr>+to_attr){
@@ -57,10 +49,8 @@ let getOptimal = function(options){
                     to = to_chain.slice(i+1).join(',');
                     sex = to_chain[i].match(/^([fhs1](&[ol\d]+)?|[olx]b)(&[ol\d]+)?/)?1:0;
                 }else if(options['optimal']){
-                    from_match = from_chain[i].match(/([xol])[bs]/);
-                    to_match = to_chain[i].match(/([xol])[bs]/);
-                    from_attr = from_match?from_match[1]:'';
-                    to_attr = to_match?to_match[1]:'';
+                    from_attr = from_chain[i].match(/([xol])[bs]/)?.[1]||'';
+                    to_attr = to_chain[i].match(/([xol])[bs]/)?.[1]||'';
                     if(from_attr=='x'||to_attr=='x'){
                         from = from_chain.slice(i+1).join(',');
                         to = to_chain.slice(i+1).join(',');
@@ -73,9 +63,9 @@ let getOptimal = function(options){
         }
     }
     return {
-        'from':from,
-        'to':to,
-        'sex':sex
+        from,
+        to,
+        sex
     };
 };
 

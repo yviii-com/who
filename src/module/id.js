@@ -9,6 +9,10 @@ import {modeData} from './mode.js';
 
 // 逆转ID
 export function reverseId(id,sex){
+    if(!id){
+        return [''];
+    }
+    // 映射关系
     let hash = {
         f:['d','s'],
         m:['d','s'],
@@ -23,42 +27,35 @@ export function reverseId(id,sex){
         os:['ls','lb'],
         xs:['xs','xb']
     };
+    // 年纪判断
     let age = '';
     if(id.match(/&o$/)){
         age = '&l';
     }else if(id.match(/&l$/)){
         age = '&o';
     }
-    if(id){
-        id = id.replace(/&[ol\d+]/g,'');
-        //性别判断
-        if(sex<0){
-            if(id.match(/^w/)){
-                sex = 1;
-            }else if(id.match(/^h/)){
-                sex = 0;
-            }
+    id = id.replace(/&[ol\d+]/g,'');
+    // 性别判断
+    if(sex<0){
+        if(id.match(/^w/)){
+            sex = 1;
+        }else if(id.match(/^h/)){
+            sex = 0;
         }
-        let result = [];
-        let doing = function(sex){
-            let sid = (','+sex+','+id).replace(/,[fhs]|,[olx]b/g,',1').replace(/,[mwd]|,[olx]s/g,',0');
-            sid = sid.substring(0,sid.length-2);
-            let id_arr = id.split(',').reverse();
-            let sid_arr = sid.split(',').reverse();
-            let arr = id_arr.map((id,i)=>hash[id][sid_arr[i]]);
-            let r_id = arr.join(',');
-            let gen = getGenById(r_id);
-            return r_id +(gen?'':age);
-        };
-        if(sex<0){
-            result.push(doing(1));
-            result.push(doing(0));
-        }else{
-            result.push(doing(sex));
-        }
-        return result;
     }
-    return [''];
+    let doing = function(sex){
+        let sid = (','+sex+','+id).replace(/,[fhs]|,[olx]b/g,',1').replace(/,[mwd]|,[olx]s/g,',0');
+        sid = sid.substring(0,sid.length-2);
+        let sid_arr = sid.split(',').reverse();
+        let r_id = id.split(',').reverse().map((id,i)=>hash[id][sid_arr[i]]).join(',');
+        let gen = getGenById(r_id);
+        return r_id + (gen?'':age);
+    };
+    if(sex<0){
+        return [doing(1),doing(0)];
+    }else{
+        return [doing(sex)];
+    }
 };
 
 // ID列表去重
@@ -112,18 +109,18 @@ export function getItemsById(id){
                     }
                 });
                 if(!item){
-                    item = modeData[id][0].match(/^[大小]/)?modeData[id][0].replace(/^[大小]/,zh):zh+modeData[id][0];
+                    item = modeData[id][0];
+                    item = item.match(/^[大小]/)?item.replace(/^[大小]/,zh):zh+item;
                 }
             }else{
                 item = modeData[id][0]
             }
             items.push(item);
         }
-    }else{
-        id = id.replace(/&\d+/g,'');
     }
     // 直接匹配称呼
     if(!items.length){
+        id = id.replace(/&\d+/g,'');
         items = getData(id);
     }
     // 忽略年龄条件查找
@@ -150,19 +147,19 @@ let data = Object.assign({},modeData,{
     'xb':['兄弟'],
     'xs':['姐妹']
 });
-export function getChainById(id,sex){
+export function getChainById(id,sex=-1){
     let item = id.split(',').map(function(sign){
         let key = sign.replace(/&[ol\d]+/,'');
         return data[key][0];
     }).join('的');
-    if(sex&&sex>-1&&data[sex+','+id]){
+    if(sex>-1&&data[sex+','+id]){
         if(sex==0){
             item = '(女性)'+item;
         }else if(sex==1){
             item = '(男性)'+item;
         }
     }
-    return item
+    return item;
 };
 
 // 通过ID获取关系合称
