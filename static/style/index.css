@@ -632,7 +632,7 @@ a:hover{
 }
 .mod-foot .bd .box{
     width: 360px;
-    margin: 0 auto 25px;
+    margin: 0 auto;
     text-align: center;
     overflow: hidden;
 }
