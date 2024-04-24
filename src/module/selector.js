@@ -217,10 +217,10 @@ export function mergeSelector(param){
                         to,
                         sex:my_sex
                     } =  getOptimal({
-                        'from':from,
-                        'to':to,
-                        'sex':my_sex,
-                        'optimal':param.optimal
+                        from,
+                        to,
+                        sex:my_sex,
+                        optimal:param.optimal
                     }));
                 }
             }
@@ -228,8 +228,8 @@ export function mergeSelector(param){
             to_rids.forEach(function(to_r){
                 let selector = (to_r?','+to_r:'')+(from?','+from:'');
                 result.push({
-                    'selector':selector,
-                    'sex':sex
+                    selector,
+                    sex
                 });
             });
         });

@@ -390,7 +390,7 @@
                 </div>
                 <div class="mod-app">
                     <div class="inner">
-                        <div class="hd"><span>他们都在用</span></div>
+                        <div class="hd"><span>他们都在使用</span></div>
                         <div class="bd">
                             <ul>
                                 <li>
@@ -423,55 +423,47 @@
                 </div>
                 <div class="mod-foot">
                     <div class="inner">
+                        <div class="hd"><span>🫣支持我的开源</span></div>
                         <div class="bd">
                             <div class="box">
-                                <p><img src="static/image/qrcode.jpg" width="150" alt="亲戚关系微信小程序"/></p>
-                                <p>微信扫一扫，使用小程序</p>
+                                <div class="item">
+                                    <img src="static/image/qrcode-wechat.jpg" height="240" alt="微信支付"/>
+                                </div>
+                                <div class="item">
+                                    <img src="static/image/qrcode-alipay.jpg" height="240" alt="支付宝支付"/>
+                                </div>
                             </div>
+                        </div>
+                        <div class="ft">
                             <p>Copyright &copy; <a href="http://passer-by.com">passer-by.com</a></p>
                         </div>
                     </div>
                 </div>
                 <div class="mod-fixedbar">
                     <div class="bd">
-                        <a href="javascript:;"><img src="static/image/gotop.png" width="24" height="24"></a>
+                        <ul>
+                            <li>
+                                <a class="qrcode" href="javascript:;" href="javascript:;">
+                                    <img src="static/image/icon-wechat.png" width="24" height="24"/>
+                                    <span class="popup">
+                                        <img src="static/image/qrcode.jpg" width="150" alt="亲戚关系微信小程序"/>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="gotop" href="javascript:;" href="javascript:;">
+                                    <img src="static/image/icon-gotop.png" width="24" height="24"/>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
         <script type="text/javascript" src="dist/relationship.min.js"></script>
         <script type="text/javascript" src="dist/relationship-mode.min.js"></script>
+        <script type="text/javascript" src="static/script/index.js"></script>
         <script type="text/javascript">
-            // 头部滚动
-            (function(){
-                let $header = document.querySelector('.header');
-                document.addEventListener('scroll',function(){
-                    let scrollTop = document.documentElement.scrollTop;
-                    let ratio = Math.min(scrollTop/1000,1);
-                    $header.style.background = 'rgba(255,255,255,'+(ratio*0.8)+')';
-                    $header.style.boxShadow = '1px 1px 6px rgba(0,0,0,'+(ratio*0.1)+')';
-                });
-            })();
-            // 底部滚动
-            (function(){
-                let timer = null;
-                let $gotop = document.querySelector('.mod-fixedbar a');
-                $gotop.addEventListener('click',function(){
-                    cancelAnimationFrame(timer);
-                    let scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-                    let move = scrollTop/18;
-                    timer = requestAnimationFrame(function fn(){
-                        var oTop = document.body.scrollTop || document.documentElement.scrollTop;
-                        if(oTop > 0){
-                            document.body.scrollTop = document.documentElement.scrollTop = oTop - move;
-                            timer = requestAnimationFrame(fn);
-                        }else{
-                            cancelAnimationFrame(timer);
-                        }
-                    });
-                });
-            })();
-
             // 获取数量
             document.getElementById('count').innerText = relationship.dataCount;
 

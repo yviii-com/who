@@ -528,11 +528,9 @@ a:hover{
     margin-bottom: 75px;
 }
 .mod-app .hd{
-    margin: 0 5px 5px;
-    line-height: 30px;
+    margin-bottom: 5px;
+    line-height: 32px;
     text-align: center;
-}
-.mod-app .hd span{
     font-size: 18px;
     font-weight: bold;
     color: #646464;
@@ -588,10 +586,8 @@ a:hover{
     border-top-color: rgb(233 236 240);
 }
 .mod-copy .hd{
-    margin: 0 5px 5px;
-    line-height: 30px;
-}
-.mod-copy .hd span{
+    margin-bottom: 5px;
+    line-height: 32px;
     font-size: 18px;
     font-weight: bold;
     color: #646464;
@@ -626,44 +622,73 @@ a:hover{
     word-break: break-word;
 }
 
-
+.mod-foot .hd{
+    margin-bottom: 5px;
+    line-height: 32px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #646464;
+}
+.mod-foot .bd .box{
+    width: 360px;
+    margin: 0 auto 25px;
+    text-align: center;
+    overflow: hidden;
+}
+.mod-foot .bd .box .item{
+    display: inline-block;
+    margin: 0 5px;
+    border: 1px solid #f0f0f0;
+    filter: grayscale(0.6);
+}
 .mod-foot .bd{
     padding: 10px 0;
     margin-bottom: 15px;
     text-align: center;
 }
-.mod-foot .bd p{
-    line-height: 22px;
-}
-.mod-foot .bd p a,.mod-foot .bd p span{
-    vertical-align: middle;
-}
-.mod-foot .bd p.buttons{
-    margin: 10px 0 5px;
-}
-.mod-foot .box{
-    width: 200px;
-    margin: 0 auto 20px;
-    line-height: 30px;
-    text-align: center;
-    overflow: hidden;
-}
-.mod-foot p{
+.mod-foot .ft p{
     margin-bottom: 10px;
     line-height: 30px;
+    text-align: center;
+}
+.mod-foot .ft p a,.mod-foot .bd p span{
+    vertical-align: middle;
+}
+.mod-foot .ft p.buttons{
+    margin: 10px 0 5px;
 }
 
-.mod-fixedbar .bd a{
+.mod-fixedbar .bd {
     position: fixed;
     right: 20px;
     bottom: 20px;
+}
+.mod-fixedbar .bd a{
+    position: relative;
     display: block;
     width: 48px;
     height: 48px;
+    margin-bottom: 2px;
     background: rgba(255,255,255,0.8);
-    box-shadow: 1px 1px 6px rgba(0,0,0,0.1);
+    border: 1px solid #f0f0f0;
     line-height: 48px;
     text-align: center;
+}
+.mod-fixedbar .bd .popup{
+    display: none;
+    position: absolute;
+    right: 50px;
+    bottom: 0;
+    z-index: 99;
+    border: 1px solid #f0f0f0;
+    box-shadow: 0 0 2px 0 rgba(0,0,0,0.05);
+}
+.mod-fixedbar .bd a:hover{
+    background: rgba(255,255,255,0.9);
+}
+.mod-fixedbar .bd a:hover .popup{
+    display: block;
 }
 
 @media screen and (max-width: 1020px) {
