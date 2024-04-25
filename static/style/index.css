@@ -631,16 +631,16 @@ a:hover{
     color: #646464;
 }
 .mod-foot .bd .box{
-    width: 360px;
     margin: 0 auto;
     text-align: center;
     overflow: hidden;
 }
 .mod-foot .bd .box .item{
     display: inline-block;
-    margin: 0 5px;
+    margin: 0 5px 10px;
     border: 1px solid #f0f0f0;
-    filter: grayscale(0.6);
+    border-radius: 8px;
+    overflow: hidden;
 }
 .mod-foot .bd{
     padding: 10px 0;
