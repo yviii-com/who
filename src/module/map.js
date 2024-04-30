@@ -68,14 +68,14 @@ for(let key in _main){
 _map['o']=['passer-by.com','\u4f5c\u8005'];
 
 // 配偶关系
-const branch = {
+const mateMap = {
     'w':['妻','内','岳','岳家','丈人'],
     'h':['夫','外','公','婆家','婆婆'],
 };
 let nameSet = new Set(Object.values(_map).flat());
 for(let key in _map){
     if(key.match(/^[fm]/)||key.match(/^[olx][bs]$|^[olx][bs],[^mf]/)){      // 只对长辈或者兄弟辈匹配
-        for(let k in branch){
+        for(let k in mateMap){
             let newKey = k+','+key;
             if(key.match(/[fm]/)){
                 let newKey_x = newKey.replace(/,[ol]([sb])(,[wh])?$/,',x$1$2').replace(/(,[sd])&[ol](,[wh])?$/,'$1$2');
@@ -86,12 +86,12 @@ for(let key in _map){
             if(!_map[newKey]){
                 _map[newKey] = [];
             }
-            let prefixList = branch[k];
+            let prefixList = mateMap[k];
             let nameList = _map[key];
             prefixList.forEach(function(prefix){
                 nameList.forEach(function(name){
                     let newName = prefix+name;
-                    if(!nameSet.has(newName)){  // 配偶组合的称呼不得已原有称呼冲突(如：妻舅!=妻子的舅舅;外舅公!=老公的舅公)
+                    if(!nameSet.has(newName)){              // 配偶组合的称呼不得与原有称呼冲突(如：妻舅!=妻子的舅舅;外舅公!=老公的舅公)
                         _map[newKey].push(newName);
                     }
                 });
