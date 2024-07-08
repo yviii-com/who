@@ -1,6 +1,6 @@
 {
     "name": "relationship.js",
-    "version": "1.2.5",
+    "version": "1.2.6",
     "description": "Chinese kinship library",
     "author": "HaoLe Zheng",
     "license": "MIT",
@@ -44,6 +44,9 @@
     "bugs": {
         "url": "https://github.com/mumuy/relationship/issues"
     },
+    "files":[
+        "dist"
+    ],
     "devDependencies": {
         "@babel/core": "^7.24.4",
         "@babel/plugin-transform-runtime": "^7.24.3",
