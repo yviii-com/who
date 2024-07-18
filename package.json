@@ -44,6 +44,9 @@
     "bugs": {
         "url": "https://github.com/mumuy/relationship/issues"
     },
+    "files":[
+        "dist"
+    ],
     "devDependencies": {
         "@babel/core": "^7.24.4",
         "@babel/plugin-transform-runtime": "^7.24.3",
