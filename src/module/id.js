@@ -167,12 +167,12 @@ export function getPairsById(id1,id2){
     let result = [];
     let result_x = [];
     let result_r = [];
-    id1 = id1.replace(/&\d+/,'');
-    id2 = id2.replace(/&\d+/,'');
-    let id1_x = id1.replace(/([ol])([bs])/,'x$2');
-    let id2_x = id2.replace(/([ol])([bs])/,'x$2');
-    let id1_r = id1.replace(/&[ol]/,'');
-    let id2_r = id2.replace(/&[ol]/,'');
+    id1 = id1.replace(/&\d+/g,'');
+    id2 = id2.replace(/&\d+/g,'');
+    let id1_x = id1.replace(/([ol])([bs])/g,'x$2');
+    let id2_x = id2.replace(/([ol])([bs])/g,'x$2');
+    let id1_r = id1.replace(/&[ol]/g,'');
+    let id2_r = id2.replace(/&[ol]/g,'');
     for(let key in _pair){
         let selectors = key.split('#');
         if(selectors.length>1){

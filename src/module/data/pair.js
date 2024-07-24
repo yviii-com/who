@@ -49,5 +49,6 @@ export default {
     'lb,w#h,ob':['伯媳'],
     'ob,w#h,lb':['叔嫂'],
     'xb,w#h,xs':['姑嫂'],
+    'xs,h,xb#xb,w,xb':['姻兄弟'],
     'd,h,[f|m]#s,w,[f|m]':['儿女亲家'],
 }
