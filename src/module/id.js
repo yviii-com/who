@@ -2,6 +2,7 @@
  * 标识符 - 唯一性关系链，将【关系链】转换成【中文表述】
 */
 import _pair from './data/pair.js';
+import _sort from './data/sort.js';
 
 import {number2zh} from './unit.js';
 import {selector2id} from './selector.js';
@@ -99,9 +100,12 @@ export function getItemsById(id){
         let num = id.match(/&([\d]+)(,[hw])?$/)[1];
         let zh = number2zh(num);
         id = id.replace(/&\d+/g,'');
-        if(modeData[id]){
-            let item = '';
+        if(_sort[id]){
+            let item = _sort[id][0].replace('几',zh);
+            items.push(item);
+        }else if(modeData[id]){
             let gen = getGenById(id);
+            let item = '';
             if(gen<3&&!id.match(/[hw],/)){
                 modeData[id].forEach(function(name){
                     if(!item&&name.includes('几')){
@@ -112,8 +116,6 @@ export function getItemsById(id){
                     item = modeData[id][0];
                     item = item.match(/^[大小]/)?item.replace(/^[大小]/,zh):zh+item;
                 }
-            }else{
-                item = modeData[id][0]
             }
             items.push(item);
         }
