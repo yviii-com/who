@@ -34,6 +34,18 @@ a:hover{
     padding: 0 10px;
     margin: 0 auto;
 }
+.module{
+    margin-bottom: 80px;
+}
+.module .hd{
+    margin: 0 5px 5px;
+    line-height: 30px;
+}
+.module .hd span{
+    font-size: 18px;
+    font-weight: bold;
+    color: #646464;
+}
 
 .mod-bg {
     position: absolute;
@@ -173,7 +185,7 @@ a:hover{
 }
 
 .mod-panel{
-    margin-bottom: 75px;
+    margin-bottom: 80px;
 }
 .mod-panel .hd{
     float: left;
@@ -496,18 +508,6 @@ a:hover{
     zoom: 1;
 }
 
-.mod-intro{
-    margin-bottom: 80px;
-}
-.mod-intro .hd{
-    margin: 0 5px 5px;
-    line-height: 30px;
-}
-.mod-intro .hd span{
-    font-size: 18px;
-    font-weight: bold;
-    color: #646464;
-}
 .mod-intro .bd ul{
     overflow: hidden;
 }
@@ -545,7 +545,13 @@ a:hover{
 }
 
 .mod-article{
-    margin-bottom: 80px;
+    margin-bottom: 100px;
+}
+.mod-article .hd{
+    margin-top: -36px;
+}
+.mod-article .hd span{
+    font-size: 24px;
 }
 .mod-article .bd{
     position: relative;
@@ -574,16 +580,8 @@ a:hover{
     text-indent: 2em;
 }
 
-.mod-app{
-    margin-bottom: 80px;
-}
 .mod-app .hd{
-    margin-bottom: 5px;
-    line-height: 32px;
     text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-    color: #646464;
 }
 .mod-app .bd ul{
     padding: 20px 0;
@@ -634,13 +632,6 @@ a:hover{
     border-style: solid;
     border-width: 80px 22vw 0 61.8vw;
     border-top-color: rgb(233 236 240);
-}
-.mod-copy .hd{
-    margin-bottom: 5px;
-    line-height: 32px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #646464;
 }
 .mod-copy .bd{
     margin:0 5px;
