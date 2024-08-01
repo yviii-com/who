@@ -446,8 +446,58 @@ a:hover{
     margin-right: 4px;
 }
 
+.mod-banner .bd{
+    height: 120px;
+    padding: 20px 20px 20px 38%;
+    background: linear-gradient(to right,rgba(0,0,0,0) 0%, rgba(246,248,250,0.5) 100%);
+    border-radius: 12px;
+    line-height: 27px;
+    vertical-align: middle;
+    text-align: right;
+    font-size: 30px;
+    font-weight: bold;
+    color: #8b949e;
+}
+.mod-banner .bd span{
+    display: inline-block;
+    white-space: nowrap;
+    transform: scale(1);
+}
+.mod-banner .bd span:hover{
+    transform: scale(1.2);
+    transition: all 0.25s ease-in;
+}
+.mod-banner .bd span:nth-child(7n){
+    opacity: 0.15;
+    zoom: 0.6;
+}
+.mod-banner .bd span:nth-child(7n+1){
+    opacity: 0.35;
+    zoom: 0.7;
+}
+.mod-banner .bd span:nth-child(7n+2){
+    opacity: 0.25;
+    zoom: 0.6;
+}
+.mod-banner .bd span:nth-child(7n+3){
+    opacity: 0.30;
+    zoom: 0.9;
+}
+.mod-banner .bd span:nth-child(7n+4){
+    opacity: 0.45;
+    zoom: 0.8;
+}
+.mod-banner .bd span:nth-child(7n+5){
+    opacity: 0.40;
+    zoom: 0.7;
+}
+.mod-banner .bd span:nth-child(7n+6){
+    opacity: 0.65;
+    zoom: 1;
+}
+
 .mod-intro{
-    margin-bottom: 75px;
+    margin-bottom: 80px;
 }
 .mod-intro .hd{
     margin: 0 5px 5px;
@@ -495,7 +545,7 @@ a:hover{
 }
 
 .mod-article{
-    margin-bottom: 75px;
+    margin-bottom: 80px;
 }
 .mod-article .bd{
     position: relative;
@@ -525,7 +575,7 @@ a:hover{
 }
 
 .mod-app{
-    margin-bottom: 75px;
+    margin-bottom: 80px;
 }
 .mod-app .hd{
     margin-bottom: 5px;
@@ -576,13 +626,13 @@ a:hover{
 .mod-copy::after {
     position: absolute;
     right: 0;
-    bottom: -75px;
+    bottom: -80px;
     display: block;
     content: '';
     width: 0px;
     border-color: #fff;
     border-style: solid;
-    border-width: 75px 22vw 0 61.8vw;
+    border-width: 80px 22vw 0 61.8vw;
     border-top-color: rgb(233 236 240);
 }
 .mod-copy .hd{
@@ -856,6 +906,13 @@ a:hover{
     }
     .mod-panel .bd .c-bd{
         padding: 15px 10px;
+    }
+
+    .mod-banner .bd{
+        height: auto;
+        padding: 15px;
+        line-height: 20px;
+        font-size: 20px;
     }
 
     .mod-intro .hd{
