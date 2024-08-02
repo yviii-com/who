@@ -23,11 +23,30 @@ a:hover{
 }
 
 
-.header{
-    margin-bottom: 15px;
+.scroll-container{
+    position: relative;
+    height: 100vh;
+    scroll-snap-type: y mandatory;
+    overflow: auto;
+    scrollbar-gutter:stable;
+    scroll-behavior:smooth
 }
-.container{
-    padding-bottom: 30px;
+.scroll-container .scroll-item{
+    position: relative;
+    scroll-snap-align: center;
+}
+.scroll-container .scroll-item:before,.scroll-container .scroll-item:after {
+    content:"";
+    display:table;
+ }
+ .scroll-container .scroll-item:after { clear:both; }
+header{
+    position: sticky;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 0;
+    z-index: 99;
 }
 .inner{
     max-width: 1000px;
@@ -35,7 +54,7 @@ a:hover{
     margin: 0 auto;
 }
 .module{
-    margin-bottom: 80px;
+    margin: 60px 0;
 }
 .module .hd{
     margin: 0 5px 5px;
@@ -103,12 +122,11 @@ a:hover{
     }
 }
 
-.header{
-    position: sticky;
+.mod-head{
+    position: absolute;
     left: 0;
     top: 0;
     width: 100%;
-    z-index: 99;
     backdrop-filter: blur(10px);
 }
 .mod-head .bd{
@@ -184,26 +202,27 @@ a:hover{
     opacity: .02;
 }
 
-.mod-panel{
-    margin-bottom: 80px;
+
+.mod-panel .bd{
+    display: flex;
+    padding-top: 10px;
 }
-.mod-panel .hd{
-    float: left;
-    width: 50%;
+.mod-panel .panel-left{
+    width: 55%;
     padding-top: 15px;
 	line-height: 22px;
 }
-.mod-panel .hd h1{
+.mod-panel .panel-left h1{
     margin-bottom: 10px;
 	line-height: 30px;
     font-weight: bold;
 	font-size: 30px;
 	color:#1a2b3b;
 }
-.mod-panel .hd h1 span.name{
+.mod-panel .panel-left h1 span.name{
     display: block;
 }
-.mod-panel .hd h1 span.tag{
+.mod-panel .panel-left h1 span.tag{
     display: inline-block;
     padding: 0 8px;
     margin: 0 5px;
@@ -215,22 +234,22 @@ a:hover{
     border-radius: 4px;
     box-shadow: 0 1px 5px 0 rgba(0,0,0,0.03);
 }
-.mod-panel .hd p{
+.mod-panel .panel-left p{
     line-height: 24px;
     font-size: 15px;
 }
-.mod-panel .hd p.text-gray{
+.mod-panel .panel-left p.text-gray{
     color: rgba(0,0,0,0.25);
 }
-.mod-panel .hd .picture,.mod-panel .hd .mobile{
+.mod-panel .panel-left .picture,.mod-panel .panel-left .mobile{
     position: relative;
     width: 400px;
     text-align: center;
 }
-.mod-panel .hd .picture img{
+.mod-panel .panel-left .picture img{
     margin-left: -56px;
 }
-.mod-panel .hd .btn{
+.mod-panel .panel-left .btn{
     position: relative;
     display: inline-block;
     height: 36px;
@@ -248,12 +267,12 @@ a:hover{
     outline: none;
     -webkit-appearance: none;
 }
-.mod-panel .hd .btn span.name{
+.mod-panel .panel-left .btn span.name{
     display: inline-block;
     padding-right: 30px;
     background: url('../image/scan.png') right center / 16px 16px no-repeat;
 }
-.mod-panel .hd .btn span.qrcode{
+.mod-panel .panel-left .btn span.qrcode{
     display: none;
     position: absolute;
     right: -160px;
@@ -264,13 +283,13 @@ a:hover{
     margin-top: -84px;
     border: 2px solid rgba(0,0,0,0.1);
 }
-.mod-panel .hd .btn span.qrcode img{
+.mod-panel .panel-left .btn span.qrcode img{
     width: 150px;
     height: 150px;
     padding: 5px;
     background: #fff;
 }
-.mod-panel .hd .btn span.qrcode::after{
+.mod-panel .panel-left  .btn span.qrcode::after{
     position: absolute;
     left: -6px;
     top: 50%;
@@ -283,33 +302,33 @@ a:hover{
     box-shadow: -2px 2px 0 rgba(0,0,0,0.1);
     transform: rotate(45deg);
 }
-.mod-panel .hd .btn:hover {
+.mod-panel .panel-left .btn:hover {
     background: #207fcc;
 }
-.mod-panel .hd .btn:hover span.qrcode{
+.mod-panel .panel-left .btn:hover span.qrcode{
     display: block;
 }
-.mod-panel .hd b{
+.mod-panel .panel-left b{
 	margin: 0 3px;
 	color: #fd7474;
 }
-.mod-panel .bd{
-    margin-left: 55%;
+.mod-panel .panel-right{
+    width: 45%;
     background: #fff;
     box-shadow: 0 1px 5px 0 rgba(0,0,0,0.025);
     border: 1px solid rgba(0,0,0,0.025);
 }
-.mod-panel .bd .c-hd{
+.mod-panel .panel-right .c-hd{
 	height: 44px;
 	border-bottom: 1px solid #f4f4f4;
 }
-.mod-panel .bd .c-hd li{
+.mod-panel .panel-right .c-hd li{
 	float: left;
 	width: 25%;
 	height: 44px;
 	line-height: 44px;
 }
-.mod-panel .bd .c-hd li a{
+.mod-panel .panel-right .c-hd li a{
 	display: block;
 	text-align: center;
 	text-decoration: none;
@@ -317,11 +336,11 @@ a:hover{
 	color: #999;
     cursor: pointer;
 }
-.mod-panel .bd .c-hd li.active a{
+.mod-panel .panel-right .c-hd li.active a{
 	position: relative;
 	color: #333;
 }
-.mod-panel .bd .c-hd li.active a::after{
+.mod-panel .panel-right .c-hd li.active a::after{
 	position: absolute;
 	left: 50%;
 	bottom: 0;
@@ -333,23 +352,23 @@ a:hover{
 	background: #2095f2;
 	border-radius: 3px;
 }
-.mod-panel .bd .c-bd{
+.mod-panel .panel-right .c-bd{
     height: 450px;
     padding: 18px 20px;
 }
-.mod-panel .bd .c-panel{
+.mod-panel .panel-right .c-panel{
 	display: none;
 }
-.mod-panel .bd .c-panel .operation{
+.mod-panel .panel-right .c-panel .operation{
 	margin: 10px 0;
 }
-.mod-panel .bd .c-panel .row{
+.mod-panel .panel-right .c-panel .row{
     margin-bottom: 5px;
 }
-.mod-panel .bd .c-panel .field{
+.mod-panel .panel-right .c-panel .field{
     line-height: 28px;
 }
-.mod-panel .bd .c-panel .intro{
+.mod-panel .panel-right .c-panel .intro{
     padding: 10px 15px;
     margin: 25px 0;
     background: #fffbf5;
@@ -357,24 +376,24 @@ a:hover{
     color: #666;
     border-radius: 5px;
 }
-.mod-panel .bd .c-panel .intro h3{
+.mod-panel .panel-right .c-panel .intro h3{
     line-height: 30px;
     font-weight: bold;
     font-size: 15px;
     color: #666;
 }
-.mod-panel .bd p{
+.mod-panel .panel-right p{
     overflow: hidden;
 }
-.mod-panel .bd label{
+.mod-panel .panel-right label{
 	display: inline-block;
 	min-width: 90px;
 	margin-right: 15px;
 }
-.mod-panel .bd label span,.mod-panel .bd label input{
+.mod-panel .panel-right label span,.mod-panel .panel-right label input{
     vertical-align: middle;
 }
-.mod-panel .bd .input-text{
+.mod-panel .panel-right .input-text{
 	display: inline-block;
     width: 100%;
     height: 36px;
@@ -386,13 +405,13 @@ a:hover{
     border-radius: 5px;
     outline: none;
 }
-.mod-panel .bd .input-text-small{
+.mod-panel .panel-right .input-text-small{
 	width: 200px;
 }
-.mod-panel .bd .text-right{
+.mod-panel .panel-right .text-right{
    text-align: right;
 }
-.mod-panel .bd .btn {
+.mod-panel .panel-right .btn {
     height: 32px;
     min-width: 80px;
     background: #f0f0f0;
@@ -406,40 +425,40 @@ a:hover{
     border-radius: 4px;
     box-sizing: border-box;
 }
-.mod-panel .bd .btn:hover{
+.mod-panel .panel-right .btn:hover{
 	background: #e4e4e4;
 }
-.mod-panel .bd .btn-green{
+.mod-panel .panel-right .btn-green{
 	background: #4bae4f;
 	color: #fff;
 }
-.mod-panel .bd .btn-green:hover{
+.mod-panel .panel-right .btn-green:hover{
 	background: #47a04b;
 }
-.mod-panel .bd .btn-red{
+.mod-panel .panel-right .btn-red{
 	background: #f56954;
 	color: #fff;
 }
-.mod-panel .bd .btn-red:hover{
+.mod-panel .panel-right .btn-red:hover{
 	background: #f4543c;;
 }
-.mod-panel .bd .btn-orange{
+.mod-panel .panel-right .btn-orange{
 	background: #ff9000;
 	color: #fff;
 }
-.mod-panel .bd .btn-orange:hover{
+.mod-panel .panel-right .btn-orange:hover{
 	background: #e18309;
 }
-.mod-panel .bd .btn-small{
+.mod-panel .panel-right .btn-small{
     min-width: 36px;
     margin-right: -1px;
     cursor: pointer;
 }
-.mod-panel .bd .btn[disabled]{
+.mod-panel .panel-right .btn[disabled]{
 	background: #f0f0f0;
 	color: #aaa;
 }
-.mod-panel .bd textarea{
+.mod-panel .panel-right textarea{
     display: block;
 	width: 100%;
 	height: 120px;
@@ -451,61 +470,11 @@ a:hover{
 	resize: none;
 	outline: none;
 }
-.mod-panel .bd p{
+.mod-panel .panel-right p{
     line-height: 22px;
 }
-.mod-panel .bd p span{
+.mod-panel .panel-right p span{
     margin-right: 4px;
-}
-
-.mod-banner .bd{
-    height: 120px;
-    padding: 20px 20px 20px 38%;
-    background: linear-gradient(to right,rgba(0,0,0,0) 0%, rgba(246,248,250,0.5) 100%);
-    border-radius: 12px;
-    line-height: 27px;
-    vertical-align: middle;
-    text-align: right;
-    font-size: 30px;
-    font-weight: bold;
-    color: #8b949e;
-}
-.mod-banner .bd span{
-    display: inline-block;
-    white-space: nowrap;
-    transform: scale(1);
-}
-.mod-banner .bd span:hover{
-    transform: scale(1.2);
-    transition: all 0.25s ease-in;
-}
-.mod-banner .bd span:nth-child(7n){
-    opacity: 0.15;
-    zoom: 0.6;
-}
-.mod-banner .bd span:nth-child(7n+1){
-    opacity: 0.35;
-    zoom: 0.7;
-}
-.mod-banner .bd span:nth-child(7n+2){
-    opacity: 0.25;
-    zoom: 0.6;
-}
-.mod-banner .bd span:nth-child(7n+3){
-    opacity: 0.30;
-    zoom: 0.9;
-}
-.mod-banner .bd span:nth-child(7n+4){
-    opacity: 0.45;
-    zoom: 0.8;
-}
-.mod-banner .bd span:nth-child(7n+5){
-    opacity: 0.40;
-    zoom: 0.7;
-}
-.mod-banner .bd span:nth-child(7n+6){
-    opacity: 0.65;
-    zoom: 1;
 }
 
 .mod-intro .bd ul{
@@ -544,8 +513,54 @@ a:hover{
     overflow-x: auto;
 }
 
-.mod-article{
-    margin-bottom: 100px;
+.mod-article .banner{
+    height: 120px;
+    padding: 20px 20px 20px 38%;
+    background: linear-gradient(to right,rgba(0,0,0,0) 0%, rgba(246,248,250,0.5) 100%);
+    border-radius: 12px;
+    line-height: 27px;
+    vertical-align: middle;
+    text-align: right;
+    font-size: 30px;
+    font-weight: bold;
+    color: #8b949e;
+}
+.mod-article .banner span{
+    display: inline-block;
+    white-space: nowrap;
+    transform: scale(1);
+}
+.mod-article .banner span:hover{
+    transform: scale(1.2);
+    transition: all 0.25s ease-in;
+}
+.mod-article .banner span:nth-child(7n){
+    opacity: 0.15;
+    zoom: 0.6;
+}
+.mod-article .banner span:nth-child(7n+1){
+    opacity: 0.35;
+    zoom: 0.7;
+}
+.mod-article .banner span:nth-child(7n+2){
+    opacity: 0.25;
+    zoom: 0.6;
+}
+.mod-article .banner span:nth-child(7n+3){
+    opacity: 0.30;
+    zoom: 0.9;
+}
+.mod-article .banner span:nth-child(7n+4){
+    opacity: 0.45;
+    zoom: 0.8;
+}
+.mod-article .banner span:nth-child(7n+5){
+    opacity: 0.40;
+    zoom: 0.7;
+}
+.mod-article .banner span:nth-child(7n+6){
+    opacity: 0.65;
+    zoom: 1;
 }
 .mod-article .hd{
     margin-top: -36px;
@@ -580,6 +595,9 @@ a:hover{
     text-indent: 2em;
 }
 
+.mod-app{
+    margin: 120px 0 80px;
+}
 .mod-app .hd{
     text-align: center;
 }
@@ -605,8 +623,8 @@ a:hover{
 
 .mod-copy{
     position: relative;
-    margin-bottom: 125px;
     padding: 15px 0 45px;
+    margin-bottom: 120px;
     background: rgb(246, 248, 250);
 }
 .mod-copy::before {
@@ -733,8 +751,12 @@ a:hover{
 }
 
 @media screen and (max-width: 1020px) {
-    .header{
-        margin-bottom: 10px;
+    .scroll-container{
+        height: auto;     
+        scroll-snap-type: none;
+    }
+    header{
+        position: fixed;
     }
     .inner{
         max-width: 640px;
@@ -749,71 +771,77 @@ a:hover{
     }
 
     .mod-panel{
-        margin-bottom: 25px;
+        padding-top: 20px;
     }
-    .mod-panel .hd{
+    .mod-panel .bd{
+        flex-direction: column;
+    }
+    .mod-panel .panel-left,.mod-panel .panel-right{
+        width: auto;
+    }
+    .mod-panel .panel-left{
         float: none;
         padding-top: 0;
         width: auto;
         margin-bottom: 15px;
         text-align: center;
     }
-    .mod-panel .hd h1{
+    .mod-panel .panel-left h1{
         margin-bottom: 5px;
         line-height: 26px;
         font-size: 20px;
     }
-    .mod-panel .hd h1 span.name{
+    .mod-panel .panel-left h1 span.name{
         display: inline;
     }
-    .mod-panel .hd p{
+    .mod-panel .panel-left p{
         line-height: 22px;
         font-size: 13px;
         overflow: hidden;
     }
-    .mod-panel .hd .picture{
+    .mod-panel .panel-left .picture{
         width: auto;
         padding-top: 0;
     }
-    .mod-panel .hd .mobile{
+    .mod-panel .panel-left .mobile{
         width: auto;
     }
-    .mod-panel .hd .picture img{
+    .mod-panel .panel-left .picture img{
         width: 256px;
         height: 160px;
         margin-left: 0;
     }
-    .mod-panel .hd .btn{
+    .mod-panel .panel-left .btn{
         display: block;
         margin: 0 auto;
     }
-    .mod-panel .hd .btn span.name{
+    .mod-panel .panel-left .btn span.name{
         padding-right: 0;
         background: none;
     }
-    .mod-panel .hd .btn span.qrcode{
+    .mod-panel .panel-left .btn span.qrcode{
         display: none!important;
     }
-    .mod-panel .bd{
+    .mod-panel .panel-right{
         margin-left: 0;
     }
-    .mod-panel .bd .c-hd{
+    .mod-panel .panel-right .c-hd{
         text-align: center;
     }
-	.mod-panel .bd .c-hd ul{
+	.mod-panel .panel-right .c-hd ul{
 		overflow-x: auto;
 		white-space: nowrap;
 	}
-	.mod-panel .bd .c-hd li{
+	.mod-panel .panel-right .c-hd li{
 		float: none;
 		display: inline-block;
 		width: auto;
         min-width: 24%
 	}
-	.mod-panel .bd .c-hd li a{
+	.mod-panel .panel-right .c-hd li a{
 		padding: 0 4px;
 	}
-    .mod-panel .bd .c-bd{
+    .mod-panel .panel-right .c-bd{
         height: auto;
     }
     .mod-panel textarea{
@@ -821,7 +849,7 @@ a:hover{
         height: 80px;
         box-sizing: border-box;
     }
-    .mod-panel .bd p span{
+    .mod-panel .panel-right p span{
         float: left;
         width: 50%;
         text-align: center;
@@ -849,6 +877,15 @@ a:hover{
 
     .mod-article{
         margin-bottom: 55px;
+    }
+    .mod-article .banner{
+        height: auto;
+        padding: 15px;
+        line-height: 20px;
+        font-size: 20px;
+    }
+    .mod-article .hd{
+        margin-top: 0;
     }
     .mod-article .bd{
         padding: 15px 0;
@@ -892,18 +929,8 @@ a:hover{
 }
 
 @media screen and (max-width: 640px) {
-    .mod-panel .inner{
-        padding: 10px 0;
-    }
-    .mod-panel .bd .c-bd{
+    .mod-panel .panel-right .c-bd{
         padding: 15px 10px;
-    }
-
-    .mod-banner .bd{
-        height: auto;
-        padding: 15px;
-        line-height: 20px;
-        font-size: 20px;
     }
 
     .mod-intro .hd{
