@@ -1,8 +1,9 @@
 // 头部滚动
 (function(){
-    let $header = document.querySelector('.header');
-    document.addEventListener('scroll',function(){
-        let scrollTop = document.documentElement.scrollTop;
+    let $header = document.querySelector('.mod-head');
+    document.querySelector('.scroll-container').addEventListener('scroll',function(){
+        let scrollTop = this.scrollTop;
+        console.log('[scrollTop]',scrollTop);
         let ratio = Math.min(scrollTop/1000,1);
         $header.style.background = 'rgba(255,255,255,'+(ratio*0.8)+')';
         $header.style.boxShadow = '1px 1px 6px rgba(0,0,0,'+(ratio*0.1)+')';
