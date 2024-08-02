@@ -1,9 +1,8 @@
 // 头部滚动
 (function(){
-    let $header = document.querySelector('.mod-head');
+    let $header = document.querySelector('header');
     document.querySelector('.scroll-container').addEventListener('scroll',function(){
         let scrollTop = this.scrollTop;
-        console.log('[scrollTop]',scrollTop);
         let ratio = Math.min(scrollTop/1000,1);
         $header.style.background = 'rgba(255,255,255,'+(ratio*0.8)+')';
         $header.style.boxShadow = '1px 1px 6px rgba(0,0,0,'+(ratio*0.1)+')';
@@ -12,20 +11,13 @@
 
 // 底部滚动
 (function(){
-    let timer = null;
     let $gotop = document.querySelector('.mod-fixedbar .gotop');
+    let $container = document.querySelector('.scroll-container');
     $gotop.addEventListener('click',function(){
-        cancelAnimationFrame(timer);
-        let scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-        let move = scrollTop/18;
-        timer = requestAnimationFrame(function fn(){
-            var oTop = document.body.scrollTop || document.documentElement.scrollTop;
-            if(oTop > 0){
-                document.body.scrollTop = document.documentElement.scrollTop = oTop - move;
-                timer = requestAnimationFrame(fn);
-            }else{
-                cancelAnimationFrame(timer);
-            }
+        $container.scrollTo({
+            left:0,
+            top:0,
+            behavior:'smooth'
         });
     });
 })();
