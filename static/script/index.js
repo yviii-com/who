@@ -1,6 +1,6 @@
 // 头部滚动
 (function(){
-    let $header = document.querySelector('header');
+    let $header = document.querySelector('.mod-head');
     document.querySelector('.scroll-container').addEventListener('scroll',function(){
         let scrollTop = this.scrollTop;
         let ratio = Math.min(scrollTop/1000,1);
