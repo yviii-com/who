@@ -70,7 +70,7 @@ header{
     position: absolute;
     left: 0;
     top: 0;
-    height: 500px;
+    height: 550px;
     width: 100%;
     z-index: -1;
     background: url('../image/bg.svg') center top repeat-x;
@@ -205,7 +205,7 @@ header{
 
 .mod-panel .bd{
     display: flex;
-    padding-top: 10px;
+    padding-top: 20px;
 }
 .mod-panel .panel-left{
     width: 55%;
@@ -314,31 +314,47 @@ header{
 }
 .mod-panel .panel-right{
     width: 45%;
-    background: #fff;
-    box-shadow: 0 1px 5px 0 rgba(0,0,0,0.025);
-    border: 1px solid rgba(0,0,0,0.025);
 }
 .mod-panel .panel-right .c-hd{
 	height: 44px;
-	border-bottom: 1px solid #f4f4f4;
+    margin-bottom: 10px;
+}
+.mod-panel .panel-right .c-hd ul{
+    display: flex;
 }
 .mod-panel .panel-right .c-hd li{
-	float: left;
-	width: 25%;
+	flex: 1;
 	height: 44px;
 	line-height: 44px;
 }
 .mod-panel .panel-right .c-hd li a{
+    position: relative;
 	display: block;
 	text-align: center;
 	text-decoration: none;
-    font-size: 14px;
-	color: #999;
+    font-size: 16px;
+    font-weight: bold;
+	color: rgba(0,0,0,0.25);
     cursor: pointer;
+    transition:  all 0.25s ease-in;
+}
+.mod-panel .panel-right .c-hd li a::after{
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	display: block;
+	content: '';
+	width: 0px;
+	height: 0px;
+	margin-left: 0px;
+	background: #2095f2;
+	border-radius: 0px;
+    transition:  all 0.25s ease-in;
 }
 .mod-panel .panel-right .c-hd li.active a{
-	position: relative;
-	color: #333;
+    flex: 1.5;
+    font-size: 20px;
+	color: rgba(0,0,0,0.9);
 }
 .mod-panel .panel-right .c-hd li.active a::after{
 	position: absolute;
@@ -347,7 +363,7 @@ header{
 	display: block;
 	content: '';
 	width: 16px;
-	height: 4px;
+	height: 6px;
 	margin-left: -8px;
 	background: #2095f2;
 	border-radius: 3px;
@@ -355,6 +371,10 @@ header{
 .mod-panel .panel-right .c-bd{
     height: 450px;
     padding: 18px 20px;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.025);
+    border: 1px solid rgba(0,0,0,0.025);
+    border-radius: 12px;
 }
 .mod-panel .panel-right .c-panel{
 	display: none;
@@ -783,7 +803,7 @@ header{
         float: none;
         padding-top: 0;
         width: auto;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
         text-align: center;
     }
     .mod-panel .panel-left h1{
@@ -929,8 +949,20 @@ header{
 }
 
 @media screen and (max-width: 640px) {
+    .mod-panel .panel-right .c-hd{
+        margin-bottom: 4px;
+    }
+    .mod-panel .panel-right .c-hd li a{
+        font-size: 14px;
+    }
+    .mod-panel .panel-right .c-hd li.active a{
+        font-size: 16px;
+    }
     .mod-panel .panel-right .c-bd{
         padding: 15px 10px;
+    }
+    .mod-panel .panel-right .c-hd li.active a::after{
+        height: 4px;
     }
 
     .mod-intro .hd{
