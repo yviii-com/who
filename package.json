@@ -44,7 +44,7 @@
     "bugs": {
         "url": "https://github.com/mumuy/relationship/issues"
     },
-    "files":[
+    "files": [
         "dist"
     ],
     "devDependencies": {
@@ -58,6 +58,7 @@
         "gulp": "^5.0.0",
         "gulp-cht": "^2.0.20",
         "gulp-rename": "^2.0.0",
+        "gulp-replace": "^1.1.4",
         "rollup": "^3.29.4",
         "tape": "^5.7.5",
         "through2": "^4.0.2"
