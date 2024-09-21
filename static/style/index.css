@@ -539,7 +539,6 @@ header{
 }
 .mod-feature .bd ul{
     width: 350px;
-    margin-left: 20px;
     padding: 25px 0;
 }
 .mod-feature .bd li{
@@ -843,6 +842,9 @@ header{
     .inner{
         max-width: 640px;
     }
+    .module{
+        margin: 20px 0;
+    }
 
     .mod-head .hd span.tag{
         padding: 5px 8px;
@@ -955,6 +957,42 @@ header{
     }
     .mod-intro .bd .item{
         margin: 0 5px 5px;
+    }
+
+    .mod-feature .bd{
+        flex-direction: column;
+    }
+    .mod-feature .bd ul{
+        width: auto;
+        padding: 10px 0;
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+    }
+    .mod-feature .bd li{
+        padding: 12px;
+        margin: 2px 0;
+        line-height: 20px;
+    }
+    .mod-feature .bd li p.title{
+        font-size: 16px;
+    }
+    .mod-feature .bd li p.desc{
+        font-size: 12px;
+    }
+    .mod-feature .panels{
+        min-width: 0;
+        padding: 10px 0;
+    }
+    .mod-feature .panel{
+        padding: 20px 0 70px;
+    }
+    .mod-feature .panel img{
+        height: 160px;
+    }
+    .mod-feature .panel .slogan{
+        padding: 10px;
+        line-height: 24px;
+        font-size: 16px;
     }
 
     .mod-article{
