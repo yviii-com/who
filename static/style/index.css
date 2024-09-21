@@ -353,7 +353,7 @@ header{
 }
 .mod-panel .panel-right .c-hd li.active a{
     flex: 1.5;
-    font-size: 20px;
+    font-size: 18px;
 	color: rgba(0,0,0,0.9);
 }
 .mod-panel .panel-right .c-hd li.active a::after{
@@ -531,6 +531,68 @@ header{
 }
 .mod-intro .table-inner{
     overflow-x: auto;
+}
+
+.mod-feature .bd{
+    display: flex;
+    padding: 25px 0;
+}
+.mod-feature .bd ul{
+    width: 350px;
+    margin-left: 20px;
+    padding: 25px 0;
+}
+.mod-feature .bd li{
+    padding: 20px;
+    margin: 5px 0;
+    margin-left: 15px;
+    background: linear-gradient(to right, #f6f8fa 0, transparent 100%);
+    line-height: 28px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    opacity: 0.75;
+    transition: all 0.25s ease-in;
+    cursor: pointer;
+}
+.mod-feature .bd li.active{
+    opacity: 1;
+    margin-left: 0;
+}
+.mod-feature .bd li p.title{
+    font-size: 20px;
+    font-weight: bold;
+}
+.mod-feature .bd li p.desc{
+    font-size: 16px;
+    color: #999;
+}
+.mod-feature .panels{
+    flex: 1;
+    min-width: 0;
+    padding: 20px;
+    background: url('../image/summary-bg.svg') center center repeat;
+}
+.mod-feature .panel{
+    display: none;
+    position: relative;
+    height: 100%;
+    padding: 20px 0 100px;
+    text-align: center;
+    box-sizing: border-box;
+    justify-content: center;
+}
+.mod-feature .panel.active{
+    display: flex;
+}
+.mod-feature .panel .slogan{
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+    padding: 15px;
+    background: #f5f5f5;
+    line-height: 30px;
+    font-size: 24px;
+    font-weight: bold;
 }
 
 .mod-article .banner{
