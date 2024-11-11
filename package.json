@@ -53,19 +53,19 @@
         "dist"
     ],
     "devDependencies": {
-        "@babel/core": "^7.24.4",
-        "@babel/plugin-transform-runtime": "^7.24.3",
-        "@babel/preset-env": "^7.24.4",
-        "@babel/runtime": "^7.24.4",
+        "@babel/core": "^7.26.0",
+        "@babel/plugin-transform-runtime": "^7.25.9",
+        "@babel/preset-env": "^7.26.0",
+        "@babel/runtime": "^7.26.0",
         "@rollup/plugin-babel": "^6.0.4",
-        "@rollup/plugin-node-resolve": "^15.2.3",
+        "@rollup/plugin-node-resolve": "^15.3.0",
         "@rollup/plugin-terser": "^0.4.4",
         "gulp": "^5.0.0",
         "gulp-cht": "^2.0.20",
         "gulp-rename": "^2.0.0",
         "gulp-replace": "^1.1.4",
-        "rollup": "^3.29.4",
-        "tape": "^5.7.5",
+        "rollup": "^3.29.5",
+        "tape": "^5.9.0",
         "through2": "^4.0.2"
     },
     "scripts": {
