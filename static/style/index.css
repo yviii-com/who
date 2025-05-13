@@ -1118,6 +1118,9 @@ header{
     .mod-challenge .bd p{
         font-size: 14px;
     }
+    .mod-challenge .operation{
+        text-align: right;
+    }
     .mod-challenge .btn{
         height: 40px;
         padding: 0 24px;
