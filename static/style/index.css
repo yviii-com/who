@@ -1099,10 +1099,30 @@ header{
         line-height: 22px;
         font-size: 14px;
     }
-
     .mod-copy::after {
         bottom: -45px;
         border-width: 45px 22vw 0 61.8vw;
+    }
+
+    .mod-challenge .bd{
+        flex-direction: column;
+        padding: 20px;
+        line-height: 30px;
+    }
+    .mod-challenge .bd .summary{
+        margin-bottom: 10px;
+    }
+    .mod-challenge .bd h3{
+        font-size: 20px;
+    }
+    .mod-challenge .bd p{
+        font-size: 14px;
+    }
+    .mod-challenge .btn{
+        height: 40px;
+        padding: 0 24px;
+        line-height: 40px;
+        font-size: 16px;
     }
 }
 
