@@ -10,7 +10,7 @@ import {reverseId,filterId,getGenById} from './id.js';
 import {cacheData} from './cache.js';
 
 // 获得最简
-let getOptimal = function(options){
+const getOptimal = function(options){
     let {
         from,
         to,
@@ -81,18 +81,18 @@ export function getSelectors(str){
     str = str.replace(/(伯|叔)+(父|母)?家的?(哥|姐|弟|妹)+/,'堂$3').replace(/(伯|叔)+(父|母)?家的?/,'堂');
     str = str.replace(/姨+(爸|父|丈|妈|母)?家的?(哥|姐|弟|妹)+/,'姨$2').replace(/姨+(爸|父|丈|妈|母)?家的?/,'姨');
 
-    let lists = str.split('的');
+    const lists = str.split('的');
     let result = [];
     let isMatch = true;
     while(lists.length){
-        let name = lists.shift();           //当前匹配词
+        const name = lists.shift();           //当前匹配词
         let items = [];                     //当前匹配词可能性
-        let keywords = [name];
+        const keywords = [name];
         let getList = function(name){
             // 词义扩展
             _replace.forEach(item => {
                 item['arr'].forEach(word =>{
-                    let name1 = name.replace(item['exp'],word);
+                    const name1 = name.replace(item['exp'],word);
                     if(name1!=name){
                         keywords.push(name1);
                         getList(name1);
@@ -100,9 +100,9 @@ export function getSelectors(str){
                 });
             });
             // 同义词替换
-            for(let word in _similar){
-                let name1 = name.replace(word,_similar[word]);
-                let name2 = name.replace(_similar[word],word);
+            for(const word in _similar){
+                const name1 = name.replace(word,_similar[word]);
+                const name2 = name.replace(_similar[word],word);
                 if(name1!=name){
                     keywords.push(name1);
                 }
@@ -113,19 +113,19 @@ export function getSelectors(str){
         };
         getList(name);
         // 通过关键词找关系
-        let items_map = [[],[],[]];
+        const items_map = [[],[],[]];
         keywords.forEach(function(name){
             name = name.replace(/^[尕幺细满碎晚末尾幼]/,'小');
-            let match = name.match(/^[大|小]|^[一|二|三|四|五|六|七|八|九|十]+/);
+            const match = name.match(/^[大|小]|^[一|二|三|四|五|六|七|八|九|十]+/);
             if(match){  // 匹配排序
-                let x_name = name.replace(match[0],'几');
-                let r_name = name.replace(match[0],'');
-                let num = zh2number(match[0]);
-                [x_name,r_name,name].forEach(function(name,index){
-                    let ids = cacheData[name];
+                const x_name = name.replace(match[0],'几');
+                const r_name = name.replace(match[0],'');
+                const num = zh2number(match[0]);
+                [x_name,r_name,name].forEach((name, index) => {
+                    const ids = cacheData[name];
                     if(ids&&ids.length){
-                        ids.forEach(function(i){
-                            let id = i.replace(/(,[hw])$/,'&'+num+'$1').replace(/([^hw]+)$/,'$1&'+num);
+                        ids.forEach(i => {
+                            const id = i.replace(/(,[hw])$/,'&'+num+'$1').replace(/([^hw]+)$/,'$1&'+num);
                             if(!i.match(/^[mf,]+$/)&&!name.match(/^[从世]/)){  // 直系祖辈不参与排序
                                 items_map[index].push(id);
                             }
@@ -146,7 +146,7 @@ export function getSelectors(str){
         if(!items.length){
             isMatch = false;
         }
-        let res = [];
+        const res = [];
         if(!result.length){
             result = [''];
         }
@@ -168,25 +168,15 @@ export function mergeSelector(param){
         sex:my_sex
     } = param;
     if(my_sex<0){
-        let to_sex = -1;
-        let from_sex = -1;
-        if(from_selector.match(/^,[w1]/)){
-            from_sex = 1;
-        }else if(from_selector.match(/^,[h0]/)){
-            from_sex = 0;
-        }
-        if(to_selector.match(/^,[w1]/)){
-            to_sex = 1;
-        }else if(to_selector.match(/^,[h0]/)){
-            to_sex = 0;
-        }
-        if(from_sex==-1&&to_sex>-1){
-            my_sex = to_sex;
-        }else if(from_sex>-1&&to_sex==-1){
-            my_sex = from_sex;
-        }else if(from_sex==to_sex){
-            my_sex = from_sex;
-        }else{
+        const fromSex = from_selector.match(/^,[w1]/) ? 1 : from_selector.match(/^,[h0]/) ? 0 : -1;
+        const toSex = to_selector.match(/^,[w1]/) ? 1 : to_selector.match(/^,[h0]/) ? 0 : -1;
+        if (fromSex === -1 && toSex > -1) {
+            my_sex = toSex;
+        } else if (fromSex > -1 && toSex === -1) {
+            my_sex = fromSex;
+        } else if (fromSex === toSex) {
+            my_sex = fromSex;
+        } else {
             return [];
         }
     }
@@ -195,9 +185,9 @@ export function mergeSelector(param){
     if(!from_ids.length||!to_ids.length){
         return [];
     }
-    let result = [];
-    from_ids.forEach(function(from){
-        to_ids.forEach(function(to){
+    const result = [];
+    from_ids.forEach(from => {
+        to_ids.forEach(to => {
             let sex = my_sex;
             let selector = ','+to;
             if(selector.match(/,([fhs1](&[ol\d]+)?|[olx]b)(&[ol\d]+)?$/)){
@@ -239,15 +229,15 @@ export function mergeSelector(param){
 
 // 扩展选择器
 export function expandSelector(selector){
-    let result = [];
-    let hash = {};
-    let getSelector = function(selector){
-        let s='';
+    const result = [];
+    const hash = {};
+    const getSelector = function(selector){
         if(!hash[selector]){
             hash[selector] = true;
+            let s='';
             do{
                 s = selector;
-                for(let item of _filter){
+                for(const item of _filter){
                     // console.log('[filter]',item['exp'],selector);
                     selector = selector.replace(item['exp'],item['str']);
                     if(selector.includes('#')){
@@ -289,8 +279,6 @@ export function selector2id(selector,sex){
     if(selector.match(/,[mwd0](&[ol\d]+)?,w|,[hfs1](&[ol\d]+)?,h/)){  //同志关系去除
         return [];
     }
-    let result = expandSelector(selector).map(function(selector){
-        return selector.replace(/,[01]/,'').substr(1);  //去前面逗号和性别信息
-    });
+    const result = expandSelector(selector).map(selector => selector.replace(/,[01]/, '').substr(1));  //去前面逗号和性别信息
     return filterId(result);
 };

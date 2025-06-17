@@ -705,7 +705,7 @@ header{
 .mod-copy{
     position: relative;
     padding: 15px 0 45px;
-    margin-bottom: 120px;
+    margin-bottom: 125px;
     background: rgb(246, 248, 250);
 }
 .mod-copy::before {
@@ -760,6 +760,64 @@ header{
     border: 1px solid rgba(27,31,36,.15);
     border-radius: 5px;
     word-break: break-word;
+}
+
+.mod-challenge .bd{
+    position: relative;
+    display: flex;
+    padding: 25px;
+    background: #f4f9fe;
+    border: 1px solid #f2f2f2;
+    border-radius: 12px;
+    line-height: 36px;
+    overflow: hidden;
+}
+.mod-challenge .bd .summary{
+    flex: 1;
+    min-width: 0;
+}
+.mod-challenge .bd h3{
+    font-size: 24px;
+    font-weight: bold;
+}
+.mod-challenge .bd p{
+    font-size: 18px;
+    color: rgba(110, 119, 129, 0.8);
+}
+.mod-challenge .bd::after{
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 0;
+    content: '';
+    width: 80%;
+    height: 100%;
+    background: linear-gradient(to right,#2095f200 0,#2095f222 100%);
+}
+.mod-challenge .operation{
+    align-content: center;
+}
+.mod-challenge .btn {
+    position: relative;
+    z-index: 9;
+    display: inline-block;
+    height: 48px;
+    padding: 0 32px;
+    background: #2095f2;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 24px;
+    line-height: 48px;
+    text-decoration: none;
+    text-align: center;
+    font-size: 18px;
+    color: #fff;
+    transition: color .2s, opacity .2s;
+    font-family: Tahoma, Arial, Helvetica, "Microsoft YaHei";
+    outline: none;
+    -webkit-appearance: none;
+}
+.mod-challenge .btn:hover{
+    background: #207fcc;
 }
 
 .mod-foot .hd{
@@ -1041,10 +1099,33 @@ header{
         line-height: 22px;
         font-size: 14px;
     }
-
     .mod-copy::after {
         bottom: -45px;
         border-width: 45px 22vw 0 61.8vw;
+    }
+
+    .mod-challenge .bd{
+        flex-direction: column;
+        padding: 20px;
+        line-height: 30px;
+    }
+    .mod-challenge .bd .summary{
+        margin-bottom: 10px;
+    }
+    .mod-challenge .bd h3{
+        font-size: 20px;
+    }
+    .mod-challenge .bd p{
+        font-size: 14px;
+    }
+    .mod-challenge .operation{
+        text-align: right;
+    }
+    .mod-challenge .btn{
+        height: 40px;
+        padding: 0 24px;
+        line-height: 40px;
+        font-size: 16px;
     }
 }
 

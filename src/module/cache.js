@@ -5,22 +5,23 @@ import _input from './data/input.js';
 import _sort from './data/sort.js';
 import {modeData} from './mode.js';
 
-let _hash = Object.assign({},modeData);
-for(let key in _input){
-    _hash[key] = (_hash[key]||[]).concat(_input[key]);
+function mergeValues(target, source) {
+    Object.entries(source).forEach(([key, value]) => {
+        target[key] = (target[key] || []).concat(value);
+    });
+    return target;
 }
-for(let key in _sort){
-    _hash[key] = (_hash[key]||[]).concat(_sort[key]);
-}
+let _hash = mergeValues({...modeData }, _input);
+_hash = mergeValues(_hash, _sort);
 
 let cacheData = {};
-for(let key in _hash){
-    _hash[key].forEach(function(name){
-        if(typeof cacheData[name]=='undefined'){
+Object.entries(_hash).forEach(([key, names]) => {
+    names.forEach((name) => {
+        if (!cacheData[name]) {
             cacheData[name] = [];
         }
         cacheData[name].push(key);
     });
-}
+});
 
 export {cacheData};

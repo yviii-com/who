@@ -44,12 +44,11 @@ export function reverseId(id,sex){
             sex = 0;
         }
     }
-    let doing = function(sex){
-        let sid = (','+sex+','+id).replace(/,[fhs]|,[olx]b/g,',1').replace(/,[mwd]|,[olx]s/g,',0');
-        sid = sid.substring(0,sid.length-2);
-        let sid_arr = sid.split(',').reverse();
-        let r_id = id.split(',').reverse().map((id,i)=>hash[id][sid_arr[i]]).join(',');
-        let gen = getGenById(r_id);
+    const doing = function(sex){
+        const sid = (','+sex+','+id).replace(/,[fhs]|,[olx]b/g,',1').replace(/,[mwd]|,[olx]s/g,',0');
+        const sid_arr = sid.substring(0,sid.length-2).split(',').reverse();
+        const r_id = id.split(',').reverse().map((id,i)=>hash[id][sid_arr[i]]).join(',');
+        const gen = getGenById(r_id);
         return r_id + (gen?'':age);
     };
     if(sex<0){
@@ -61,19 +60,19 @@ export function reverseId(id,sex){
 
 // ID列表去重
 export function filterId(arr){
-    let sameList = arr.filter(item=>item==item.replace(/[ol](?=[s|b])/g,'x').replace(/&[ol]/,''));
-    return arr.filter(item=>{
-        let temp = item.replace(/[ol](?=[s|b])/g,'x').replace(/&[ol]/,'');
+    const sameList = arr.filter(item => item === item.replace(/[ol](?=[s|b])/g,'x').replace(/&[ol]/,''));
+    return arr.filter(item => {
+        const temp = item.replace(/[ol](?=[s|b])/g,'x').replace(/&[ol]/,'');
         return sameList.includes(item)||item!=temp&&!sameList.includes(temp);
     }).filter((item,idx,arr) => arr.indexOf(item) === idx);
 };
 
 // 通过ID获取世代数
 export function getGenById(id){
-    let gMap = {'f':1,'m':1,'s':-1,'d':-1};
+    const gMap = {'f':1,'m':1,'s':-1,'d':-1};
     let gen = 0;
-    id.split(',').forEach(function(sub){
-        let s = sub.replace(/&[ol\d]+/,'');
+    id.split(',').forEach(sub => {
+        const s = sub.replace(/&[ol\d]+/,'');
         gen += gMap[s]||0;
     });
     return gen;
@@ -82,29 +81,26 @@ export function getGenById(id){
 // 通过ID获取关系称呼
 export function getItemsById(id){
     let items = [];
-    let getData = function(key){
+    const getData = function(key){
         let ids = [];
-        let k1 = key.replace(/(,[sd])(,[wh])?$/,'$1&o$2');
-        let k2 = key.replace(/(,[sd])(,[wh])?$/,'$1&l$2');
+        const k1 = key.replace(/(,[sd])(,[wh])?$/,'$1&o$2');
+        const k2 = key.replace(/(,[sd])(,[wh])?$/,'$1&l$2');
         if(modeData[k1]&&modeData[k2]){
             ids = [k1,k2];
         }else if(modeData[key]){
             ids = [key];
         }
-        return filterId(ids).map(function(id){
-            return modeData[id][0];
-        });
+        return filterId(ids).map(id => modeData[id][0]);
     };
     // 对排序进行处理
     if(id.match(/&([\d]+)(,[hw])?$/)){
-        let num = id.match(/&([\d]+)(,[hw])?$/)[1];
-        let zh = number2zh(num);
+        const num = id.match(/&([\d]+)(,[hw])?$/)[1];
+        const zh = number2zh(num);
         id = id.replace(/&\d+/g,'');
         if(_sort[id]){
-            let item = _sort[id][0].replace('几',zh);
-            items.push(item);
+            items.push(_sort[id][0].replace('几',zh));
         }else if(modeData[id]){
-            let gen = getGenById(id);
+            const gen = getGenById(id);
             let item = '';
             if(gen<3&&!id.match(/[hw],/)){
                 modeData[id].forEach(function(name){
@@ -145,13 +141,14 @@ export function getItemsById(id){
 };
 
 // 通过ID获取关系链
-let data = Object.assign({},modeData,{
-    'xb':['兄弟'],
-    'xs':['姐妹']
-});
+let data = {
+    ...modeData,
+    'xb': ['兄弟'],
+    'xs': ['姐妹']
+};
 export function getChainById(id,sex=-1){
-    let item = id.split(',').map(function(sign){
-        let key = sign.replace(/&[ol\d]+/,'');
+    let item = id.split(',').map(sign => {
+        const key = sign.replace(/&[ol\d]+/,'');
         return data[key][0];
     }).join('的');
     if(sex>-1&&data[sex+','+id]){
@@ -166,26 +163,23 @@ export function getChainById(id,sex=-1){
 
 // 通过ID获取关系合称
 export function getPairsById(id1,id2){
+    id1 = id1.replace(/&\d+/g,'');
+    id2 = id2.replace(/&\d+/g,'');
+    const id1_x = id1.replace(/([ol])([bs])/g,'x$2');
+    const id2_x = id2.replace(/([ol])([bs])/g,'x$2');
+    const id1_r = id1.replace(/&[ol]/g,'');
+    const id2_r = id2.replace(/&[ol]/g,'');
+
     let result = [];
     let result_x = [];
     let result_r = [];
-    id1 = id1.replace(/&\d+/g,'');
-    id2 = id2.replace(/&\d+/g,'');
-    let id1_x = id1.replace(/([ol])([bs])/g,'x$2');
-    let id2_x = id2.replace(/([ol])([bs])/g,'x$2');
-    let id1_r = id1.replace(/&[ol]/g,'');
-    let id2_r = id2.replace(/&[ol]/g,'');
-    for(let key in _pair){
-        let selectors = key.split('#');
+    for(const key in _pair){
+        const selectors = key.split('#');
         if(selectors.length>1){
-            let list1 = selector2id(selectors[0]);
-            let list2 = selector2id(selectors[1]);
-            let list1_r = list1.map(function(selector){
-                return selector.replace(/&[ol\d]+/,'').replace(/([ol])([bs])/,'x$2');
-            });
-            let list2_r = list2.map(function(selector){
-                return selector.replace(/&[ol\d]+/,'').replace(/([ol])([bs])/,'x$2');
-            });
+            const list1 = selector2id(selectors[0]);
+            const list2 = selector2id(selectors[1]);
+            const list1_r = list1.map(selector => selector.replace(/&[ol\d]+/,'').replace(/([ol])([bs])/,'x$2'));
+            const list2_r = list2.map(selector => selector.replace(/&[ol\d]+/,'').replace(/([ol])([bs])/,'x$2'));
             if(list1.includes(id1)&&list2.includes(id2)||list1.includes(id2)&&list2.includes(id1)){
                 result.push(_pair[key][0]);
             }
