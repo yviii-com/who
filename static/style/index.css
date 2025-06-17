@@ -861,6 +861,7 @@ header{
     position: fixed;
     right: 20px;
     bottom: 20px;
+    z-index: 99;
 }
 .mod-fixedbar .bd a{
     position: relative;
@@ -1151,5 +1152,15 @@ header{
     }
     .mod-intro .bd .item{
         margin: 0 0 5px;
+    }
+
+    .mod-fixedbar .bd {
+        right: 10px;
+        bottom: 10px;
+    }
+    .mod-fixedbar .bd a{
+        width: 36px;
+        height: 36px;
+        line-height: 36px;
     }
 }
