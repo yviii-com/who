@@ -46,7 +46,7 @@ export function reverseId(id,sex){
     }
     const doing = function(sex){
         const sid = (','+sex+','+id).replace(/,[fhs]|,[olx]b/g,',1').replace(/,[mwd]|,[olx]s/g,',0');
-        const sid_arr = sid.substring(0,sid.length-2).split(',').reverse();
+        const sid_arr = sid.slice(0,sid.length-2).split(',').reverse();
         const r_id = id.split(',').reverse().map((id,i)=>hash[id][sid_arr[i]]).join(',');
         const gen = getGenById(r_id);
         return r_id + (gen?'':age);
