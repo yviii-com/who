@@ -1,14 +1,14 @@
 .module{
-    margin: 60px 0;
+    margin: 160px 0;
 }
 .module .hd{
-    margin: 0 5px 5px;
-    line-height: 30px;
+    margin-bottom: 6px;
+    line-height: 32px;
 }
 .module .hd span{
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
-    color: #646464;
+    color: var(--title-color);
 }
 
 .mod-panel{
@@ -587,10 +587,10 @@
 .mod-challenge .bd h3{
     font-size: 24px;
     font-weight: bold;
+    color: var(--title-color);
 }
 .mod-challenge .bd p{
     font-size: 18px;
-    color: rgba(110, 119, 129, 0.8);
 }
 .mod-challenge .bd::after{
     position: absolute;
