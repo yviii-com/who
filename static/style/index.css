@@ -797,6 +797,9 @@
     .mod-article .hd{
         margin-top: 0;
     }
+    .mod-article .hd span{
+        font-size: 20px;
+    }
     .mod-article .bd{
         padding: 15px 0;
     }
