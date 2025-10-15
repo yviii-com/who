@@ -178,7 +178,7 @@
     border-radius: 3px;
 }
 .mod-panel .panel-right .c-bd{
-    height: 450px;
+    height: 460px;
     padding: 18px 20px;
     background: #fff;
     box-shadow: 0 0 0 3px rgba(0,0,0,0.025);
@@ -200,16 +200,17 @@
 }
 .mod-panel .panel-right .c-panel .intro{
     padding: 10px 15px;
-    margin: 25px 0;
+    margin: 20px 0;
     background: #fffbf5;
     line-height: 24px;
+    font-size: 15px;
     color: #666;
     border-radius: 5px;
 }
 .mod-panel .panel-right .c-panel .intro h3{
     line-height: 30px;
     font-weight: bold;
-    font-size: 15px;
+    font-size: 16px;
     color: #666;
 }
 .mod-panel .panel-right p{
@@ -301,7 +302,7 @@
     outline: none;
 }
 .mod-panel .panel-right p{
-    line-height: 22px;
+    line-height: 26px;
 }
 .mod-panel .panel-right p span{
     margin-right: 4px;
